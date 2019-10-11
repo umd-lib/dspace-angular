@@ -1,9 +1,9 @@
 import { mergeMap, filter, map } from 'rxjs/operators';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subscription, Observable } from 'rxjs';
-import { CommunityDataService } from '../core/data/community-data.service';
+import { CommunityDetailsService } from '../core/services/community-details.service';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
 
@@ -26,6 +26,8 @@ import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
  * This component represents a detail page for a single community
  */
 export class CommunityPageComponent implements OnInit {
+	
+	@ViewChild('check') check: ElementRef;
   /**
    * The community displayed on this page
    */
@@ -35,16 +37,18 @@ export class CommunityPageComponent implements OnInit {
    * The logo of this community
    */
   logoRD$: Observable<RemoteData<Bitstream>>;
+  message:string;
   constructor(
-    private communityDataService: CommunityDataService,
     private metadata: MetadataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private data:CommunityDetailsService
   ) {
 
   }
 
   ngOnInit(): void {
+  	this.data.currentMessage.subscribe((message) => this.message = message);
     this.communityRD$ = this.route.data.pipe(
       map((data) => data.community as RemoteData<Community>),
       redirectToPageNotFoundOn404(this.router)

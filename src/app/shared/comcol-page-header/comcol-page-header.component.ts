@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { CommunityDetailsService } from '../../core/services/community-details.service';
+
 
 @Component({
   selector: 'ds-comcol-page-header',
@@ -7,4 +9,17 @@ import { Component, Input } from '@angular/core';
 })
 export class ComcolPageHeaderComponent {
   @Input() name: string;
+  @ViewChild('check') check: ElementRef;
+  
+  constructor(
+    private data:CommunityDetailsService
+  ){
+    
+  }
+
+  message : string;
+  
+  ngAfterViewInit() {
+    this.data.changeMessage(this.check.nativeElement.innerHTML);
+  }
 }

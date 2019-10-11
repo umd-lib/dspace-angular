@@ -119,6 +119,7 @@ import { MetadatafieldParsingService } from './data/metadatafield-parsing.servic
 import { NormalizedSubmissionUploadsModel } from './config/models/normalized-config-submission-uploads.model';
 import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
 import { BrowseDefinition } from './shared/browse-definition.model';
+import { CommunityDetailsService } from '../core/services/community-details.service';
 
 const IMPORTS = [
   CommonModule,
@@ -136,6 +137,7 @@ const PROVIDERS = [
   AuthRequestService,
   AuthResponseParsingService,
   CommunityDataService,
+  CommunityDetailsService,
   CollectionDataService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
