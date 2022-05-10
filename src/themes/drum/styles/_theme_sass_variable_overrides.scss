@@ -1,0 +1,11 @@
+// DSpace works with CSS variables for its own components, and has a mapping of all bootstrap Sass
+// variables to CSS equivalents (see src/styles/_bootstrap_variables_mapping.scss). However Bootstrap
+// still uses Sass variables internally. So if you want to override bootstrap (or other sass
+// variables) you can do so here. Their CSS counterparts will include the changes you make here
+
+// Customizations for "drum" theme
+
+// Import "dspace" theme to use as base
+// Note: Changes to the values in the "dspace" theme should be made
+// ABOVE this import.
+@import '../../dspace/styles/_theme_sass_variable_overrides.scss';
