@@ -4,10 +4,12 @@ import { NavbarModule } from '../../app/navbar/navbar.module';
 import { SharedModule } from '../../app/shared/shared.module';
 import { HeaderComponent } from './app/header/header.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
+import { UmdEnvironmentBannerComponent } from './app/umd-environment-banner/umd-environment-banner.component';
 
 const DECLARATIONS = [
   HeaderComponent,
-  NavbarComponent
+  NavbarComponent,
+  UmdEnvironmentBannerComponent
 ];
 
 @NgModule({

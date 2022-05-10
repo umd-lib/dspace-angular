@@ -45,6 +45,12 @@ The original dspace-angular documentation:
       port: 8080
       nameSpace: /server
 
+    # UMD Environment Banner settings
+    environmentBanner:
+      text: Local Development
+      foregroundColor: "#fff"
+      backgroundColor: "#008000"
+      enabled: true
     EOF
     ```
 
