@@ -10,6 +10,10 @@ import { ServerConfig } from './server-config.interface';
 import { mergeConfig } from './config.util';
 import { isNotEmpty } from '../app/shared/empty.util';
 
+// Require "dotenv" package, so ".env" files in the root project directory
+// will be picked up.
+require('dotenv').config();
+
 const CONFIG_PATH = join(process.cwd(), 'config');
 
 type Environment = 'production' | 'development' | 'test';
