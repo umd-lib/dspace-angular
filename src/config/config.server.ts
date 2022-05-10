@@ -54,9 +54,19 @@ const getEnvironment = (): Environment => {
   return environment;
 };
 
-const getLocalConfigPath = (env: Environment) => {
+const getBaseConfigPath = () => {
   // default to config/config.yml
-  let localConfigPath = join(CONFIG_PATH, 'config.yml');
+  let baseConfigPath = join(CONFIG_PATH, 'config.yml');
+
+  if (!fs.existsSync(baseConfigPath)) {
+    baseConfigPath = join(CONFIG_PATH, 'config.yaml');
+  }
+
+  return baseConfigPath;
+}
+
+const getLocalConfigPath = (env: Environment) => {
+  let localConfigPath = null;
 
   if (!fs.existsSync(localConfigPath)) {
     localConfigPath = join(CONFIG_PATH, 'config.yaml');
@@ -159,6 +169,12 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   // start with default app config
   const appConfig: AppConfig = new DefaultAppConfig();
 
+  // override with base config
+  const baseConfigPath = getBaseConfigPath();
+  if (fs.existsSync(baseConfigPath)) {
+    overrideWithConfig(appConfig, baseConfigPath);
+  }
+
   // determine which dist app config by environment
   const env = getEnvironment();
 
@@ -175,10 +191,12 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
 
   // override with dist config
   const localConfigPath = getLocalConfigPath(env);
-  if (fs.existsSync(localConfigPath)) {
-    overrideWithConfig(appConfig, localConfigPath);
-  } else {
-    console.warn(`Unable to find dist config file at ${localConfigPath}`);
+  if (localConfigPath != null) {
+    if (fs.existsSync(localConfigPath)) {
+      overrideWithConfig(appConfig, localConfigPath);
+    } else {
+      console.warn(`Unable to find dist config file at ${localConfigPath}`);
+    }
   }
 
   // override with external config if specified by environment variable `DSPACE_APP_CONFIG_PATH`
