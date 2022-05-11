@@ -107,8 +107,9 @@ The following environment variables can be used:
   banner, as a CSS color
 - DSPACE_ENVIRONMENTBANNER_BACKGROUNDCOLOR - the background color for the
   banner, as a CSS color
-- DSPACE_ENVIRONMENTBANNER_ENABLED - "true" (case-sensitive) enables the banner.
-  Anything else (including not being provied, or blank) disables the banner.
+- DSPACE_ENVIRONMENTBANNER_ENABLED - "true" (case-sensitive) enables the
+  banner. Anything else (including not being provided, or blank) disables the
+  banner.
 
 For example, in a ".env" file:
 

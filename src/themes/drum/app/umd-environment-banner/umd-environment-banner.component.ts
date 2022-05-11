@@ -6,7 +6,7 @@ import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
   styleUrls: ['./umd-environment-banner.component.scss']
 })
 export class UmdEnvironmentBannerComponent implements OnInit {
-  bannerText: string = '';
+  bannerText = '';
   bannerEnabled = false;
   bannerStyle = {};
 
@@ -14,11 +14,10 @@ export class UmdEnvironmentBannerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let bannerConfig = this.appConfig['environmentBanner'];
+    const bannerConfig = this.appConfig['environmentBanner']; // tslint:disable-line:no-string-literal
 
-    this.bannerText = bannerConfig.text
-    this.bannerEnabled = bannerConfig.enabled;
-
-    this.bannerStyle = { 'color': bannerConfig.foregroundColor, 'background-color': bannerConfig.backgroundColor };
+    this.bannerText = bannerConfig?.text;
+    this.bannerEnabled = bannerConfig?.enabled;
+    this.bannerStyle = { 'color': bannerConfig?.foregroundColor, 'background-color': bannerConfig?.backgroundColor };
   }
 }
