@@ -45,6 +45,12 @@ The original dspace-angular documentation:
       port: 8080
       nameSpace: /server
 
+    # UMD Environment Banner settings
+    environmentBanner:
+      text: Local Development
+      foregroundColor: "#fff"
+      backgroundColor: "#008000"
+      enabled: true
     EOF
     ```
 
@@ -65,3 +71,51 @@ The original dspace-angular documentation:
     watch for changes, rebuild the code, and reload the server for you.
 
     Then go to [http://localhost:4000] in your browser
+
+## Customizations
+
+### Environment Banner
+
+In keeping with [SSDR policy](https://confluence.umd.edu/display/LIB/Create+Environment+Banners),
+an "environment banner" will be displayed at the top of each page when running
+on non-production servers.
+
+There are two ways to configure the environment banner:
+
+### YAML format
+
+The following is an example of configuring in a "config/config.*.yml" YAML file,
+such as "config/config.dev.yml":
+
+```yaml
+# UMD Environment Banner settings
+environmentBanner:
+  text: Local Development
+  foregroundColor: "#fff"
+  backgroundColor: "#008000"
+  enabled: true
+```
+
+In DSpace, the configuration from the YAML files can be overridden using either
+environment variables, or a ".env" file (see the "Configuration Override"
+section in <https://wiki.lyrasis.org/display/DSDOC7x/User+Interface+Configuration>.
+
+The following environment variables can be used:
+
+- DSPACE_ENVIRONMENTBANNER_TEXT - the text to display in the banner
+- DSPACE_ENVIRONMENTBANNER_FOREGROUNDCOLOR - the foreground color for the
+  banner, as a CSS color
+- DSPACE_ENVIRONMENTBANNER_BACKGROUNDCOLOR - the background color for the
+  banner, as a CSS color
+- DSPACE_ENVIRONMENTBANNER_ENABLED - "true" (case-sensitive) enables the
+  banner. Anything else (including not being provided, or blank) disables the
+  banner.
+
+For example, in a ".env" file:
+
+```text
+DSPACE_ENVIRONMENTBANNER_TEXT=Test Environment
+DSPACE_ENVIRONMENTBANNER_FOREGROUNDCOLOR=#000
+DSPACE_ENVIRONMENTBANNER_BACKGROUNDCOLOR=#fff100
+DSPACE_ENVIRONMENTBANNER_ENABLED=true
+```
