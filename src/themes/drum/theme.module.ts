@@ -5,11 +5,14 @@ import { SharedModule } from '../../app/shared/shared.module';
 import { HeaderComponent } from './app/header/header.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { UmdEnvironmentBannerComponent } from './app/umd-environment-banner/umd-environment-banner.component';
+import {ItemPageModule} from '../../app/item-page/item-page.module';
+import {UntypedItemComponent} from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
 
 const DECLARATIONS = [
   HeaderComponent,
   NavbarComponent,
-  UmdEnvironmentBannerComponent
+  UmdEnvironmentBannerComponent,
+  UntypedItemComponent
 ];
 
 @NgModule({
@@ -17,6 +20,7 @@ const DECLARATIONS = [
     CommonModule,
     NavbarModule,
     SharedModule,
+    ItemPageModule,
   ],
   declarations: DECLARATIONS
 })
