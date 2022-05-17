@@ -1930,8 +1930,6 @@
 
   "item.page.abstract": "Abstract",
 
-  "item.page.advisor": "Advisor",
-
   "item.page.author": "Authors",
 
   "item.page.citation": "Citation",
@@ -1943,8 +1941,6 @@
   "item.page.collections.load-more": "Load more",
 
   "item.page.date": "Date",
-
-  "item.page.doi": "DRUM DOI",
 
   "item.page.edit": "Edit this item",
 
@@ -3921,4 +3917,8 @@
   "idle-modal.extend-session": "Extend session",
 
   "menu.header.organization.logo": "UMD Libraries",
+
+  "item.page.doi": "DRUM DOI",
+
+  "item.page.advisor": "Advisor",
 }
