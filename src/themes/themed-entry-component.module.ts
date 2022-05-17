@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { ENTRY_COMPONENTS as CUSTOM } from './custom/entry-components';
+import { ENTRY_COMPONENTS as DRUM } from './drum/entry-components';
 
 const ENTRY_COMPONENTS = [
   ...CUSTOM,
+  ...DRUM
 ];
 
 
@@ -16,7 +18,7 @@ export class ThemedEntryComponentModule {
   static withEntryComponents() {
     return {
       ngModule: ThemedEntryComponentModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component }))
     };
   }
 

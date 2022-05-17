@@ -5,8 +5,7 @@ import { SharedModule } from '../../app/shared/shared.module';
 import { HeaderComponent } from './app/header/header.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { UmdEnvironmentBannerComponent } from './app/umd-environment-banner/umd-environment-banner.component';
-import {ItemPageModule} from '../../app/item-page/item-page.module';
-import {UntypedItemComponent} from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
+import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
 
 const DECLARATIONS = [
   HeaderComponent,
@@ -20,17 +19,16 @@ const DECLARATIONS = [
     CommonModule,
     NavbarModule,
     SharedModule,
-    ItemPageModule,
   ],
   declarations: DECLARATIONS
 })
 
-  /**
-   * This module serves as an index for all the components in this theme.
-   * It should import all other modules, so the compiler knows where to find any components referenced
-   * from a component in this theme
-   * It is purposefully not exported, it should never be imported anywhere else, its only purpose is
-   * to give lazily loaded components a context in which they can be compiled successfully
-   */
+/**
+ * This module serves as an index for all the components in this theme.
+ * It should import all other modules, so the compiler knows where to find any components referenced
+ * from a component in this theme
+ * It is purposefully not exported, it should never be imported anywhere else, its only purpose is
+ * to give lazily loaded components a context in which they can be compiled successfully
+ */
 class ThemeModule {
 }
