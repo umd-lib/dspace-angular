@@ -6,6 +6,7 @@ import { HeaderComponent } from './app/header/header.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { UmdEnvironmentBannerComponent } from './app/umd-environment-banner/umd-environment-banner.component';
 import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
+import { ItemPageModule } from '../../app/item-page/item-page.module';
 
 const DECLARATIONS = [
   HeaderComponent,
@@ -19,6 +20,7 @@ const DECLARATIONS = [
     CommonModule,
     NavbarModule,
     SharedModule,
+    ItemPageModule,
   ],
   declarations: DECLARATIONS
 })
