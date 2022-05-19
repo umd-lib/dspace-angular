@@ -5,11 +5,13 @@ import { SharedModule } from '../../app/shared/shared.module';
 import { HeaderComponent } from './app/header/header.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { UmdEnvironmentBannerComponent } from './app/umd-environment-banner/umd-environment-banner.component';
+import {UmdHeaderComponent} from './app/umd-header/umd-header.component';
 
 const DECLARATIONS = [
   HeaderComponent,
   NavbarComponent,
-  UmdEnvironmentBannerComponent
+  UmdEnvironmentBannerComponent,
+  UmdHeaderComponent
 ];
 
 @NgModule({
