@@ -3917,4 +3917,8 @@
   "idle-modal.extend-session": "Extend session",
 
   "menu.header.organization.logo": "UMD Libraries",
+
+  "item.page.doi": "DRUM DOI",
+
+  "item.page.advisor": "Advisor",
 }
