@@ -8,8 +8,12 @@ import { UmdEnvironmentBannerComponent } from './app/umd-environment-banner/umd-
 import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { UmdHeaderComponent } from './app/umd-header/umd-header.component';
+import {FileSectionComponent} from './app/item-page/simple/field-components/file-section/file-section.component';
+import {BitstreamDownloadCounterComponent} from './app/bitstream-download-counter/bitstream-download-counter.component';
 
 const DECLARATIONS = [
+  BitstreamDownloadCounterComponent,
+  FileSectionComponent,
   HeaderComponent,
   NavbarComponent,
   UmdEnvironmentBannerComponent,
