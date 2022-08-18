@@ -2244,6 +2244,8 @@
 
   "login.form.password": "Password",
 
+  "login.form.cas": "Log in with CAS",
+
   "login.form.shibboleth": "Log in with Shibboleth",
 
   "login.form.submit": "Log in",
