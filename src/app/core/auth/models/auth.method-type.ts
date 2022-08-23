@@ -1,4 +1,5 @@
 export enum AuthMethodType {
+  Cas = 'cas',
   Password = 'password',
   Shibboleth = 'shibboleth',
   Ldap = 'ldap',

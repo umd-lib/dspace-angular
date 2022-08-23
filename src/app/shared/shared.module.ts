@@ -132,6 +132,7 @@ import { ImportableListItemControlComponent } from './object-collection/shared/i
 import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
+import { LogInCasComponent } from './log-in/methods/cas/log-in-cas.component';
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
@@ -307,6 +308,7 @@ const COMPONENTS = [
 
   ImportableListItemControlComponent,
 
+  LogInCasComponent,
   LogInShibbolethComponent,
   LogInOidcComponent,
   LogInPasswordComponent,
@@ -379,6 +381,7 @@ const ENTRY_COMPONENTS = [
   MetadataRepresentationListElementComponent,
   ItemMetadataRepresentationListElementComponent,
   LogInPasswordComponent,
+  LogInCasComponent,
   LogInShibbolethComponent,
   LogInOidcComponent,
   BundleListElementComponent,
