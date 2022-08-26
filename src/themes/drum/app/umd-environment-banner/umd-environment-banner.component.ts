@@ -14,7 +14,7 @@ export class UmdEnvironmentBannerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const bannerConfig = this.appConfig['environmentBanner']; // tslint:disable-line:no-string-literal
+    const bannerConfig = this.appConfig['environmentBanner']; // eslint-disable-line @typescript-eslint/dot-notation
 
     this.bannerText = bannerConfig?.text;
     this.bannerEnabled = bannerConfig?.enabled;

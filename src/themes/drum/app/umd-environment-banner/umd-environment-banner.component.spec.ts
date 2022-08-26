@@ -11,10 +11,10 @@ describe('UMD Environment Banner Component', () => {
     expect(component.bannerStyle).toEqual({});
   });
 
-  /* tslint:disable:no-string-literal */
+  /* tslint:disable:no-string-literal dot-notation */
   it('is populated when banner configuration is provided', () => {
     const appConfig = new DefaultAppConfig();
-    appConfig['environmentBanner'] = {
+    appConfig['environmentBanner'] = { // eslint-disable-line @typescript-eslint/dot-notation
       text: 'Unit Test Environment',
       foregroundColor: '#000',
       backgroundColor: '#fff',
@@ -31,12 +31,12 @@ describe('UMD Environment Banner Component', () => {
 
   it('is disabled when enabled parameter is not "true"', () => {
     const appConfig = new DefaultAppConfig();
-    appConfig['environmentBanner'] = {};
+    appConfig['environmentBanner'] = {}; // eslint-disable-line @typescript-eslint/dot-notation
 
-    appConfig['environmentBanner']['enabled'] = false;
+    appConfig['environmentBanner']['enabled'] = false; // eslint-disable-line @typescript-eslint/dot-notation
     const component = new UmdEnvironmentBannerComponent(appConfig);
     component.ngOnInit();
     expect(component.bannerEnabled).toBe(false);
   });
-  /* tslint:enable:no-string-literal */
+  /* tslint:enable:no-string-literal dot-notation */
 });

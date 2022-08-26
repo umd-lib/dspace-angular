@@ -67,7 +67,7 @@ const getBaseConfigPath = () => {
   }
 
   return baseConfigPath;
-}
+};
 
 const getLocalConfigPath = (env: Environment) => {
   let localConfigPath = null;
