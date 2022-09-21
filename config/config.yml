@@ -17,3 +17,7 @@ themes:
         href: assets/drum/images/favicons/favicon.ico
         sizes: any
   - name: 'dspace'
+
+# LIBDRUM-666 - Add PRESERVATION to default standard bundles list
+bundle:
+  standardBundles: [ ORIGINAL, THUMBNAIL, LICENSE, PRESERVATION ]
