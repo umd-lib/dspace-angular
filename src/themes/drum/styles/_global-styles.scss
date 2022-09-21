@@ -2,3 +2,17 @@
 @import '../../dspace/styles/global-styles.scss';
 
 // Customizations for "drum" theme
+
+:root {
+  // The height of the campus-provided UMD banner, in pixels
+  --umd-ds-umd-campus-banner-height: 44px;
+}
+
+// LIBDRUM-694 - Add "margin-top" to notifications-wrapper defined in
+// src/app/shared/notifications/notifications-board/notifications-board.component.scss
+// in order to push notifications appearing in the upper-right corner of the
+// page down far enough that the timer bar and "Close" button will not be
+// obscured by the UMD campus banner
+.notifications-wrapper.top {
+  margin-top: var(--umd-ds-umd-campus-banner-height);
+}
