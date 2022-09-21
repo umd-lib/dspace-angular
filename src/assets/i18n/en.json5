@@ -1458,6 +1458,11 @@
 
   "footer.link.feedback":"Send Feedback",
 
+  // Customization for LIBDRUM-697
+  "footer.link.umd-give-now":"Give Now",
+
+  "footer.link.umd-web-accessibility":"Web Accessibility",
+  // End customization for LIBDRUM-697
 
 
   "forgot-email.form.header": "Forgot Password",
