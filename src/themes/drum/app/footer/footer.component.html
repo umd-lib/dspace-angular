@@ -1,0 +1,72 @@
+<footer class="text-lg-start">
+  <div *ngIf="showTopFooter" class="top-footer">
+    <!-- Grid container -->
+    <div class=" container p-4">
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-6 col-sm-12 mb-4 mb-md-0">
+          <div class="top-footer-logo">
+            <a href="https://www.lib.umd.edu" title="Libraries Home Page">
+              <img class=".img-fluid" src="assets/drum/images/university_libraries_logo.svg" alt="UMD Libraries logo">
+            </a>
+          </div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 col-sm-12 mb-4 mb-md-0">
+          <div class="top-footer-address">
+            <strong>DRUM</strong><br>
+            <span>University of Maryland, College Park, MD 20742-7011</span><br>
+            <a href="tel:+3013141328">(301) 314-1328</a><br />
+          </div>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="bottom-footer p-1 d-flex justify-content-center align-items-center text-white">
+    <div class="content-container">
+      <p class="m-0">
+        <a class="text-white"
+           href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
+        {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
+        <a class="text-white"
+           href="https://www.lyrasis.org/">{{ 'footer.link.lyrasis' | translate}}</a>
+      </p>
+      <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
+        <li>
+          <a class="text-white" href="javascript:void(0);"
+             (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white"
+             routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white"
+            href="https://www.umd.edu/web-accessibility">{{ 'footer.link.umd-web-accessibility' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white"
+             routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white"
+             routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white"
+            href="https://giving.umd.edu/giving/showSchool.php?name=libraries">{{ 'footer.link.umd-give-now' | translate}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Copyright -->
+</footer>

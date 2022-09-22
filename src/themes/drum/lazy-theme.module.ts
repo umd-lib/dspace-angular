@@ -56,7 +56,10 @@ import {
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { RootModule } from '../../app/root.module';
 
+import { PrivacyComponent } from './app/info/privacy/privacy.component';
+
 const DECLARATIONS = [
+  PrivacyComponent,
 ];
 
 @NgModule({
