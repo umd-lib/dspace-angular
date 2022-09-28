@@ -10,24 +10,30 @@ import { dataService } from '../../../../../app/core/cache/builders/build-decora
 import { RemoteDataBuildService } from '../../../../../app/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../app/core/cache/object-cache.service';
 import { BrowseService } from '../../../../../app/core/browse/browse.service';
-import { CoreState } from '../../../../../app/core/core.reducers';
+import { CoreState } from '../../../../../app/core/core-state.model';
 import { Community } from '../../../../../app/core/shared/community.model';
 import { COMMUNITY_GROUP } from '../shared/community-group.resource-type';
 import { HALEndpointService } from '../../../../../app/core/shared/hal-endpoint.service';
 import { PaginatedList } from '../../../../../app/core/data/paginated-list.model';
 import { RemoteData } from '../../../../../app/core/data/remote-data';
-import { FindListOptions } from '../../../../../app/core/data/request.models';
+import { FindListOptions } from '../../../../../app/core/data/find-list-options.model';
 import { RequestService } from '../../../../../app/core/data/request.service';
 import { FollowLinkConfig } from '../../../../../app/shared/utils/follow-link-config.model';
 import { DataService } from '../../../../../app/core/data/data.service';
 import { CommunityGroup } from '../shared/community-group.model';
 import { DefaultChangeAnalyzer } from '../../../../../app/core/data/default-change-analyzer.service';
+import { SortDirection, SortOptions } from 'src/app/core/cache/models/sort-options.model';
 
 
 @Injectable()
 @dataService(COMMUNITY_GROUP)
 export class CommunityGroupDataService extends DataService<CommunityGroup> {
   protected linkPath = 'communitygroups';
+
+
+  private configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
+    elementsPerPage: 1
+  });
 
   constructor(
     protected requestService: RequestService,
@@ -47,15 +53,13 @@ export class CommunityGroupDataService extends DataService<CommunityGroup> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
-  public getCommunities(communityGroupID: number, ...linksToFollow: FollowLinkConfig<CommunityGroup>[]): Observable<RemoteData<PaginatedList<Community>>> {
+  public getTopCommunitiesByGroup(communityGroupID: Number, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
     const href$ = this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((communityGroupEndpointHref: string) =>
         this.halService.getEndpoint('communities', `${communityGroupEndpointHref}/${communityGroupID}`))
     );
-    return this.findAllCommunitiesByHref(href$, {}, true, true);
+    return this.findAllCommunitiesByHref(href$, options, true, true, ...linksToFollow);
   }
-
-
 
   /**
    * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list

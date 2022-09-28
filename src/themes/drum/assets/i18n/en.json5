@@ -2,5 +2,7 @@
     "menu.header.organization.logo": "UMD Libraries",
     "menu.header.image.logo": "DRUM",
     "item.page.doi": "DRUM DOI",
-    "item.page.advisor": "Advisor"
+    "item.page.advisor": "Advisor",
+    "community.group.faculty.title": "Collections Organized by Department",
+    "community.group.um.title": "UM Community-managed Collections",
 }
