@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../app/shared/shared.module';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { HeaderComponent } from './app/header/header.component';
+import { FooterComponent } from './app/footer/footer.component';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 
@@ -33,6 +34,7 @@ const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
   BitstreamDownloadCounterComponent,
   FileSectionComponent,
+  FooterComponent,
   HeaderComponent,
   NavbarComponent,
   UmdEnvironmentBannerComponent,
