@@ -22,7 +22,6 @@ import { FollowLinkConfig } from '../../../../../app/shared/utils/follow-link-co
 import { DataService } from '../../../../../app/core/data/data.service';
 import { CommunityGroup } from '../shared/community-group.model';
 import { DefaultChangeAnalyzer } from '../../../../../app/core/data/default-change-analyzer.service';
-import { SortDirection, SortOptions } from 'src/app/core/cache/models/sort-options.model';
 
 
 @Injectable()

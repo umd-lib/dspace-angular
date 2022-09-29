@@ -8,6 +8,8 @@ import { isEmpty } from '../../../../../app/shared/empty.util';
 import { CommunityListDatasource } from '../community-list-datasource';
 import { CommunityListService } from '../community-list-service';
 import { CommunityGroupDataService } from '../../core/data/community-group-data.service';
+import { CommunityDataService } from '../../../../../app/core/data/community-data.service';
+
 
 /**
  * This UMD version of the community list uses the custom community-list-datasource to retrieve the
@@ -18,7 +20,7 @@ import { CommunityGroupDataService } from '../../core/data/community-group-data.
 @Component({
   selector: 'ds-cg-community-list',
   templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html',
-  providers: [CommunityListService, CommunityGroupDataService]
+  providers: [CommunityListService, CommunityDataService, CommunityGroupDataService]
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 
@@ -36,7 +38,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   paginationConfig: FindListOptions;
 
   constructor(private communityListService: CommunityListService) {
-    // super(communityListService);
     this.paginationConfig = new FindListOptions();
     this.paginationConfig.elementsPerPage = 2;
     this.paginationConfig.currentPage = 1;
