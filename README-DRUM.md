@@ -119,3 +119,34 @@ DSPACE_ENVIRONMENTBANNER_FOREGROUNDCOLOR=#000
 DSPACE_ENVIRONMENTBANNER_BACKGROUNDCOLOR=#fff100
 DSPACE_ENVIRONMENTBANNER_ENABLED=true
 ```
+
+## Debugging using VS Code
+
+The built-in VS Code debugger can be used in conjunction with the Chrome web
+browser to debug the application. To use the debugger:
+
+1) Add the "drum-ui" folder to VS Code.
+
+2) Add a breakpoint in a TypeScript file.
+
+3) In the "Run and Debug" sidebar tab, select "Launch Chrome against localhost"
+   in the "RUN AND DEBUG" dropdown. Then left-click the green "play" icon, to
+   the left of the dropdown. An instance of the Chrome browser will launch and
+   display the application home page.
+
+4) Perform whatever actions are necessary to trigger the breakpoint. The
+   VS Code window will be displayed with the breakpoint activated.
+
+**Note:** Breakpoints can also be selected after Chrome has been launched.
+Due to lazy module loading in Angular, a breakpoint may not be immediately
+"bound", if the relevant code has not been loaded. The breakpoint should
+bind automatically when the code is loaded.
+
+In the launch configuration, the line:
+
+```json
+"browserLaunchLocation": "ui"
+```
+
+is needed to prevent Chrome from displaying a "Restore" session dialog every
+time Chrome starts. See <https://github.com/microsoft/vscode-js-debug/issues/723#issuecomment-866227122>
