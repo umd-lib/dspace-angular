@@ -24,7 +24,7 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 
-  @Input() communityGroupId: Number = 0;
+  @Input() communityGroupId = 0;
 
   private expandedNodes: FlatNode[] = [];
   public loadingNode: FlatNode;

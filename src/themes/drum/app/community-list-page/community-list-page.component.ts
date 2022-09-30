@@ -7,6 +7,6 @@ import { CommunityListPageComponent as BaseComponent } from '../../../../app/com
 })
 export class CommunityListPageComponent extends BaseComponent {
 
-  public FACULTY_COMMUNITY_GROUP: Number = 0;
-  public UM_COMMUNITY_GROUP: Number = 2;
+  public FACULTY_COMMUNITY_GROUP = 0;
+  public UM_COMMUNITY_GROUP = 2;
 }

@@ -52,7 +52,7 @@ export class CommunityGroupDataService extends DataService<CommunityGroup> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
-  public getTopCommunitiesByGroup(communityGroupID: Number, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
+  public getTopCommunitiesByGroup(communityGroupID: number, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
     const href$ = this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((communityGroupEndpointHref: string) =>
         this.halService.getEndpoint('communities', `${communityGroupEndpointHref}/${communityGroupID}`))

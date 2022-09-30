@@ -168,7 +168,7 @@ describe('CommunityListService', () => {
       }
     };
     communityGroupDataServiceStub = {
-      getTopCommunitiesByGroup(communityGroupID: Number, options: FindListOptions = {}) {
+      getTopCommunitiesByGroup(communityGroupID: number, options: FindListOptions = {}) {
         const allTopComs = [...mockListOfTopCommunitiesPage1, ...mockListOfTopCommunitiesPage2];
         let currentPage = options.currentPage;
         const elementsPerPage = 3;
@@ -182,7 +182,7 @@ describe('CommunityListService', () => {
         }
         return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allTopComs.slice(startPageIndex, endPageIndex)));
       }
-    }
+    };
     collectionDataServiceStub = {
       findByParent(parentUUID: string, options: FindListOptions = {}) {
         const foundCom = allCommunities.find((community) => (community.id === parentUUID));

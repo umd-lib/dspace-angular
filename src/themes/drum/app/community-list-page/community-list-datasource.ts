@@ -8,7 +8,7 @@ import { FindListOptions } from '../../../../app/core/data/find-list-options.mod
 
 /**
  * The UMD version uses the custom community-list-service to get top comunities of a group.
- * 
+ *
  * DataSource object needed by a CDK Tree to render its nodes.
  * The list of FlatNodes that this DataSource object represents gets created in the CommunityListService at
  *    the beginning (initial page-limited top communities) and re-calculated any time the tree state changes
@@ -27,7 +27,7 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
     return this.communityList$.asObservable();
   }
 
-  loadCommunities(findOptions: FindListOptions, expandedNodes: FlatNode[], communityGroupId: Number) {
+  loadCommunities(findOptions: FindListOptions, expandedNodes: FlatNode[], communityGroupId: number) {
     this.loading$.next(true);
     if (hasValue(this.subLoadCommunities)) {
       this.subLoadCommunities.unsubscribe();

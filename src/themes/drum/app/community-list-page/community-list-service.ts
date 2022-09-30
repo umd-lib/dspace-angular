@@ -26,7 +26,7 @@ export const MAX_COMCOLS_PER_PAGE = 20;
 
 /**
  * The UMD version uses the custom CommunityGroupDataService to get top comunities of a group.
- * 
+ *
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
  *  and connection to the store to retrieve and save the state of the community list
  */
@@ -36,7 +36,7 @@ export class CommunityListService extends BaseService {
 
   constructor(private _communityDataService: CommunityDataService, private _collectionDataService: CollectionDataService,
     private communityGroupDataService: CommunityGroupDataService, private _store: Store<any>) {
-    super(_communityDataService, _collectionDataService, _store)
+    super(_communityDataService, _collectionDataService, _store);
   }
 
   private _configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
@@ -49,7 +49,7 @@ export class CommunityListService extends BaseService {
    * @param expandedNodes     List of expanded nodes; if a node is not expanded its subCommunities and collections need
    *                            not be added to the list
    */
-  loadCommunitiesInGroup(findOptions: FindListOptions, expandedNodes: FlatNode[], communityGroupId: Number): Observable<FlatNode[]> {
+  loadCommunitiesInGroup(findOptions: FindListOptions, expandedNodes: FlatNode[], communityGroupId: number): Observable<FlatNode[]> {
     const currentPage = findOptions.currentPage;
     const topCommunities = [];
     for (let i = 1; i <= currentPage; i++) {
@@ -76,7 +76,7 @@ export class CommunityListService extends BaseService {
   /**
    * Puts the initial top level communities in a list to be called upon
    */
-  private getTopCommunitiesByGroup(options: FindListOptions, communityGroupId: Number): Observable<PaginatedList<Community>> {
+  private getTopCommunitiesByGroup(options: FindListOptions, communityGroupId: number): Observable<PaginatedList<Community>> {
     return this.communityGroupDataService.getTopCommunitiesByGroup(communityGroupId,
       {
         currentPage: options.currentPage,
