@@ -9,6 +9,10 @@ import { HALLink } from '../../shared/hal-link.model';
 import { EPERSON } from './eperson.resource-type';
 import { Group } from './group.model';
 import { GROUP } from './group.resource-type';
+// UMD Customization for LIBDRUM-660
+import { Ldap } from './ldap.model';
+import { LDAP } from './ldap.resource-type';
+// End UMD Customization for LIBDRUM-660
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -73,6 +77,9 @@ export class EPerson extends DSpaceObject {
   _links: {
     self: HALLink;
     groups: HALLink;
+    // UMD Customization for LIBDRUM-660
+    ldap: HALLink;
+    // End UMD Customization for LIBDRUM-660
   };
 
   /**
@@ -82,4 +89,12 @@ export class EPerson extends DSpaceObject {
   @link(GROUP, true)
   public groups?: Observable<RemoteData<PaginatedList<Group>>>;
 
+  // UMD Customization for LIBDRUM-660
+  /**
+   * LDAP information for this EPerson
+   * Will be undefined unless the ldap {@link HALLink} has been resolved.
+   */
+   @link(LDAP, false)
+   public ldap?: Observable<RemoteData<Ldap>>;
+   // End UMD Customization for LIBDRUM-660
 }

@@ -24,6 +24,10 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
+// UMD Customization for LIBDRUM-660
+import { LdapDataServiceStub } from '../../../shared/testing/ldap-data-service.stub';
+import { LdapDataService } from 'src/app/core/eperson/ldap-data.service';
+// End UMD Customization for LIBDRUM-660
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -42,6 +46,9 @@ describe('EPersonFormComponent', () => {
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
+  // UMD Customization for LIBDRUM-660
+  let ldapDataService: LdapDataServiceStub;
+  // End UMD Customization for LIBDRUM-660
   let epersonRegistrationService: EpersonRegistrationService;
 
   let paginationService;
@@ -195,6 +202,9 @@ describe('EPersonFormComponent', () => {
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
+        // UMD Customization for LIBDRUM-660
+        { provide: LdapDataService, useValue: LdapDataServiceStub },
+        // End UMD Customization for LIBDRUM-660
         { provide: FormBuilderService, useValue: builderService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthService, useValue: authService },
