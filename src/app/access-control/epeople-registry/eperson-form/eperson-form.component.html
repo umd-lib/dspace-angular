@@ -81,4 +81,35 @@
               class="btn btn-primary">{{messagePrefix + '.goToGroups' | translate}}</button>
     </div>
   </div>
+
+  <!-- UMD Customization for LIBDRUM-660 --->
+  <ng-container *ngVar="(ldap | async) as ldapRD">
+    <div *ngIf="ldapRD.hasSucceeded && !ldapRD.hasNoContent">
+      <h3>{{ messagePrefix + '.ldap.title' | translate }}</h3>
+      <ul>
+        <li>{{messagePrefix + '.ldap.name' | translate}} {{ ldapRD.payload.lastName }}, {{ ldapRD.payload.firstName }}</li>
+        <li>{{messagePrefix + '.ldap.email' | translate}} {{ ldapRD.payload.email }}</li>
+        <li>{{messagePrefix + '.ldap.phone' | translate}} {{ ldapRD.payload.phone }}</li>
+        <li>{{messagePrefix + '.ldap.faculty' | translate}} {{ ldapRD.payload.isFaculty }}</li>
+        <li>{{messagePrefix + '.ldap.umAppointment' | translate}}
+          <ul>
+            <li *ngFor="let umAppt of ldapRD.payload.umAppointments">
+              {{ umAppt }}
+            </li>
+          </ul>
+        </li>
+        <div *ngIf="ldapRD.payload.groups.length > 0">
+          <li>{{messagePrefix + '.ldap.groups' | translate}}</li>
+          <ul>
+            <li *ngFor="let group of ldapRD.payload.groups">
+              <a (click)="groupsDataService.startEditingNewGroup(group)"
+                [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">{{ group.name }}</a>
+            </li>
+          </ul>
+        </div>
+      </ul>
+    </div>
+  </ng-container>
+  <!-- End UMD Customization for LIBDRUM-660 -->
+
 </div>

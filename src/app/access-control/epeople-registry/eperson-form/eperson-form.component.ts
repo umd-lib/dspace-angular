@@ -13,6 +13,10 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
+// UMD Customization for LIBDRUM-660
+import { LdapDataService } from '../../../core/eperson/ldap-data.service';
+import { Ldap } from '../../../core/eperson/models/ldap.model';
+// End UMD Customization for LIBDRUM-660
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Group } from '../../../core/eperson/models/group.model';
 import {
@@ -145,6 +149,13 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   groups: Observable<RemoteData<PaginatedList<Group>>>;
 
+  // UMD Customization for LIBDRUM-660
+  /**
+   * LDAP information associated with this EPerson
+   */
+  ldap: Observable<RemoteData<Ldap | NoContent>>;
+  // End UMD Customization for LIBDRUM-660
+
   /**
    * Pagination config used to display the list of groups
    */
@@ -173,6 +184,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     protected changeDetectorRef: ChangeDetectorRef,
     public epersonService: EPersonDataService,
     public groupsDataService: GroupDataService,
+    // UMD Customization for LIBDRUM-660
+    public ldapDataService: LdapDataService,
+    // End UMD Customization for LIBDRUM-660
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,
@@ -302,6 +316,18 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           return observableOf(undefined);
         })
       );
+
+      // UMD Customization for LIBDRUM-660
+      this.ldap = activeEPerson$.pipe(
+        switchMap((eperson) => {
+          if (eperson != null) {
+            let result = this.ldapDataService.getLdap(eperson, true, true);
+            return result;
+          }
+          return observableOf(undefined);
+        })
+      );
+      // End UMD Customization for LIBDRUM-660
 
       this.canImpersonate$ = activeEPerson$.pipe(
         switchMap((eperson) => {
