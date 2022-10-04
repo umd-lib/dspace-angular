@@ -12,6 +12,15 @@ import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-
 import { UmdHeaderComponent } from './app/umd-header/umd-header.component';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { BitstreamDownloadCounterComponent } from './app/bitstream-download-counter/bitstream-download-counter.component';
+import { CommunityGroup } from './app/core/shared/community-group.model';
+
+/**
+ * Declaration needed to make sure all decorator functions are called in time
+ */
+export const models =
+  [
+    CommunityGroup,
+  ];
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.

@@ -4732,4 +4732,8 @@
   "item.page.doi": "DRUM DOI",
 
   "item.page.advisor": "Advisor",
+
+  "community.group.faculty.title": "Collections Organized by Department",
+
+  "community.group.um.title": "UM Community-managed Collections",
 }

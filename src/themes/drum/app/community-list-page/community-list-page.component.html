@@ -1,0 +1,9 @@
+<div class="container">
+  <h2>{{ 'communityList.title' | translate }}</h2>
+  <h3 [attr.alt]="'community.group.faculty.title' | translate">{{ 'community.group.faculty.title' | translate }}</h3>
+  <ds-cg-community-list [communityGroupId]="FACULTY_COMMUNITY_GROUP">
+  </ds-cg-community-list>
+  <h3>{{ 'community.group.um.title' | translate }}</h3>
+  <ds-cg-community-list [communityGroupId]="UM_COMMUNITY_GROUP">
+  </ds-cg-community-list>
+</div>
