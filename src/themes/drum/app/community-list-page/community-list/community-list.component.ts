@@ -17,6 +17,12 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
  * uses the CommunityDataService to the overall top communities.
  */
 
+// The reason for using 'ds-cg-community-list' as the selector is:
+// The custom version accepts a "Input" field, whereas the 'ds-themed-community-list' does not.
+// Therefore, the parent CommunityListPage component cannot use the 'ds-themed-community-list' to
+// get the custom version loaded, and using the 'ds-community-list' tag as the selector and referencing
+// that in the  CommunityListPage component template leads to runtime error due to multiple components
+// matching that selector.
 @Component({
   selector: 'ds-cg-community-list',
   templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html',
