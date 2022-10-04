@@ -203,7 +203,7 @@ describe('EPersonFormComponent', () => {
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
         // UMD Customization for LIBDRUM-660
-        { provide: LdapDataService, useValue: LdapDataServiceStub },
+        { provide: LdapDataService, useValue: ldapDataService },
         // End UMD Customization for LIBDRUM-660
         { provide: FormBuilderService, useValue: builderService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },

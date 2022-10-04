@@ -67,10 +67,11 @@ import { DspaceRestService } from './dspace-rest/dspace-rest.service';
 import { EPersonDataService } from './eperson/eperson-data.service';
 import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
-// UMD Customization for LIBDRUM-660
+// UMD Customization for LIBDRUM-660/LIBDRUM-669
+import { Unit } from './eperson/models/unit.model';
 import { Ldap } from './eperson/models/ldap.model';
 import { LdapDataService } from './eperson/ldap-data.service';
-// End UMD Customization for LIBDRUM-660
+// End UMD Customization for LIBDRUM-660/LIBDRUM-669
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
@@ -334,9 +335,10 @@ export const models =
     Community,
     EPerson,
     Group,
-    // UMD Customization for LIBDRUM-660
+    // UMD Customization for LIBDRUM-660/LIBDRUM-669
+    Unit,
     Ldap,
-    // End UMD Customizatio for LIBDRUM-660
+    // End UMD Customizatio for LIBDRUM-660/LIBDRUM-669
     ResourcePolicy,
     MetadataSchema,
     MetadataField,
