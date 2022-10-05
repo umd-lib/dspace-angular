@@ -82,7 +82,7 @@
     </div>
   </div>
 
-  <!-- UMD Customization for LIBDRUM-660 --->
+  <!-- UMD Customization for LIBDRUM-660/LIBDRUM-669 --->
   <ng-container *ngVar="(ldap | async) as ldapRD">
     <div *ngIf="ldapRD.hasSucceeded && !ldapRD.hasNoContent">
       <h3>{{ messagePrefix + '.ldap.title' | translate }}</h3>
@@ -107,9 +107,25 @@
             </li>
           </ul>
         </div>
+        <div *ngIf="ldapRD.payload.matchedUnits.length > 0">
+          <li>{{ messagePrefix + '.ldap.matchedUnits' | translate }}</li>
+          <ul>
+            <li *ngFor="let unit of ldapRD.payload.matchedUnits">
+              {{ unit.name }}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="ldapRD.payload.unmatchedUnits.length > 0">
+          <li>{{ messagePrefix + '.ldap.unmatchedUnits' | translate }}</li>
+          <ul>
+            <li *ngFor="let unmatchedUnit of ldapRD.payload.unmatchedUnits">
+              {{ unmatchedUnit }}
+            </li>
+          </ul>
+        </div>
       </ul>
     </div>
   </ng-container>
-  <!-- End UMD Customization for LIBDRUM-660 -->
+  <!-- End UMD Customization for LIBDRUM-660/LIBDRUM-669 -->
 
 </div>

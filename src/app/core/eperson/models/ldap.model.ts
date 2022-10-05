@@ -6,6 +6,7 @@ import { HALLink } from '../../shared/hal-link.model';
 import { LDAP } from './ldap.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { Group } from './group.model';
+import { Unit } from './unit.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -71,4 +72,10 @@ export class Ldap extends DSpaceObject {
 
   @autoserialize
   public groups: Group[];
+
+  @autoserialize
+  public matchedUnits: Unit[];
+
+  @autoserialize
+  public unmatchedUnits: string[];
 }

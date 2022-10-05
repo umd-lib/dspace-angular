@@ -315,7 +315,7 @@
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
 
-  // UMD Customization for LIBDRUM-660
+  // UMD Customization for LIBDRUM-660/LIBDRUM-669
   "admin.access-control.epeople.form.ldap.title": "UM Directory Information",
 
   "admin.access-control.epeople.form.ldap.name": "Name:",
@@ -329,7 +329,11 @@
   "admin.access-control.epeople.form.ldap.umAppointment": "UM Appt:",
 
   "admin.access-control.epeople.form.ldap.groups": "Groups:",
-  // End UMD Customization for LIBDRUM-660
+
+  "admin.access-control.epeople.form.ldap.matchedUnits": "Units:",
+
+  "admin.access-control.epeople.form.ldap.unmatchedUnits": "Unmatched Units:",
+  // End UMD Customization for LIBDRUM-660/LIBDRUM-669
 
   "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
 
