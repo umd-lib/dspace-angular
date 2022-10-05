@@ -12,4 +12,5 @@ import { FACULTY_COMMUNITY_GROUP, UM_COMMUNITY_GROUP } from '../community-list-p
 export class HomePageComponent extends BaseComponent {
   public FACULTY_COMMUNITY_GROUP: number = FACULTY_COMMUNITY_GROUP;
   public UM_COMMUNITY_GROUP: number = UM_COMMUNITY_GROUP;
+  public COMMUNITY_LIST_SIZE: number = 5;
 }

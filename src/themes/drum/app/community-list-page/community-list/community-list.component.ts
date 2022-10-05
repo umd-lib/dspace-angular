@@ -6,7 +6,7 @@ import { SortDirection, SortOptions } from '../../../../../app/core/cache/models
 import { FindListOptions } from '../../../../../app/core/data/find-list-options.model';
 import { isEmpty } from '../../../../../app/shared/empty.util';
 import { CommunityListDatasource } from '../community-list-datasource';
-import { CommunityListService } from '../community-list-service';
+import { CommunityListService, MAX_COMCOLS_PER_PAGE } from '../community-list-service';
 import { CommunityGroupDataService } from '../../core/data/community-group-data.service';
 import { CommunityDataService } from '../../../../../app/core/data/community-data.service';
 
@@ -30,7 +30,11 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 
-  @Input() communityGroupId = 0;
+  // The community group ID to retrieve the top level communities
+  @Input() communityGroupId: number = 0;
+
+  // Size of the top level communities list displayed on initial rendering
+  @Input() size: number = MAX_COMCOLS_PER_PAGE;
 
   private expandedNodes: FlatNode[] = [];
   public loadingNode: FlatNode;
@@ -45,12 +49,12 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   constructor(private communityListService: CommunityListService) {
     this.paginationConfig = new FindListOptions();
-    this.paginationConfig.elementsPerPage = 2;
     this.paginationConfig.currentPage = 1;
     this.paginationConfig.sort = new SortOptions('dc.title', SortDirection.ASC);
   }
 
   ngOnInit() {
+    this.paginationConfig.elementsPerPage = this.size;
     this.dataSource = new CommunityListDatasource(this.communityListService);
     this.communityListService.getLoadingNodeFromStore().pipe(take(1)).subscribe((result) => {
       this.loadingNode = result;
