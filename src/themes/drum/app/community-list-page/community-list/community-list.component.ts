@@ -31,10 +31,10 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
 export class CommunityListComponent implements OnInit, OnDestroy {
 
   // The community group ID to retrieve the top level communities
-  @Input() communityGroupId: number = 0;
+  @Input() communityGroupId = 0;
 
   // Size of the top level communities list displayed on initial rendering
-  @Input() size: number = MAX_COMCOLS_PER_PAGE;
+  @Input() size = MAX_COMCOLS_PER_PAGE;
 
   private expandedNodes: FlatNode[] = [];
   public loadingNode: FlatNode;
