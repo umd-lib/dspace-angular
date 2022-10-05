@@ -1,0 +1,15 @@
+<ds-themed-home-news></ds-themed-home-news>
+<div class="container">
+  <ng-container *ngIf="(site$ | async) as site">
+    <ds-view-tracker [object]="site"></ds-view-tracker>
+  </ng-container>
+  <ds-search-form [inPlaceSearch]="false" [searchPlaceholder]="'home.search-form.placeholder' | translate">
+  </ds-search-form>
+  <h2>{{ 'communityList.title' | translate }}</h2>
+  <h3>{{ 'community.group.faculty.title' | translate }}</h3>
+  <ds-cg-community-list [communityGroupId]="FACULTY_COMMUNITY_GROUP">
+  </ds-cg-community-list>
+  <h3>{{ 'community.group.um.title' | translate }}</h3>
+  <ds-cg-community-list [communityGroupId]="UM_COMMUNITY_GROUP">
+  </ds-cg-community-list>
+</div>

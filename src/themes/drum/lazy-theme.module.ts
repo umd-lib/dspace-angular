@@ -37,12 +37,10 @@ import { SharedModule } from '../../app/shared/shared.module';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { TranslateModule } from '@ngx-translate/core';
 import { HomePageModule } from '../../app/home-page/home-page.module';
 import { AppModule } from '../../app/app.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { RouterModule } from '@angular/router';
-import { CommunityListPageModule } from '../../app/community-list-page/community-list-page.module';
 import { InfoModule } from '../../app/info/info.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
 import { CommunityPageModule } from '../../app/community-page/community-page.module';
@@ -61,8 +59,6 @@ import { PrivacyComponent } from './app/info/privacy/privacy.component';
 
 const DECLARATIONS = [
   PrivacyComponent,
-  CommunityListPageComponent,
-  CommunityListComponent,
 ];
 
 @NgModule({
@@ -78,7 +74,6 @@ const DECLARATIONS = [
     CollectionPageModule,
     CommonModule,
     CommunityFormModule,
-    CommunityListPageModule,
     CommunityPageModule,
     CoreModule,
     DragDropModule,
@@ -105,7 +100,6 @@ const DECLARATIONS = [
     StatisticsPageModule,
     StoreModule,
     StoreRouterConnectingModule,
-    TranslateModule,
     SubmissionModule,
     MyDSpacePageModule,
     MyDspaceSearchModule,
