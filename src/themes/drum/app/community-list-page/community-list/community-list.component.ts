@@ -25,7 +25,7 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
 // matching that selector.
 @Component({
   selector: 'ds-cg-community-list',
-  templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html',
+  templateUrl: './community-list.component.html',
   providers: [CommunityListService, CommunityDataService, CommunityGroupDataService]
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
