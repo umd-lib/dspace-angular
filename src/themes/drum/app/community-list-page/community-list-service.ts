@@ -18,7 +18,7 @@ import { FindListOptions } from '../../../../app/core/data/find-list-options.mod
 import { CommunityListService as BaseService } from '../../../../app/community-list-page/community-list-service';
 import { CommunityGroupDataService } from '../core/data/community-group-data.service';
 
-export const MAX_COMCOLS_PER_PAGE = 20;
+export const MAX_COMCOLS_PER_PAGE = 40;
 
 /**
  * The UMD version uses the custom CommunityGroupDataService to get top comunities of a group.

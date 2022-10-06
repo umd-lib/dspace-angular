@@ -8,7 +8,8 @@
         <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
       </button>
       <div class="align-middle pt-2">
-        <a *ngIf="node!==loadingNode" (click)="getNextPage(node)" class="btn btn-outline-primary btn-sm" role="button">
+        <a *ngIf="node!==loadingNode" (click)="getMaxAllowedCommunities(node)" class="btn btn-outline-primary btn-sm"
+          role="button">
           <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
         </a>
         <ds-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-loading"></ds-loading>
