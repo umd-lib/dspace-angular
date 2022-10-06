@@ -129,7 +129,7 @@ describe('CommunityListComponent', () => {
         let showMoreTopComNode = false;
         flatnodes = [...mockTopFlatnodesUnexpanded];
         const currentPage = options.currentPage;
-        const elementsPerPage = this.pageSize;
+        const elementsPerPage = options.elementsPerPage;
         let endPageIndex = (currentPage * elementsPerPage);
         if (endPageIndex >= flatnodes.length) {
           endPageIndex = flatnodes.length;
@@ -220,6 +220,8 @@ describe('CommunityListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CommunityListComponent);
     component = fixture.componentInstance;
+    component.size = 2;
+    component.ngOnInit();
     fixture.detectChanges();
   });
 
