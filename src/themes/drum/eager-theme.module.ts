@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../app/shared/shared.module';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { HeaderComponent } from './app/header/header.component';
@@ -13,6 +14,12 @@ import { UmdHeaderComponent } from './app/umd-header/umd-header.component';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { BitstreamDownloadCounterComponent } from './app/bitstream-download-counter/bitstream-download-counter.component';
 import { CommunityGroup } from './app/core/shared/community-group.model';
+import { HomePageComponent } from './app/home-page/home-page.component';
+import { StatisticsModule } from 'src/app/statistics/statistics.module';
+import { CommunityListPageModule } from 'src/app/community-list-page/community-list-page.module';
+import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
+import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
+import { HomePageModule } from 'src/app/home-page/home-page.module';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -39,6 +46,9 @@ const DECLARATIONS = [
   NavbarComponent,
   UmdEnvironmentBannerComponent,
   UmdHeaderComponent,
+  CommunityListPageComponent,
+  CommunityListComponent,
+  HomePageComponent
 ];
 
 @NgModule({
@@ -47,6 +57,10 @@ const DECLARATIONS = [
     NavbarModule,
     SharedModule,
     ItemPageModule,
+    TranslateModule,
+    StatisticsModule.forRoot(),
+    CommunityListPageModule,
+    HomePageModule,
   ],
   declarations: DECLARATIONS,
   providers: [

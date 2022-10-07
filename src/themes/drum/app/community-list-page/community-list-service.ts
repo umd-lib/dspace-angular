@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { Community } from '../../../../app/core/shared/community.model';
@@ -17,12 +17,8 @@ import { FindListOptions } from '../../../../app/core/data/find-list-options.mod
 
 import { CommunityListService as BaseService } from '../../../../app/community-list-page/community-list-service';
 import { CommunityGroupDataService } from '../core/data/community-group-data.service';
-import { Collection } from 'src/app/core/shared/collection.model';
-import { getCommunityPageRoute } from 'src/app/community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from 'src/app/collection-page/collection-page-routing-paths';
-import { ShowMoreFlatNode } from 'src/app/community-list-page/show-more-flat-node.model';
 
-export const MAX_COMCOLS_PER_PAGE = 20;
+export const MAX_COMCOLS_PER_PAGE = 40;
 
 /**
  * The UMD version uses the custom CommunityGroupDataService to get top comunities of a group.
@@ -80,7 +76,7 @@ export class CommunityListService extends BaseService {
     return this.communityGroupDataService.getTopCommunitiesByGroup(communityGroupId,
       {
         currentPage: options.currentPage,
-        elementsPerPage: MAX_COMCOLS_PER_PAGE,
+        elementsPerPage: options.elementsPerPage,
         sort: {
           field: options.sort.field,
           direction: options.sort.direction

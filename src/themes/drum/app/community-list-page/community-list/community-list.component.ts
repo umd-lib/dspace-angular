@@ -6,7 +6,7 @@ import { SortDirection, SortOptions } from '../../../../../app/core/cache/models
 import { FindListOptions } from '../../../../../app/core/data/find-list-options.model';
 import { isEmpty } from '../../../../../app/shared/empty.util';
 import { CommunityListDatasource } from '../community-list-datasource';
-import { CommunityListService } from '../community-list-service';
+import { CommunityListService, MAX_COMCOLS_PER_PAGE } from '../community-list-service';
 import { CommunityGroupDataService } from '../../core/data/community-group-data.service';
 import { CommunityDataService } from '../../../../../app/core/data/community-data.service';
 
@@ -25,12 +25,16 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
 // matching that selector.
 @Component({
   selector: 'ds-cg-community-list',
-  templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html',
+  templateUrl: './community-list.component.html',
   providers: [CommunityListService, CommunityDataService, CommunityGroupDataService]
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 
+  // The community group ID to retrieve the top level communities
   @Input() communityGroupId = 0;
+
+  // Size of the top level communities list displayed on initial rendering
+  @Input() size = MAX_COMCOLS_PER_PAGE;
 
   private expandedNodes: FlatNode[] = [];
   public loadingNode: FlatNode;
@@ -45,12 +49,12 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   constructor(private communityListService: CommunityListService) {
     this.paginationConfig = new FindListOptions();
-    this.paginationConfig.elementsPerPage = 2;
     this.paginationConfig.currentPage = 1;
     this.paginationConfig.sort = new SortOptions('dc.title', SortDirection.ASC);
   }
 
   ngOnInit() {
+    this.paginationConfig.elementsPerPage = this.size;
     this.dataSource = new CommunityListDatasource(this.communityListService);
     this.communityListService.getLoadingNodeFromStore().pipe(take(1)).subscribe((result) => {
       this.loadingNode = result;
@@ -119,6 +123,23 @@ export class CommunityListComponent implements OnInit, OnDestroy {
       this.paginationConfig.currentPage++;
       this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes, this.communityGroupId);
     }
+  }
+
+  /**
+  * The method helps show the entire community list (i.e, upto the MAX_COMCOLS_PER_PAGE) instead
+  * of just getting the next page. This is achived by leaving the current page to the initial
+  * value '1' and changing the elementsPerPage to the MAX_COMCOLS_PER_PAGE. The community list
+  * service gets all the pages (from cache when available) up to the current page, therefore
+  * we do not need to worry about deduplicating list. See https://github.com/umd-lib/dspace-angular/blob/b5a2c0ff39c530983a8caf29709a4c24095a774c/src/themes/drum/app/community-list-page/community-list-service.ts#L55-L58
+  *
+  * This method is only used by the "show more" button, i.e for top-level communities only, so we
+  * do not need to handle subCommunities or collections.
+  *
+  */
+  getMaxAllowedCommunities(node: FlatNode): void {
+    this.loadingNode = node;
+    this.paginationConfig.elementsPerPage = MAX_COMCOLS_PER_PAGE;
+    this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes, this.communityGroupId);
   }
 
 }
