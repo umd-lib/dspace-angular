@@ -17,6 +17,8 @@ import { PageInfo } from '../../../../app/core/shared/page-info.model';
 import { FlatNode } from '../../../../app/community-list-page/flat-node.model';
 import { FindListOptions } from '../../../../app/core/data/find-list-options.model';
 import { CommunityGroupDataService } from '../core/data/community-group-data.service';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment';
 
 describe('CommunityListService', () => {
   let store: StoreMock<AppState>;
@@ -210,6 +212,7 @@ describe('CommunityListService', () => {
     };
     TestBed.configureTestingModule({
       providers: [CommunityListService,
+        { provide: APP_CONFIG, useValue: environment },
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: CommunityGroupDataService, useValue: communityGroupDataServiceStub },
@@ -217,7 +220,7 @@ describe('CommunityListService', () => {
       ],
     });
     store = TestBed.inject(Store as any);
-    service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, communityGroupDataServiceStub, store);
+    service = new CommunityListService(environment, communityDataServiceStub, collectionDataServiceStub, communityGroupDataServiceStub, store);
   });
 
   it('should create', inject([CommunityListService], (serviceIn: CommunityListService) => {
