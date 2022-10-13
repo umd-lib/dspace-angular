@@ -6,7 +6,6 @@ import { Observable, of as observableOf } from 'rxjs';
 import { map, switchMap, skipWhile, take } from 'rxjs/operators';
 import { isNotEmptyOperator } from '../../../../../app/shared/empty.util';
 import { NotificationsService } from '../../../../../app/shared/notifications/notifications.service';
-import { dataService } from '../../../../../app/core/cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../../../../app/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../app/core/cache/object-cache.service';
 import { BrowseService } from '../../../../../app/core/browse/browse.service';
@@ -19,14 +18,15 @@ import { RemoteData } from '../../../../../app/core/data/remote-data';
 import { FindListOptions } from '../../../../../app/core/data/find-list-options.model';
 import { RequestService } from '../../../../../app/core/data/request.service';
 import { FollowLinkConfig } from '../../../../../app/shared/utils/follow-link-config.model';
-import { DataService } from '../../../../../app/core/data/data.service';
 import { CommunityGroup } from '../shared/community-group.model';
 import { DefaultChangeAnalyzer } from '../../../../../app/core/data/default-change-analyzer.service';
+import { BaseDataService } from 'src/app/core/data/base/base-data.service';
+import { dataService } from 'src/app/core/data/base/data-service.decorator';
 
 
 @Injectable()
 @dataService(COMMUNITY_GROUP)
-export class CommunityGroupDataService extends DataService<CommunityGroup> {
+export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
   protected linkPath = 'communitygroups';
 
 
@@ -45,7 +45,13 @@ export class CommunityGroupDataService extends DataService<CommunityGroup> {
     protected comparator: DefaultChangeAnalyzer<CommunityGroup>,
     protected http: HttpClient
   ) {
-    super();
+    super(
+      'communitygroups',
+      requestService,
+      rdbService,
+      objectCache,
+      halService,
+    );
   }
 
   getItemRequestEndpoint(): Observable<string> {
