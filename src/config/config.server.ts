@@ -10,10 +10,6 @@ import { ServerConfig } from './server-config.interface';
 import { mergeConfig } from './config.util';
 import { isNotEmpty } from '../app/shared/empty.util';
 
-// Require "dotenv" package, so ".env" files in the root project directory
-// will be picked up.
-require('dotenv').config();
-
 const CONFIG_PATH = join(process.cwd(), 'config');
 
 type Environment = 'production' | 'development' | 'test';
@@ -58,23 +54,27 @@ const getEnvironment = (): Environment => {
   return environment;
 };
 
-const getBaseConfigPath = () => {
-  // default to config/config.yml
-  let baseConfigPath = join(CONFIG_PATH, 'config.yml');
+/**
+ * Get the path of the default config file.
+ */
+const getDefaultConfigPath = () => {
 
-  if (!fs.existsSync(baseConfigPath)) {
-    baseConfigPath = join(CONFIG_PATH, 'config.yaml');
+  // default to config/config.yml
+  let defaultConfigPath = join(CONFIG_PATH, 'config.yml');
+
+  if (!fs.existsSync(defaultConfigPath)) {
+    defaultConfigPath = join(CONFIG_PATH, 'config.yaml');
   }
 
-  return baseConfigPath;
+  return defaultConfigPath;
 };
 
-const getLocalConfigPath = (env: Environment) => {
-  let localConfigPath = null;
-
-  if (!fs.existsSync(localConfigPath)) {
-    localConfigPath = join(CONFIG_PATH, 'config.yaml');
-  }
+/**
+ * Get the path of an environment-specific config file.
+ *
+ * @param env   the environment to get the config file for
+ */
+const getEnvConfigFilePath = (env: Environment) => {
 
   // determine app config filename variations
   let envVariations;
@@ -90,22 +90,21 @@ const getLocalConfigPath = (env: Environment) => {
       envVariations = ['dev', 'development'];
   }
 
+  let envLocalConfigPath;
+
   // check if any environment variations of app config exist
   for (const envVariation of envVariations) {
-    let envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yml`);
+    envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yml`);
     if (fs.existsSync(envLocalConfigPath)) {
-      localConfigPath = envLocalConfigPath;
       break;
-    } else {
-      envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yaml`);
-      if (fs.existsSync(envLocalConfigPath)) {
-        localConfigPath = envLocalConfigPath;
-        break;
-      }
+    }
+    envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yaml`);
+    if (fs.existsSync(envLocalConfigPath)) {
+      break;
     }
   }
 
-  return localConfigPath;
+  return envLocalConfigPath;
 };
 
 const overrideWithConfig = (config: Config, pathToConfig: string) => {
@@ -174,12 +173,6 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   // start with default app config
   const appConfig: AppConfig = new DefaultAppConfig();
 
-  // override with base config
-  const baseConfigPath = getBaseConfigPath();
-  if (fs.existsSync(baseConfigPath)) {
-    overrideWithConfig(appConfig, baseConfigPath);
-  }
-
   // determine which dist app config by environment
   const env = getEnvironment();
 
@@ -194,14 +187,20 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
       console.log(`Building ${colors.green.bold(`development`)} app config`);
   }
 
-  // override with dist config
-  const localConfigPath = getLocalConfigPath(env);
-  if (localConfigPath != null) {
-    if (fs.existsSync(localConfigPath)) {
-      overrideWithConfig(appConfig, localConfigPath);
-    } else {
-      console.warn(`Unable to find dist config file at ${localConfigPath}`);
-    }
+  // override with default config
+  const defaultConfigPath = getDefaultConfigPath();
+  if (fs.existsSync(defaultConfigPath)) {
+    overrideWithConfig(appConfig, defaultConfigPath);
+  } else {
+    console.warn(`Unable to find default config file at ${defaultConfigPath}`);
+  }
+
+  // override with env config
+  const localConfigPath = getEnvConfigFilePath(env);
+  if (fs.existsSync(localConfigPath)) {
+    overrideWithConfig(appConfig, localConfigPath);
+  } else {
+    console.warn(`Unable to find env config file at ${localConfigPath}`);
   }
 
   // override with external config if specified by environment variable `DSPACE_APP_CONFIG_PATH`
