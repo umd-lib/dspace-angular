@@ -7,7 +7,7 @@ import { FindListOptions } from '../../../../../app/core/data/find-list-options.
 import { isEmpty } from '../../../../../app/shared/empty.util';
 import { CommunityListDatasource } from '../community-list-datasource';
 import { CommunityListService, MAX_COMCOLS_PER_PAGE } from '../community-list-service';
-import { CommunityGroupDataService } from '../../core/data/community-group-data.service';
+import { CommunityGroupDataService } from '../../../../../app/core/data/community-group-data.service';
 import { CommunityDataService } from '../../../../../app/core/data/community-data.service';
 
 

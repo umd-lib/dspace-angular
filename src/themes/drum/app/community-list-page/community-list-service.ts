@@ -16,7 +16,7 @@ import { FlatNode } from '../../../../app/community-list-page/flat-node.model';
 import { FindListOptions } from '../../../../app/core/data/find-list-options.model';
 
 import { CommunityListService as BaseService } from '../../../../app/community-list-page/community-list-service';
-import { CommunityGroupDataService } from '../core/data/community-group-data.service';
+import { CommunityGroupDataService } from '../../../../app/core/data/community-group-data.service';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 export const MAX_COMCOLS_PER_PAGE = 40;
@@ -32,11 +32,11 @@ export class CommunityListService extends BaseService {
 
 
   constructor(
-      @Inject(APP_CONFIG) protected appConfig: AppConfig,
-      private _communityDataService: CommunityDataService,
-      private _collectionDataService: CollectionDataService,
-      private communityGroupDataService: CommunityGroupDataService,
-      private _store: Store<any>) {
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    private _communityDataService: CommunityDataService,
+    private _collectionDataService: CollectionDataService,
+    private communityGroupDataService: CommunityGroupDataService,
+    private _store: Store<any>) {
     super(appConfig, _communityDataService, _collectionDataService, _store);
   }
 

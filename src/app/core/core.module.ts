@@ -183,6 +183,7 @@ import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
+import { CommunityGroupDataService } from './data/community-group-data.service'; // UMD Customization for LIBDRUM-701
 import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
 
@@ -211,6 +212,9 @@ const EXPORTS = [];
 const PROVIDERS = [
   AuthenticatedGuard,
   CommunityDataService,
+  // UMD Customization for LIBDRUM-701
+  CommunityGroupDataService,
+  // End UMD Customization for LIBDRUM-701
   CollectionDataService,
   SiteDataService,
   DSOResponseParsingService,
