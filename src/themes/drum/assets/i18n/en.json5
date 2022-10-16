@@ -3,6 +3,6 @@
     "menu.header.image.logo": "DRUM",
     "item.page.doi": "DRUM DOI",
     "item.page.advisor": "Advisor",
-    "community.group.faculty.title": "Collections Organized by Department",
-    "community.group.um.title": "UM Community-managed Collections",
+    "community_group.faculty.title": "Collections Organized by Department",
+    "community_group.um.title": "UM Community-managed Collections",
 }

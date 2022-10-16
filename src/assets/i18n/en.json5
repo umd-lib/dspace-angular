@@ -4844,7 +4844,7 @@
 
   "item.page.advisor": "Advisor",
 
-  "community.group.faculty.title": "Collections Organized by Department",
+  "community_group.faculty.title": "Collections Organized by Department",
 
-  "community.group.um.title": "UM Community-managed Collections",
+  "community_group.um.title": "UM Community-managed Collections",
 }
