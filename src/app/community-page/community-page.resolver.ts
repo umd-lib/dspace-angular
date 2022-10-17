@@ -17,7 +17,8 @@ export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
   followLink('logo'),
   followLink('subcommunities'),
   followLink('collections'),
-  followLink('parentCommunity')
+  followLink('parentCommunity'),
+  followLink('communityGroup'), // UMD Customization for LIBDRUM-701
 ];
 
 /**

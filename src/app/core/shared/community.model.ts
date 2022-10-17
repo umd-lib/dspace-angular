@@ -12,6 +12,10 @@ import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { ChildHALResource } from './child-hal-resource.model';
 import { HandleObject } from './handle-object.model';
+// UMD Customization for LIBDRUM-701
+import { COMMUNITY_GROUP } from './community-group.resource-type';
+import { CommunityGroup } from './community-group.model';
+// End UMD Customization for LIBDRUM-701
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -27,6 +31,7 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
     logo: HALLink;
     subcommunities: HALLink;
     parentCommunity: HALLink;
+    communityGroup: HALLink; // UMD Customization for LIBDRUM-701
     adminGroup: HALLink;
     self: HALLink;
   };
@@ -101,4 +106,17 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
   getParentLinkKey(): keyof this['_links'] {
     return 'parentCommunity';
   }
+
+  // Begin UMD Customization for LIBDRUM-701
+  /**
+   * The CommunityGroup that this Community belongs to.
+   * Will be undefined unless the community group HALLink has been resolved.
+   */
+  @link(COMMUNITY_GROUP, false)
+  communityGroup?: Observable<RemoteData<CommunityGroup>>;
+
+  getCommunityGroupKey(): keyof this['_links'] {
+    return 'communityGroup';
+  }
+  // End UMD Customization for LIBDRUM-701
 }
