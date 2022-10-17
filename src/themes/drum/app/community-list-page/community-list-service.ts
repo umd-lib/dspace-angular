@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
@@ -17,6 +17,7 @@ import { FindListOptions } from '../../../../app/core/data/find-list-options.mod
 
 import { CommunityListService as BaseService } from '../../../../app/community-list-page/community-list-service';
 import { CommunityGroupDataService } from '../core/data/community-group-data.service';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
 export const MAX_COMCOLS_PER_PAGE = 40;
 
@@ -30,9 +31,13 @@ export const MAX_COMCOLS_PER_PAGE = 40;
 export class CommunityListService extends BaseService {
 
 
-  constructor(private _communityDataService: CommunityDataService, private _collectionDataService: CollectionDataService,
-    private communityGroupDataService: CommunityGroupDataService, private _store: Store<any>) {
-    super(_communityDataService, _collectionDataService, _store);
+  constructor(
+      @Inject(APP_CONFIG) protected appConfig: AppConfig,
+      private _communityDataService: CommunityDataService,
+      private _collectionDataService: CollectionDataService,
+      private communityGroupDataService: CommunityGroupDataService,
+      private _store: Store<any>) {
+    super(appConfig, _communityDataService, _collectionDataService, _store);
   }
 
   private _configOnePage: FindListOptions = Object.assign(new FindListOptions(), {

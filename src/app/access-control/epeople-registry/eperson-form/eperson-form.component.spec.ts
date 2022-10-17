@@ -184,7 +184,7 @@ describe('EPersonFormComponent', () => {
 
     });
     groupsDataService = jasmine.createSpyObj('groupsDataService', {
-      findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: ''
     });
 
