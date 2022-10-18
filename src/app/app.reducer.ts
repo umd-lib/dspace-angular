@@ -8,7 +8,6 @@ import {
   groupRegistryReducer,
   GroupRegistryState
 } from './access-control/group-registry/group-registry.reducers';
-import { unitRegistryReducer, UnitRegistryState } from './access-control/unit-registry/unit-registry.reducers';
 import {
   metadataRegistryReducer,
   MetadataRegistryState
@@ -52,6 +51,9 @@ import { truncatableReducer, TruncatablesState } from './shared/truncatable/trun
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
+// UMD Customization
+import { unitRegistryReducer, UnitRegistryState } from './access-control/unit-registry/unit-registry.reducers';
+// End UMD Customization
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -72,8 +74,10 @@ export interface AppState {
   communityList: CommunityListState;
   epeopleRegistry: EPeopleRegistryState;
   groupRegistry: GroupRegistryState;
-  unitRegistry: UnitRegistryState;
   correlationId: string;
+  // UMD Customization
+  unitRegistry: UnitRegistryState;
+  // End UMD Customization
 }
 
 export const appReducers: ActionReducerMap<AppState> = {

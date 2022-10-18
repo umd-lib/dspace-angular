@@ -10,8 +10,10 @@ import { MembersListComponent } from './group-registry/group-form/members-list/m
 import { SubgroupsListComponent } from './group-registry/group-form/subgroup-list/subgroups-list.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 import { FormModule } from '../shared/form/form.module';
+// UMD Customization
 import { UnitFormComponent } from './unit-registry/unit-form/unit-form.component';
 import { UnitGroupsListComponent } from './unit-registry/unit-form/unit-group-list/unit-groups-list.component';
+// End  UMD Customization
 
 @NgModule({
   imports: [
@@ -28,8 +30,10 @@ import { UnitGroupsListComponent } from './unit-registry/unit-form/unit-group-li
     GroupFormComponent,
     SubgroupsListComponent,
     MembersListComponent,
+    // UMD Customization
     UnitFormComponent,
     UnitGroupsListComponent
+    // End UMD Customization
   ]
 })
 /**

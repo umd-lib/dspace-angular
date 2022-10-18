@@ -315,7 +315,7 @@
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
 
-  // UMD Customization for LIBDRUM-660/LIBDRUM-669
+  // UMD Customization
   "admin.access-control.epeople.form.ldap.title": "UM Directory Information",
 
   "admin.access-control.epeople.form.ldap.name": "Name:",
@@ -333,7 +333,7 @@
   "admin.access-control.epeople.form.ldap.matchedUnits": "Units:",
 
   "admin.access-control.epeople.form.ldap.unmatchedUnits": "Unmatched Units:",
-  // End UMD Customization for LIBDRUM-660/LIBDRUM-669
+  // End UMD Customization
 
   "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
 
@@ -521,6 +521,7 @@
 
 
 
+  // UMD Customization
   "admin.access-control.units.title": "Units",
 
   "admin.access-control.units.breadcrumbs": "Units",
@@ -700,7 +701,7 @@
 //  "admin.access-control.units.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
 
   "admin.access-control.units.form.return": "Back",
-
+  // End UMD Customization
 
 
 
@@ -1681,7 +1682,9 @@
 
   "error.validation.groupExists": "This group already exists",
 
+  // UMD Customization
   "error.validation.unitExists": "This unit already exists",
+  // End UMD Customization
 
 
   "feed.description": "Syndication feed",
@@ -1705,11 +1708,11 @@
 
   "footer.link.feedback":"Send Feedback",
 
-  // Customization for LIBDRUM-697
+  // UMD Customization
   "footer.link.umd-give-now":"Give Now",
 
   "footer.link.umd-web-accessibility":"Web Accessibility",
-  // End customization for LIBDRUM-697
+  // End UMD Customization
 
 
   "forgot-email.form.header": "Forgot Password",
@@ -2778,7 +2781,9 @@
 
   "login.form.password": "Password",
 
+  // UMD Customization
   "login.form.cas": "Log in with CAS",
+  // End  UMD Customization
 
   "login.form.shibboleth": "Log in with Shibboleth",
 
@@ -2800,7 +2805,9 @@
 
   "menu.header.admin": "Management",
 
+  // UMD Customization
   "menu.header.image.logo": "DRUM",
+  // End UMD Customization
 
   "menu.header.admin.description": "Management menu",
 
@@ -2814,7 +2821,9 @@
 
   "menu.section.access_control_people": "People",
 
+  // UMD Customization
   "menu.section.access_control_units": "Units",
+  // End UMD Customization
 
 
 
@@ -5025,6 +5034,7 @@
   "person.orcid.registry.auth": "ORCID Authorizations",
   "home.recent-submissions.head": "Recent Submissions",
 
+  // UMD Customization
   "menu.header.organization.logo": "UMD Libraries",
 
   "item.page.doi": "DRUM DOI",
@@ -5034,4 +5044,5 @@
   "community.group.faculty.title": "Collections Organized by Department",
 
   "community.group.um.title": "UM Community-managed Collections",
+  // End UMD Customization
 }

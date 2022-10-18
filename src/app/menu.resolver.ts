@@ -638,6 +638,7 @@ export class MenuResolver implements Resolve<boolean> {
             link: '/access-control/groups'
           } as LinkMenuItemModel,
         },
+        // UMD Customization
         {
           id: 'access_control_units',
           parentID: 'access_control',
@@ -649,6 +650,7 @@ export class MenuResolver implements Resolve<boolean> {
             link: '/access-control/units'
           } as LinkMenuItemModel,
         },
+        // End UMD Customization
         // TODO: enable this menu item once the feature has been implemented
         // {
         //   id: 'access_control_authorizations',
