@@ -3,11 +3,13 @@ import { RouterModule } from '@angular/router';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
-import { GROUP_EDIT_PATH } from './access-control-routing-paths';
+import { GROUP_EDIT_PATH, UNIT_EDIT_PATH } from './access-control-routing-paths';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { GroupPageGuard } from './group-registry/group-page.guard';
 import { GroupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { UnitsRegistryComponent } from './unit-registry/units-registry.component';
+import { UnitFormComponent } from './unit-registry/unit-form/unit-form.component';
 
 @NgModule({
   imports: [
@@ -47,6 +49,33 @@ import { SiteAdministratorGuard } from '../core/data/feature-authorization/featu
         },
         data: { title: 'admin.access-control.groups.title.singleGroup', breadcrumbKey: 'admin.access-control.groups.singleGroup' },
         canActivate: [GroupPageGuard]
+      },
+      {
+        path: UNIT_EDIT_PATH,
+        component: UnitsRegistryComponent,
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { title: 'admin.access-control.units.title', breadcrumbKey: 'admin.access-control.units' },
+        canActivate: [SiteAdministratorGuard]
+      },
+      // {
+      //   path: `${UNIT_EDIT_PATH}/newUnit`,
+      //   component: UnitFormComponent,
+      //   resolve: {
+      //     breadcrumb: I18nBreadcrumbResolver
+      //   },
+      //   data: { title: 'admin.access-control.units.title.addUnit', breadcrumbKey: 'admin.access-control.units.addUnit' },
+      //   canActivate: [SiteAdministratorGuard]
+      // },
+      {
+        path: `${UNIT_EDIT_PATH}/:unitId`,
+        component: UnitFormComponent,
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { title: 'admin.access-control.units.title.singleUnit', breadcrumbKey: 'admin.access-control.units.singleUnit' },
+        canActivate: [SiteAdministratorGuard]
       }
     ])
   ]

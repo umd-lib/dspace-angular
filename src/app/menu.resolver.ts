@@ -638,6 +638,17 @@ export class MenuResolver implements Resolve<boolean> {
             link: '/access-control/groups'
           } as LinkMenuItemModel,
         },
+        {
+          id: 'access_control_units',
+          parentID: 'access_control',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_units',
+            link: '/access-control/units'
+          } as LinkMenuItemModel,
+        },
         // TODO: enable this menu item once the feature has been implemented
         // {
         //   id: 'access_control_authorizations',

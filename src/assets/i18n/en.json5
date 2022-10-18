@@ -521,6 +521,189 @@
 
 
 
+  "admin.access-control.units.title": "Units",
+
+  "admin.access-control.units.breadcrumbs": "Units",
+
+  "admin.access-control.units.singleUnit.breadcrumbs": "Edit Unit",
+
+//  "admin.access-control.units.title.singleGroup": "Edit Group",
+//
+//  "admin.access-control.units.title.addGroup": "New Group",
+//
+//  "admin.access-control.units.addGroup.breadcrumbs": "New Group",
+
+  "admin.access-control.units.head": "Units",
+
+  "admin.access-control.units.button.add": "Add unit",
+
+  "admin.access-control.units.search.head": "Search units",
+
+  "admin.access-control.units.button.see-all": "Browse all",
+
+  "admin.access-control.units.search.button": "Search",
+
+  "admin.access-control.units.search.placeholder": "Search units...",
+
+  "admin.access-control.units.table.id": "ID",
+
+  "admin.access-control.units.table.name": "Name",
+
+//  "admin.access-control.units.table.collectionOrCommunity": "Collection/Community",
+//
+//  "admin.access-control.units.table.members": "Members",
+
+  "admin.access-control.units.table.edit": "Edit",
+
+  "admin.access-control.units.table.edit.buttons.edit": "Edit \"{{name}}\"",
+
+  "admin.access-control.units.table.edit.buttons.remove": "Delete \"{{name}}\"",
+
+  "admin.access-control.units.no-items": "No units found with this in their name or this as UUID",
+
+  "admin.access-control.units.notification.deleted.success": "Successfully deleted unit \"{{name}}\"",
+
+//  "admin.access-control.units.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
+//
+//  "admin.access-control.units.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+//
+//
+//
+//  "admin.access-control.units.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+//
+//  "admin.access-control.units.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+
+  "admin.access-control.units.form.head.create": "Create unit",
+
+  "admin.access-control.units.form.head.edit": "Edit unit",
+
+  "admin.access-control.units.form.unitName": "Unit name",
+
+  "admin.access-control.units.form.facultyOnly": "Faculty Only",
+
+//  "admin.access-control.units.form.groupCommunity": "Community or Collection",
+//
+//  "admin.access-control.units.form.groupDescription": "Description",
+
+  "admin.access-control.units.form.notification.created.success": "Successfully created Unit \"{{name}}\"",
+
+  "admin.access-control.units.form.notification.created.failure": "Failed to create Unit \"{{name}}\"",
+
+//  "admin.access-control.units.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+//
+//  "admin.access-control.units.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+//
+//  "admin.access-control.units.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+
+  "admin.access-control.units.form.notification.edited.success": "Successfully edited Unit \"{{name}}\"",
+
+  "admin.access-control.units.form.actions.delete": "Delete Unit",
+
+  "admin.access-control.units.form.delete-unit.modal.header": "Delete Unit \"{{ dsoName }}\"",
+
+  "admin.access-control.units.form.delete-unit.modal.info": "Are you sure you want to delete Unit \"{{ dsoName }}\"",
+
+  "admin.access-control.units.form.delete-unit.modal.cancel": "Cancel",
+
+  "admin.access-control.units.form.delete-unit.modal.confirm": "Delete",
+
+  "admin.access-control.units.form.notification.deleted.success": "Successfully deleted unit \"{{ name }}\"",
+
+//  "admin.access-control.units.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+//
+//  "admin.access-control.units.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+
+  "admin.access-control.units.form.groups-list.head": "Groups",
+
+  "admin.access-control.units.form.groups-list.search.head": "Add Groups",
+
+  "admin.access-control.units.form.groups-list.button.see-all": "Browse All",
+
+  "admin.access-control.units.form.groups-list.headMembers": "Current Members",
+
+  "admin.access-control.units.form.groups-list.search.scope.metadata": "Metadata",
+
+//  "admin.access-control.units.form.members-list.search.scope.email": "E-mail (exact)",
+
+  "admin.access-control.units.form.groups-list.search.button": "Search",
+
+//  "admin.access-control.units.form.members-list.table.id": "ID",
+//
+//  "admin.access-control.units.form.members-list.table.name": "Name",
+//
+//  "admin.access-control.units.form.members-list.table.identity": "Identity",
+//
+//  "admin.access-control.units.form.members-list.table.email": "Email",
+//
+//  "admin.access-control.units.form.members-list.table.netid": "NetID",
+
+  "admin.access-control.units.form.groups-list.table.edit": "Remove / Add",
+
+//  "admin.access-control.units.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+
+  "admin.access-control.units.form.groups-list.notification.success.addGroup": "Successfully added group: \"{{name}}\"",
+
+//  "admin.access-control.units.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+
+  "admin.access-control.units.form.groups-list.notification.success.deleteGroup": "Successfully deleted group: \"{{name}}\"",
+
+//  "admin.access-control.units.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+//
+//  "admin.access-control.units.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+//
+//  "admin.access-control.units.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+
+  "admin.access-control.units.form.groups-list.no-groups-yet": "No groups in unit yet, search and add.",
+
+//  "admin.access-control.units.form.members-list.no-items": "No EPeople found in that search",
+//
+//  "admin.access-control.units.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+//
+//  "admin.access-control.units.form.subgroups-list.head": "Groups",
+//
+//  "admin.access-control.units.form.subgroups-list.search.head": "Add Subgroup",
+//
+//  "admin.access-control.units.form.subgroups-list.button.see-all": "Browse All",
+//
+//  "admin.access-control.units.form.subgroups-list.headSubgroups": "Current Subgroups",
+//
+//  "admin.access-control.units.form.subgroups-list.search.button": "Search",
+
+  "admin.access-control.units.form.groups-list.table.id": "ID",
+
+  "admin.access-control.units.form.groups-list.table.name": "Name",
+
+  "admin.access-control.units.form.groups-list.table.collectionOrCommunity": "Collection/Community",
+
+//  "admin.access-control.units.form.subgroups-list.table.edit": "Remove / Add",
+//
+//  "admin.access-control.units.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
+//
+//  "admin.access-control.units.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
+//
+//  "admin.access-control.units.form.subgroups-list.table.edit.currentGroup": "Current group",
+//
+//  "admin.access-control.units.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
+//
+//  "admin.access-control.units.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
+//
+//  "admin.access-control.units.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
+//
+//  "admin.access-control.units.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
+//
+//  "admin.access-control.units.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+//
+//  "admin.access-control.units.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
+//
+//  "admin.access-control.units.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
+//
+//  "admin.access-control.units.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
+
+  "admin.access-control.units.form.return": "Back",
+
+
+
+
   "admin.search.breadcrumbs": "Administrative Search",
 
   "admin.search.collection.edit": "Edit",
@@ -1497,6 +1680,8 @@
   "error.validation.emailTaken": "This E-mail is already taken",
 
   "error.validation.groupExists": "This group already exists",
+
+  "error.validation.unitExists": "This unit already exists",
 
 
   "feed.description": "Syndication feed",
@@ -2628,6 +2813,8 @@
   "menu.section.access_control_groups": "Groups",
 
   "menu.section.access_control_people": "People",
+
+  "menu.section.access_control_units": "Units",
 
 
 

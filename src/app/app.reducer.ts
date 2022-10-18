@@ -8,6 +8,7 @@ import {
   groupRegistryReducer,
   GroupRegistryState
 } from './access-control/group-registry/group-registry.reducers';
+import { unitRegistryReducer, UnitRegistryState } from './access-control/unit-registry/unit-registry.reducers';
 import {
   metadataRegistryReducer,
   MetadataRegistryState
@@ -71,6 +72,7 @@ export interface AppState {
   communityList: CommunityListState;
   epeopleRegistry: EPeopleRegistryState;
   groupRegistry: GroupRegistryState;
+  unitRegistry: UnitRegistryState;
   correlationId: string;
 }
 
@@ -93,6 +95,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
+  unitRegistry: unitRegistryReducer,
   correlationId: correlationIdReducer
 };
 
