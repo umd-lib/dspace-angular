@@ -22,12 +22,15 @@ import { CommunityGroup } from '../shared/community-group.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { BaseDataService } from 'src/app/core/data/base/base-data.service';
 import { dataService } from 'src/app/core/data/base/data-service.decorator';
+import { FindAllDataImpl } from './base/find-all-data';
 
 
 @Injectable()
 @dataService(COMMUNITY_GROUP)
 export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
   protected linkPath = 'communitygroups';
+
+  private findAllData: FindAllDataImpl<CommunityGroup>;
 
 
   private configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
@@ -52,10 +55,29 @@ export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
       objectCache,
       halService,
     );
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   getItemRequestEndpoint(): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
+  }
+
+  /**
+   * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
+   * info should be added to the objects
+   *
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
+   */
+  findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<CommunityGroup>[]): Observable<RemoteData<PaginatedList<CommunityGroup>>> {
+    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   public getTopCommunitiesByGroup(communityGroupID: number, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
