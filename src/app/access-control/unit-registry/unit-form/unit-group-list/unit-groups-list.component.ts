@@ -10,7 +10,7 @@ import {
   combineLatest as observableCombineLatest,
   ObservedValueOf,
 } from 'rxjs';
-import { map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { defaultIfEmpty, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import {buildPaginatedList, PaginatedList} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
@@ -160,7 +160,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
             });
           return dto$;
         }));
-        return dtos$.pipe(map((dtos: UnitGroupDtoModel[]) => {
+        return dtos$.pipe(defaultIfEmpty([]), map((dtos: UnitGroupDtoModel[]) => {
           return buildPaginatedList(groupListRD.payload.pageInfo, dtos);
         }));
       }))
@@ -180,7 +180,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
           return this.groupDataService.findListByHref(unit._links.groups.href, {
             currentPage: 1,
             elementsPerPage: 9999
-          }, false)
+          })
             .pipe(
               getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
@@ -215,7 +215,6 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
       if (activeUnit != null) {
         const response = this.unitDataService.deleteGroupFromUnit(activeUnit, group.group);
         this.showNotifications('deleteGroup', response, group.group.name, activeUnit);
-        this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveUNit'));
       }
