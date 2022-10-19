@@ -17,13 +17,15 @@ import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { UnitDtoModel } from 'src/app/core/eperson/models/unit-dto.model';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { NoContent } from 'src/app/core/shared/NoContent.model';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { Group } from 'src/app/core/eperson/models/group.model';
+import { GroupDataService } from 'src/app/core/eperson/group-data.service';
 
 @Component({
   selector: 'ds-units-registry',
@@ -79,6 +81,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(public unitService: UnitDataService,
+              private groupService: GroupDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private formBuilder: FormBuilder,
@@ -131,22 +134,15 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
                 return observableCombineLatest([
                   this.authorizationService.isAuthorized(FeatureID.CanDelete, unit.self),
                   this.canManageUnit$(isSiteAdmin),
-//                  this.hasLinkedDSO(group),
-//                  this.getSubgroups(group),
-//                  this.getMembers(group)
+                  this.getGroups(unit),
                 ]).pipe(
-                  map(([canDelete, canManageUnit, /*hasLinkedDSO, subgroups, members*/]:
-                         [boolean, boolean, /*boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>*/]) => {
-//                      const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-//                      groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
-//                      groupDtoModel.ableToEdit = canManageGroup;
-//                      groupDtoModel.group = group;
-//                      groupDtoModel.subgroups = subgroups.payload;
-//                      groupDtoModel.epersons = members.payload;
+                  map(([canDelete, canManageUnit, groups]:
+                         [boolean, boolean, RemoteData<PaginatedList<Group>>]) => {
                       const unitDtoModel: UnitDtoModel = new UnitDtoModel();
                       unitDtoModel.ableToDelete = canDelete;
                       unitDtoModel.ableToEdit = canManageUnit;
                       unitDtoModel.unit = unit;
+                      unitDtoModel.groups = groups.payload;
                       return unitDtoModel;
                     }
                   )
@@ -197,6 +193,14 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
           }
       });
     }
+  }
+
+  /**
+   * Get the groups belonging to this Unit
+   * @param unit the Unit to return the groups go.
+   */
+   getGroups(unit: Unit): Observable<RemoteData<PaginatedList<Group>>> {
+    return this.groupService.findListByHref(unit._links.groups.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**

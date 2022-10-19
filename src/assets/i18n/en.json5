@@ -550,9 +550,7 @@
 
   "admin.access-control.units.table.name": "Name",
 
-//  "admin.access-control.units.table.collectionOrCommunity": "Collection/Community",
-//
-//  "admin.access-control.units.table.members": "Members",
+  "admin.access-control.units.table.members": "Members",
 
   "admin.access-control.units.table.edit": "Edit",
 
