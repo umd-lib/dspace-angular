@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,10 +9,8 @@ import { Observable, of as observableOf } from 'rxjs';
 import { DSOChangeAnalyzer } from 'src/app/core/data/dso-change-analyzer.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { FindListOptions } from 'src/app/core/data/find-list-options.model';
 import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { RequestService } from 'src/app/core/data/request.service';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { RouteService } from 'src/app/core/services/route.service';
@@ -204,5 +201,4 @@ describe('UnitsRegistryComponent', () => {
       });
     });
   });
-
 });

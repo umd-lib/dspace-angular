@@ -12,7 +12,6 @@ import { type } from '../../shared/ngrx/type';
  * action types in the application are unique.
  */
 export const UnitRegistryActionTypes = {
-
   EDIT_UNIT: type('dspace/unit-registry/EDIT_UNIT'),
   CANCEL_EDIT_UNIT: type('dspace/unit-registry/CANCEL_EDIT_UNIT'),
 };

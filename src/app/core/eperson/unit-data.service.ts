@@ -39,7 +39,8 @@ import { RestRequestMethod } from '../data/rest-request-method';
  const editUnitSelector = createSelector(unitRegistryStateSelector, (unitRegistryState: UnitRegistryState) => unitRegistryState.editUnit);
 
 /**
- * Provides methods to retrieve eperson unit resources from the REST API & Unit related CRUD actions.
+ * Provides methods to retrieve eperson unit resources from the REST API and
+ * Unit related CRUD actions.
  */
 @Injectable()
 @dataService(UNIT)
@@ -103,7 +104,7 @@ export class UnitDataService extends IdentifiableDataService<Unit> {
    * @param activeUnit Unit we want to add member to
    * @param group group we want to add to given activeUnit
    */
-   addGroupToUnit(activeUnit: Unit, group: Group): Observable<RemoteData<Unit>> {
+  addGroupToUnit(activeUnit: Unit, group: Group): Observable<RemoteData<Unit>> {
     const requestId = this.requestService.generateRequestId();
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -176,21 +177,6 @@ export class UnitDataService extends IdentifiableDataService<Unit> {
     return '/access-control/units';
   }
 
-  // /**
-  //  * Change which group is being edited and return the link for the edit page of the new group being edited
-  //  * @param newGroup New group to edit
-  //  */
-  // public startEditingNewGroup(newGroup: Group): string {
-  //   this.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
-  //     if (newGroup === activeGroup) {
-  //       this.cancelEditGroup();
-  //     } else {
-  //       this.editGroup(newGroup);
-  //     }
-  //   });
-  //   return this.getGroupEditPageRouterLinkWithID(newGroup.id);
-  // }
-
   /**
    * Get Edit page of unit
    * @param unit Unit we want edit page for
@@ -238,85 +224,4 @@ export class UnitDataService extends IdentifiableDataService<Unit> {
   public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
-
-  // /**
-  //  * Extract optional UUID from a string
-  //  * @param stringWithUUID  String with possible UUID
-  //  */
-  // public getUUIDFromString(stringWithUUID: string): string {
-  //   let foundUUID = '';
-  //   const uuidMatches = stringWithUUID.match(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/g);
-  //   if (uuidMatches != null) {
-  //     foundUUID = uuidMatches[0];
-  //   }
-  //   return foundUUID;
-  // }
-
-  // /**
-  //  * Create a group for a given role for a given community or collection.
-  //  *
-  //  * @param dso         The community or collection for which to create a group
-  //  * @param role        The name of the role for which to create a group
-  //  * @param link        The REST endpoint to create the group
-  //  */
-  // createComcolGroup(dso: Community|Collection, role: string, link: string): Observable<RemoteData<Group>> {
-
-  //   const requestId = this.requestService.generateRequestId();
-  //   const group = Object.assign(new Group(), {
-  //     metadata: {
-  //       'dc.description': [
-  //         {
-  //           value: `${this.nameService.getName(dso)} ${role} group`,
-  //         }
-  //       ],
-  //     },
-  //   });
-
-  //   this.requestService.send(
-  //     new CreateRequest(
-  //       requestId,
-  //       link,
-  //       JSON.stringify(group),
-  //     ));
-
-  //   const responseRD$ = this.rdbService.buildFromRequestUUID<Group>(requestId).pipe(
-  //     getFirstCompletedRemoteData(),
-  //   );
-
-  //   responseRD$.subscribe((responseRD: RemoteData<Group>) => {
-  //     if (responseRD.hasSucceeded) {
-  //       this.requestService.removeByHrefSubstring(link);
-  //     }
-  //   });
-
-  //   return responseRD$;
-  // }
-
-  // /**
-  //  * Delete the group for a given role for a given community or collection.
-  //  *
-  //  * @param link        The REST endpoint to delete the group
-  //  */
-  // deleteComcolGroup(link: string): Observable<RemoteData<NoContent>> {
-
-  //   const requestId = this.requestService.generateRequestId();
-
-  //   this.requestService.send(
-  //     new DeleteRequest(
-  //       requestId,
-  //       link,
-  //     ));
-
-  //   const responseRD$ = this.rdbService.buildFromRequestUUID(requestId).pipe(
-  //     getFirstCompletedRemoteData(),
-  //   );
-
-  //   responseRD$.subscribe((responseRD: RemoteData<NoContent>) => {
-  //     if (responseRD.hasSucceeded) {
-  //       this.requestService.removeByHrefSubstring(link);
-  //     }
-  //   });
-
-  //   return responseRD$;
-  // }
 }

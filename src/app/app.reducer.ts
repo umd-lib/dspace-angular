@@ -99,8 +99,10 @@ export const appReducers: ActionReducerMap<AppState> = {
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
+  correlationId: correlationIdReducer,
+  // UMD Customization
   unitRegistry: unitRegistryReducer,
-  correlationId: correlationIdReducer
+  // End UMD Customzation
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

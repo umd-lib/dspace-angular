@@ -13,9 +13,7 @@ import {
 import { defaultIfEmpty, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import {buildPaginatedList, PaginatedList} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import {
   getFirstSucceededRemoteData,
@@ -23,7 +21,6 @@ import {
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import {EpersonDtoModel} from '../../../../core/eperson/models/eperson-dto.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { GroupDtoModel } from 'src/app/core/eperson/models/group-dto.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
@@ -216,7 +213,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
         const response = this.unitDataService.deleteGroupFromUnit(activeUnit, group.group);
         this.showNotifications('deleteGroup', response, group.group.name, activeUnit);
       } else {
-        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveUNit'));
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveUnit'));
       }
     });
   }
@@ -231,7 +228,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
         const response = this.unitDataService.addGroupToUnit(activeUnit, group.group);
         this.showNotifications('addGroup', response, group.group.name, activeUnit);
       } else {
-        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveUnit'));
       }
     });
   }

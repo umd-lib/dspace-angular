@@ -7,7 +7,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import {  map, switchMap, tap } from 'rxjs/operators';
 import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
@@ -37,7 +37,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
   messagePrefix = 'admin.access-control.units.';
 
   /**
-   * Pagination config used to display the list of groups
+   * Pagination config used to display the list of units
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'ul',
@@ -46,8 +46,8 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * A BehaviorSubject with the list of UnitDtoModel objects made from the Units in the repository or
-   * as the result of the search
+   * A BehaviorSubject with the list of UnitDtoModel objects made from the Units
+   * in the repository or as the result of the search
    */
   unitsDto$: BehaviorSubject<PaginatedList<UnitDtoModel>> = new BehaviorSubject<PaginatedList<UnitDtoModel>>({} as any);
   deletedUnitsIds: string[] = [];
@@ -59,8 +59,6 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
    * The subscription for the search method
    */
   searchSub: Subscription;
-
-  // paginationSub: Subscription;
 
   /**
    * List of subscriptions
@@ -223,9 +221,6 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
 
 
   cleanupSubscribes() {
-    // if (hasValue(this.paginationSub)) {
-    //   this.paginationSub.unsubscribe();
-    // }
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
     this.paginationService.clearPagination(this.config.id);
   }

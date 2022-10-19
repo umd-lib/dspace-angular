@@ -11,7 +11,7 @@ import {
   ObservedValueOf,
   Subscription,
 } from 'rxjs';
-import { catchError, map, switchMap, take, filter, debounceTime } from 'rxjs/operators';
+import { switchMap, take, debounceTime } from 'rxjs/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
@@ -20,7 +20,7 @@ import { RequestService } from 'src/app/core/data/request.service';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { NoContent } from 'src/app/core/shared/NoContent.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { AlertType } from 'src/app/shared/alert/aletr-type';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { hasValue, hasValueOperator, isNotEmpty } from 'src/app/shared/empty.util';
@@ -113,7 +113,6 @@ export class UnitFormComponent implements OnInit, OnDestroy {
    */
   unitNameValueChangeSubscribe: Subscription;
 
-
   constructor(public unitDataService: UnitDataService,
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
@@ -184,31 +183,21 @@ export class UnitFormComponent implements OnInit, OnDestroy {
           this.unitDataService.getActiveUnit(),
           this.canEdit$
         ).subscribe(([activeUnit, canEdit]) => {
-
           if (activeUnit != null) {
-
             // Disable unit name exists validator
             this.formGroup.controls.unitName.clearAsyncValidators();
 
             this.unitBeingEdited = activeUnit;
 
-            // if (linkedObject?.name) {
-            //   this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
-            //   this.formGroup.patchValue({
-            //     groupName: activeGroup.name,
-            //     groupCommunity: linkedObject?.name ?? '',
-            //     groupDescription: activeGroup.firstMetadataValue('dc.description'),
-            //   });
-            // } else {
-              this.formModel = [
-                this.unitName,
-                this.facultyOnly,
-              ];
-              this.formGroup.patchValue({
-                unitName: activeUnit.name,
-                facultyOnly: activeUnit.facultyOnly,
-              });
-            // }
+            this.formModel = [
+              this.unitName,
+              this.facultyOnly,
+            ];
+            this.formGroup.patchValue({
+              unitName: activeUnit.name,
+              facultyOnly: activeUnit.facultyOnly,
+            });
+
             setTimeout(() => {
               if (!canEdit) {
                 this.formGroup.disable();
@@ -412,54 +401,4 @@ export class UnitFormComponent implements OnInit, OnDestroy {
     }
 
   }
-
-  // /**
-  //  * Check if group has a linked object (community or collection linked to a workflow group)
-  //  * @param group
-  //  */
-  // hasLinkedDSO(group: Group): Observable<boolean> {
-  //   if (hasValue(group) && hasValue(group._links.object.href)) {
-  //     return this.getLinkedDSO(group).pipe(
-  //       map((rd: RemoteData<DSpaceObject>) => {
-  //         return hasValue(rd) && hasValue(rd.payload);
-  //       }),
-  //       catchError(() => observableOf(false)),
-  //     );
-  //   }
-  // }
-
-  // /**
-  //  * Get group's linked object if it has one (community or collection linked to a workflow group)
-  //  * @param group
-  //  */
-  // getLinkedDSO(group: Group): Observable<RemoteData<DSpaceObject>> {
-  //   if (hasValue(group) && hasValue(group._links.object.href)) {
-  //     if (group.object === undefined) {
-  //       return this.dSpaceObjectDataService.findByHref(group._links.object.href);
-  //     }
-  //     return group.object;
-  //   }
-  // }
-
-  // /**
-  //  * Get the route to the edit roles tab of the group's linked object (community or collection linked to a workflow group) if it has one
-  //  * @param group
-  //  */
-  // getLinkedEditRolesRoute(group: Group): Observable<string> {
-  //   if (hasValue(group) && hasValue(group._links.object.href)) {
-  //     return this.getLinkedDSO(group).pipe(
-  //       map((rd: RemoteData<DSpaceObject>) => {
-  //         if (hasValue(rd) && hasValue(rd.payload)) {
-  //           const dso = rd.payload;
-  //           switch ((dso as any).type) {
-  //             case Community.type.value:
-  //               return getCommunityEditRolesRoute(rd.payload.id);
-  //             case Collection.type.value:
-  //               return getCollectionEditRolesRoute(rd.payload.id);
-  //           }
-  //         }
-  //       })
-  //     );
-  //   }
-  // }
 }

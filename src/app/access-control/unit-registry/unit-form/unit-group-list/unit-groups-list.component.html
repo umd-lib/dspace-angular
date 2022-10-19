@@ -5,12 +5,6 @@
 
   </h4>
   <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
-    <!--<div>
-      <select name="scope" id="scope" formControlName="scope" class="form-control" aria-label="Search scope">
-        <option value="metadata">{{messagePrefix + '.search.scope.metadata' | translate}}</option>
-        <option value="email">{{messagePrefix + '.search.scope.email' | translate}}</option>
-      </select>
-    </div>-->
     <div class="flex-grow-1 mr-3 ml-3">
       <div class="form-group input-group">
         <input type="text" name="query" id="query" formControlName="query"
@@ -41,7 +35,6 @@
           <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
           <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
           <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
-<!--          <th scope="col" class="align-middle">{{messagePrefix + '.table.identity' | translate}}</th> -->
           <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
         </tr>
         </thead>
@@ -50,10 +43,6 @@
           <td class="align-middle">{{groupDto.group.id}}</td>
           <td class="align-middle"><a (click)="groupDataService.startEditingNewGroup(groupDto.group)"
                  [routerLink]="[groupDataService.getGroupEditPageRouterLink(groupDto.group)]">{{groupDto.group.name}}</a></td>
-<!--          <td class="align-middle">
-            {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
-            {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
-          </td>-->
           <td class="align-middle">{{(groupDto.object | async)?.payload?.name}}</td>
           <td class="align-middle">
             <div class="btn-group edit-field">
@@ -102,7 +91,6 @@
           <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
           <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
           <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
-<!--          <th scope="col" class="align-middle">{{messagePrefix + '.table.identity' | translate}}</th> -->
           <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
         </tr>
         </thead>
@@ -111,10 +99,6 @@
           <td class="align-middle">{{groupDto.group.id}}</td>
           <td class="align-middle"><a (click)="groupDataService.startEditingNewGroup(groupDto.group)"
                  [routerLink]="[groupDataService.getGroupRegistryRouterLink()]">{{groupDto.group.name}}</a></td>
-<!--          <td class="align-middle">
-            {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
-            {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
-          </td> -->
           <td class="align-middle">{{(groupDto.object | async)?.payload?.name}}</td>
           <td class="align-middle">
             <div class="btn-group edit-field">
@@ -136,5 +120,4 @@
        role="alert">
     {{messagePrefix + '.no-groups-yet' | translate}}
   </div>
-
 </ng-container>
