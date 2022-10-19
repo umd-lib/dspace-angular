@@ -528,11 +528,11 @@
 
   "admin.access-control.units.singleUnit.breadcrumbs": "Edit Unit",
 
-//  "admin.access-control.units.title.singleGroup": "Edit Group",
-//
-//  "admin.access-control.units.title.addGroup": "New Group",
-//
-//  "admin.access-control.units.addGroup.breadcrumbs": "New Group",
+  "admin.access-control.units.title.singleUnit": "Edit Unit",
+
+  "admin.access-control.units.title.addUnit": "New Unit",
+
+  "admin.access-control.units.addUnit.breadcrumbs": "New Unit",
 
   "admin.access-control.units.head": "Units",
 

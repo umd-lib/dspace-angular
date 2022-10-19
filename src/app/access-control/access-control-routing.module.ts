@@ -63,15 +63,15 @@ import { UnitFormComponent } from './unit-registry/unit-form/unit-form.component
         data: { title: 'admin.access-control.units.title', breadcrumbKey: 'admin.access-control.units' },
         canActivate: [SiteAdministratorGuard]
       },
-      // {
-      //   path: `${UNIT_EDIT_PATH}/newUnit`,
-      //   component: UnitFormComponent,
-      //   resolve: {
-      //     breadcrumb: I18nBreadcrumbResolver
-      //   },
-      //   data: { title: 'admin.access-control.units.title.addUnit', breadcrumbKey: 'admin.access-control.units.addUnit' },
-      //   canActivate: [SiteAdministratorGuard]
-      // },
+      {
+        path: `${UNIT_EDIT_PATH}/newUnit`,
+        component: UnitFormComponent,
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { title: 'admin.access-control.units.title.addUnit', breadcrumbKey: 'admin.access-control.units.addUnit' },
+        canActivate: [SiteAdministratorGuard]
+      },
       {
         path: `${UNIT_EDIT_PATH}/:unitId`,
         component: UnitFormComponent,
