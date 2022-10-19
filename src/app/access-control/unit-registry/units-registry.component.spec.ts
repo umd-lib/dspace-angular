@@ -11,6 +11,8 @@ import { AuthorizationDataService } from 'src/app/core/data/feature-authorizatio
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
+import { GroupDataService } from 'src/app/core/eperson/group-data.service';
+import { Group } from 'src/app/core/eperson/models/group.model';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { RouteService } from 'src/app/core/services/route.service';
@@ -30,6 +32,7 @@ describe('UnitsRegistryComponent', () => {
   let component: UnitsRegistryComponent;
   let fixture: ComponentFixture<UnitsRegistryComponent>;
   let unitDataServiceStub: any;
+  let groupDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
   let paginationService: any;
   let mockUnits: Unit[];
@@ -101,6 +104,11 @@ describe('UnitsRegistryComponent', () => {
         return '/access-control/unit/' + unit.id;
       }
     };
+    groupDataServiceStub = {
+      findListByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
+        return createSuccessfulRemoteDataObject$(buildPaginatedList<Group>(new PageInfo(), []));
+      },
+    };
   }));
 
   beforeEach(async () => {
@@ -109,6 +117,7 @@ describe('UnitsRegistryComponent', () => {
       providers: [
         DSOChangeAnalyzer,
         { provide: UnitDataService, useValue: unitDataServiceStub },
+        { provide: GroupDataService, useValue: groupDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
@@ -123,7 +132,7 @@ describe('UnitsRegistryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UnitsRegistryComponent);
     component = fixture.componentInstance;
-//    fixture.detectChanges();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -174,7 +183,7 @@ describe('UnitsRegistryComponent', () => {
       }));
 
       it('should be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#units tr td:nth-child(3) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#units tr td:nth-child(4) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeFalse();
@@ -193,7 +202,7 @@ describe('UnitsRegistryComponent', () => {
       }));
 
       it('should not be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#units tr td:nth-child(3) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#units tr td:nth-child(4) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeTrue();
