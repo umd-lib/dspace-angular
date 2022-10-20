@@ -13,10 +13,6 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-// UMD Customization for LIBDRUM-660
-import { LdapDataService } from '../../../core/eperson/ldap-data.service';
-import { Ldap } from '../../../core/eperson/models/ldap.model';
-// End UMD Customization for LIBDRUM-660
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Group } from '../../../core/eperson/models/group.model';
 import {
@@ -40,6 +36,11 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { Registration } from '../../../core/shared/registration.model';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+// UMD Customization
+import { LdapDataService } from '../../../core/eperson/ldap-data.service';
+import { Ldap } from '../../../core/eperson/models/ldap.model';
+import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
+// End UMD Customization
 
 @Component({
   selector: 'ds-eperson-form',
@@ -184,9 +185,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     protected changeDetectorRef: ChangeDetectorRef,
     public epersonService: EPersonDataService,
     public groupsDataService: GroupDataService,
-    // UMD Customization for LIBDRUM-660
+    // UMD Customization
     public ldapDataService: LdapDataService,
-    // End UMD Customization for LIBDRUM-660
+    public unitDataService: UnitDataService,
+    // End UMD Customization
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,

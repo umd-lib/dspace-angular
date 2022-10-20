@@ -111,7 +111,7 @@
           <li>{{ messagePrefix + '.ldap.matchedUnits' | translate }}</li>
           <ul>
             <li *ngFor="let unit of ldapRD.payload.matchedUnits">
-              {{ unit.name }}
+              <a [routerLink]="[unitDataService.getUnitEditPageRouterLink(unit)]">{{ unit.name }}</a>
             </li>
           </ul>
         </div>

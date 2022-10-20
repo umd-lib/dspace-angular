@@ -24,10 +24,6 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-// UMD Customization for LIBDRUM-660
-import { LdapDataServiceStub } from '../../../shared/testing/ldap-data-service.stub';
-import { LdapDataService } from 'src/app/core/eperson/ldap-data.service';
-// End UMD Customization for LIBDRUM-660
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -35,6 +31,11 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+// UMD Customization
+import { LdapDataServiceStub } from '../../../shared/testing/ldap-data-service.stub';
+import { LdapDataService } from 'src/app/core/eperson/ldap-data.service';
+import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
+// End UMD Customization
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -46,9 +47,10 @@ describe('EPersonFormComponent', () => {
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
-  // UMD Customization for LIBDRUM-660
+  // UMD Customization
   let ldapDataService: LdapDataServiceStub;
-  // End UMD Customization for LIBDRUM-660
+  let unitDataService: UnitDataService;
+  // End UMD Customization
   let epersonRegistrationService: EpersonRegistrationService;
 
   let paginationService;
@@ -188,6 +190,12 @@ describe('EPersonFormComponent', () => {
       getGroupRegistryRouterLink: ''
     });
 
+    // UMD Customization
+    unitDataService = jasmine.createSpyObj('unitDataService', {
+      getUnitEditPageRouterLink: ''
+    });
+    // End UMD Customization
+
     paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
@@ -204,6 +212,7 @@ describe('EPersonFormComponent', () => {
         { provide: GroupDataService, useValue: groupsDataService },
         // UMD Customization for LIBDRUM-660
         { provide: LdapDataService, useValue: ldapDataService },
+        { provide: UnitDataService, useValue: unitDataService },
         // End UMD Customization for LIBDRUM-660
         { provide: FormBuilderService, useValue: builderService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
