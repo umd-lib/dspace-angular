@@ -1077,6 +1077,10 @@
 
   "community.create.notifications.success": "Successfully created the Community",
 
+  // UMD Customization for LIBDRUM-701
+  "community.create.notifications.communityGroup.error": "An error occured while setting the Community Group",
+  // End UMD Customization for LIBDRUM-701
+
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
 
   "community.curate.header": "Curate Community: {{community}}",
@@ -1127,6 +1131,10 @@
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
 
   "community.edit.notifications.error": "An error occured while editing the Community",
+
+  // UMD Customization for LIBDRUM-701
+  "community.edit.notifications.communityGroup.error": "An error occured while setting the Community Group",
+  // End UMD Customization for LIBDRUM-701
 
   "community.edit.return": "Back",
 
@@ -1213,6 +1221,10 @@
 
 
   "community.form.abstract": "Short Description",
+
+  // UMD Customization for LIBDRUM-701
+  "community.form.communityGroup": "Group",
+  // End UMD Customization for LIBDRUM-701
 
   "community.form.description": "Introductory text (HTML)",
 

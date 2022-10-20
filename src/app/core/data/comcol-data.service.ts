@@ -287,7 +287,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
    * @param community
    * @param community group
    */
-  updateCommunityGroup(community: Community, cgId: string): Observable<RemoteData<Community>> {
+  updateCommunityGroup(community: Community, cgId: number): Observable<RemoteData<Community>> {
     const requestId = this.requestService.generateRequestId();
     const communityHref$ = this.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${community.id}`),

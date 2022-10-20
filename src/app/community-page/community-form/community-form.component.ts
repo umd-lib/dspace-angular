@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'; // UMD Customization for LIBDRUM-701
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core'; // UMD Customization for LIBDRUM-701
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -20,7 +20,7 @@ import { CommunityGroupDataService } from 'src/app/core/data/community-group-dat
 import { CommunityGroup } from 'src/app/core/shared/community-group.model';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { Observable, combineLatest as observableCombineLatest, map, } from 'rxjs';
+import { Observable, combineLatest as observableCombineLatest, map, of as observableOf, } from 'rxjs';
 import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 // End UMD Customization for LIBDRUM-701
 
@@ -32,7 +32,7 @@ import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirst
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
-export class CommunityFormComponent extends ComColFormComponent<Community> implements OnInit { // UMD Customization for LIBDRUM-701
+export class CommunityFormComponent extends ComColFormComponent<Community> implements OnInit, OnDestroy { // UMD Customization for LIBDRUM-701
   /**
    * @type {Community} A new community when a community is being created, an existing Input community when a community is being edited
    */
@@ -65,7 +65,14 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
    */
   selectedCommunityGroupModel = new DynamicSelectModel({
     id: 'communityGroup',
-    name: 'communityGroup'
+    name: 'communityGroup',
+    required: true,
+    validators: {
+      required: null
+    },
+    errorMessages: {
+      required: 'Please select a group'
+    },
   });
   // End UMD Customization for LIBDRUM-701
 
@@ -119,6 +126,8 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
 
   // UMD Customization for LIBDRUM-701
   ngOnInit(): void {
+    super.ngOnInit();
+
     this.communityGroupsRD$ = this.cgService.findAll();
 
     const allCommunityGroups$ = this.communityGroupsRD$.pipe(
@@ -126,56 +135,67 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
       getRemoteDataPayload()
     );
 
+    const currentCommunityGroup$ = this.dso.communityGroup === undefined ? observableOf(undefined) :
+      this.dso.communityGroup.pipe(
+        getFirstSucceededRemoteData(),
+        getRemoteDataPayload()
+      );
+
     this.subs.push(
-      observableCombineLatest(
-        allCommunityGroups$
-      ).subscribe(([allCommunityGroups]) => {
+      observableCombineLatest([
+        allCommunityGroups$,
+        currentCommunityGroup$
+      ]).subscribe(([allCommunityGroups, currentCommunityGroup]) => {
         this.communityGroups = allCommunityGroups.page;
+        this.originalCommunityGroup = currentCommunityGroup;
+        this.updateCommunityGroupModel();
       })
     );
-
-    this.selectedCommunityGroupModel.options = this.communityGroups.map((cg: CommunityGroup) =>
-      Object.assign({
-        value: cg.id,
-        label: cg.shortName
-      }));
-
-    this.dso.communityGroup.pipe(
-      getAllSucceededRemoteDataPayload()
-    ).subscribe((cg: CommunityGroup) => {
-      this.originalCommunityGroup = cg;
-      this.formGroup.patchValue({
-        communityGroup: cg.id
-      });
-    });
 
     this.changeDetectorRef.detectChanges();
   }
 
-  onSubmit() {
-    const updatedValues = this.formGroup.getRawValue();
-    const selectedCommunityGroup = this.communityGroups.find((cg: CommunityGroup) => cg.id === updatedValues.communityGroup);
-    const isNewFormat = selectedCommunityGroup.id !== this.originalCommunityGroup.id;
-
-    let community$;
-
-    if (isNewFormat) {
-      community$ = this.communityService.updateCommunityGroup(this.dso, selectedCommunityGroup).pipe(
-        getFirstCompletedRemoteData(),
-        map((cgResponse: RemoteData<Community>) => {
-          if (hasValue(cgResponse) && cgResponse.hasFailed) {
-            this.notificationsService.error(
-              this.translate.get(`${this.type.value}.edit.notifications.error`),
-              cgResponse.errorMessage
-            );
-          } else {
-            return cgResponse.payload;
-          }
-        })
-      );
+  updateCommunityGroupModel() {
+    this.selectedCommunityGroupModel.options = this.communityGroups.map((cg: CommunityGroup) =>
+      Object.assign({
+        value: cg.id,
+        label: cg.shortName
+      })
+    );
+    if (this.originalCommunityGroup != undefined) {
+      this.selectedCommunityGroupModel.value = this.originalCommunityGroup.id;
     }
+  }
 
+  onSubmit() {
+    const selectedCommunityGroup = this.communityGroups.find((cg: CommunityGroup) => cg.id === this.selectedCommunityGroupModel.value);
+    if (this.originalCommunityGroup == undefined ||
+      (this.originalCommunityGroup != undefined && selectedCommunityGroup.id !== this.originalCommunityGroup.id)) {
+      this.updateCommunityGroup = true;
+    }
     super.onSubmit();
+    this._refreshCache();
+  }
+
+
+
+  /**
+   * Unsubscribe from open subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
+  }
+
+  /**
+   * Refresh the object's cache to ensure the latest version
+   */
+  private _refreshCache() {
+    this.requestService.removeByHrefSubstring(this.dso._links.self.href);
+    this.requestService.removeByHrefSubstring(this.dso._links.communityGroup.href);
+    this.objectCache.remove(this.dso._links.communityGroup.href);
+    this.objectCache.remove(this.dso._links.self.href);
   }
   // End UMD Customization for LIBDRUM-701
 }

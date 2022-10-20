@@ -62,6 +62,29 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
       });
     }
 
+    // UMD Customization for LIBDRUM-701
+    if (hasValue(event.communityGroupId)) {
+      this.dsoDataService.updateCommunityGroup(event.dso, event.communityGroupId).pipe(
+        getFirstCompletedRemoteData()
+      ).subscribe(async (response: RemoteData<Community>) => {
+        if (response.hasSucceeded) {
+          let community: Community = response.payload;
+          this.dsoDataService.refreshCache(community as TDomain);
+        } else {
+          this.notificationsService.error(
+            this.translate.get(`${this.type.value}.edit.notifications.communityGroup.error`),
+            response.errorMessage
+          );
+        }
+        if (isEmpty(event.operations)) {
+          if (!newLogo && !deleteLogo) {
+            await this.router.navigate([this.frontendURL + event.dso.uuid]);
+          }
+        }
+      });
+    }
+    // End UMD Customization for LIBDRUM-701
+
     if (!isEmpty(event.operations)) {
       this.dsoDataService.patch(event.dso, event.operations).pipe(getFirstCompletedRemoteData())
         .subscribe(async (response: RemoteData<DSpaceObject>) => {
