@@ -19,11 +19,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { FindListOptions } from './find-list-options.model';
 import { dataService } from './base/data-service.decorator';
 // UMD Customization for LIBDRUM-701
-import { CommunityGroup } from '../shared/community-group.model';
 import { CommunityGroupDataService } from './community-group-data.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { PutRequest } from './request.models';
-import { sendRequest } from '../shared/request.operators';
 // End UMD Customization for LIBDRUM-701
 
 @Injectable()
@@ -39,9 +35,9 @@ export class CommunityDataService extends ComColDataService<Community> {
     protected comparator: DSOChangeAnalyzer<Community>,
     protected notificationsService: NotificationsService,
     protected bitstreamDataService: BitstreamDataService,
-    protected cgService: CommunityGroupDataService, // UMD Customization for LIBDRUM-701
+    protected cgService?: CommunityGroupDataService, // UMD Customization for LIBDRUM-701
   ) {
-    super('communities', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
+    super('communities', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService, cgService); // UMD Customization for LIBDRUM-701
   }
 
   // this method is overridden in order to make it public
@@ -70,38 +66,4 @@ export class CommunityDataService extends ComColDataService<Community> {
       take(1)
     );
   }
-
-  // UMD Customization for LIBDRUM-701
-  /**
-   * Set the community group of a community
-   * @param community
-   * @param community group
-   */
-  updateCommunityGroup(community: Community, cg: CommunityGroup): Observable<RemoteData<Community>> {
-    const requestId = this.requestService.generateRequestId();
-    const communityHref$ = this.getBrowseEndpoint().pipe(
-      map((href: string) => `${href}/${community.id}`),
-      switchMap((href: string) => this.halService.getEndpoint('communityGroup', href))
-    );
-    const cgHref$ = this.cgService.getBrowseEndpoint().pipe(
-      map((href: string) => `${href}/${cg.id}`)
-    );
-    observableCombineLatest([communityHref$, cgHref$]).pipe(
-      map(([communityHref, cgHref]) => {
-        const options: HttpOptions = Object.create({});
-        let headers = new HttpHeaders();
-        headers = headers.append('Content-Type', 'text/uri-list');
-        options.headers = headers;
-        return new PutRequest(requestId, communityHref, cgHref
-          , options);
-      }),
-      sendRequest(this.requestService),
-      take(1)
-    ).subscribe(() => {
-      this.requestService.removeByHrefSubstring(community.self + '/communityGroup');
-    });
-
-    return this.rdbService.buildFromRequestUUID(requestId);
-  }
-  // End UMD Customization for LIBDRUM-701
 }
