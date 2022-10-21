@@ -1,6 +1,6 @@
+import { HttpHeaders } from '@angular/common/http'; // UMD Customization for LIBDRUM-701
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs'; // UMD Customization for LIBDRUM-701
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -18,6 +18,9 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { FindListOptions } from './find-list-options.model';
 import { dataService } from './base/data-service.decorator';
+// UMD Customization for LIBDRUM-701
+import { CommunityGroupDataService } from './community-group-data.service';
+// End UMD Customization for LIBDRUM-701
 
 @Injectable()
 @dataService(COMMUNITY)
@@ -32,8 +35,9 @@ export class CommunityDataService extends ComColDataService<Community> {
     protected comparator: DSOChangeAnalyzer<Community>,
     protected notificationsService: NotificationsService,
     protected bitstreamDataService: BitstreamDataService,
+    protected cgService?: CommunityGroupDataService, // UMD Customization for LIBDRUM-701
   ) {
-    super('communities', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
+    super('communities', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService, cgService); // UMD Customization for LIBDRUM-701
   }
 
   // this method is overridden in order to make it public

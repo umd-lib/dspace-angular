@@ -16,7 +16,7 @@ import { Collection } from '../../../../app/core/shared/collection.model';
 import { PageInfo } from '../../../../app/core/shared/page-info.model';
 import { FlatNode } from '../../../../app/community-list-page/flat-node.model';
 import { FindListOptions } from '../../../../app/core/data/find-list-options.model';
-import { CommunityGroupDataService } from '../core/data/community-group-data.service';
+import { CommunityGroupDataService } from '../../../../app/core/data/community-group-data.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 

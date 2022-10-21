@@ -84,6 +84,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     uploader: FileUploader,
     deleteLogo: boolean,
     operations: Operation[],
+    communityGroupId: number, // UMD Customization for LIBDRUM-701
   }> = new EventEmitter();
 
   /**
@@ -107,6 +108,13 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   markLogoForDeletion = false;
 
+  // UMD Customization for LIBDRUM-701
+  /**
+   * Does the community group needs to be updated?
+   */
+  updateCommunityGroup = false;
+  // End UMD Customization for LIBDRUM-701
+
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
@@ -119,15 +127,15 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   protected dsoService: ComColDataService<Community | Collection>;
 
   public constructor(protected formService: DynamicFormService,
-                     protected translate: TranslateService,
-                     protected notificationsService: NotificationsService,
-                     protected authService: AuthService,
-                     protected requestService: RequestService,
-                     protected objectCache: ObjectCacheService) {
+    protected translate: TranslateService,
+    protected notificationsService: NotificationsService,
+    protected authService: AuthService,
+    protected requestService: RequestService,
+    protected objectCache: ObjectCacheService) {
   }
 
   ngOnInit(): void {
-    this.formModel.forEach(
+    this.filteredFormModel().forEach( // UMD Customization for LIBDRUM-701
       (fieldModel: DynamicInputModel) => {
         fieldModel.value = this.dso.firstMetadataValue(fieldModel.name);
       }
@@ -188,8 +196,8 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       });
     }
 
-    const formMetadata = {}  as MetadataMap;
-    this.formModel.forEach((fieldModel: DynamicInputModel) => {
+    const formMetadata = {} as MetadataMap;
+    this.filteredFormModel().forEach((fieldModel: DynamicInputModel) => { // UMD Customization for LIBDRUM-701
       const value: MetadataValue = {
         value: fieldModel.value as string,
         language: null
@@ -210,7 +218,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     });
 
     const operations: Operation[] = [];
-    this.formModel.forEach((fieldModel: DynamicInputModel) => {
+    this.filteredFormModel().forEach((fieldModel: DynamicInputModel) => { // UMD Customization for LIBDRUM-701
       if (fieldModel.value !== this.dso.firstMetadataValue(fieldModel.name)) {
         operations.push({
           op: 'replace',
@@ -228,6 +236,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
       deleteLogo: this.markLogoForDeletion,
       operations: operations,
+      communityGroupId: this.getCommunityGroupId() // UMD Customization for LIBDRUM-701
     });
   }
 
@@ -298,4 +307,30 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
   }
+
+  // UMD Customization for LIBDRUM-701
+  /**
+   * Filters the communityGroup form input model from the formModel
+   */
+  filteredFormModel(): DynamicFormControlModel[] {
+    return this.formModel.filter((input: any) => input.name !== 'communityGroup');
+  }
+
+  /**
+   * Returns the communityGroup form input model
+   */
+  communityGroupInputModel(): DynamicInputModel {
+    const field = this.formModel.find((input: DynamicInputModel) => input.name === 'communityGroup');
+    return hasValue(field) ? field as DynamicInputModel : undefined;
+  }
+
+  getCommunityGroupId(): number {
+    let id = undefined;
+    const input = this.communityGroupInputModel();
+    if (this.updateCommunityGroup && input) {
+      id = input.value;
+    }
+    return id;
+  }
+  // End UMD Customization for LIBDRUM-701
 }

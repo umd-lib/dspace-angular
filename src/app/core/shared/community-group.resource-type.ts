@@ -1,4 +1,4 @@
-import { ResourceType } from '../../../../../app/core/shared/resource-type';
+import { ResourceType } from './resource-type';
 
 /**
  * The resource type for CommunityGroup

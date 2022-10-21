@@ -4,30 +4,33 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of as observableOf } from 'rxjs';
 import { map, switchMap, skipWhile, take } from 'rxjs/operators';
-import { isNotEmptyOperator } from '../../../../../app/shared/empty.util';
-import { NotificationsService } from '../../../../../app/shared/notifications/notifications.service';
-import { RemoteDataBuildService } from '../../../../../app/core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../../app/core/cache/object-cache.service';
-import { BrowseService } from '../../../../../app/core/browse/browse.service';
-import { CoreState } from '../../../../../app/core/core-state.model';
-import { Community } from '../../../../../app/core/shared/community.model';
+import { isNotEmptyOperator } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { BrowseService } from '../browse/browse.service';
+import { CoreState } from '../core-state.model';
+import { Community } from '../shared/community.model';
 import { COMMUNITY_GROUP } from '../shared/community-group.resource-type';
-import { HALEndpointService } from '../../../../../app/core/shared/hal-endpoint.service';
-import { PaginatedList } from '../../../../../app/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../app/core/data/remote-data';
-import { FindListOptions } from '../../../../../app/core/data/find-list-options.model';
-import { RequestService } from '../../../../../app/core/data/request.service';
-import { FollowLinkConfig } from '../../../../../app/shared/utils/follow-link-config.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { FindListOptions } from './find-list-options.model';
+import { RequestService } from './request.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CommunityGroup } from '../shared/community-group.model';
-import { DefaultChangeAnalyzer } from '../../../../../app/core/data/default-change-analyzer.service';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { BaseDataService } from 'src/app/core/data/base/base-data.service';
 import { dataService } from 'src/app/core/data/base/data-service.decorator';
+import { FindAllDataImpl } from './base/find-all-data';
 
 
 @Injectable()
 @dataService(COMMUNITY_GROUP)
 export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
   protected linkPath = 'communitygroups';
+
+  private findAllData: FindAllDataImpl<CommunityGroup>;
 
 
   private configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
@@ -52,10 +55,29 @@ export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
       objectCache,
       halService,
     );
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   getItemRequestEndpoint(): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
+  }
+
+  /**
+   * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
+   * info should be added to the objects
+   *
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
+   */
+  findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<CommunityGroup>[]): Observable<RemoteData<PaginatedList<CommunityGroup>>> {
+    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   public getTopCommunitiesByGroup(communityGroupID: number, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
