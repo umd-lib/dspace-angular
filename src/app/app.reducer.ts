@@ -51,6 +51,9 @@ import { truncatableReducer, TruncatablesState } from './shared/truncatable/trun
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
+// UMD Customization
+import { unitRegistryReducer, UnitRegistryState } from './access-control/unit-registry/unit-registry.reducers';
+// End UMD Customization
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -72,6 +75,9 @@ export interface AppState {
   epeopleRegistry: EPeopleRegistryState;
   groupRegistry: GroupRegistryState;
   correlationId: string;
+  // UMD Customization
+  unitRegistry: UnitRegistryState;
+  // End UMD Customization
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -93,7 +99,10 @@ export const appReducers: ActionReducerMap<AppState> = {
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
-  correlationId: correlationIdReducer
+  correlationId: correlationIdReducer,
+  // UMD Customization
+  unitRegistry: unitRegistryReducer,
+  // End UMD Customzation
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

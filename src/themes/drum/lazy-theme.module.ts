@@ -53,12 +53,12 @@ import {
 } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { RootModule } from '../../app/root.module';
-import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
-import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { PrivacyComponent } from './app/info/privacy/privacy.component';
+import { UnitsRegistryComponent } from 'src/app/access-control/unit-registry/units-registry.component';
 
 const DECLARATIONS = [
   PrivacyComponent,
+  UnitsRegistryComponent,
 ];
 
 @NgModule({
