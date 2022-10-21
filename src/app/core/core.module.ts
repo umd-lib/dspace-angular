@@ -67,11 +67,6 @@ import { DspaceRestService } from './dspace-rest/dspace-rest.service';
 import { EPersonDataService } from './eperson/eperson-data.service';
 import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
-// UMD Customization for LIBDRUM-660/LIBDRUM-669
-import { Unit } from './eperson/models/unit.model';
-import { Ldap } from './eperson/models/ldap.model';
-import { LdapDataService } from './eperson/ldap-data.service';
-// End UMD Customization for LIBDRUM-660/LIBDRUM-669
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
@@ -186,6 +181,12 @@ import { OrcidAuthService } from './orcid/orcid-auth.service';
 import { CommunityGroupDataService } from './data/community-group-data.service'; // UMD Customization for LIBDRUM-701
 import { VocabularyDataService } from './submission/vocabularies/vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './submission/vocabularies/vocabulary-entry-details.data.service';
+// UMD Customization
+import { Unit } from './eperson/models/unit.model';
+import { Ldap } from './eperson/models/ldap.model';
+import { LdapDataService } from './eperson/ldap-data.service';
+import { UnitDataService } from './eperson/unit-data.service';
+// End UMD Customization
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -316,15 +317,16 @@ const PROVIDERS = [
   VocabularyTreeviewService,
   SequenceService,
   GroupDataService,
-  // UMD Customization for LIBDRUM-660
-  LdapDataService,
-  // End UMD Customization for LIBDRUM-660
   FeedbackDataService,
   ResearcherProfileDataService,
   ProfileClaimService,
   OrcidAuthService,
   OrcidQueueDataService,
   OrcidHistoryDataService,
+  // UMD Customization
+  LdapDataService,
+  UnitDataService,
+  // End UMD Customization
 ];
 
 /**
@@ -343,10 +345,6 @@ export const models =
     Community,
     EPerson,
     Group,
-    // UMD Customization for LIBDRUM-660/LIBDRUM-669
-    Unit,
-    Ldap,
-    // End UMD Customizatio for LIBDRUM-660/LIBDRUM-669
     ResourcePolicy,
     MetadataSchema,
     MetadataField,
@@ -393,7 +391,11 @@ export const models =
     ResearcherProfile,
     OrcidQueue,
     OrcidHistory,
-    AccessStatusObject
+    AccessStatusObject,
+    // UMD Customization
+    Unit,
+    Ldap,
+    // End UMD Customization
   ];
 
 @NgModule({
