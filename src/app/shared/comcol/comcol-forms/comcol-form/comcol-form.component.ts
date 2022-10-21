@@ -313,15 +313,15 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * Filters the communityGroup form input model from the formModel
    */
   filteredFormModel(): DynamicFormControlModel[] {
-    return this.formModel.filter((field: any) => field.name != "communityGroup");
+    return this.formModel.filter((input: any) => input.name !== 'communityGroup');
   }
 
   /**
    * Returns the communityGroup form input model
    */
   communityGroupInputModel(): DynamicInputModel {
-    const field = this.formModel.find((field: DynamicInputModel) => field.name == "communityGroup");
-    return field != null ? field as DynamicInputModel : undefined;
+    const field = this.formModel.find((input: DynamicInputModel) => input.name === 'communityGroup');
+    return hasValue(field) ? field as DynamicInputModel : undefined;
   }
 
   getCommunityGroupId(): number {

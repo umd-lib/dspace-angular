@@ -64,6 +64,15 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
   @link(COMMUNITY, false)
   parentCommunity?: Observable<RemoteData<Community>>;
 
+  // Begin UMD Customization for LIBDRUM-701
+  /**
+   * The CommunityGroup that this Community belongs to.
+   * Will be undefined unless the community group HALLink has been resolved.
+   */
+  @link(COMMUNITY_GROUP, false)
+  communityGroup?: Observable<RemoteData<CommunityGroup>>;
+  // End UMD Customization for LIBDRUM-701
+
   /**
    * A string representing the unique handle of this Community
    */
@@ -108,13 +117,6 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
   }
 
   // Begin UMD Customization for LIBDRUM-701
-  /**
-   * The CommunityGroup that this Community belongs to.
-   * Will be undefined unless the community group HALLink has been resolved.
-   */
-  @link(COMMUNITY_GROUP, false)
-  communityGroup?: Observable<RemoteData<CommunityGroup>>;
-
   getCommunityGroupKey(): keyof this['_links'] {
     return 'communityGroup';
   }

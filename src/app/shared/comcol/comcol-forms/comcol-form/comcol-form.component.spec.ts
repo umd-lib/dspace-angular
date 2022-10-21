@@ -58,7 +58,7 @@ describe('ComColFormComponent', () => {
   const communityGroup = {
     id: 0,
     shortName: 'testgroup'
-  }
+  };
 
   const logo = {
     id: 'logo'

@@ -15,13 +15,13 @@ import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
 // UMD Customization for LIBDRUM-701
-import { hasValue } from 'src/app/shared/empty.util';
+import { hasNoValue, hasValue } from 'src/app/shared/empty.util';
 import { CommunityGroupDataService } from 'src/app/core/data/community-group-data.service';
 import { CommunityGroup } from 'src/app/core/shared/community-group.model';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { Observable, combineLatest as observableCombineLatest, map, of as observableOf, } from 'rxjs';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import { Observable, combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 // End UMD Customization for LIBDRUM-701
 
 /**
@@ -162,15 +162,15 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
         label: cg.shortName
       })
     );
-    if (this.originalCommunityGroup != undefined) {
+    if (hasValue(this.originalCommunityGroup)) {
       this.selectedCommunityGroupModel.value = this.originalCommunityGroup.id;
     }
   }
 
   onSubmit() {
     const selectedCommunityGroup = this.communityGroups.find((cg: CommunityGroup) => cg.id === this.selectedCommunityGroupModel.value);
-    if (this.originalCommunityGroup == undefined ||
-      (this.originalCommunityGroup != undefined && selectedCommunityGroup.id !== this.originalCommunityGroup.id)) {
+    if (hasNoValue(this.originalCommunityGroup) ||
+      (hasValue(this.originalCommunityGroup) && selectedCommunityGroup.id !== this.originalCommunityGroup.id)) {
       this.updateCommunityGroup = true;
     }
     super.onSubmit();
