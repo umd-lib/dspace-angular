@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../../../core/auth/auth.service';
@@ -55,13 +55,19 @@ describe('ComColFormComponent', () => {
     })
   ];
 
+  const communityGroup = {
+    id: 0,
+    shortName: 'testgroup'
+  }
+
   const logo = {
     id: 'logo'
   };
   const logoEndpoint = 'rest/api/logo/endpoint';
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
-    deleteLogo: () => createSuccessfulRemoteDataObject$({})
+    deleteLogo: () => createSuccessfulRemoteDataObject$({}),
+    updateCommunityGroup: () => createSuccessfulRemoteDataObject$({})
   });
   const notificationsService = new NotificationsServiceStub();
 
@@ -135,22 +141,23 @@ describe('ComColFormComponent', () => {
         expect(comp.submitForm.emit).toHaveBeenCalledWith(
           {
             dso: Object.assign({}, comp.dso, {
-                metadata: {
-                  'dc.title': [{
-                    value: 'New Community Title',
-                    language: null,
-                  }],
-                  'dc.description.abstract': [{
-                    value: 'Community description',
-                    language: null,
-                  }],
-                },
-                type: Community.type,
-              }
+              metadata: {
+                'dc.title': [{
+                  value: 'New Community Title',
+                  language: null,
+                }],
+                'dc.description.abstract': [{
+                  value: 'Community description',
+                  language: null,
+                }],
+              },
+              type: Community.type,
+            }
             ),
             uploader: undefined,
             deleteLogo: false,
             operations: operations,
+            communityGroupId: undefined
           }
         );
       });
@@ -313,6 +320,75 @@ describe('ComColFormComponent', () => {
           const button = fixture.debugElement.query(By.css('#logo-section .btn-warning'));
           expect(button).not.toBeTruthy();
         });
+      });
+    });
+
+    describe('onSubmit with community group value', () => {
+      const newComGroupId = 2;
+      const cgInputModel = new DynamicSelectModel({
+        id: 'communityGroup',
+        name: 'communityGroup',
+        value: newComGroupId
+      });
+      beforeEach(() => {
+        initComponent(Object.assign(new Community(), {
+          id: 'community-id',
+          logo: createSuccessfulRemoteDataObject$(logo),
+          _links: {
+            self: { href: 'community-self' },
+            logo: { href: 'community-logo' },
+          }
+        }));
+        spyOn(comp.submitForm, 'emit');
+        comp.formModel = [...formModel, cgInputModel];
+      });
+
+      it('should emit the new version of the community', () => {
+        comp.dso = new Community();
+        comp.updateCommunityGroup = true;
+        comp.onSubmit();
+
+        const operations: Operation[] = [
+          {
+            op: 'replace',
+            path: '/metadata/dc.title',
+            value: {
+              value: 'New Community Title',
+              language: null,
+            },
+          },
+          {
+            op: 'replace',
+            path: '/metadata/dc.description.abstract',
+            value: {
+              value: 'Community description',
+              language: null,
+            },
+          },
+        ];
+
+        expect(comp.submitForm.emit).toHaveBeenCalledWith(
+          {
+            dso: Object.assign({}, comp.dso, {
+              metadata: {
+                'dc.title': [{
+                  value: 'New Community Title',
+                  language: null,
+                }],
+                'dc.description.abstract': [{
+                  value: 'Community description',
+                  language: null,
+                }],
+              },
+              type: Community.type,
+            }
+            ),
+            uploader: undefined,
+            deleteLogo: false,
+            operations: operations,
+            communityGroupId: newComGroupId
+          }
+        );
       });
     });
   });
