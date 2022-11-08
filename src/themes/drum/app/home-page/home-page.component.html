@@ -12,4 +12,5 @@
   <h3>{{ 'community_group.um.title' | translate }}</h3>
   <ds-cg-community-list [communityGroupId]="UM_COMMUNITY_GROUP" [size]="COMMUNITY_LIST_SIZE">
   </ds-cg-community-list>
+  <ds-recent-item-list *ngIf="recentSubmissionspageSize>0"></ds-recent-item-list>
 </div>
