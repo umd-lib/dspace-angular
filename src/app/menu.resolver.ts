@@ -155,6 +155,7 @@ export class MenuResolver implements Resolve<boolean> {
     this.createExportMenuSections();
     this.createImportMenuSections();
     this.createAccessControlMenuSections();
+    this.createDrumCustomizationsMenuSections();
 
     return this.waitForMenu$(MenuID.ADMIN);
   }
@@ -681,4 +682,44 @@ export class MenuResolver implements Resolve<boolean> {
       })));
     });
   }
+
+  // UMD Customization
+  /**
+   * Create "DRUM Customizations" menu sections based on whether or not the
+   * current user is an administrator
+   */
+   createDrumCustomizationsMenuSections() {
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
+      const menuList = [
+        {
+          id: 'drum_customizations',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.drum_customizations'
+          } as TextMenuItemModel,
+          icon: 'drum',
+          index: 50
+        },
+        /* Embargo List */
+        {
+          id: 'drum_customizations_embargo_list',
+          parentID: 'drum_customizations',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.drum_customizations_embargo_list',
+            link: '/embargo-list'
+          } as LinkMenuItemModel,
+        },
+      ];
+
+      menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true,
+      })));
+    });
+  }
+  // End UMD Customization
 }

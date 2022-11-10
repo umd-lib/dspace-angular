@@ -2935,6 +2935,10 @@
 
   "menu.section.workflow": "Administer Workflow",
 
+  // UMD Customizations
+  "menu.section.drum_customizations": "DRUM Customizations",
+  "menu.section.drum_customizations_embargo_list": "Embargo List",
+  // End UMD Customizations
 
   "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.submit.success": "The export was started successfully",
