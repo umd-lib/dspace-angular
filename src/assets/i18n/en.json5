@@ -4996,5 +4996,9 @@
   "community_group.faculty.title": "Collections Organized by Department",
 
   "community_group.um.title": "UM Community-managed Collections",
+
+  "embargo-list.breadcrumbs": "Embargo List",
+
+  "embargo-list.title": "Embargo List",
   // End UMD Customization
 }

@@ -55,6 +55,7 @@ import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { RootModule } from '../../app/root.module';
 import { PrivacyComponent } from './app/info/privacy/privacy.component';
 import { UnitsRegistryComponent } from 'src/app/access-control/unit-registry/units-registry.component';
+import { EmbargoListModule } from '../../app/embargo-list/embargo-list.module';
 
 const DECLARATIONS = [
   PrivacyComponent,
@@ -107,6 +108,7 @@ const DECLARATIONS = [
     FormsModule,
     ResourcePoliciesModule,
     ComcolModule,
+    EmbargoListModule,
   ],
   declarations: DECLARATIONS,
 })
