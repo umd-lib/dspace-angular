@@ -6,22 +6,22 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { SharedModule } from '../shared/shared.module';
 import { EmbargoListExportCsvComponent } from './embargo-list-export-csv/embargo-list-export-csv.component';
-import { EmbargoListRoutingModule } from './embargo-list-routing.module';
-import { EmbargoListComponent } from './embargo-list.component';
+import { EmbargoListPageRoutingModule } from './embargo-list-page-routing.module';
+import { EmbargoListPageComponent } from './embargo-list-page.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    EmbargoListRoutingModule,
+    EmbargoListPageRoutingModule,
     NgbModule,
     SharedModule,
     TranslateModule
   ],
   declarations: [
-    EmbargoListComponent,
+    EmbargoListPageComponent,
     EmbargoListExportCsvComponent,
   ]
 })
-export class EmbargoListModule {
+export class EmbargoListPageModule {
 }

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { EMBARGO_LIST_PATH } from '../app-routing-paths';
-import { EmbargoListComponent } from './embargo-list.component';
+import { EMBARGO_LIST_PAGE_PATH } from '../app-routing-paths';
+import { EmbargoListPageComponent } from './embargo-list-page.component';
 import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
@@ -16,11 +16,11 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
           breadcrumbKey: 'embargo-list',
           title: 'embargo-list.title',
         },
-        component: EmbargoListComponent,
+        component: EmbargoListPageComponent,
         canActivate: [SiteAdministratorGuard]
       },
     ])
   ],
 })
-export class EmbargoListRoutingModule {
+export class EmbargoListPageRoutingModule {
 }

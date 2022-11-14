@@ -22,7 +22,7 @@ import {
   REQUEST_COPY_MODULE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
   // UMD Customization
-  EMBARGO_LIST_PATH,
+  EMBARGO_LIST_PAGE_PATH,
   // End UMD Customization
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
@@ -235,8 +235,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           // UMD Customization
           {
-            path: EMBARGO_LIST_PATH,
-            loadChildren: () => import('./embargo-list/embargo-list.module').then((m) => m.EmbargoListModule),
+            path: EMBARGO_LIST_PAGE_PATH,
+            loadChildren: () => import('./embargo-list/embargo-list-page.module').then((m) => m.EmbargoListPageModule),
             canActivate: [SiteAdministratorGuard],
           },
           // End UMD Customization

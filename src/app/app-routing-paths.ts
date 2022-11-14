@@ -128,6 +128,6 @@ export function getRequestCopyModulePath() {
 export const HEALTH_PAGE_PATH = 'health';
 
 // UMD Customization
-export const EMBARGO_LIST_PATH = 'embargo-list';
+export const EMBARGO_LIST_PAGE_PATH = 'embargo-list';
 // End UMD Customization
 
