@@ -5000,5 +5000,11 @@
   "embargo-list.breadcrumbs": "Embargo List",
 
   "embargo-list.title": "Embargo List",
+
+  "embargo-list-export-csv.tooltip": "Export embargo list as CSV",
+
+  "embargo-list-export-csv.submit.success": "The export was started successfully",
+
+  "embargo-list-export-csv.submit.error": "Starting the export has failed",
   // End UMD Customization
 }

@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SharedModule } from '../shared/shared.module';
+import { EmbargoListExportCsvComponent } from './embargo-list-export-csv/embargo-list-export-csv.component';
 import { EmbargoListRoutingModule } from './embargo-list-routing.module';
 import { EmbargoListComponent } from './embargo-list.component';
 
@@ -19,6 +20,7 @@ import { EmbargoListComponent } from './embargo-list.component';
   ],
   declarations: [
     EmbargoListComponent,
+    EmbargoListExportCsvComponent,
   ]
 })
 export class EmbargoListModule {
