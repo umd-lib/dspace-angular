@@ -5008,5 +5008,24 @@
   "embargo-list-export-csv.submit.error": "Starting the export has failed",
 
   "embargo-list.error.msg": "The embargo list is temporarily unavailable",
+
+  "embargo-list.table.label.handle": "Handle",
+
+  "embargo-list.table.label.itemId": "Item ID",
+
+  "embargo-list.table.label.bitstreamId": "Bitstream ID",
+
+  "embargo-list.table.label.title": "Title",
+
+  "embargo-list.table.label.advisor": "Advisor",
+
+  "embargo-list.table.label.author": "Author",
+
+  "embargo-list.table.label.department": "Department",
+
+  "embargo-list.table.label.type": "Type",
+
+  "embargo-list.table.label.endDate": "End Date",
+
   // End UMD Customization
 }

@@ -15,6 +15,11 @@ export class EmbargoListComponent {
 
   @Input() embargoListResponse: EmbargoListResponse;
 
+  /*
+   * The labelPrefix for all translation
+   */
+  messagePrefix = 'embargo-list.table.label';
+
   constructor(private translate: TranslateService) {
   }
 }
