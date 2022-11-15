@@ -5006,5 +5006,7 @@
   "embargo-list-export-csv.submit.success": "The export was started successfully",
 
   "embargo-list-export-csv.submit.error": "Starting the export has failed",
+
+  "embargo-list.error.msg": "The embargo list is temporarily unavailable",
   // End UMD Customization
 }

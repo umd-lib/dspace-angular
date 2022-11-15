@@ -1,0 +1,31 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Handle</th>
+        <th scope="col">Item ID</th>
+        <th scope="col">Bitstream ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Advisor</th>
+        <th scope="col">Author</th>
+        <th scope="col">Department</th>
+        <th scope="col">Type</th>
+        <th scope="col">End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of embargoListResponse">
+        <td>{{ entry.handle }}</td>
+        <td>{{ entry.itemId }}</td>
+        <td>{{ entry.bitstreamId }}</td>
+        <td>{{ entry.title }}</td>
+        <td>{{ entry.advisor }}</td>
+        <td>{{ entry.author }}</td>
+        <td>{{ entry.department }}</td>
+        <td>{{ entry.type }}</td>
+        <td>{{ entry.endDate }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

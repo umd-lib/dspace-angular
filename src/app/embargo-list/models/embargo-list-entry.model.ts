@@ -1,13 +1,15 @@
-export class EmbargoListEntry {
-  constructor(
-    public handle?: string,
-    public itemId?: string,
-    public bitstreamId?: string,
-    public title?: string,
-    public advisor?: string,
-    public author?: string,
-    public department?: string,
-    public type?: string,
-    public endDate?: string
-    ) { }
+export interface EmbargoListEntry {
+  handle: string,
+  itemId: string,
+  bitstreamId: string,
+  title: string,
+  advisor: string,
+  author: string,
+  department: string,
+  type: string,
+  endDate: string
+}
+
+export interface EmbargoListResponse {
+  payload: EmbargoListEntry[];
 }
