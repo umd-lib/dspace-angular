@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
+import { EmbargoListService } from '../embargo-list.service';
 import { EmbargoListResponse } from '../models/embargo-list-entry.model';
 
 /**
@@ -20,6 +21,7 @@ export class EmbargoListComponent {
    */
   messagePrefix = 'embargo-list.table.label';
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService,
+              public embargoListService: EmbargoListService) {
   }
 }

@@ -9,14 +9,19 @@ import { HALEndpointService } from '../core/shared/hal-endpoint.service';
     providedIn: 'root'
 })
 export class EmbargoListService {
-    constructor(protected halService: HALEndpointService,
-        protected restService: DspaceRestService) {
-        }
-    /**
-     * @returns embargo list data
-     */
-    getEmbargoList(): Observable<RawRestResponse> {
-       return this.halService.getEndpoint('/embargo-list').pipe(
-         switchMap((endpoint: string) => this.restService.get(endpoint)));
-    }
+  constructor(protected halService: HALEndpointService,
+              protected restService: DspaceRestService) {
+  }
+
+  /**
+   * @returns embargo list data
+   */
+  getEmbargoList(): Observable<RawRestResponse> {
+     return this.halService.getEndpoint('/embargo-list').pipe(
+       switchMap((endpoint: string) => this.restService.get(endpoint)));
+  }
+
+  getHandleLink(handle: string): string {
+    return `/handle/${handle}`;
+  }
 }

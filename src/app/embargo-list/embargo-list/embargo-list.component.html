@@ -15,7 +15,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let entry of embargoListResponse">
-        <td>{{ entry.handle }}</td>
+        <td><a (click)="embargoListService.getHandleLink(entry.handle)"
+          [routerLink]="[embargoListService.getHandleLink(entry.handle)]">{{ entry.handle }}</a></td>
         <td>{{ entry.itemId }}</td>
         <td>{{ entry.bitstreamId }}</td>
         <td>{{ entry.title }}</td>
