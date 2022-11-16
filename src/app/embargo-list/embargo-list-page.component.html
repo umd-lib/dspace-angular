@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <h2>{{ 'embargo-list.title' | translate }}</h2>
+    <ds-embargo-list-export-csv></ds-embargo-list-export-csv>
+  </div>
+</div>
+<div class="container" *ngIf="(embargoListResponseInitialised | async)">
+  <div *ngIf="(embargoListResponse | async)">
+    <ds-embargo-list [embargoListResponse]="(embargoListResponse | async)"></ds-embargo-list>
+  </div>
+  <ds-alert *ngIf="!(embargoListResponse | async)" [type]="'alert-danger'" [content]="'embargo-list.error.msg'"></ds-alert>
+</div>

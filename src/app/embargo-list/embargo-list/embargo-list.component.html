@@ -1,0 +1,31 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">{{ messagePrefix + '.handle' | translate }}</th>
+        <th scope="col">{{ messagePrefix + '.itemId' | translate }}</th>
+        <th scope="col">{{ messagePrefix + '.bitstreamId' | translate }}</th>
+        <th scope="col">{{ messagePrefix + '.title' | translate }}</th>
+        <th scope="col">{{ messagePrefix + '.advisor' | translate }}</th>
+        <th scope="col">{{ messagePrefix + '.author' | translate }}</th>
+        <th scope="col">{{ messagePrefix + '.department' | translate }}</th>
+        <th scope="col">{{ messagePrefix + '.type' | translate }}</th>
+        <th scope="col">{{ messagePrefix + '.endDate' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of embargoListResponse">
+        <td><a (click)="embargoListService.getHandleLink(entry.handle)"
+          [routerLink]="[embargoListService.getHandleLink(entry.handle)]">{{ entry.handle }}</a></td>
+        <td>{{ entry.itemId }}</td>
+        <td>{{ entry.bitstreamId }}</td>
+        <td>{{ entry.title }}</td>
+        <td>{{ entry.advisor }}</td>
+        <td>{{ entry.author }}</td>
+        <td>{{ entry.department }}</td>
+        <td>{{ entry.type }}</td>
+        <td>{{ entry.endDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

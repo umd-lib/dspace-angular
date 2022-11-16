@@ -2935,6 +2935,10 @@
 
   "menu.section.workflow": "Administer Workflow",
 
+  // UMD Customizations
+  "menu.section.drum_customizations": "DRUM Customizations",
+  "menu.section.drum_customizations_embargo_list": "Embargo List",
+  // End UMD Customizations
 
   "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.submit.success": "The export was started successfully",
@@ -4992,5 +4996,36 @@
   "community_group.faculty.title": "Collections Organized by Department",
 
   "community_group.um.title": "UM Community-managed Collections",
+
+  "embargo-list.breadcrumbs": "Embargo List",
+
+  "embargo-list.title": "Embargo List",
+
+  "embargo-list-export-csv.tooltip": "Export embargo list as CSV",
+
+  "embargo-list-export-csv.submit.success": "The export was started successfully",
+
+  "embargo-list-export-csv.submit.error": "Starting the export has failed",
+
+  "embargo-list.error.msg": "The embargo list is temporarily unavailable",
+
+  "embargo-list.table.label.handle": "Handle",
+
+  "embargo-list.table.label.itemId": "Item ID",
+
+  "embargo-list.table.label.bitstreamId": "Bitstream ID",
+
+  "embargo-list.table.label.title": "Title",
+
+  "embargo-list.table.label.advisor": "Advisor",
+
+  "embargo-list.table.label.author": "Author",
+
+  "embargo-list.table.label.department": "Department",
+
+  "embargo-list.table.label.type": "Type",
+
+  "embargo-list.table.label.endDate": "End Date",
+
   // End UMD Customization
 }
