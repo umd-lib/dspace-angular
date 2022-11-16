@@ -688,7 +688,7 @@ export class MenuResolver implements Resolve<boolean> {
    * Create "DRUM Customizations" menu sections based on whether or not the
    * current user is an administrator
    */
-   createDrumCustomizationsMenuSections() {
+  createDrumCustomizationsMenuSections() {
     this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
       const menuList = [
         {

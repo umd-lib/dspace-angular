@@ -1,3 +1,6 @@
+/**
+ * Interface for a single embargo list entry
+ */
 export interface EmbargoListEntry {
   handle: string,
   itemId: string,
@@ -10,6 +13,9 @@ export interface EmbargoListEntry {
   endDate: string
 }
 
+/**
+ * Interface for processing the embargo list REST response
+ */
 export interface EmbargoListResponse {
   payload: EmbargoListEntry[];
 }

@@ -26,7 +26,7 @@ export class EmbargoListPageComponent implements OnInit {
   }
 
   /**
-   * Retrieve response from rest
+   * Retrieve response from REST endpoint
    */
   ngOnInit(): void {
     this.embargoListService.getEmbargoList().pipe(take(1)).subscribe({

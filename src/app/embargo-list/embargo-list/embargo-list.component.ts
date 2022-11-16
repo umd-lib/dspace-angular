@@ -21,7 +21,6 @@ export class EmbargoListComponent {
    */
   messagePrefix = 'embargo-list.table.label';
 
-  constructor(private translate: TranslateService,
-              public embargoListService: EmbargoListService) {
+  constructor(public embargoListService: EmbargoListService) {
   }
 }

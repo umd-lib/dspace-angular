@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,16 +18,11 @@ import { getProcessDetailRoute } from 'src/app/process-page/process-page-routing
   styleUrls: ['./embargo-list-export-csv.component.scss'],
   templateUrl: './embargo-list-export-csv.component.html',
 })
+
 /**
- * Display a button to export the current search results as csv
+ * Display a button to export the embargo list results as csv
  */
 export class EmbargoListExportCsvComponent implements OnInit {
-
-  // /**
-  //  * The current configuration of the search
-  //  */
-  // @Input() searchConfig: PaginatedSearchOptions;
-
   /**
    * Observable used to determine whether the button should be shown
    */
@@ -60,7 +55,7 @@ export class EmbargoListExportCsvComponent implements OnInit {
   }
 
   /**
-   * Start the export of the items based on the current search configuration
+   * Start the export of the embargoed items
    */
   export() {
     const parameters = [];

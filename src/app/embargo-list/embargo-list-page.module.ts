@@ -11,6 +11,9 @@ import { EmbargoListPageComponent } from './embargo-list-page.component';
 import { EmbargoListComponent } from './embargo-list/embargo-list.component';
 
 
+/**
+ * Page for displaying embargo list and CSV export button.
+ */
 @NgModule({
   imports: [
     CommonModule,
