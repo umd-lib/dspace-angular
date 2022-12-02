@@ -129,7 +129,7 @@ export class EtdUnitDataService extends IdentifiableDataService<EtdUnit> {
         url,
         options);
       this.requestService.send(postRequest);
-    })
+    });
 
     return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
       this.invalidateByHref(activeEtdUnit._links.self.href),
