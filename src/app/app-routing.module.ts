@@ -23,6 +23,7 @@ import {
   WORKFLOW_ITEM_MODULE_PATH,
   // UMD Customization
   EMBARGO_LIST_PAGE_PATH,
+  ETDUNIT_PATH,
   // End UMD Customization
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
@@ -43,12 +44,17 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+// UMD Customization
+import { I18nBreadcrumbResolver } from './core/breadcrumbs/i18n-breadcrumb.resolver';
+import { EtdUnitFormComponent } from './etdunit-registry/etdunit-form/etdunit-form.component';
+import { EtdUnitsRegistryComponent } from './etdunit-registry/etdunits-registry.component';
+// End UMD Customization
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
       { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
-      { path: ERROR_PAGE , component: ThemedPageErrorComponent },
+      { path: ERROR_PAGE, component: ThemedPageErrorComponent },
       {
         path: '',
         canActivate: [AuthBlockingGuard],
@@ -239,6 +245,33 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             loadChildren: () => import('./embargo-list/embargo-list-page.module').then((m) => m.EmbargoListPageModule),
             canActivate: [SiteAdministratorGuard],
           },
+          {
+            path: ETDUNIT_PATH,
+            component: EtdUnitsRegistryComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'admin.etdunits.title', breadcrumbKey: 'admin.core.etdunits' },
+            canActivate: [SiteAdministratorGuard]
+          },
+          {
+            path: `${ETDUNIT_PATH}/newEtdUnit`,
+            component: EtdUnitFormComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'admin.core.etdunits.title.addEtdUnit', breadcrumbKey: 'admin.core.etdunits.addEtdUnit' },
+            canActivate: [SiteAdministratorGuard]
+          },
+          {
+            path: `${ETDUNIT_PATH}/:etdunitId`,
+            component: EtdUnitFormComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'admin.core.etdunits.title.singleEtdUnit', breadcrumbKey: 'admin.core.etdunits.singleEtdUnit' },
+            canActivate: [SiteAdministratorGuard]
+          },
           // End UMD Customization
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
         ]
@@ -251,7 +284,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-})
+    })
   ],
   exports: [RouterModule],
 })

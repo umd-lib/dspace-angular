@@ -186,6 +186,8 @@ import { Unit } from './eperson/models/unit.model';
 import { Ldap } from './eperson/models/ldap.model';
 import { LdapDataService } from './eperson/ldap-data.service';
 import { UnitDataService } from './eperson/unit-data.service';
+import { EtdUnitDataService } from '../etdunit-registry/etdunit-data.service';
+import { EtdUnit } from '../etdunit-registry/models/etdunit.model';
 // End UMD Customization
 
 /**
@@ -326,6 +328,7 @@ const PROVIDERS = [
   // UMD Customization
   LdapDataService,
   UnitDataService,
+  EtdUnitDataService,
   // End UMD Customization
 ];
 
@@ -395,6 +398,7 @@ export const models =
     // UMD Customization
     Unit,
     Ldap,
+    EtdUnit
     // End UMD Customization
   ];
 

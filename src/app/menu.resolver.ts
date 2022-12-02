@@ -714,6 +714,18 @@ export class MenuResolver implements Resolve<boolean> {
             link: '/embargo-list'
           } as LinkMenuItemModel,
         },
+        /* EtdUnits */
+        {
+          id: 'drum_customizations_etdunits',
+          parentID: 'drum_customizations',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.drum_customizations_etdunits',
+            link: '/etdunits'
+          } as LinkMenuItemModel,
+        },
       ];
 
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
