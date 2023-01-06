@@ -336,13 +336,15 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
    */
   setActiveEtdUnit(etdunitId: string) {
     this.etdunitDataService.cancelEditEtdUnit();
-    this.etdunitDataService.findById(etdunitId)
-      .pipe(
-        getFirstSucceededRemoteData(),
-        getRemoteDataPayload())
-      .subscribe((etdunit: EtdUnit) => {
-        this.etdunitDataService.editEtdUnit(etdunit);
-      });
+    if (etdunitId !== 'newEtdUnit') {
+      this.etdunitDataService.findById(etdunitId)
+        .pipe(
+          getFirstSucceededRemoteData(),
+          getRemoteDataPayload())
+        .subscribe((etdunit: EtdUnit) => {
+          this.etdunitDataService.editEtdUnit(etdunit);
+        });
+    }
   }
 
   /**
