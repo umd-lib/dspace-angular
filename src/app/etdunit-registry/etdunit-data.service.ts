@@ -39,7 +39,7 @@ const etdunitRegistryStateSelector = (state: AppState) => state.etdunitRegistry;
 const editEtdUnitSelector = createSelector(etdunitRegistryStateSelector, (etdunitRegistryState: EtdUnitRegistryState) => etdunitRegistryState.editEtdUnit);
 
 /**
- * Provides methods to retrieve eperson etdunit resources from the REST API and
+ * Provides methods to retrieve etdunit resources from the REST API and
  * EtdUnit related CRUD actions.
  */
 @Injectable()
@@ -187,7 +187,7 @@ export class EtdUnitDataService extends IdentifiableDataService<EtdUnit> {
   /**
    * Method that clears a cached etdunits request
    */
-  public clearUnitsRequests(): void {
+  public clearEtdUnitsRequests(): void {
     this.getBrowseEndpoint().pipe(take(1)).subscribe((link: string) => {
       this.requestService.removeByHrefSubstring(link);
     });

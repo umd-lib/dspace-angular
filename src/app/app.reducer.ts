@@ -52,8 +52,8 @@ import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
 // UMD Customization
-import { unitRegistryReducer, UnitRegistryState } from './access-control/unit-registry/unit-registry.reducers';
 import { etdunitRegistryReducer, EtdUnitRegistryState } from './etdunit-registry/etdunit-registry.reducers';
+import { unitRegistryReducer, UnitRegistryState } from './access-control/unit-registry/unit-registry.reducers';
 // End UMD Customization
 
 export interface AppState {
@@ -77,8 +77,8 @@ export interface AppState {
   groupRegistry: GroupRegistryState;
   correlationId: string;
   // UMD Customization
-  unitRegistry: UnitRegistryState;
   etdunitRegistry: EtdUnitRegistryState;
+  unitRegistry: UnitRegistryState;
   // End UMD Customization
 }
 
@@ -103,8 +103,8 @@ export const appReducers: ActionReducerMap<AppState> = {
   groupRegistry: groupRegistryReducer,
   correlationId: correlationIdReducer,
   // UMD Customization
-  unitRegistry: unitRegistryReducer,
   etdunitRegistry: etdunitRegistryReducer,
+  unitRegistry: unitRegistryReducer,
   // End UMD Customzation
 };
 

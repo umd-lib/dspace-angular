@@ -32,8 +32,11 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
 import { EtdUnitMock, EtdUnitMock2 } from 'src/app/shared/testing/etdunit-mock';
-import { ValidateUnitExists } from './validators/etdunit-exists-validator';
+import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
 import { EtdUnitFormComponent } from './etdunit-form.component';
+import { CollectionDataService } from 'src/app/core/data/collection-data.service';
+import { SearchConfigurationService } from 'src/app/core/shared/search/search-configuration.service';
+import { SearchService } from 'src/app/core/shared/search/search.service';
 
 describe('EtdUnitFormComponent', () => {
   let component: EtdUnitFormComponent;
@@ -51,7 +54,7 @@ describe('EtdUnitFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     etdunits = [EtdUnitMock, EtdUnitMock2];
-    etdunitName = 'testUnitName';
+    etdunitName = 'testEtdUnitName';
     expected = Object.assign(new EtdUnit(), {
       name: etdunitName,
     });
@@ -63,12 +66,12 @@ describe('EtdUnitFormComponent', () => {
         return observableOf(this.activeEtdUnit);
       },
       getEtdUnitRegistryRouterLink(): string {
-        return '/access-control/etdunits';
+        return '/etdunits';
       },
       editEtdUnit(etdunit: EtdUnit) {
         this.activeEtdUnit = etdunit;
       },
-      clearUnitsRequests() {
+      clearEtdUnitsRequests() {
         return null;
       },
       patch(etdunit: EtdUnit, operations: Operation[]) {
@@ -196,6 +199,9 @@ describe('EtdUnitFormComponent', () => {
         },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: CollectionDataService, useValue: {} },
+        { provide: SearchConfigurationService, useValue: {} },
+        { provide: SearchService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -299,7 +305,7 @@ describe('EtdUnitFormComponent', () => {
           }
         });
         component.formGroup.controls.etdunitName.setValue('testName');
-        component.formGroup.controls.etdunitName.setAsyncValidators(ValidateUnitExists.createValidator(etdunitsDataServiceStubWithUnit));
+        component.formGroup.controls.etdunitName.setAsyncValidators(ValidateEtdUnitExists.createValidator(etdunitsDataServiceStubWithUnit));
         fixture.detectChanges();
       });
 

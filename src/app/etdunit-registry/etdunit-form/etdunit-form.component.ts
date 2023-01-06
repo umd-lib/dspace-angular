@@ -29,7 +29,7 @@ import { hasValue, hasValueOperator, isNotEmpty } from 'src/app/shared/empty.uti
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
-import { ValidateUnitExists } from './validators/etdunit-exists-validator';
+import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
 import { PaginatedSearchOptions } from 'src/app/shared/search/models/paginated-search-options.model';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { DSpaceObjectType } from 'src/app/core/shared/dspace-object-type.model';
@@ -111,7 +111,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
   searchOptions$: Observable<PaginatedSearchOptions>;
 
   /**
-   * List of collections that are mapped to the EtdUniy
+   * List of collections that are mapped to the EtdUnit
    */
   etdunitCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
 
@@ -144,7 +144,8 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
    */
   etdunitNameValueChangeSubscribe: Subscription;
 
-  constructor(public etdunitDataService: EtdUnitDataService,
+  constructor(
+    public etdunitDataService: EtdUnitDataService,
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,
@@ -157,7 +158,8 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
     private authorizationService: AuthorizationDataService,
     private modalService: NgbModal,
     public requestService: RequestService,
-    protected changeDetectorRef: ChangeDetectorRef) {
+    protected changeDetectorRef: ChangeDetectorRef
+  ) {
   }
 
   ngOnInit() {
@@ -187,7 +189,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
 
       if (!!this.formGroup.controls.etdunitName) {
-        this.formGroup.controls.etdunitName.setAsyncValidators(ValidateUnitExists.createValidator(this.etdunitDataService));
+        this.formGroup.controls.etdunitName.setAsyncValidators(ValidateEtdUnitExists.createValidator(this.etdunitDataService));
         this.etdunitNameValueChangeSubscribe = this.etdunitName.valueChanges.pipe(debounceTime(300)).subscribe(() => {
           this.changeDetectorRef.detectChanges();
         });
@@ -268,7 +270,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
         if (isNotEmpty(rd.payload)) {
           const etdunitSelfLink = rd.payload._links.self.href;
           this.setActiveEtdUnitWithLink(etdunitSelfLink);
-          this.etdunitDataService.clearUnitsRequests();
+          this.etdunitDataService.clearEtdUnitsRequests();
           this.router.navigateByUrl(this.etdunitDataService.getEtdUnitEditPageRouterLinkWithID(rd.payload.uuid));
         }
       } else {
@@ -363,7 +365,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Deletes the EtdUnit from the Repository. The EtdUnit will be the only that this form is showing.
+   * Deletes the EtdUnit from the Repository. The EtdUnit will be the one that this form is showing.
    * It'll either show a success or error message depending on whether the delete was successful or not.
    */
   delete() {
@@ -407,7 +409,6 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
     if (hasValue(this.etdunitNameValueChangeSubscribe)) {
       this.etdunitNameValueChangeSubscribe.unsubscribe();
     }
-
   }
 
   /**
@@ -474,16 +475,6 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
     this.showNotifications(responses$, this.messagePrefix + '.collection-mapper.notifications.remove');
   }
 
-  /**
-   * Filters ids from a given list of ids, which exist in a second given list of ids
-   * @param {string[]} ids          The list of ids to filter out of
-   * @param {string[]} excluding    The ids that should be excluded from the first list
-   * @returns {string[]}
-   */
-  private filterIds(ids: string[], excluding: string[]): string[] {
-    return ids.filter((id: string) => excluding.indexOf(id) < 0);
-  }
-
   private getCollectionSelfUrl(id: string): Observable<string> {
     return this.halService.getEndpoint('collections').pipe(
       map((href: string) => new URLCombiner(href, id).toString())
@@ -521,17 +512,6 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
         });
       }
     });
-  }
-
-  /**
-   * Get current url without parameters
-   * @returns {string}
-   */
-  getCurrentUrl(): string {
-    if (this.router.url.indexOf('?') > -1) {
-      return this.router.url.substring(0, this.router.url.indexOf('?'));
-    }
-    return this.router.url;
   }
 
   /**

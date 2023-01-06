@@ -100,7 +100,7 @@ describe('EtdUnitsRegistryComponent', () => {
             }), [EtdUnitMock]));
         }
       },
-      getUnitEditPageRouterLink(etdunit: EtdUnit): string {
+      getEtdUnitEditPageRouterLink(etdunit: EtdUnit): string {
         return '/access-control/etdunit/' + etdunit.id;
       }
     };
@@ -150,10 +150,10 @@ describe('EtdUnitsRegistryComponent', () => {
         component.search({ query: 'query_with_no_results' });
         tick();
         fixture.detectChanges();
-        etdunitIdsFound = fixture.debugElement.queryAll(By.css('#units tr td:first-child'));
+        etdunitIdsFound = fixture.debugElement.queryAll(By.css('#etdunits tr td:first-child'));
 
         expect(etdunitIdsFound.length).toEqual(0);
-        expect(fixture.nativeElement.innerText).toContain('admin.access-control.etdunits.no-items');
+        expect(fixture.nativeElement.innerText).toContain('admin.core.etdunits.no-items');
       }));
 
       it('should display search results when results are found', fakeAsync(() => {
@@ -161,7 +161,7 @@ describe('EtdUnitsRegistryComponent', () => {
         component.search({ query: 'query_with_one_result' });
         tick();
         fixture.detectChanges();
-        etdunitIdsFound = fixture.debugElement.queryAll(By.css('#units tr td:first-child'));
+        etdunitIdsFound = fixture.debugElement.queryAll(By.css('#etdunits tr td:first-child'));
 
         expect(etdunitIdsFound.length).toEqual(1);
         expect(etdunitIdsFound.find((foundEl) => {
@@ -183,7 +183,7 @@ describe('EtdUnitsRegistryComponent', () => {
       }));
 
       it('should be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#units tr td:nth-child(4) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#etdunits tr td:nth-child(4) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeFalse();
@@ -202,7 +202,7 @@ describe('EtdUnitsRegistryComponent', () => {
       }));
 
       it('should not be active', () => {
-        const editButtonsFound = fixture.debugElement.queryAll(By.css('#units tr td:nth-child(4) button.btn-edit'));
+        const editButtonsFound = fixture.debugElement.queryAll(By.css('#etdunits tr td:nth-child(4) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
           expect(editButtonFound.nativeElement.disabled).toBeTrue();

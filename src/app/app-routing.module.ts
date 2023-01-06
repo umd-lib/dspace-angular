@@ -44,11 +44,6 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
-// UMD Customization
-import { I18nBreadcrumbResolver } from './core/breadcrumbs/i18n-breadcrumb.resolver';
-import { EtdUnitFormComponent } from './etdunit-registry/etdunit-form/etdunit-form.component';
-import { EtdUnitsRegistryComponent } from './etdunit-registry/etdunits-registry.component';
-// End UMD Customization
 
 @NgModule({
   imports: [
@@ -247,37 +242,14 @@ import { EtdUnitsRegistryComponent } from './etdunit-registry/etdunits-registry.
           },
           {
             path: ETDUNIT_PATH,
-            component: EtdUnitsRegistryComponent,
-            resolve: {
-              breadcrumb: I18nBreadcrumbResolver
-            },
-            data: { title: 'admin.etdunits.title', breadcrumbKey: 'admin.core.etdunits' },
-            canActivate: [SiteAdministratorGuard]
-          },
-          {
-            path: `${ETDUNIT_PATH}/newEtdUnit`,
-            component: EtdUnitFormComponent,
-            resolve: {
-              breadcrumb: I18nBreadcrumbResolver
-            },
-            data: { title: 'admin.core.etdunits.title.addEtdUnit', breadcrumbKey: 'admin.core.etdunits.addEtdUnit' },
-            canActivate: [SiteAdministratorGuard]
-          },
-          {
-            path: `${ETDUNIT_PATH}/:etdunitId`,
-            component: EtdUnitFormComponent,
-            resolve: {
-              breadcrumb: I18nBreadcrumbResolver
-            },
-            data: { title: 'admin.core.etdunits.title.singleEtdUnit', breadcrumbKey: 'admin.core.etdunits.singleEtdUnit' },
-            canActivate: [SiteAdministratorGuard]
+            loadChildren: () => import('./etdunit-registry/etdunits.module').then((m) => m.EtdUnitsModule),
+            canActivate: [SiteAdministratorGuard],
           },
           // End UMD Customization
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
         ]
       }
     ], {
-      // enableTracing: true,
       useHash: false,
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',

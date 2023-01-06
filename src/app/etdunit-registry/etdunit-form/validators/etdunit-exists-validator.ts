@@ -6,7 +6,7 @@ import { EtdUnitDataService } from '../../etdunit-data.service';
 import { EtdUnit } from '../../models/etdunit.model';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 
-export class ValidateUnitExists {
+export class ValidateEtdUnitExists {
 
   /**
    * This method will create the validator with the etdunitDataService requested from component

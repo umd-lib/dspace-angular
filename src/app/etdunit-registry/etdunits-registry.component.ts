@@ -40,7 +40,7 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of etdunits
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'ul',
+    id: 'etdul',
     pageSize: 5,
     currentPage: 1
   });
@@ -78,7 +78,8 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
    */
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(public etdunitService: EtdUnitDataService,
+  constructor(
+    public etdunitService: EtdUnitDataService,
     private collectionService: CollectionDataService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,

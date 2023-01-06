@@ -326,9 +326,9 @@ const PROVIDERS = [
   OrcidQueueDataService,
   OrcidHistoryDataService,
   // UMD Customization
+  EtdUnitDataService,
   LdapDataService,
   UnitDataService,
-  EtdUnitDataService,
   // End UMD Customization
 ];
 
@@ -396,9 +396,9 @@ export const models =
     OrcidHistory,
     AccessStatusObject,
     // UMD Customization
+    EtdUnit,
     Unit,
     Ldap,
-    EtdUnit
     // End UMD Customization
   ];
 
