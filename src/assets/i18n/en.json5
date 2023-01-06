@@ -720,9 +720,9 @@
 
   "admin.core.etdunits.form.collection-mapper.search-form.placeholder": "Search collections...",
 
-  "admin.core.etdunits.form.collection-mapper.buttons.add": "Map selected collections to ETD Department",
+  "admin.core.etdunits.form.collection-mapper.buttons.add": "Add selected collections to this ETD Department",
 
-  "admin.core.etdunits.form.collection-mapper.buttons.remove": "Remove mapping for selected collections from ETD Department",
+  "admin.core.etdunits.form.collection-mapper.buttons.remove": "Remove selected collections from this ETD Department",
 
   "admin.core.etdunits.form.collection-mapper.cancel": "Cancel",
 
@@ -740,7 +740,7 @@
 
   "admin.core.etdunits.form.collection-mapper.notifications.add.error.head": "Mapping errors",
 
-  "admin.core.etdunits.form.collection-mapper.notifications.add.success.content": "Successfully mapped {{amount}} collections to ETD Department.",
+  "admin.core.etdunits.form.collection-mapper.notifications.add.success.content": "Successfully added {{amount}} collections to ETD Department.",
 
   "admin.core.etdunits.form.collection-mapper.notifications.add.success.head": "Mapping completed",
 
@@ -748,7 +748,7 @@
 
   "admin.core.etdunits.form.collection-mapper.notifications.remove.error.head": "Removal of mapping errors",
 
-  "admin.core.etdunits.form.collection-mapper.notifications.remove.success.content": "Successfully removed mapping of {{amount}} collections from ETD Department.",
+  "admin.core.etdunits.form.collection-mapper.notifications.remove.success.content": "Successfully removed {{amount}} collections from ETD Department.",
 
   "admin.core.etdunits.form.collection-mapper.notifications.remove.success.head": "Removal of mapping completed",
   // End UMD Customization
@@ -1746,6 +1746,8 @@
 
   // UMD Customization
   "error.validation.unitExists": "This unit already exists",
+
+  "error.validation.etdunitExists": "This ETD Department already exists",
   // End UMD Customization
 
 
