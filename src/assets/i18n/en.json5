@@ -728,6 +728,8 @@
 
   "admin.core.etdunits.form.collection-mapper.description": "This is the collection mapper tool that allows administrators to map collections to ETD Department. You can search for collections and map them, or browse the list of collections currently mapped to the ETD Department.",
 
+  "admin.core.etdunits.form.collections.head": "Collections",
+
   "admin.core.etdunits.form.collection-mapper.mapped-collections.head": "Current Members",
 
   "admin.core.etdunits.form.collection-mapper.head": "Add Collections",
