@@ -2,41 +2,31 @@ import { ChangeDetectorRef, Component, EventEmitter, HostListener, OnDestroy, On
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicCheckboxModel, DynamicFormControlModel, DynamicFormLayout, DynamicInputModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicFormLayout, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
-  BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  ObservedValueOf,
   Subscription,
 } from 'rxjs';
-import { switchMap, take, debounceTime, map, startWith } from 'rxjs/operators';
+import { take, debounceTime } from 'rxjs/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { RequestService } from 'src/app/core/data/request.service';
 import { EtdUnit } from '../models/etdunit.model';
-import { Collection } from '../../core/shared/collection.model';
 import { EtdUnitDataService } from '../etdunit-data.service';
 import { NoContent } from 'src/app/core/shared/NoContent.model';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload, toDSpaceObjectListRD } from 'src/app/core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { AlertType } from 'src/app/shared/alert/aletr-type';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
-import { hasValue, hasValueOperator, isNotEmpty } from 'src/app/shared/empty.util';
+import { hasValue, isNotEmpty } from 'src/app/shared/empty.util';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
-import { PaginatedSearchOptions } from 'src/app/shared/search/models/paginated-search-options.model';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { DSpaceObjectType } from 'src/app/core/shared/dspace-object-type.model';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { SearchConfigurationService } from 'src/app/core/shared/search/search-configuration.service';
-import { HALEndpointService } from 'src/app/core/shared/hal-endpoint.service';
-import { URLCombiner } from 'src/app/core/url-combiner/url-combiner';
 
 @Component({
   selector: 'ds-etdunit-form',
@@ -106,34 +96,6 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
   canEdit$: Observable<boolean>;
 
   /**
-   * Search options
-   */
-  searchOptions$: Observable<PaginatedSearchOptions>;
-
-  /**
-   * List of collections that are mapped to the EtdUnit
-   */
-  etdunitCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
-
-  /**
-   * List of collections to show under the "Map" tab
-   * Collections that are not mapped to the etdunit
-   */
-  mappableCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
-
-  /**
-   * Firing this observable (shouldUpdate$.next(true)) forces the two lists to reload themselves
-   * Usually fired after the lists their cache is cleared (to force a new request to the REST API)
-   */
-  shouldUpdate$: BehaviorSubject<boolean>;
-
-  /**
-   * Track whether at least one search has been performed or not
-   * As soon as at least one search has been performed, we display the search results
-   */
-  performedSearch = false;
-
-  /**
    * The AlertType enumeration
    * @type {AlertType}
    */
@@ -149,10 +111,6 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,
-    private collectionDataService: CollectionDataService,
-    private searchConfigService: SearchConfigurationService,
-    private searchService: SearchService,
-    private halService: HALEndpointService,
     private route: ActivatedRoute,
     protected router: Router,
     private authorizationService: AuthorizationDataService,
@@ -218,10 +176,6 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
                 this.formGroup.disable();
               }
             }, 200);
-
-
-            this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
-            this.loadCollectionLists();
           }
         })
       );
@@ -410,136 +364,6 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
 
     if (hasValue(this.etdunitNameValueChangeSubscribe)) {
       this.etdunitNameValueChangeSubscribe.unsubscribe();
-    }
-  }
-
-  /**
-   * Load etdunitCollectionsRD$ with a fixed scope to only obtain the collections that own this etdunit
-   * Load mappableCollectionsRD$ to only obtain collections that don't own this etdunit
-   */
-  loadCollectionLists() {
-    this.shouldUpdate$ = new BehaviorSubject<boolean>(true);
-    this.etdunitCollectionsRD$ = this.shouldUpdate$.pipe(
-      switchMap(shouldUpdate => {
-        if (shouldUpdate === true) {
-          this.shouldUpdate$.next(false);
-        }
-        return this.collectionDataService.findListByHref(
-          this.etdunitDataService.getMappedCollectionsEndpoint(this.etdunitBeingEdited.id),
-          undefined,
-          !shouldUpdate,
-          false
-        ).pipe(
-          getAllSucceededRemoteData()
-        );
-      }),
-    );
-
-    const etdunitCollectionsAndOptions$ = observableCombineLatest(
-      this.etdunitCollectionsRD$,
-      this.searchOptions$
-    );
-    this.mappableCollectionsRD$ = etdunitCollectionsAndOptions$.pipe(
-      switchMap(([etdunitCollectionsRD, searchOptions]) => {
-        return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
-          query: this.buildQuery(etdunitCollectionsRD.payload.page, searchOptions.query),
-          dsoTypes: [DSpaceObjectType.COLLECTION]
-        }), 10000).pipe(
-          toDSpaceObjectListRD(),
-          startWith(undefined)
-        );
-      })
-    ) as Observable<RemoteData<PaginatedList<Collection>>>;
-  }
-
-  /**
-   * Map the etdunit to the selected collections and display notifications
-   * @param {string[]} ids  The list of collection UUID's to map the etdunit to
-   */
-  mapCollections(ids: string[]) {
-
-    // Map the collections found in ids to the etdunit
-    const responses$ = observableCombineLatest(ids.map((id: string) =>
-      this.etdunitDataService.addCollectionToEtdUnit(this.etdunitBeingEdited, this.getCollectionSelfUrl(id)).pipe(getFirstCompletedRemoteData())
-    ));
-
-    this.showNotifications(responses$, this.messagePrefix + '.collection-mapper.notifications.add');
-  }
-
-  /**
-   * Remove the mapping of the selected collections from etdunit and display notifications
-   * @param {string[]} ids  The list of collection UUID's to remove the mapping of the etdunit for
-   */
-  removeMappings(ids: string[]) {
-    const responses$ = observableCombineLatest(ids.map((id: string) =>
-      this.etdunitDataService.deleteCollectionIdFromEtdUnit(this.etdunitBeingEdited, id).pipe(getFirstCompletedRemoteData())
-    ));
-    this.showNotifications(responses$, this.messagePrefix + '.collection-mapper.notifications.remove');
-  }
-
-  private getCollectionSelfUrl(id: string): Observable<string> {
-    return this.halService.getEndpoint('collections').pipe(
-      map((href: string) => new URLCombiner(href, id).toString())
-    );
-  }
-
-  /**
-   * Display notifications
-   * @param {Observable<RestResponse[]>} responses$   The responses after adding/removing a mapping
-   * @param {string} messagePrefix                    The prefix to build the notification messages with
-   */
-  private showNotifications(responses$: Observable<RemoteData<NoContent>[]>, messagePrefix: string) {
-    responses$.subscribe((responses: RemoteData<NoContent>[]) => {
-      const successful = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
-      const unsuccessful = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
-      if (successful.length > 0) {
-        const successMessages = observableCombineLatest([
-          this.translateService.get(`${messagePrefix}.success.head`),
-          this.translateService.get(`${messagePrefix}.success.content`, { amount: successful.length })
-        ]);
-
-        successMessages.subscribe(([head, content]) => {
-          this.notificationsService.success(head, content);
-        });
-        this.shouldUpdate$.next(true);
-      }
-      if (unsuccessful.length > 0) {
-        const unsuccessMessages = observableCombineLatest([
-          this.translateService.get(`${messagePrefix}.error.head`),
-          this.translateService.get(`${messagePrefix}.error.content`, { amount: unsuccessful.length })
-        ]);
-
-        unsuccessMessages.subscribe(([head, content]) => {
-          this.notificationsService.error(head, content);
-        });
-      }
-    });
-  }
-
-  /**
-   * Build a query to exclude collections from
-   * @param collections     The collections their UUIDs
-   * @param query           The query to add to it
-   */
-  buildQuery(collections: Collection[], query: string): string {
-    let result = query;
-    for (const collection of collections) {
-      result = this.addExcludeCollection(collection.id, result);
-    }
-    return result;
-  }
-
-  /**
-   * Add an exclusion of a collection to a query
-   * @param collectionId    The collection's UUID
-   * @param query           The query to add the exclusion to
-   */
-  addExcludeCollection(collectionId: string, query: string): string {
-    const excludeQuery = `-search.resourceid:${collectionId}`;
-    if (isNotEmpty(query)) {
-      return `${query} AND ${excludeQuery}`;
-    } else {
-      return excludeQuery;
     }
   }
 }

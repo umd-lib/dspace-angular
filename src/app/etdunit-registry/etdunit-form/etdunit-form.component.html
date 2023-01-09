@@ -25,38 +25,9 @@
         </div>
       </ds-form>
 
-      <div *ngIf="etdunitBeingEdited != null">
-        <h3 class="border-bottom pb-2">{{ messagePrefix + '.collections.head' | translate}}</h3>
-        <h4 class="border-bottom pt-2 pb-2">{{ messagePrefix + '.collection-mapper.head' | translate}}</h4>
-        <div class="row mt-2">
-          <div class="col-12 col-lg-6">
-            <ds-search-form id="search-form" [query]="(searchOptions$ | async)?.query" [currentUrl]="'./'"
-              [inPlaceSearch]="true"
-              [searchPlaceholder]="messagePrefix + '.collection-mapper.search-form.placeholder' | translate"
-              (submitSearch)="performedSearch = true">
-            </ds-search-form>
-          </div>
-        </div>
-        <div *ngIf="performedSearch">
-          <ds-collection-select class="mt-2" [key]="'map'" [dsoRD$]="mappableCollectionsRD$"
-            [paginationOptions]="(searchOptions$ | async)?.pagination" [sortOptions]="(searchOptions$ | async)?.sort"
-            [confirmButton]="messagePrefix + '.collection-mapper.buttons.add'"
-            [cancelButton]="messagePrefix + '.collection-mapper.cancel'" (confirm)="mapCollections($event)"
-            (cancel)="onCancel()"></ds-collection-select>
-        </div>
-        <div *ngIf="!performedSearch" class="alert alert-info w-100" role="alert">
-          {{messagePrefix + '.collection-mapper.no-search' | translate}}
-        </div>
-        <br />
-        <h4 class="border-bottom pb-2">{{ messagePrefix + '.collection-mapper.mapped-collections.head' | translate}}</h4>
-        <div>
-          <ds-collection-select class="mt-2" [key]="'browse'" [dsoRD$]="etdunitCollectionsRD$"
-            [paginationOptions]="(searchOptions$ | async)?.pagination"
-            [confirmButton]="messagePrefix + '.collection-mapper.buttons.remove'"
-            [cancelButton]="messagePrefix + '.collection-mapper.cancel'" [dangerConfirm]="true"
-            (confirm)="removeMappings($event)" (cancel)="onCancel()"></ds-collection-select>
-        </div>
-      </div>
+      <ds-etdunit-collections-list *ngIf="etdunitBeingEdited != null"
+                         [messagePrefix]="messagePrefix + '.collections-list'"></ds-etdunit-collections-list>
+
     </div>
   </div>
 </div>

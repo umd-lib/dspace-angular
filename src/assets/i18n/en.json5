@@ -644,10 +644,6 @@
 
   "admin.core.etdunits.singleEtdUnit.breadcrumbs": "Edit ETD Department",
 
-  "admin.core.etdunits.title.singleEtdUnit": "Edit ETD Department",
-
-  "admin.core.etdunits.title.addEtdUnit": "New ETD Department",
-
   "admin.core.etdunits.addEtdUnit.breadcrumbs": "New ETD Department",
 
   "admin.core.etdunits.head": "ETD Departments",
@@ -692,11 +688,11 @@
 
   "admin.core.etdunits.form.notification.created.failure": "Failed to create ETD Department \"{{name}}\"",
 
-  "admin.core.etdunits.form.notification.created.failure.unitNameInUse": "Failed to create ETD Department with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.core.etdunits.form.notification.created.failure.etdunitNameInUse": "Failed to create ETD Department with name: \"{{name}}\", make sure the name is not already in use.",
 
   "admin.core.etdunits.form.notification.edited.failure": "Failed to edit ETD Department \"{{name}}\"",
 
-  "admin.core.etdunits.form.notification.edited.failure.unitNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.core.etdunits.form.notification.edited.failure.etdunitNameInUse": "Name \"{{name}}\" already in use!",
 
   "admin.core.etdunits.form.notification.edited.success": "Successfully edited ETD Department \"{{name}}\"",
 
@@ -718,41 +714,27 @@
 
   "admin.core.etdunits.form.return": "Back",
 
-  "admin.core.etdunits.form.collection-mapper.search-form.placeholder": "Search collections...",
+  "admin.core.etdunits.form.collections-list.head": "Collections",
 
-  "admin.core.etdunits.form.collection-mapper.buttons.add": "Add selected collections to this ETD Department",
+  "admin.core.etdunits.form.collections-list.search.head": "Add Collections",
 
-  "admin.core.etdunits.form.collection-mapper.buttons.remove": "Remove selected collections from this ETD Department",
+  "admin.core.etdunits.form.collections-list.search.button": "Search",
 
-  "admin.core.etdunits.form.collection-mapper.cancel": "Cancel",
+  "admin.core.etdunits.form.collections-list.button.see-all": "Browse All",
 
-  "admin.core.etdunits.form.collection-mapper.description": "This is the collection mapper tool that allows administrators to map collections to ETD Department. You can search for collections and map them, or browse the list of collections currently mapped to the ETD Department.",
+  "admin.core.etdunits.form.collections-list.headMembers": "Current Members",
 
-  "admin.core.etdunits.form.collections.head": "Collections",
+  "admin.core.etdunits.form.collections-list.table.id": "ID",
 
-  "admin.core.etdunits.form.collection-mapper.mapped-collections.head": "Current Members",
+  "admin.core.etdunits.form.collections-list.table.name": "Name",
 
-  "admin.core.etdunits.form.collection-mapper.head": "Add Collections",
+  "admin.core.etdunits.form.collections-list.table.edit": "Remove / Add",
 
-  "admin.core.etdunits.form.collection-mapper.etdunit": "ETD Department: \"<b>{{name}}</b>\"",
+  "admin.core.etdunits.form.collections-list.no-collections-yet": "No collections in ETD department yet, search and add.",
 
-  "admin.core.etdunits.form.collection-mapper.no-search": "Please enter a query to search",
+  "admin.core.etdunits.form.collections-list.notification.success.addCollection": "Successfully added collection: \"{{name}}\"",
 
-  "admin.core.etdunits.form.collection-mapper.notifications.add.error.content": "Errors occurred for mapping of {{amount}} collections to ETD Department.",
-
-  "admin.core.etdunits.form.collection-mapper.notifications.add.error.head": "Mapping errors",
-
-  "admin.core.etdunits.form.collection-mapper.notifications.add.success.content": "Successfully added {{amount}} collections to ETD Department.",
-
-  "admin.core.etdunits.form.collection-mapper.notifications.add.success.head": "Mapping completed",
-
-  "admin.core.etdunits.form.collection-mapper.notifications.remove.error.content": "Errors occurred for the removal of {{amount}} collections mapping.",
-
-  "admin.core.etdunits.form.collection-mapper.notifications.remove.error.head": "Removal of mapping errors",
-
-  "admin.core.etdunits.form.collection-mapper.notifications.remove.success.content": "Successfully removed {{amount}} collections from ETD Department.",
-
-  "admin.core.etdunits.form.collection-mapper.notifications.remove.success.head": "Removal of mapping completed",
+  "admin.core.etdunits.form.collections-list.notification.success.deleteCollection": "Successfully deleted collection: \"{{name}}\"",
   // End UMD Customization
 
 

@@ -112,30 +112,25 @@ export class EtdUnitDataService extends IdentifiableDataService<EtdUnit> {
   }
 
   /**
-   * Adds given collection to given etdunit
-   * @param activeEtdUnit EtdUnit we want to add member to
-   * @param collection collection we want to add to given activeEtdUnit
+   * Adds given Collection to given EtdUnit
+   * @param activeEtdUnit EtdUnit to add member to
+   * @param collection Collection to add to given activeUnit
    */
-  addCollectionToEtdUnit(activeEtdUnit: EtdUnit, collectionUrl: Observable<string>): Observable<RemoteData<NoContent>> {
+  addCollectionToEtdUnit(activeEtdUnit: EtdUnit, collection: Collection): Observable<RemoteData<EtdUnit>> {
     const requestId = this.requestService.generateRequestId();
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
     options.headers = headers;
-    collectionUrl.subscribe(url => {
-      const postRequest = new PostRequest(
-        requestId,
-        activeEtdUnit.self + '/' + this.collectionsEndpoint,
-        url,
-        options);
-      this.requestService.send(postRequest);
-    });
+    const postRequest = new PostRequest(requestId, activeEtdUnit.self + '/' + this.collectionsEndpoint, collection.self, options);
+    this.requestService.send(postRequest);
 
     return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableZip(
       this.invalidateByHref(activeEtdUnit._links.self.href),
       this.requestService.setStaleByHrefSubstring(activeEtdUnit._links.collections.href).pipe(take(1)),
     ));
   }
+
 
   /**
    * Deletes a given Collection from given active etdunit

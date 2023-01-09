@@ -9,6 +9,7 @@ import { SiteAdministratorGuard } from '../core/data/feature-authorization/featu
 import { FormModule } from '../shared/form/form.module';
 
 import { SharedModule } from '../shared/shared.module';
+import { EtdUnitCollectionsListComponent } from './etdunit-form/etdunit-collection-list/etdunit-collections-list.component';
 import { EtdUnitFormComponent } from './etdunit-form/etdunit-form.component';
 import { EtdUnitsRegistryComponent } from './etdunits-registry.component';
 
@@ -19,7 +20,7 @@ const routes: Routes = [
     resolve: {
       breadcrumb: I18nBreadcrumbResolver
     },
-    data: { title: 'admin.etdunits.title', breadcrumbKey: 'admin.core.etdunits' },
+    data: { title: 'admin.core.etdunits.title', breadcrumbKey: 'admin.core.etdunits' },
     canActivate: [SiteAdministratorGuard]
   },
   {
@@ -57,7 +58,8 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [
     EtdUnitsRegistryComponent,
-    EtdUnitFormComponent
+    EtdUnitFormComponent,
+    EtdUnitCollectionsListComponent
   ]
 })
 export class EtdUnitsModule {
