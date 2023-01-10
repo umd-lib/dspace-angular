@@ -22,7 +22,7 @@ import {
   nameVariantReducer
 } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
-import { menusReducer} from './shared/menu/menu.reducer';
+import { menusReducer } from './shared/menu/menu.reducer';
 import {
   notificationsReducer,
   NotificationsState
@@ -52,6 +52,7 @@ import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
 // UMD Customization
+import { etdunitRegistryReducer, EtdUnitRegistryState } from './etdunit-registry/etdunit-registry.reducers';
 import { unitRegistryReducer, UnitRegistryState } from './access-control/unit-registry/unit-registry.reducers';
 // End UMD Customization
 
@@ -76,6 +77,7 @@ export interface AppState {
   groupRegistry: GroupRegistryState;
   correlationId: string;
   // UMD Customization
+  etdunitRegistry: EtdUnitRegistryState;
   unitRegistry: UnitRegistryState;
   // End UMD Customization
 }
@@ -101,6 +103,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   groupRegistry: groupRegistryReducer,
   correlationId: correlationIdReducer,
   // UMD Customization
+  etdunitRegistry: etdunitRegistryReducer,
   unitRegistry: unitRegistryReducer,
   // End UMD Customzation
 };

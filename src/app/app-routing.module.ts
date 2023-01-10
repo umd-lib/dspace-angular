@@ -23,6 +23,7 @@ import {
   WORKFLOW_ITEM_MODULE_PATH,
   // UMD Customization
   EMBARGO_LIST_PAGE_PATH,
+  ETDUNIT_PATH,
   // End UMD Customization
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
@@ -48,7 +49,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
   imports: [
     RouterModule.forRoot([
       { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
-      { path: ERROR_PAGE , component: ThemedPageErrorComponent },
+      { path: ERROR_PAGE, component: ThemedPageErrorComponent },
       {
         path: '',
         canActivate: [AuthBlockingGuard],
@@ -239,19 +240,23 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             loadChildren: () => import('./embargo-list/embargo-list-page.module').then((m) => m.EmbargoListPageModule),
             canActivate: [SiteAdministratorGuard],
           },
+          {
+            path: ETDUNIT_PATH,
+            loadChildren: () => import('./etdunit-registry/etdunits.module').then((m) => m.EtdUnitsModule),
+            canActivate: [SiteAdministratorGuard],
+          },
           // End UMD Customization
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
         ]
       }
     ], {
-      // enableTracing: true,
       useHash: false,
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-})
+    })
   ],
   exports: [RouterModule],
 })

@@ -56,6 +56,7 @@ import { RootModule } from '../../app/root.module';
 import { PrivacyComponent } from './app/info/privacy/privacy.component';
 import { UnitsRegistryComponent } from 'src/app/access-control/unit-registry/units-registry.component';
 import { EmbargoListPageModule } from '../../app/embargo-list/embargo-list-page.module';
+import { EtdUnitsModule } from 'src/app/etdunit-registry/etdunits.module';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
 import { JsonLdDatasetComponent } from './app/item-page/json-ld/json-ld-dataset.component';
 
@@ -113,6 +114,7 @@ const DECLARATIONS = [
     ResourcePoliciesModule,
     ComcolModule,
     EmbargoListPageModule,
+    EtdUnitsModule,
   ],
   declarations: DECLARATIONS,
 })

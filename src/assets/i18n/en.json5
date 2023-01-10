@@ -637,6 +637,104 @@
   "admin.access-control.units.form.groups-list.table.collectionOrCommunity": "Collection/Community",
 
   "admin.access-control.units.form.return": "Back",
+
+  "admin.core.etdunits.title": "ETD Departments",
+
+  "admin.core.etdunits.breadcrumbs": "ETD Departments",
+
+  "admin.core.etdunits.singleEtdUnit.breadcrumbs": "Edit ETD Department",
+
+  "admin.core.etdunits.addEtdUnit.breadcrumbs": "New ETD Department",
+
+  "admin.core.etdunits.head": "ETD Departments",
+
+  "admin.core.etdunits.button.add": "Add ETD department",
+
+  "admin.core.etdunits.search.head": "Search ETD departments",
+
+  "admin.core.etdunits.button.see-all": "Browse all",
+
+  "admin.core.etdunits.search.button": "Search",
+
+  "admin.core.etdunits.search.placeholder": "Search ETD departments...",
+
+  "admin.core.etdunits.table.id": "ID",
+
+  "admin.core.etdunits.table.name": "Name",
+
+  "admin.core.etdunits.table.members": "Members",
+
+  "admin.core.etdunits.table.edit": "Edit",
+
+  "admin.core.etdunits.table.edit.buttons.edit": "Edit \"{{name}}\"",
+
+  "admin.core.etdunits.table.edit.buttons.remove": "Delete \"{{name}}\"",
+
+  "admin.core.etdunits.no-items": "No ETD Departments found with this in their name or this as UUID",
+
+  "admin.core.etdunits.notification.deleted.success": "Successfully deleted ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.notification.deleted.failure.title": "Failed to delete ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+
+  "admin.core.etdunits.form.head.create": "Create ETD department",
+
+  "admin.core.etdunits.form.head.edit": "Edit ETD department",
+
+  "admin.core.etdunits.form.etdunitName": "ETD Department name",
+
+  "admin.core.etdunits.form.notification.created.success": "Successfully created ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.form.notification.created.failure": "Failed to create ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.form.notification.created.failure.etdunitNameInUse": "Failed to create ETD Department with name: \"{{name}}\", make sure the name is not already in use.",
+
+  "admin.core.etdunits.form.notification.edited.failure": "Failed to edit ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.form.notification.edited.failure.etdunitNameInUse": "Name \"{{name}}\" already in use!",
+
+  "admin.core.etdunits.form.notification.edited.success": "Successfully edited ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.form.actions.delete": "Delete ETD Department",
+
+  "admin.core.etdunits.form.delete-etdunit.modal.header": "Delete ETD Department \"{{ dsoName }}\"",
+
+  "admin.core.etdunits.form.delete-etdunit.modal.info": "Are you sure you want to delete ETD Department \"{{ dsoName }}\"",
+
+  "admin.core.etdunits.form.delete-etdunit.modal.cancel": "Cancel",
+
+  "admin.core.etdunits.form.delete-etdunit.modal.confirm": "Delete",
+
+  "admin.core.etdunits.form.notification.deleted.success": "Successfully deleted ETD Department \"{{ name }}\"",
+
+  "admin.core.etdunits.form.notification.deleted.failure.title": "Failed to delete ETD Department \"{{ name }}\"",
+
+  "admin.core.etdunits.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+
+  "admin.core.etdunits.form.return": "Back",
+
+  "admin.core.etdunits.form.collections-list.head": "Collections",
+
+  "admin.core.etdunits.form.collections-list.search.head": "Add Collections",
+
+  "admin.core.etdunits.form.collections-list.search.button": "Search",
+
+  "admin.core.etdunits.form.collections-list.button.see-all": "Browse All",
+
+  "admin.core.etdunits.form.collections-list.headMembers": "Current Members",
+
+  "admin.core.etdunits.form.collections-list.table.id": "ID",
+
+  "admin.core.etdunits.form.collections-list.table.name": "Name",
+
+  "admin.core.etdunits.form.collections-list.table.edit": "Remove / Add",
+
+  "admin.core.etdunits.form.collections-list.no-collections-yet": "No collections in ETD department yet, search and add.",
+
+  "admin.core.etdunits.form.collections-list.notification.success.addCollection": "Successfully added collection: \"{{name}}\"",
+
+  "admin.core.etdunits.form.collections-list.notification.success.deleteCollection": "Successfully deleted collection: \"{{name}}\"",
   // End UMD Customization
 
 
@@ -1632,6 +1730,8 @@
 
   // UMD Customization
   "error.validation.unitExists": "This unit already exists",
+
+  "error.validation.etdunitExists": "This ETD Department already exists",
   // End UMD Customization
 
 
@@ -2938,6 +3038,7 @@
   // UMD Customizations
   "menu.section.drum_customizations": "DRUM Customizations",
   "menu.section.drum_customizations_embargo_list": "Embargo List",
+  "menu.section.drum_customizations_etdunits": "ETD Departments",
   // End UMD Customizations
 
   "metadata-export-search.tooltip": "Export search results as CSV",
