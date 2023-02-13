@@ -6,3 +6,11 @@
 <ng-template #content>
   <ng-content></ng-content>
 </ng-template>
+
+<!-- UMD Customization -->
+<ng-template [ngIf]="(isEmbargoed$ |async)">
+  <br>
+  {{'bitstream.embargoed.text' | translate }}
+  <br>
+</ng-template>
+<!-- End UMD Customization -->

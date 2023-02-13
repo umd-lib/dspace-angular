@@ -46,6 +46,10 @@ export class FileDownloadLinkComponent implements OnInit {
 
   canDownload$: Observable<boolean>;
 
+  // UMD Customization
+  isEmbargoed$: Observable<boolean>;
+  // End UMD Customization
+
   constructor(
     private authorizationService: AuthorizationDataService,
   ) {
@@ -62,6 +66,11 @@ export class FileDownloadLinkComponent implements OnInit {
       this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());
       this.canDownload$ = observableOf(true);
     }
+    // UMD Customization
+    if (isNotEmpty(this.bitstream)) {
+      this.isEmbargoed$ = observableOf(this.bitstream.isEmbargoed());
+    }
+    // End UMD Customization
   }
 
   getBitstreamPath(canDownload: boolean, canRequestACopy: boolean) {

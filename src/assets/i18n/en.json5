@@ -5129,5 +5129,22 @@
   "embargo-list.table.label.endDate": "End Date",
 
   "submission.sections.submit.progressbar.equitableAccessSubmission": "Equitable Access",
+
+  "bitstream.embargoed.text": "(RESTRICTED ACCESS)",
+
+  "bitstream.restricted-access.title": "This resource is restricted",
+
+  "bitstream.restricted-access.header": "Restricted Access",
+
+  "bitstream.restricted-access.embargo.forever.message": "At the request of the author, this document is not available.",
+
+  "bitstream.restricted-access.embargo.restricted-until.message": "At the request of the author, this document is not available until {{ restrictedAccessDate }}.",
+
+  "bitstream.restricted-access.anonymous.forbidden.message": "The file you are attempting to access is restricted.",
+
+  "bitstream.restricted-access.user.forbidden.header": "This bitstream is restricted",
+
+  "bitstream.restricted-access.user.forbidden.message": "You do not have the credentials to access this restricted bitstream."
+
   // End UMD Customization
 }

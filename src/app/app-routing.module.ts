@@ -24,6 +24,7 @@ import {
   // UMD Customization
   EMBARGO_LIST_PAGE_PATH,
   ETDUNIT_PATH,
+  RESTRICTED_ACCESS_MODULE_PATH,
   // End UMD Customization
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
@@ -244,6 +245,12 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             path: ETDUNIT_PATH,
             loadChildren: () => import('./etdunit-registry/etdunits.module').then((m) => m.EtdUnitsModule),
             canActivate: [SiteAdministratorGuard],
+          },
+          {
+            path: RESTRICTED_ACCESS_MODULE_PATH,
+            loadChildren: () => import('./restricted-access/restricted-access-page.module')
+              .then((m) => m.RestrictedAccessPageModule),
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           // End UMD Customization
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },

@@ -15,6 +15,10 @@ import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Location } from '@angular/common';
 
+// UMD Customization
+import { RESTRICTED_ACCESS_MODULE_PATH } from '../../app-routing-paths';
+// End UMD Customization
+
 @Component({
   selector: 'ds-bitstream-download-page',
   templateUrl: './bitstream-download-page.component.html'
@@ -80,10 +84,13 @@ export class BitstreamDownloadPageComponent implements OnInit {
       } else if (isAuthorized && !isLoggedIn) {
         this.hardRedirectService.redirect(bitstream._links.content.href);
       } else if (!isAuthorized && isLoggedIn) {
-        this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
+        // This can happen due to a "Campus" group IP restrictions
+        this.router.navigateByUrl(RESTRICTED_ACCESS_MODULE_PATH, { replaceUrl: true });
       } else if (!isAuthorized && !isLoggedIn) {
-        this.auth.setRedirectUrl(this.router.url);
-        this.router.navigateByUrl('login');
+        this.router.navigateByUrl(
+          RESTRICTED_ACCESS_MODULE_PATH, { replaceUrl: true, state: { embargoRestriction: bitstream.embargoRestriction } }
+        );
+      // End UMD Customization
       }
     });
   }
