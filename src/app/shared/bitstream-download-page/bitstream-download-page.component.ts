@@ -83,12 +83,16 @@ export class BitstreamDownloadPageComponent implements OnInit {
         this.hardRedirectService.redirect(fileLink);
       } else if (isAuthorized && !isLoggedIn) {
         this.hardRedirectService.redirect(bitstream._links.content.href);
+      // UMD Customization
       } else if (!isAuthorized && isLoggedIn) {
         // This can happen due to a "Campus" group IP restrictions
-        this.router.navigateByUrl(RESTRICTED_ACCESS_MODULE_PATH, { replaceUrl: true });
+        void this.router.navigateByUrl(
+          `${RESTRICTED_ACCESS_MODULE_PATH}/${bitstream.uuid}`,
+          { replaceUrl: true }
+        );
       } else if (!isAuthorized && !isLoggedIn) {
-        this.router.navigateByUrl(
-          RESTRICTED_ACCESS_MODULE_PATH, { replaceUrl: true, state: { embargoRestriction: bitstream.embargoRestriction } }
+        void this.router.navigateByUrl(`${RESTRICTED_ACCESS_MODULE_PATH}/${bitstream.uuid}`,
+          { replaceUrl: true }
         );
       // End UMD Customization
       }

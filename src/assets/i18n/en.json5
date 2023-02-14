@@ -5144,7 +5144,9 @@
 
   "bitstream.restricted-access.user.forbidden.header": "This bitstream is restricted",
 
-  "bitstream.restricted-access.user.forbidden.message": "You do not have the credentials to access this restricted bitstream."
+  "bitstream.restricted-access.user.forbidden.with_file.message": "You do not have the credentials to access the restricted bitstream '{{ filename }}'.",
+
+  "bitstream.restricted-access.user.forbidden.generic.message": "You do not have the credentials to access this restricted bitstream.",
 
   // End UMD Customization
 }
