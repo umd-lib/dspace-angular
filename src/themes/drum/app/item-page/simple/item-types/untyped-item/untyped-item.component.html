@@ -46,19 +46,6 @@
       [label]="'relationships.isAuthorOf' | translate">
     </ds-metadata-representation-list>
 
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['journal.title']"
-      [label]="'item.page.journal-title'">
-    </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['journal.identifier.issn']"
-      [label]="'item.page.journal-issn'">
-    </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['journalvolume.identifier.name']"
-      [label]="'item.page.volume-title'">
-    </ds-generic-item-page-field>
-
     <!-- Advisor -->
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.contributor.advisor']"
@@ -75,12 +62,7 @@
     <ds-item-page-uri-field [item]="object"
       [fields]="['dc.identifier']"
       [label]="'item.page.doi'">
-
     </ds-item-page-uri-field>
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['dc.publisher']"
-      [label]="'item.page.publisher'">
-    </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
     <!-- Right column -->
@@ -92,12 +74,6 @@
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"
       [label]="'item.page.description'">
-    </ds-generic-item-page-field>
-
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['dc.subject']"
-      [separator]="','"
-      [label]="'item.page.subject'">
     </ds-generic-item-page-field>
 
     <!-- URI (handle) -->
