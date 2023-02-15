@@ -5090,9 +5090,13 @@
   // UMD Customization
   "menu.header.organization.logo": "UMD Libraries",
 
+  "item.page.advisor": "Advisor",
+
   "item.page.doi": "DRUM DOI",
 
-  "item.page.advisor": "Advisor",
+  "item.page.publicationlink": "Publication or External Link",
+
+  "item.page.rights": "Rights",
 
   "community_group.faculty.title": "Collections Organized by Department",
 

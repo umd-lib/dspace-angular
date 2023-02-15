@@ -35,6 +35,12 @@
     </ng-container>
     <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
 
+    <!-- Publication or External Link -->
+    <ds-item-page-uri-field [item]="object"
+      [fields]="['dc.description.uri']"
+      [label]="'item.page.publicationlink'">
+    </ds-item-page-uri-field>
+
     <!-- Date -->
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
 
@@ -81,6 +87,12 @@
       [fields]="['dc.identifier.uri']"
       [label]="'item.page.uri'">
     </ds-item-page-uri-field>
+
+    <!-- Rights -->
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.rights', 'dc.rights.uri']"
+      [label]="'item.page.rights'">
+    </ds-generic-item-page-field>
 
     <!-- Collection -->
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
