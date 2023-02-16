@@ -5094,6 +5094,8 @@
 
   "item.page.citation.datasetOrSoftware": "Related Publication Citation",
 
+  "item.page.description": "Notes",
+
   "item.page.doi": "DRUM DOI",
 
   "item.page.publicationLink": "Publication or External Link",
@@ -5101,6 +5103,8 @@
   "item.page.publicationLink.datasetOrSoftware": "Related Publication Link",
 
   "item.page.rights": "Rights",
+
+  "item.page.uri": "URI (handle)",
 
   "community_group.faculty.title": "Collections Organized by Department",
 
