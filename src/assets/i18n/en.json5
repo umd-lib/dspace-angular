@@ -5092,9 +5092,13 @@
 
   "item.page.advisor": "Advisor",
 
+  "item.page.citation.datasetOrSoftware": "Related Publication Citation",
+
   "item.page.doi": "DRUM DOI",
 
-  "item.page.publicationlink": "Publication or External Link",
+  "item.page.publicationLink": "Publication or External Link",
+
+  "item.page.publicationLink.datasetOrSoftware": "Related Publication Link",
 
   "item.page.rights": "Rights",
 

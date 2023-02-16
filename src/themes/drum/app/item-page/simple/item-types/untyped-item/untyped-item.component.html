@@ -38,7 +38,7 @@
     <!-- Publication or External Link -->
     <ds-item-page-uri-field [item]="object"
       [fields]="['dc.description.uri']"
-      [label]="'item.page.publicationlink'">
+      [label]="publicationLinkLabelI18nKey">
     </ds-item-page-uri-field>
 
     <!-- Date -->
@@ -61,7 +61,7 @@
     <!-- Citation -->
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.identifier.citation']"
-      [label]="'item.page.citation'">
+      [label]="citationLabelI18nKey">
     </ds-generic-item-page-field>
 
     <!-- DRUM DOI -->
