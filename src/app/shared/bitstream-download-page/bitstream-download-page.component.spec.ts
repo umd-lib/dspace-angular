@@ -8,7 +8,9 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ActivatedRoute, Router } from '@angular/router';
-import { getForbiddenRoute } from '../../app-routing-paths';
+// UMD Customization
+import { RESTRICTED_ACCESS_MODULE_PATH } from '../../app-routing-paths';
+// End UMD Customization
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 
@@ -133,9 +135,13 @@ describe('BitstreamDownloadPageComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
       });
-      it('should navigate to the forbidden route', () => {
-        expect(router.navigateByUrl).toHaveBeenCalledWith(getForbiddenRoute(), {skipLocationChange: true});
+      // UMD Customization
+      it('should navigate to the restricted access route', () => {
+        expect(router.navigateByUrl).toHaveBeenCalledWith(
+         `${RESTRICTED_ACCESS_MODULE_PATH}/bitstreamUuid`, {replaceUrl: true}
+        );
       });
+      // End UMD Customization
     });
     describe('when the user is not authorized and not logged in', () => {
       beforeEach(waitForAsync(() => {
@@ -149,10 +155,13 @@ describe('BitstreamDownloadPageComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
       });
-      it('should navigate to the login page', () => {
-        expect(authService.setRedirectUrl).toHaveBeenCalled();
-        expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+      // UMD Customization
+      it('should navigate to the restricted access route', () => {
+        expect(router.navigateByUrl).toHaveBeenCalledWith(
+          `${RESTRICTED_ACCESS_MODULE_PATH}/bitstreamUuid`, {replaceUrl: true}
+        );
       });
+      // End UMD Customization
     });
   });
 });

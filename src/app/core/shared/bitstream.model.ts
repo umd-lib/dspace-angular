@@ -67,7 +67,28 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
   @link(BUNDLE)
   bundle?: Observable<RemoteData<Bundle>>;
 
+  // UMD Customization
+  /**
+   * A String indicating whether (and how long) this object has restricted
+   * access due to an embargo:
+   *
+   * - A date string (in "yyyy-MM-DD" format) - The lift date of the embargo
+   * - "FOREVER" - the embargo restriction is forever
+   * - "NONE" - there is no embargo restriction
+   */
+  @autoserialize
+  embargoRestriction: string;
+  // End UMD Customization
+
   getParentLinkKey(): keyof this['_links'] {
     return 'format';
+  }
+
+  /**
+   * Returns true if this bitstream has active embargo restrictions,
+   * false otherwise.
+   */
+  isEmbargoed() {
+    return 'NONE' !== this.embargoRestriction;
   }
 }

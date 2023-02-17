@@ -10,6 +10,17 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Item } from '../../core/shared/item.model';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
+// UMD Customization
+import { Pipe, PipeTransform } from '@angular/core';
+
+// eslint-disable-next-line @angular-eslint/pipe-prefix
+@Pipe({ name: 'translate' })
+class MockTranslatePipe implements PipeTransform {
+  transform(value: string): string {
+    return value;
+  }
+}
+//End UMD Customization
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -41,7 +52,9 @@ describe('FileDownloadLinkComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
-      declarations: [FileDownloadLinkComponent, RouterLinkDirectiveStub],
+      // UMD Customization
+      declarations: [FileDownloadLinkComponent, RouterLinkDirectiveStub, MockTranslatePipe],
+      // End UMD Customization
       providers: [
         {provide: AuthorizationDataService, useValue: authorizationService},
       ]
