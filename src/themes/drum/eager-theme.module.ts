@@ -20,6 +20,7 @@ import { CommunityListPageModule } from 'src/app/community-list-page/community-l
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { HomePageModule } from 'src/app/home-page/home-page.module';
+import { JsonLdWebsiteComponent } from './app/item-page/json-ld/json-ld-website.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -48,7 +49,8 @@ const DECLARATIONS = [
   UmdHeaderComponent,
   CommunityListPageComponent,
   CommunityListComponent,
-  HomePageComponent
+  HomePageComponent,
+  JsonLdWebsiteComponent,
 ];
 
 @NgModule({
