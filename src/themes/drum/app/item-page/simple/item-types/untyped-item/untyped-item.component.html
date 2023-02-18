@@ -8,9 +8,11 @@
   </div>
 </div>
 <div class="d-flex flex-row">
+  <!-- Title -->
   <h2 class="item-page-title-field mr-auto">
     <ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
   </h2>
+
   <div class="pl-2">
     <ds-dso-page-version-button (newVersionEvent)="onCreateNewVersion()" [dso]="object"
                                 [tooltipMsgCreate]="'item.page.version.create'"
@@ -20,6 +22,9 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
+    <!-- Left column -->
+
+    <!-- Files -->
     <ng-container *ngIf="!mediaViewer.image">
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
         <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
@@ -29,59 +34,69 @@
       <ds-media-viewer [item]="object" [videoOptions]="mediaViewer.video"></ds-media-viewer>
     </ng-container>
     <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
+
+    <!-- Publication or External Link -->
+    <ds-item-page-uri-field [item]="object"
+      [fields]="['dc.description.uri']"
+      [label]="publicationLinkLabelI18nKey">
+    </ds-item-page-uri-field>
+
+    <!-- Date -->
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
+
+    <!-- Authors -->
     <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
       [parentItem]="object"
       [itemType]="'Person'"
       [metadataFields]="['dc.contributor.author', 'dc.creator']"
       [label]="'relationships.isAuthorOf' | translate">
     </ds-metadata-representation-list>
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['journal.title']"
-      [label]="'item.page.journal-title'">
-    </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['journal.identifier.issn']"
-      [label]="'item.page.journal-issn'">
-    </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['journalvolume.identifier.name']"
-      [label]="'item.page.volume-title'">
-    </ds-generic-item-page-field>
+
+    <!-- Advisor -->
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.contributor.advisor']"
       [label]="'item.page.advisor'">
     </ds-generic-item-page-field>
+
+    <!-- Citation -->
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.identifier.citation']"
-      [label]="'item.page.citation'">
+      [label]="citationLabelI18nKey">
     </ds-generic-item-page-field>
+
+    <!-- DRUM DOI -->
     <ds-item-page-uri-field [item]="object"
       [fields]="['dc.identifier']"
       [label]="'item.page.doi'">
     </ds-item-page-uri-field>
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['dc.publisher']"
-      [label]="'item.page.publisher'">
-    </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
+    <!-- Right column -->
+
+    <!-- Abstract -->
     <ds-item-page-abstract-field [item]="object"></ds-item-page-abstract-field>
+
+    <!-- Notes -->
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"
       [label]="'item.page.description'">
     </ds-generic-item-page-field>
 
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['dc.subject']"
-      [separator]="','"
-      [label]="'item.page.subject'">
-    </ds-generic-item-page-field>
+    <!-- URI (handle) -->
     <ds-item-page-uri-field [item]="object"
       [fields]="['dc.identifier.uri']"
       [label]="'item.page.uri'">
     </ds-item-page-uri-field>
+
+    <!-- Rights -->
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.rights', 'dc.rights.uri']"
+      [label]="'item.page.rights'">
+    </ds-generic-item-page-field>
+
+    <!-- Collection -->
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
+
     <div>
       <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button">
         <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
