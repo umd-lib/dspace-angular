@@ -115,18 +115,24 @@ export class AuthInterceptor implements HttpInterceptor {
    * @param authMethodModels
    */
   private sortAuthMethods(authMethodModels: AuthMethod[]): AuthMethod[] {
+    // UMD Customization
+    // Modified to move "CAS" login option (instead of "password" to be the
+    // first authMethod, so that it appears first in the "Login" drop-down
+    let firstAuthMethodType: AuthMethodType = AuthMethodType.Cas;
+
     const sortedAuthMethodModels: AuthMethod[] = [];
     authMethodModels.forEach((method) => {
-      if (method.authMethodType === AuthMethodType.Password) {
+      if (method.authMethodType === firstAuthMethodType) {
         sortedAuthMethodModels.push(method);
       }
     });
 
     authMethodModels.forEach((method) => {
-      if (method.authMethodType !== AuthMethodType.Password) {
+      if (method.authMethodType !== firstAuthMethodType) {
         sortedAuthMethodModels.push(method);
       }
     });
+    // End UMD Customization
 
     return sortedAuthMethodModels;
   }

@@ -2830,12 +2830,14 @@
   "login.form.password": "Password",
 
   // UMD Customization
-  "login.form.cas": "Log in with CAS",
+  "login.form.cas": "UMD Login",
   // End  UMD Customization
 
   "login.form.shibboleth": "Log in with Shibboleth",
 
-  "login.form.submit": "Log in",
+  // UMD Customization
+  "login.form.submit": "Guest Researcher Login",
+  // End UMD Customization
 
   "login.title": "Login",
 
