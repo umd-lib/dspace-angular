@@ -89,6 +89,12 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    * false otherwise.
    */
   isEmbargoed() {
-    return 'NONE' !== this.embargoRestriction;
+    if (this.embargoRestriction === undefined) {
+      // This is a "new" bitstream (i.e. just uploaded for a submission), so
+      // simply return false
+      return false;
+    } else {
+      return 'NONE' !== this.embargoRestriction;
+    }
   }
 }
