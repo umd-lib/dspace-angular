@@ -30,39 +30,26 @@
   </div>
   <!-- Grid container -->
 
-  <!-- Copyright -->
-  <div class="bottom-footer p-1 d-flex justify-content-center align-items-center text-white">
+  <div class="bottom-footer p-1 d-flex justify-content-center align-items-center">
     <div class="content-container">
-      <p class="m-0">
-        <a class="text-white"
-           href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
-        {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
-        <a class="text-white"
-           href="https://www.lyrasis.org/">{{ 'footer.link.lyrasis' | translate}}</a>
-      </p>
       <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
         <li>
-          <a class="text-white" href="javascript:void(0);"
+          <a routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
+        </li>
+        <li>
+          <a routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
+        </li>
+        <li>
+          <a href="https://www.umd.edu/web-accessibility">{{ 'footer.link.umd-web-accessibility' | translate}}</a>
+        </li>
+        <li>
+          <a href="https://giving.umd.edu/giving/showSchool.php?name=libraries">{{ 'footer.link.umd-give-now' | translate}}</a>
+        </li>
+        <li>
+          <a href="javascript:void(0);"
              (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
-        </li>
-        <li>
-          <a class="text-white"
-             routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
-        </li>
-        <li>
-          <a class="text-white"
-            href="https://www.umd.edu/web-accessibility">{{ 'footer.link.umd-web-accessibility' | translate}}</a>
-        </li>
-        <li>
-          <a class="text-white"
-             routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
-        </li>
-        <li>
-          <a class="text-white"
-            href="https://giving.umd.edu/giving/showSchool.php?name=libraries">{{ 'footer.link.umd-give-now' | translate}}</a>
         </li>
       </ul>
     </div>
   </div>
-  <!-- Copyright -->
 </footer>
