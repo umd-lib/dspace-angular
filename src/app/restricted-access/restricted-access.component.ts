@@ -13,6 +13,7 @@ import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
 import { getRemoteDataPayload } from '../core/shared/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { Location } from '@angular/common';
 
 /**
  * This component representing the `Restricted Access` DSpace page.
@@ -45,9 +46,15 @@ export class RestrictedAccessComponent implements OnInit {
     private fileService: FileService,
     private hardRedirectService: HardRedirectService,
     private translateService: TranslateService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private location: Location,
   ) {
   }
+
+  back(): void {
+    this.location.back();
+  }
+
   ngOnInit(): void {
     this.bitstreamRD$ = this.route.data.pipe(
       map((data) => data.bitstream));
