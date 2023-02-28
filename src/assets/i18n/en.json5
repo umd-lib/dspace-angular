@@ -5044,6 +5044,8 @@
 
   "admin.core.etdunits.title": "ETD Departments",
 
+  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DRUM requires the qualified Dublin Core schema.",
+
   "bitstream.embargoed.text": "(RESTRICTED ACCESS)",
 
   "bitstream.restricted-access.anonymous.forbidden.message": "The file you are attempting to access is restricted.",
@@ -5071,6 +5073,8 @@
   "community_group.faculty.title": "Collections Organized by Department",
 
   "community_group.um.title": "UM Community-managed Collections",
+
+  "dso-selector.set-scope.community.button": "Search all of DRUM",
 
   "embargo-list-export-csv.submit.error": "Starting the export has failed",
 
@@ -5102,13 +5106,21 @@
 
   "embargo-list.title": "Embargo List",
 
+  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DRUM. If the error persists, contact the administrator",
+
   "error.validation.etdunitExists": "This ETD Department already exists",
 
   "error.validation.unitExists": "This unit already exists",
 
+  "footer.link.dspace": "DRUM software",
+
   "footer.link.umd-give-now":"Give Now",
 
   "footer.link.umd-web-accessibility":"Web Accessibility",
+
+  "home.top-level-communities.head": "Communities in DRUM",
+
+  "info.feedback.info": "Thanks for sharing your feedback about DRUM. Your comments are appreciated!",
 
   "item.page.advisor": "Advisor",
 
@@ -5128,7 +5140,11 @@
 
   "login.form.cas": "UMD Login",
 
+  "login.form.header": "Please log in to DRUM",
+
   "login.form.submit": "Guest Researcher Login",
+
+  "logout.form.header": "Log out from DRUM",
 
   "menu.header.image.logo": "DRUM",
 
@@ -5136,13 +5152,29 @@
 
   "menu.section.access_control_units": "Units",
 
+  "menu.section.browse_global": "All of DRUM",
+
   "menu.section.drum_customizations": "DRUM Customizations",
 
   "menu.section.drum_customizations_embargo_list": "Embargo List",
 
   "menu.section.drum_customizations_etdunits": "ETD Departments",
 
+  "nav.browse.header": "All of DRUM",
+
+  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DRUM.",
+
+  "repository.title.prefix": "DRUM :: ",
+
+  "repository.title.prefixDSpace": "DRUM ::",
+
+  "search.form.scope.all": "All of DRUM",
+
+  "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DRUM.",
+
   "submission.sections.submit.progressbar.equitableAccessSubmission": "Equitable Access",
+
+  "title": "DRUM",
 
   // End  UMD Customization
 }
