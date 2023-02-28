@@ -5160,7 +5160,13 @@
 
   "menu.section.drum_customizations_etdunits": "ETD Departments",
 
+  "mydspace.breadcrumbs": "My Submissions",
+
+  "mydspace.title": "My Submissions",
+
   "nav.browse.header": "All of DRUM",
+
+  "nav.mydspace": "My Submissions",
 
   "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DRUM.",
 
@@ -5169,6 +5175,8 @@
   "repository.title.prefixDSpace": "DRUM ::",
 
   "search.form.scope.all": "All of DRUM",
+
+  "submission.import-external.back-to-my-dspace": "Back to My Submissions",
 
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DRUM.",
 
