@@ -5162,6 +5162,10 @@
 
   "mydspace.breadcrumbs": "My Submissions",
 
+  "mydspace.results.head": "My submissions",
+
+  "mydspace.show.workspace": "My Submissions",
+
   "mydspace.title": "My Submissions",
 
   "nav.browse.header": "All of DRUM",
@@ -5183,6 +5187,8 @@
   "submission.sections.submit.progressbar.equitableAccessSubmission": "Equitable Access",
 
   "title": "DRUM",
+
+  "workspace.search.results.head": "My submissions",
 
   // End  UMD Customization
 }
