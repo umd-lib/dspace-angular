@@ -315,26 +315,6 @@
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
 
-  // UMD Customization
-  "admin.access-control.epeople.form.ldap.title": "UM Directory Information",
-
-  "admin.access-control.epeople.form.ldap.name": "Name:",
-
-  "admin.access-control.epeople.form.ldap.email": "Email:",
-
-  "admin.access-control.epeople.form.ldap.phone": "Phone:",
-
-  "admin.access-control.epeople.form.ldap.faculty": "Faculty:",
-
-  "admin.access-control.epeople.form.ldap.umAppointment": "UM Appt:",
-
-  "admin.access-control.epeople.form.ldap.groups": "Groups:",
-
-  "admin.access-control.epeople.form.ldap.matchedUnits": "Units:",
-
-  "admin.access-control.epeople.form.ldap.unmatchedUnits": "Unmatched Units:",
-  // End UMD Customization
-
   "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
 
   "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
@@ -518,224 +498,6 @@
   "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
 
   "admin.access-control.groups.form.return": "Back",
-
-
-
-  // UMD Customization
-  "admin.access-control.units.title": "Units",
-
-  "admin.access-control.units.breadcrumbs": "Units",
-
-  "admin.access-control.units.singleUnit.breadcrumbs": "Edit Unit",
-
-  "admin.access-control.units.title.singleUnit": "Edit Unit",
-
-  "admin.access-control.units.title.addUnit": "New Unit",
-
-  "admin.access-control.units.addUnit.breadcrumbs": "New Unit",
-
-  "admin.access-control.units.head": "Units",
-
-  "admin.access-control.units.button.add": "Add unit",
-
-  "admin.access-control.units.search.head": "Search units",
-
-  "admin.access-control.units.button.see-all": "Browse all",
-
-  "admin.access-control.units.search.button": "Search",
-
-  "admin.access-control.units.search.placeholder": "Search units...",
-
-  "admin.access-control.units.table.id": "ID",
-
-  "admin.access-control.units.table.name": "Name",
-
-  "admin.access-control.units.table.members": "Members",
-
-  "admin.access-control.units.table.edit": "Edit",
-
-  "admin.access-control.units.table.edit.buttons.edit": "Edit \"{{name}}\"",
-
-  "admin.access-control.units.table.edit.buttons.remove": "Delete \"{{name}}\"",
-
-  "admin.access-control.units.no-items": "No units found with this in their name or this as UUID",
-
-  "admin.access-control.units.notification.deleted.success": "Successfully deleted unit \"{{name}}\"",
-
-  "admin.access-control.units.notification.deleted.failure.title": "Failed to delete unit \"{{name}}\"",
-
-  "admin.access-control.units.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-
-  "admin.access-control.units.form.head.create": "Create unit",
-
-  "admin.access-control.units.form.head.edit": "Edit unit",
-
-  "admin.access-control.units.form.unitName": "Unit name",
-
-  "admin.access-control.units.form.facultyOnly": "Faculty Only",
-
-  "admin.access-control.units.form.notification.created.success": "Successfully created Unit \"{{name}}\"",
-
-  "admin.access-control.units.form.notification.created.failure": "Failed to create Unit \"{{name}}\"",
-
-  "admin.access-control.units.form.notification.created.failure.unitNameInUse": "Failed to create Unit with name: \"{{name}}\", make sure the name is not already in use.",
-
-  "admin.access-control.units.form.notification.edited.failure": "Failed to edit Unit \"{{name}}\"",
-
-  "admin.access-control.units.form.notification.edited.failure.unitNameInUse": "Name \"{{name}}\" already in use!",
-
-  "admin.access-control.units.form.notification.edited.success": "Successfully edited Unit \"{{name}}\"",
-
-  "admin.access-control.units.form.actions.delete": "Delete Unit",
-
-  "admin.access-control.units.form.delete-unit.modal.header": "Delete Unit \"{{ dsoName }}\"",
-
-  "admin.access-control.units.form.delete-unit.modal.info": "Are you sure you want to delete Unit \"{{ dsoName }}\"",
-
-  "admin.access-control.units.form.delete-unit.modal.cancel": "Cancel",
-
-  "admin.access-control.units.form.delete-unit.modal.confirm": "Delete",
-
-  "admin.access-control.units.form.notification.deleted.success": "Successfully deleted unit \"{{ name }}\"",
-
-  "admin.access-control.units.form.notification.deleted.failure.title": "Failed to delete unit \"{{ name }}\"",
-
-  "admin.access-control.units.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-
-  "admin.access-control.units.form.groups-list.head": "Groups",
-
-  "admin.access-control.units.form.groups-list.search.head": "Add Groups",
-
-  "admin.access-control.units.form.groups-list.button.see-all": "Browse All",
-
-  "admin.access-control.units.form.groups-list.headMembers": "Current Members",
-
-  "admin.access-control.units.form.groups-list.search.button": "Search",
-
-  "admin.access-control.units.form.groups-list.table.edit": "Remove / Add",
-
-  "admin.access-control.units.form.groups-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-
-  "admin.access-control.units.form.groups-list.notification.success.addGroup": "Successfully added group: \"{{name}}\"",
-
-  "admin.access-control.units.form.groups-list.notification.failure.addGroup": "Failed to add group: \"{{name}}\"",
-
-  "admin.access-control.units.form.groups-list.notification.success.deleteGroup": "Successfully deleted group: \"{{name}}\"",
-
-  "admin.access-control.units.form.groups-list.notification.failure.deleteGroup": "Failed to delete group: \"{{name}}\"",
-
-  "admin.access-control.units.form.groups-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-
-  "admin.access-control.units.form.groups-list.notification.failure.noActiveUnit": "No current active unit, submit a name first.",
-
-  "admin.access-control.units.form.groups-list.no-groups-yet": "No groups in unit yet, search and add.",
-
-  "admin.access-control.units.form.groups-list.table.id": "ID",
-
-  "admin.access-control.units.form.groups-list.table.name": "Name",
-
-  "admin.access-control.units.form.groups-list.table.collectionOrCommunity": "Collection/Community",
-
-  "admin.access-control.units.form.return": "Back",
-
-  "admin.core.etdunits.title": "ETD Departments",
-
-  "admin.core.etdunits.breadcrumbs": "ETD Departments",
-
-  "admin.core.etdunits.singleEtdUnit.breadcrumbs": "Edit ETD Department",
-
-  "admin.core.etdunits.addEtdUnit.breadcrumbs": "New ETD Department",
-
-  "admin.core.etdunits.head": "ETD Departments",
-
-  "admin.core.etdunits.button.add": "Add ETD department",
-
-  "admin.core.etdunits.search.head": "Search ETD departments",
-
-  "admin.core.etdunits.button.see-all": "Browse all",
-
-  "admin.core.etdunits.search.button": "Search",
-
-  "admin.core.etdunits.search.placeholder": "Search ETD departments...",
-
-  "admin.core.etdunits.table.id": "ID",
-
-  "admin.core.etdunits.table.name": "Name",
-
-  "admin.core.etdunits.table.members": "Members",
-
-  "admin.core.etdunits.table.edit": "Edit",
-
-  "admin.core.etdunits.table.edit.buttons.edit": "Edit \"{{name}}\"",
-
-  "admin.core.etdunits.table.edit.buttons.remove": "Delete \"{{name}}\"",
-
-  "admin.core.etdunits.no-items": "No ETD Departments found with this in their name or this as UUID",
-
-  "admin.core.etdunits.notification.deleted.success": "Successfully deleted ETD Department \"{{name}}\"",
-
-  "admin.core.etdunits.notification.deleted.failure.title": "Failed to delete ETD Department \"{{name}}\"",
-
-  "admin.core.etdunits.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-
-  "admin.core.etdunits.form.head.create": "Create ETD department",
-
-  "admin.core.etdunits.form.head.edit": "Edit ETD department",
-
-  "admin.core.etdunits.form.etdunitName": "ETD Department name",
-
-  "admin.core.etdunits.form.notification.created.success": "Successfully created ETD Department \"{{name}}\"",
-
-  "admin.core.etdunits.form.notification.created.failure": "Failed to create ETD Department \"{{name}}\"",
-
-  "admin.core.etdunits.form.notification.created.failure.etdunitNameInUse": "Failed to create ETD Department with name: \"{{name}}\", make sure the name is not already in use.",
-
-  "admin.core.etdunits.form.notification.edited.failure": "Failed to edit ETD Department \"{{name}}\"",
-
-  "admin.core.etdunits.form.notification.edited.failure.etdunitNameInUse": "Name \"{{name}}\" already in use!",
-
-  "admin.core.etdunits.form.notification.edited.success": "Successfully edited ETD Department \"{{name}}\"",
-
-  "admin.core.etdunits.form.actions.delete": "Delete ETD Department",
-
-  "admin.core.etdunits.form.delete-etdunit.modal.header": "Delete ETD Department \"{{ dsoName }}\"",
-
-  "admin.core.etdunits.form.delete-etdunit.modal.info": "Are you sure you want to delete ETD Department \"{{ dsoName }}\"",
-
-  "admin.core.etdunits.form.delete-etdunit.modal.cancel": "Cancel",
-
-  "admin.core.etdunits.form.delete-etdunit.modal.confirm": "Delete",
-
-  "admin.core.etdunits.form.notification.deleted.success": "Successfully deleted ETD Department \"{{ name }}\"",
-
-  "admin.core.etdunits.form.notification.deleted.failure.title": "Failed to delete ETD Department \"{{ name }}\"",
-
-  "admin.core.etdunits.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-
-  "admin.core.etdunits.form.return": "Back",
-
-  "admin.core.etdunits.form.collections-list.head": "Collections",
-
-  "admin.core.etdunits.form.collections-list.search.head": "Add Collections",
-
-  "admin.core.etdunits.form.collections-list.search.button": "Search",
-
-  "admin.core.etdunits.form.collections-list.button.see-all": "Browse All",
-
-  "admin.core.etdunits.form.collections-list.headMembers": "Current Members",
-
-  "admin.core.etdunits.form.collections-list.table.id": "ID",
-
-  "admin.core.etdunits.form.collections-list.table.name": "Name",
-
-  "admin.core.etdunits.form.collections-list.table.edit": "Remove / Add",
-
-  "admin.core.etdunits.form.collections-list.no-collections-yet": "No collections in ETD department yet, search and add.",
-
-  "admin.core.etdunits.form.collections-list.notification.success.addCollection": "Successfully added collection: \"{{name}}\"",
-
-  "admin.core.etdunits.form.collections-list.notification.success.deleteCollection": "Successfully deleted collection: \"{{name}}\"",
-  // End UMD Customization
 
 
 
@@ -1295,10 +1057,6 @@
 
   "community.create.notifications.success": "Successfully created the Community",
 
-  // UMD Customization for LIBDRUM-701
-  "community.create.notifications.communityGroup.error": "An error occured while setting the Community Group",
-  // End UMD Customization for LIBDRUM-701
-
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
 
   "community.curate.header": "Curate Community: {{community}}",
@@ -1349,10 +1107,6 @@
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
 
   "community.edit.notifications.error": "An error occured while editing the Community",
-
-  // UMD Customization for LIBDRUM-701
-  "community.edit.notifications.communityGroup.error": "An error occured while setting the Community Group",
-  // End UMD Customization for LIBDRUM-701
 
   "community.edit.return": "Back",
 
@@ -1439,10 +1193,6 @@
 
 
   "community.form.abstract": "Short Description",
-
-  // UMD Customization for LIBDRUM-701
-  "community.form.communityGroup": "Group",
-  // End UMD Customization for LIBDRUM-701
 
   "community.form.description": "Introductory text (HTML)",
 
@@ -1728,12 +1478,6 @@
 
   "error.validation.groupExists": "This group already exists",
 
-  // UMD Customization
-  "error.validation.unitExists": "This unit already exists",
-
-  "error.validation.etdunitExists": "This ETD Department already exists",
-  // End UMD Customization
-
 
   "feed.description": "Syndication feed",
 
@@ -1756,11 +1500,6 @@
 
   "footer.link.feedback":"Send Feedback",
 
-  // UMD Customization
-  "footer.link.umd-give-now":"Give Now",
-
-  "footer.link.umd-web-accessibility":"Web Accessibility",
-  // End UMD Customization
 
 
   "forgot-email.form.header": "Forgot Password",
@@ -2829,15 +2568,9 @@
 
   "login.form.password": "Password",
 
-  // UMD Customization
-  "login.form.cas": "UMD Login",
-  // End  UMD Customization
-
   "login.form.shibboleth": "Log in with Shibboleth",
 
-  // UMD Customization
-  "login.form.submit": "Guest Researcher Login",
-  // End UMD Customization
+  "login.form.submit": "Log in",
 
   "login.title": "Login",
 
@@ -2855,9 +2588,7 @@
 
   "menu.header.admin": "Management",
 
-  // UMD Customization
-  "menu.header.image.logo": "DRUM",
-  // End UMD Customization
+  "menu.header.image.logo": "Repository logo",
 
   "menu.header.admin.description": "Management menu",
 
@@ -2870,10 +2601,6 @@
   "menu.section.access_control_groups": "Groups",
 
   "menu.section.access_control_people": "People",
-
-  // UMD Customization
-  "menu.section.access_control_units": "Units",
-  // End UMD Customization
 
 
 
@@ -3037,11 +2764,6 @@
 
   "menu.section.workflow": "Administer Workflow",
 
-  // UMD Customizations
-  "menu.section.drum_customizations": "DRUM Customizations",
-  "menu.section.drum_customizations_embargo_list": "Embargo List",
-  "menu.section.drum_customizations_etdunits": "ETD Departments",
-  // End UMD Customizations
 
   "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.submit.success": "The export was started successfully",
@@ -5090,7 +4812,315 @@
   "home.recent-submissions.head": "Recent Submissions",
 
   // UMD Customization
-  "menu.header.organization.logo": "UMD Libraries",
+  "admin.access-control.epeople.form.ldap.email": "Email:",
+
+  "admin.access-control.epeople.form.ldap.faculty": "Faculty:",
+
+  "admin.access-control.epeople.form.ldap.groups": "Groups:",
+
+  "admin.access-control.epeople.form.ldap.matchedUnits": "Units:",
+
+  "admin.access-control.epeople.form.ldap.name": "Name:",
+
+  "admin.access-control.epeople.form.ldap.phone": "Phone:",
+
+  "admin.access-control.epeople.form.ldap.title": "UM Directory Information",
+
+  "admin.access-control.epeople.form.ldap.umAppointment": "UM Appt:",
+
+  "admin.access-control.epeople.form.ldap.unmatchedUnits": "Unmatched Units:",
+
+  "admin.access-control.units.addUnit.breadcrumbs": "New Unit",
+
+  "admin.access-control.units.breadcrumbs": "Units",
+
+  "admin.access-control.units.button.add": "Add unit",
+
+  "admin.access-control.units.button.see-all": "Browse all",
+
+  "admin.access-control.units.form.actions.delete": "Delete Unit",
+
+  "admin.access-control.units.form.delete-unit.modal.cancel": "Cancel",
+
+  "admin.access-control.units.form.delete-unit.modal.confirm": "Delete",
+
+  "admin.access-control.units.form.delete-unit.modal.header": "Delete Unit \"{{ dsoName }}\"",
+
+  "admin.access-control.units.form.delete-unit.modal.info": "Are you sure you want to delete Unit \"{{ dsoName }}\"",
+
+  "admin.access-control.units.form.facultyOnly": "Faculty Only",
+
+  "admin.access-control.units.form.groups-list.button.see-all": "Browse All",
+
+  "admin.access-control.units.form.groups-list.head": "Groups",
+
+  "admin.access-control.units.form.groups-list.headMembers": "Current Members",
+
+  "admin.access-control.units.form.groups-list.no-groups-yet": "No groups in unit yet, search and add.",
+
+  "admin.access-control.units.form.groups-list.notification.failure.addGroup": "Failed to add group: \"{{name}}\"",
+
+  "admin.access-control.units.form.groups-list.notification.failure.deleteGroup": "Failed to delete group: \"{{name}}\"",
+
+  "admin.access-control.units.form.groups-list.notification.failure.noActiveUnit": "No current active unit, submit a name first.",
+
+  "admin.access-control.units.form.groups-list.notification.success.addGroup": "Successfully added group: \"{{name}}\"",
+
+  "admin.access-control.units.form.groups-list.notification.success.deleteGroup": "Successfully deleted group: \"{{name}}\"",
+
+  "admin.access-control.units.form.groups-list.search.button": "Search",
+
+  "admin.access-control.units.form.groups-list.search.head": "Add Groups",
+
+  "admin.access-control.units.form.groups-list.table.collectionOrCommunity": "Collection/Community",
+
+  "admin.access-control.units.form.groups-list.table.edit": "Remove / Add",
+
+  "admin.access-control.units.form.groups-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+
+  "admin.access-control.units.form.groups-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+
+  "admin.access-control.units.form.groups-list.table.id": "ID",
+
+  "admin.access-control.units.form.groups-list.table.name": "Name",
+
+  "admin.access-control.units.form.head.create": "Create unit",
+
+  "admin.access-control.units.form.head.edit": "Edit unit",
+
+  "admin.access-control.units.form.notification.created.failure": "Failed to create Unit \"{{name}}\"",
+
+  "admin.access-control.units.form.notification.created.failure.unitNameInUse": "Failed to create Unit with name: \"{{name}}\", make sure the name is not already in use.",
+
+  "admin.access-control.units.form.notification.created.success": "Successfully created Unit \"{{name}}\"",
+
+  "admin.access-control.units.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+
+  "admin.access-control.units.form.notification.deleted.failure.title": "Failed to delete unit \"{{ name }}\"",
+
+  "admin.access-control.units.form.notification.deleted.success": "Successfully deleted unit \"{{ name }}\"",
+
+  "admin.access-control.units.form.notification.edited.failure": "Failed to edit Unit \"{{name}}\"",
+
+  "admin.access-control.units.form.notification.edited.failure.unitNameInUse": "Name \"{{name}}\" already in use!",
+
+  "admin.access-control.units.form.notification.edited.success": "Successfully edited Unit \"{{name}}\"",
+
+  "admin.access-control.units.form.return": "Back",
+
+  "admin.access-control.units.form.unitName": "Unit name",
+
+  "admin.access-control.units.head": "Units",
+
+  "admin.access-control.units.no-items": "No units found with this in their name or this as UUID",
+
+  "admin.access-control.units.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+
+  "admin.access-control.units.notification.deleted.failure.title": "Failed to delete unit \"{{name}}\"",
+
+  "admin.access-control.units.notification.deleted.success": "Successfully deleted unit \"{{name}}\"",
+
+  "admin.access-control.units.search.button": "Search",
+
+  "admin.access-control.units.search.head": "Search units",
+
+  "admin.access-control.units.search.placeholder": "Search units...",
+
+  "admin.access-control.units.singleUnit.breadcrumbs": "Edit Unit",
+
+  "admin.access-control.units.table.edit": "Edit",
+
+  "admin.access-control.units.table.edit.buttons.edit": "Edit \"{{name}}\"",
+
+  "admin.access-control.units.table.edit.buttons.remove": "Delete \"{{name}}\"",
+
+  "admin.access-control.units.table.id": "ID",
+
+  "admin.access-control.units.table.members": "Members",
+
+  "admin.access-control.units.table.name": "Name",
+
+  "admin.access-control.units.title": "Units",
+
+  "admin.access-control.units.title.addUnit": "New Unit",
+
+  "admin.access-control.units.title.singleUnit": "Edit Unit",
+
+  "admin.core.etdunits.addEtdUnit.breadcrumbs": "New ETD Department",
+
+  "admin.core.etdunits.breadcrumbs": "ETD Departments",
+
+  "admin.core.etdunits.button.add": "Add ETD department",
+
+  "admin.core.etdunits.button.see-all": "Browse all",
+
+  "admin.core.etdunits.form.actions.delete": "Delete ETD Department",
+
+  "admin.core.etdunits.form.collections-list.button.see-all": "Browse All",
+
+  "admin.core.etdunits.form.collections-list.head": "Collections",
+
+  "admin.core.etdunits.form.collections-list.headMembers": "Current Members",
+
+  "admin.core.etdunits.form.collections-list.no-collections-yet": "No collections in ETD department yet, search and add.",
+
+  "admin.core.etdunits.form.collections-list.notification.success.addCollection": "Successfully added collection: \"{{name}}\"",
+
+  "admin.core.etdunits.form.collections-list.notification.success.deleteCollection": "Successfully deleted collection: \"{{name}}\"",
+
+  "admin.core.etdunits.form.collections-list.search.button": "Search",
+
+  "admin.core.etdunits.form.collections-list.search.head": "Add Collections",
+
+  "admin.core.etdunits.form.collections-list.table.edit": "Remove / Add",
+
+  "admin.core.etdunits.form.collections-list.table.id": "ID",
+
+  "admin.core.etdunits.form.collections-list.table.name": "Name",
+
+  "admin.core.etdunits.form.delete-etdunit.modal.cancel": "Cancel",
+
+  "admin.core.etdunits.form.delete-etdunit.modal.confirm": "Delete",
+
+  "admin.core.etdunits.form.delete-etdunit.modal.header": "Delete ETD Department \"{{ dsoName }}\"",
+
+  "admin.core.etdunits.form.delete-etdunit.modal.info": "Are you sure you want to delete ETD Department \"{{ dsoName }}\"",
+
+  "admin.core.etdunits.form.etdunitName": "ETD Department name",
+
+  "admin.core.etdunits.form.head.create": "Create ETD department",
+
+  "admin.core.etdunits.form.head.edit": "Edit ETD department",
+
+  "admin.core.etdunits.form.notification.created.failure": "Failed to create ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.form.notification.created.failure.etdunitNameInUse": "Failed to create ETD Department with name: \"{{name}}\", make sure the name is not already in use.",
+
+  "admin.core.etdunits.form.notification.created.success": "Successfully created ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+
+  "admin.core.etdunits.form.notification.deleted.failure.title": "Failed to delete ETD Department \"{{ name }}\"",
+
+  "admin.core.etdunits.form.notification.deleted.success": "Successfully deleted ETD Department \"{{ name }}\"",
+
+  "admin.core.etdunits.form.notification.edited.failure": "Failed to edit ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.form.notification.edited.failure.etdunitNameInUse": "Name \"{{name}}\" already in use!",
+
+  "admin.core.etdunits.form.notification.edited.success": "Successfully edited ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.form.return": "Back",
+
+  "admin.core.etdunits.head": "ETD Departments",
+
+  "admin.core.etdunits.no-items": "No ETD Departments found with this in their name or this as UUID",
+
+  "admin.core.etdunits.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+
+  "admin.core.etdunits.notification.deleted.failure.title": "Failed to delete ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.notification.deleted.success": "Successfully deleted ETD Department \"{{name}}\"",
+
+  "admin.core.etdunits.search.button": "Search",
+
+  "admin.core.etdunits.search.head": "Search ETD departments",
+
+  "admin.core.etdunits.search.placeholder": "Search ETD departments...",
+
+  "admin.core.etdunits.singleEtdUnit.breadcrumbs": "Edit ETD Department",
+
+  "admin.core.etdunits.table.edit": "Edit",
+
+  "admin.core.etdunits.table.edit.buttons.edit": "Edit \"{{name}}\"",
+
+  "admin.core.etdunits.table.edit.buttons.remove": "Delete \"{{name}}\"",
+
+  "admin.core.etdunits.table.id": "ID",
+
+  "admin.core.etdunits.table.members": "Members",
+
+  "admin.core.etdunits.table.name": "Name",
+
+  "admin.core.etdunits.title": "ETD Departments",
+
+  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DRUM requires the qualified Dublin Core schema.",
+
+  "bitstream.embargoed.text": "(RESTRICTED ACCESS)",
+
+  "bitstream.restricted-access.anonymous.forbidden.message": "The file you are attempting to access is restricted.",
+
+  "bitstream.restricted-access.embargo.forever.message": "At the request of the author, this document is not available.",
+
+  "bitstream.restricted-access.embargo.restricted-until.message": "At the request of the author, this document is not available until {{ restrictedAccessDate }}.",
+
+  "bitstream.restricted-access.header": "Restricted Access",
+
+  "bitstream.restricted-access.title": "This resource is restricted",
+
+  "bitstream.restricted-access.user.forbidden.generic.message": "You do not have the credentials to access this restricted bitstream.",
+
+  "bitstream.restricted-access.user.forbidden.header": "This bitstream is restricted",
+
+  "bitstream.restricted-access.user.forbidden.with_file.message": "You do not have the credentials to access the restricted bitstream '{{ filename }}'.",
+
+  "community.create.notifications.communityGroup.error": "An error occured while setting the Community Group",
+
+  "community.edit.notifications.communityGroup.error": "An error occured while setting the Community Group",
+
+  "community.form.communityGroup": "Group",
+
+  "community_group.faculty.title": "Collections Organized by Department",
+
+  "community_group.um.title": "UM Community-managed Collections",
+
+  "dso-selector.set-scope.community.button": "Search all of DRUM",
+
+  "embargo-list-export-csv.submit.error": "Starting the export has failed",
+
+  "embargo-list-export-csv.submit.success": "The export was started successfully",
+
+  "embargo-list-export-csv.tooltip": "Export embargo list as CSV",
+
+  "embargo-list.breadcrumbs": "Embargo List",
+
+  "embargo-list.error.msg": "The embargo list is temporarily unavailable",
+
+  "embargo-list.table.label.advisor": "Advisor",
+
+  "embargo-list.table.label.author": "Author",
+
+  "embargo-list.table.label.bitstreamId": "Bitstream ID",
+
+  "embargo-list.table.label.department": "Department",
+
+  "embargo-list.table.label.endDate": "End Date",
+
+  "embargo-list.table.label.handle": "Handle",
+
+  "embargo-list.table.label.itemId": "Item ID",
+
+  "embargo-list.table.label.title": "Title",
+
+  "embargo-list.table.label.type": "Type",
+
+  "embargo-list.title": "Embargo List",
+
+  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DRUM. If the error persists, contact the administrator",
+
+  "error.validation.etdunitExists": "This ETD Department already exists",
+
+  "error.validation.unitExists": "This unit already exists",
+
+  "footer.link.dspace": "DRUM software",
+
+  "footer.link.umd-give-now":"Give Now",
+
+  "footer.link.umd-web-accessibility":"Web Accessibility",
+
+  "home.top-level-communities.head": "Communities in DRUM",
+
+  "info.feedback.info": "Thanks for sharing your feedback about DRUM. Your comments are appreciated!",
 
   "item.page.advisor": "Advisor",
 
@@ -5108,59 +5138,57 @@
 
   "item.page.uri": "URI (handle)",
 
-  "community_group.faculty.title": "Collections Organized by Department",
+  "login.form.cas": "UMD Login",
 
-  "community_group.um.title": "UM Community-managed Collections",
+  "login.form.header": "Please log in to DRUM",
 
-  "embargo-list.breadcrumbs": "Embargo List",
+  "login.form.submit": "Guest Researcher Login",
 
-  "embargo-list.title": "Embargo List",
+  "logout.form.header": "Log out from DRUM",
 
-  "embargo-list-export-csv.tooltip": "Export embargo list as CSV",
+  "menu.header.image.logo": "DRUM",
 
-  "embargo-list-export-csv.submit.success": "The export was started successfully",
+  "menu.header.organization.logo": "UMD Libraries",
 
-  "embargo-list-export-csv.submit.error": "Starting the export has failed",
+  "menu.section.access_control_units": "Units",
 
-  "embargo-list.error.msg": "The embargo list is temporarily unavailable",
+  "menu.section.browse_global": "All of DRUM",
 
-  "embargo-list.table.label.handle": "Handle",
+  "menu.section.drum_customizations": "DRUM Customizations",
 
-  "embargo-list.table.label.itemId": "Item ID",
+  "menu.section.drum_customizations_embargo_list": "Embargo List",
 
-  "embargo-list.table.label.bitstreamId": "Bitstream ID",
+  "menu.section.drum_customizations_etdunits": "ETD Departments",
 
-  "embargo-list.table.label.title": "Title",
+  "mydspace.breadcrumbs": "My Submissions",
 
-  "embargo-list.table.label.advisor": "Advisor",
+  "mydspace.results.head": "My submissions",
 
-  "embargo-list.table.label.author": "Author",
+  "mydspace.show.workspace": "My Submissions",
 
-  "embargo-list.table.label.department": "Department",
+  "mydspace.title": "My Submissions",
 
-  "embargo-list.table.label.type": "Type",
+  "nav.browse.header": "All of DRUM",
 
-  "embargo-list.table.label.endDate": "End Date",
+  "nav.mydspace": "My Submissions",
+
+  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DRUM.",
+
+  "repository.title.prefix": "DRUM :: ",
+
+  "repository.title.prefixDSpace": "DRUM ::",
+
+  "search.form.scope.all": "All of DRUM",
+
+  "submission.import-external.back-to-my-dspace": "Back to My Submissions",
+
+  "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DRUM.",
 
   "submission.sections.submit.progressbar.equitableAccessSubmission": "Equitable Access",
 
-  "bitstream.embargoed.text": "(RESTRICTED ACCESS)",
+  "title": "DRUM",
 
-  "bitstream.restricted-access.title": "This resource is restricted",
+  "workspace.search.results.head": "My submissions",
 
-  "bitstream.restricted-access.header": "Restricted Access",
-
-  "bitstream.restricted-access.embargo.forever.message": "At the request of the author, this document is not available.",
-
-  "bitstream.restricted-access.embargo.restricted-until.message": "At the request of the author, this document is not available until {{ restrictedAccessDate }}.",
-
-  "bitstream.restricted-access.anonymous.forbidden.message": "The file you are attempting to access is restricted.",
-
-  "bitstream.restricted-access.user.forbidden.header": "This bitstream is restricted",
-
-  "bitstream.restricted-access.user.forbidden.with_file.message": "You do not have the credentials to access the restricted bitstream '{{ filename }}'.",
-
-  "bitstream.restricted-access.user.forbidden.generic.message": "You do not have the credentials to access this restricted bitstream.",
-
-  // End UMD Customization
+  // End  UMD Customization
 }
