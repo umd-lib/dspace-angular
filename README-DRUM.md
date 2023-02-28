@@ -120,6 +120,15 @@ DSPACE_ENVIRONMENTBANNER_BACKGROUNDCOLOR=#fff100
 DSPACE_ENVIRONMENTBANNER_ENABLED=true
 ```
 
+### I18n Customizations
+
+All changes to I18n assets should be made in the "UMD Customization" section
+at the bottom of the default "src/assets/i18n/en.json5" file.
+
+Existing DSpace-provided entries are overridden when added to the
+"UMD Customization" section, because when multiple keys occur in the file,
+the last instance of the key is used.
+
 ## Debugging using VS Code
 
 The built-in VS Code debugger can be used in conjunction with the Chrome web
