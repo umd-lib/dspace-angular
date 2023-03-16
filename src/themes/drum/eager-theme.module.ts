@@ -21,8 +21,10 @@ import { CommunityListComponent } from './app/community-list-page/community-list
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { HomePageModule } from 'src/app/home-page/home-page.module';
 import { JsonLdWebsiteComponent } from './app/item-page/json-ld/json-ld-website.component';
+import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -54,6 +56,7 @@ const DECLARATIONS = [
   CommunityListPageComponent,
   CommunityListComponent,
   HomePageComponent,
+  HomeNewsComponent,
   JsonLdWebsiteComponent,
 ];
 

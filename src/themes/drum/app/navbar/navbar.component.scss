@@ -1,6 +1,8 @@
 nav.navbar {
   border-top: 1px var(--ds-header-navbar-border-top-color) solid;
-  border-bottom: 5px var(--bs-green) solid;
+  // UMD Customization
+  border-bottom: 5px #454545 solid;
+  // End UMD Customization
   align-items: baseline;
   color: var(--ds-header-icon-color);
 }

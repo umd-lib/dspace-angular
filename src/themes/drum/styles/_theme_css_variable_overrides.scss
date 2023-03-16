@@ -4,4 +4,8 @@
 @import '../../dspace/styles/_theme_css_variable_overrides.scss';
 
 // Customizations for "drum" theme
+:root {
+  --ds-home-news-link-color: #ffd200; // "Maryland Gold", see https://brand.umd.edu/colors
+  --ds-home-news-link-hover-color: #ffd200;
+}
 
