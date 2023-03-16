@@ -1,7 +1,9 @@
 <ds-metadata-field-wrapper [label]="label | translate">
     <ng-container *ngFor="let mdValue of mdValues; let last=last;">
-      <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : simple); context: {value: mdValue.value, classes: 'dont-break-out preserve-line-breaks'}">
-      </ng-container>
+      <!-- UMD Customization -->
+      <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : simple); context: {value: mdValue.value, classes: 'dont-break-out'}">
+      <!-- End UMD Customization -->
+    </ng-container>
       <span class="separator" *ngIf="!last" [innerHTML]="separator"></span>
     </ng-container>
 </ds-metadata-field-wrapper>
