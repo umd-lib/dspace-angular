@@ -47,6 +47,9 @@ nav.navbar {
 
 a.navbar-brand img {
   max-height: var(--ds-header-logo-height);
+  // An SVG in an "img" tag defaults to zero height, and so it not displayed,
+  // unless the "height" attribute is set ("max-height" is not sufficient).
+  height: var(--ds-header-logo-height);
 }
 
 .navbar-nav {
