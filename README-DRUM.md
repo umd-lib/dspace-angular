@@ -1,7 +1,7 @@
 # DRUM Angular UI
 
 This is a fork of the dspace-angular project to implement a customized frontend
-for [DRUM](https://github.com/umd-lib/DSpace/tree/drum-develop)
+for [DRUM](https://github.com/umd-lib/DSpace/tree/drum-main)
 
 ## Documentation
 
@@ -14,14 +14,17 @@ The original dspace-angular documentation:
 - Node v12.x, v14.x or v16.x
 - npm >= v5.x
 - yarn == v1.x
-- Ensure that the DRUM API is up and running by following the instructions at <https://github.com/umd-lib/DSpace/tree/drum-develop>
+- Ensure that the DRUM API is up and running by following the instructions at <https://github.com/umd-lib/DSpace/tree/drum-main>
 
 ## Development Setup
+
+This repository uses the "GitHub Flow" branching model, with "drum-main" as the
+main branch for DRUM development.
 
 1. Clone the Git repository and switch to the directory:
 
     ```bash
-    git clone -b drum-develop git@github.com:umd-lib/dspace-angular.git drum-ui
+    git clone -b drum-main git@github.com:umd-lib/dspace-angular.git drum-ui
     cd drum-ui
     ```
 
