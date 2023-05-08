@@ -5,12 +5,18 @@
   </ng-container>
   <ds-search-form [inPlaceSearch]="false" [searchPlaceholder]="'home.search-form.placeholder' | translate">
   </ds-search-form>
-  <h2>{{ 'communityList.title' | translate }}</h2>
-  <h3>{{ 'community_group.faculty.title' | translate }}</h3>
-  <ds-cg-community-list [communityGroupId]="FACULTY_COMMUNITY_GROUP" [size]="COMMUNITY_LIST_SIZE">
-  </ds-cg-community-list>
-  <h3>{{ 'community_group.um.title' | translate }}</h3>
-  <ds-cg-community-list [communityGroupId]="UM_COMMUNITY_GROUP" [size]="COMMUNITY_LIST_SIZE">
-  </ds-cg-community-list>
-  <ds-recent-item-list *ngIf="recentSubmissionspageSize>0"></ds-recent-item-list>
+  <div class="row">
+    <div class="col-sm-6">
+      <h2>{{ 'communityList.title' | translate }}</h2>
+      <h3>{{ 'community_group.faculty.title' | translate }}</h3>
+      <ds-cg-community-list [communityGroupId]="FACULTY_COMMUNITY_GROUP" [size]="COMMUNITY_LIST_SIZE">
+      </ds-cg-community-list>
+      <h3 class="mt-4">{{ 'community_group.um.title' | translate }}</h3>
+      <ds-cg-community-list [communityGroupId]="UM_COMMUNITY_GROUP" [size]="COMMUNITY_LIST_SIZE">
+      </ds-cg-community-list>
+    </div>
+    <div class="col-sm-6">
+      <ds-recent-item-list *ngIf="recentSubmissionspageSize>0"></ds-recent-item-list>
+    </div>
+  </div>
 </div>
