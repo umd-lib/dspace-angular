@@ -5,9 +5,7 @@ for [DRUM](https://github.com/umd-lib/DSpace/tree/drum-main)
 
 ## Documentation
 
-The original dspace-angular documentation:
-
-- [README.md](README.md)
+The original dspace-angular documentation is in the "README.md" file.
 
 ## Prerequisite
 
@@ -21,17 +19,17 @@ The original dspace-angular documentation:
 This repository uses the "GitHub Flow" branching model, with "drum-main" as the
 main branch for DRUM development.
 
-1. Clone the Git repository and switch to the directory:
+1) Clone the Git repository and switch to the directory:
 
     ```bash
-    git clone -b drum-main git@github.com:umd-lib/dspace-angular.git drum-ui
-    cd drum-ui
+    $ git clone -b drum-main git@github.com:umd-lib/dspace-angular.git drum-ui
+    $ cd drum-ui
     ```
 
-2. Create the dev config file
+2) Create the dev config file
 
     ```bash
-    cat <<EOF > config/config.dev.yml
+    $ cat <<EOF > config/config.dev.yml
     # Angular Universal server settings
     # NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
     ui:
@@ -57,17 +55,17 @@ main branch for DRUM development.
     EOF
     ```
 
-3. Install the dependencies
+3) Install the dependencies
 
     ```bash
     # install the local dependencies
-    yarn install
+    $ yarn install
     ```
 
-4. Start the server in development mode
+4) Start the server in development mode
 
     ```bash
-    yarn run start:dev
+    $ yarn run start:dev
     ```
 
     This will start the angular application in development mode which will
