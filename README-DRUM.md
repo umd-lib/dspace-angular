@@ -73,6 +73,21 @@ main branch for DRUM development.
 
     Then go to <http://localhost:4000> in your browser
 
+## Production Docker image
+
+The Docker image used for running DRUM in Kubernetes is created using the
+"Dockerfile.prod" file.
+
+This Docker image utilizes the "pm2" process manager
+(<https://pm2.keymetrics.io/>) to enable Node to scale to multiple CPUs, as
+suggested in
+<https://wiki.lyrasis.org/display/DSDOC7x/Performance+Tuning+DSpace>.
+
+The "pm2" process manager version is controlled by the "PM2_VERSION" environment
+variable in the "Dockerfile.prod" file.
+
+The "dspace-ui.json" file is used to configure the "pm2" process manager.
+
 ## Customizations
 
 ### Environment Banner
