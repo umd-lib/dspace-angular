@@ -19,6 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
+import { MatomoAnalyticsService } from '../../app/statistics/matomo-analytics.service';
 import { MetadataService } from '../../app/core/metadata/metadata.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
@@ -44,6 +45,7 @@ export class BrowserInitService extends InitService {
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
     protected googleAnalyticsService: GoogleAnalyticsService,
+    protected matomoAnalyticsService: MatomoAnalyticsService,
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
     protected klaroService: KlaroService,
@@ -85,6 +87,7 @@ export class BrowserInitService extends InitService {
       this.initI18n();
       this.initAngulartics();
       this.initGoogleAnalytics();
+      this.initMatomoAnalytics();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
@@ -130,5 +133,9 @@ export class BrowserInitService extends InitService {
 
   protected initGoogleAnalytics() {
     this.googleAnalyticsService.addTrackingIdToPage();
+  }
+
+  protected initMatomoAnalytics() {
+    this.matomoAnalyticsService.addTrackingIdToPage();
   }
 }
