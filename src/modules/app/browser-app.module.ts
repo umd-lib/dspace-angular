@@ -28,7 +28,7 @@ import {
 } from '../../app/core/services/browser-hard-redirect.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { MatomoAnalyticsService } from 'src/app/statistics/matomo-analytics.service';
+import { MatomoAnalyticsService } from '../../app/statistics/matomo-analytics.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
 import { BrowserInitService } from './browser-init.service';
