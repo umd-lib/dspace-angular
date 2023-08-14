@@ -21,7 +21,11 @@ export class ViewTrackerComponent implements OnInit {
   ngOnInit(): void {
     this.angulartics2.eventTrack.next({
       action: 'pageView',
-      properties: {object: this.object},
+      // UMD Customization
+      // Matomo analytics requires a "category" property, unlike
+      // Google Analytics which sets the category to "Event" by default
+      properties: {object: this.object, category: 'Event'},
+      // End UMD Customization
     });
   }
 }

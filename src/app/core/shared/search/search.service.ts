@@ -346,6 +346,11 @@ export class SearchService implements OnDestroy {
       action: 'search',
       properties: {
         searchOptions: config,
+        // UMD Customization
+        // Matomo analytics requires a "category" property, unlike
+        // Google Analytics which sets the category to "Event" by default
+        category: 'Event',
+        // End UMD Customization
         page: {
           size: config.pagination.size, // same as searchQueryResponse.page.elementsPerPage
           totalElements: searchQueryResponse.pageInfo.totalElements,
