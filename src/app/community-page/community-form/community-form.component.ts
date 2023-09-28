@@ -1,5 +1,5 @@
 // UMD Customization
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 // End UMD Customization
 import {
   DynamicFormControlModel,
@@ -27,6 +27,7 @@ import { RemoteData } from 'src/app/core/data/remote-data';
 import { Observable, combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 // End UMD Customization
+import { environment } from '../../../environments/environment';
 
 /**
  * Form used for creating and editing communities
@@ -37,7 +38,7 @@ import { getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
 // UMD Customization
-export class CommunityFormComponent extends ComColFormComponent<Community> implements OnInit, OnDestroy {
+export class CommunityFormComponent extends ComColFormComponent<Community> implements On Changes, OnInit, OnDestroy {
 // End UMD Customization
   /**
    * @type {Community} A new community when a community is being created, an existing Input community when a community is being edited
@@ -104,18 +105,22 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
     new DynamicTextAreaModel({
       id: 'description',
       name: 'dc.description',
+      spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
       id: 'abstract',
       name: 'dc.description.abstract',
+      spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
       id: 'rights',
       name: 'dc.rights',
+      spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
       id: 'tableofcontents',
       name: 'dc.description.tableofcontents',
+      spellCheck: environment.form.spellCheck,
     }),
   ];
 
@@ -134,6 +139,13 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const dsoChange: SimpleChange = changes.dso;
+    if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
+       super.ngOnInit();
+    }
   }
 
   // UMD Customization

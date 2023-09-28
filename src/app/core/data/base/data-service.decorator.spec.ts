@@ -10,9 +10,7 @@ import { ResourceType } from '../../shared/resource-type';
 import { BaseDataService } from './base-data.service';
 import { HALDataService } from './hal-data-service.interface';
 import { dataService, getDataServiceFor } from './data-service.decorator';
-// UMD Customization
 import { v4 as uuidv4 } from 'uuid';
-// End UMD Customization
 
 class TestService extends BaseDataService<any> {
 }
@@ -31,9 +29,7 @@ let testType;
 
 describe('@dataService/getDataServiceFor', () => {
   beforeEach(() => {
-    // UMD Customization
     testType = new ResourceType(`testType-${uuidv4()}`);
-    // End UMD Customization
   });
 
   it('should register a resourcetype for a dataservice', () => {

@@ -9,6 +9,8 @@ import { HALLink } from '../../shared/hal-link.model';
 import { EPERSON } from './eperson.resource-type';
 import { Group } from './group.model';
 import { GROUP } from './group.resource-type';
+import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
+import { GenericConstructor } from '../../shared/generic-constructor';
 // UMD Customization
 import { Ldap } from './ldap.model';
 import { LDAP } from './ldap.resource-type';
@@ -89,6 +91,10 @@ export class EPerson extends DSpaceObject {
   @link(GROUP, true)
   public groups?: Observable<RemoteData<PaginatedList<Group>>>;
 
+  getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+    return [this.constructor.name, ...super.getRenderTypes()];
+  }
+
   // UMD Customization
   /**
    * LDAP information for this EPerson
@@ -97,4 +103,5 @@ export class EPerson extends DSpaceObject {
    @link(LDAP, false)
    public ldap?: Observable<RemoteData<Ldap>>;
    // End UMD Customization
+
 }

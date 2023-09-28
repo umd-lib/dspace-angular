@@ -10,10 +10,26 @@ import { MembersListComponent } from './group-registry/group-form/members-list/m
 import { SubgroupsListComponent } from './group-registry/group-form/subgroup-list/subgroups-list.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 import { FormModule } from '../shared/form/form.module';
+import { DYNAMIC_ERROR_MESSAGES_MATCHER, DynamicErrorMessagesMatcher } from '@ng-dynamic-forms/core';
+import { AbstractControl } from '@angular/forms';
+import { BulkAccessComponent } from './bulk-access/bulk-access.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { BulkAccessBrowseComponent } from './bulk-access/browse/bulk-access-browse.component';
+import { BulkAccessSettingsComponent } from './bulk-access/settings/bulk-access-settings.component';
+import { SearchModule } from '../shared/search/search.module';
+import { AccessControlFormModule } from '../shared/access-control-form-container/access-control-form.module';
 // UMD Customization
 import { UnitFormComponent } from './unit-registry/unit-form/unit-form.component';
 import { UnitGroupsListComponent } from './unit-registry/unit-form/unit-group-list/unit-groups-list.component';
 // End  UMD Customization
+
+/**
+ * Condition for displaying error messages on email form field
+ */
+export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
+  (control: AbstractControl, model: any, hasFocus: boolean) => {
+    return (control.touched && !hasFocus) || (control.errors?.emailTaken && hasFocus);
+  };
 
 @NgModule({
   imports: [
@@ -21,7 +37,13 @@ import { UnitGroupsListComponent } from './unit-registry/unit-form/unit-group-li
     SharedModule,
     RouterModule,
     AccessControlRoutingModule,
-    FormModule
+    FormModule,
+    NgbAccordionModule,
+    SearchModule,
+    AccessControlFormModule,
+  ],
+  exports: [
+    MembersListComponent,
   ],
   declarations: [
     EPeopleRegistryComponent,
@@ -30,10 +52,19 @@ import { UnitGroupsListComponent } from './unit-registry/unit-form/unit-group-li
     GroupFormComponent,
     SubgroupsListComponent,
     MembersListComponent,
+    BulkAccessComponent,
+    BulkAccessBrowseComponent,
+    BulkAccessSettingsComponent,
     // UMD Customization
     UnitFormComponent,
     UnitGroupsListComponent
     // End UMD Customization
+  ],
+  providers: [
+    {
+      provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
+      useValue: ValidateEmailErrorStateMatcher
+    },
   ]
 })
 /**
