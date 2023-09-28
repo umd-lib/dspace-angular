@@ -3,7 +3,7 @@ import { testA11y } from 'cypress/support/utils';
 
 describe('Community List Page', () => {
 
-    // UMD Customization for LIBDRUM-664
+    // UMD Customization
     // The dspace backend in docker-compose-ci.yml uses stock dspace image, so the
     // communitygroups endpoint used by /community-list page is not available.
     // The default database restore SQL used by docker-compose-ci.yml does not include the
@@ -27,6 +27,5 @@ describe('Community List Page', () => {
             } as Options
         );
     });
-    // End UMD Customization for LIBDRUM-664
-
+    // End UMD Customization
 });

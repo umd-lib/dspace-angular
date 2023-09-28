@@ -3,7 +3,7 @@
       <!-- UMD Customization -->
       <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : simple); context: {value: mdValue.value, classes: 'dont-break-out'}">
       <!-- End UMD Customization -->
-    </ng-container>
+      </ng-container>
       <span class="separator" *ngIf="!last" [innerHTML]="separator"></span>
     </ng-container>
 </ds-metadata-field-wrapper>

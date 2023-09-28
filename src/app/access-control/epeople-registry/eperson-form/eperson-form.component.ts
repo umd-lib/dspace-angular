@@ -150,12 +150,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   groups: Observable<RemoteData<PaginatedList<Group>>>;
 
-  // UMD Customization for LIBDRUM-660
+  // UMD Customization
   /**
    * LDAP information associated with this EPerson
    */
   ldap: Observable<RemoteData<Ldap | NoContent>>;
-  // End UMD Customization for LIBDRUM-660
+  // End UMD Customization
 
   /**
    * Pagination config used to display the list of groups
@@ -319,7 +319,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         })
       );
 
-      // UMD Customization for LIBDRUM-660
+      // UMD Customization
       this.ldap = activeEPerson$.pipe(
         switchMap((eperson) => {
           if (eperson != null) {
@@ -329,7 +329,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           return observableOf(undefined);
         })
       );
-      // End UMD Customization for LIBDRUM-660
+      // End UMD Customization
 
       this.canImpersonate$ = activeEPerson$.pipe(
         switchMap((eperson) => {

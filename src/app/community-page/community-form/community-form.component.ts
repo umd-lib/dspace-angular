@@ -1,9 +1,13 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core'; // UMD Customization for LIBDRUM-701
+// UMD Customization
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+// End UMD Customization
 import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
-  DynamicSelectModel, // UMD Customization for LIBDRUM-701
+  // UMD Customization
+  DynamicSelectModel,
+  // End UMD Customization
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
 import { Community } from '../../core/shared/community.model';
@@ -14,7 +18,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
-// UMD Customization for LIBDRUM-701
+// UMD Customization
 import { hasNoValue, hasValue } from 'src/app/shared/empty.util';
 import { CommunityGroupDataService } from 'src/app/core/data/community-group-data.service';
 import { CommunityGroup } from 'src/app/core/shared/community-group.model';
@@ -22,7 +26,7 @@ import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { Observable, combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
-// End UMD Customization for LIBDRUM-701
+// End UMD Customization
 
 /**
  * Form used for creating and editing communities
@@ -32,7 +36,9 @@ import { getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
-export class CommunityFormComponent extends ComColFormComponent<Community> implements OnInit, OnDestroy { // UMD Customization for LIBDRUM-701
+// UMD Customization
+export class CommunityFormComponent extends ComColFormComponent<Community> implements OnInit, OnDestroy {
+// End UMD Customization
   /**
    * @type {Community} A new community when a community is being created, an existing Input community when a community is being edited
    */
@@ -43,7 +49,7 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
    */
   type = Community.type;
 
-  // UMD Customization for LIBDRUM-701
+  // UMD Customization
   /**
    * The community groups their remote data observable
    * Tracks changes and updates the view
@@ -74,7 +80,7 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
       required: 'Please select a group'
     },
   });
-  // End UMD Customization for LIBDRUM-701
+  // End UMD Customization
 
   /**
    * The dynamic form fields used for creating/editing a community
@@ -92,7 +98,9 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
         required: 'Please enter a name for this title'
       },
     }),
-    this.selectedCommunityGroupModel, // UMD Customization for LIBDRUM-701
+    // UMD Customization
+    this.selectedCommunityGroupModel,
+    // End UMD Customization
     new DynamicTextAreaModel({
       id: 'description',
       name: 'dc.description',
@@ -112,19 +120,23 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
   ];
 
   public constructor(protected formService: DynamicFormService,
-    private changeDetectorRef: ChangeDetectorRef, // UMD Customization for LIBDRUM-701
-    protected translate: TranslateService,
-    protected notificationsService: NotificationsService,
-    protected authService: AuthService,
-    protected dsoService: CommunityDataService,
-    protected communityService: CommunityDataService, // UMD Customization for LIBDRUM-701
-    protected cgService: CommunityGroupDataService, // UMD Customization for LIBDRUM-701
-    protected requestService: RequestService,
-    protected objectCache: ObjectCacheService) {
+                     // UMD Customization
+                     private changeDetectorRef: ChangeDetectorRef,
+                     // End UMD Customization
+                     protected translate: TranslateService,
+                     protected notificationsService: NotificationsService,
+                     protected authService: AuthService,
+                     protected dsoService: CommunityDataService,
+                     // UMD Customization
+                     protected communityService: CommunityDataService,
+                     protected cgService: CommunityGroupDataService,
+                     // End UMD Customization
+                     protected requestService: RequestService,
+                     protected objectCache: ObjectCacheService) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
   }
 
-  // UMD Customization for LIBDRUM-701
+  // UMD Customization
   ngOnInit(): void {
     super.ngOnInit();
 
@@ -197,5 +209,5 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
     this.objectCache.remove(this.dso._links.communityGroup.href);
     this.objectCache.remove(this.dso._links.self.href);
   }
-  // End UMD Customization for LIBDRUM-701
+  // End UMD Customization
 }

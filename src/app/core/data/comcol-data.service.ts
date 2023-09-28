@@ -29,14 +29,14 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Operation } from 'fast-json-patch';
-// UMD Customization for LIBDRUM-701
+// UMD Customization
 import { CommunityGroup } from '../shared/community-group.model';
 import { CommunityGroupDataService } from './community-group-data.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PutRequest } from './request.models';
 import { sendRequest } from '../shared/request.operators';
 import { HttpHeaders } from '@angular/common/http';
-// End UMD Customization for LIBDRUM-701
+// End UMD Customization
 
 export abstract class ComColDataService<T extends Community | Collection> extends IdentifiableDataService<T> implements CreateData<T>, FindAllData<T>, SearchData<T>, PatchData<T>, DeleteData<T> {
   private createData: CreateData<T>;
@@ -54,8 +54,9 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     protected comparator: DSOChangeAnalyzer<T>,
     protected notificationsService: NotificationsService,
     protected bitstreamDataService: BitstreamDataService,
-    protected cgService?: CommunityGroupDataService, // UMD Customization for LIBDRUM-701
-
+    // UMD Customization
+    protected cgService?: CommunityGroupDataService,
+    // End UMD Customization
   ) {
     super(linkPath, requestService, rdbService, objectCache, halService);
 
@@ -279,9 +280,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
 
-
-
-  // UMD Customization for LIBDRUM-701
+  // UMD Customization
   /**
    * Set the community group of a community
    * @param community
@@ -313,5 +312,5 @@ export abstract class ComColDataService<T extends Community | Collection> extend
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }
-  // End UMD Customization for LIBDRUM-701
+  // End UMD Customization
 }

@@ -155,7 +155,9 @@ export class MenuResolver implements Resolve<boolean> {
     this.createExportMenuSections();
     this.createImportMenuSections();
     this.createAccessControlMenuSections();
+    // UMD Customization
     this.createDrumCustomizationsMenuSections();
+    // End UMD Customization
 
     return this.waitForMenu$(MenuID.ADMIN);
   }

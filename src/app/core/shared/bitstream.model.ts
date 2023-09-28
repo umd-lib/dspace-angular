@@ -84,6 +84,7 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
     return 'format';
   }
 
+  // UMD Customization
   /**
    * Returns true if this bitstream has active embargo restrictions,
    * false otherwise.
@@ -97,4 +98,5 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
       return 'NONE' !== this.embargoRestriction;
     }
   }
+  // End UMD Customization
 }

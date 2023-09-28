@@ -82,7 +82,7 @@
     </div>
   </div>
 
-  <!-- UMD Customization for LIBDRUM-660/LIBDRUM-669 --->
+  <!-- UMD Customization -->
   <ng-container *ngVar="(ldap | async) as ldapRD">
     <div *ngIf="ldapRD.hasSucceeded && !ldapRD.hasNoContent">
       <h3>{{ messagePrefix + '.ldap.title' | translate }}</h3>
@@ -126,6 +126,5 @@
       </ul>
     </div>
   </ng-container>
-  <!-- End UMD Customization for LIBDRUM-660/LIBDRUM-669 -->
-
+  <!-- End UMD Customization -->
 </div>

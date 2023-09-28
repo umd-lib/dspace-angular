@@ -62,7 +62,7 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
       });
     }
 
-    // UMD Customization for LIBDRUM-701
+    // UMD Customization
     if (hasValue(event.communityGroupId)) {
       this.dsoDataService.updateCommunityGroup(event.dso, event.communityGroupId).pipe(
         getFirstCompletedRemoteData()
@@ -83,7 +83,7 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
         }
       });
     }
-    // End UMD Customization for LIBDRUM-701
+    // End UMD Customization
 
     if (!isEmpty(event.operations)) {
       this.dsoDataService.patch(event.dso, event.operations).pipe(getFirstCompletedRemoteData())

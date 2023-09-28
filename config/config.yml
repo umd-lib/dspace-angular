@@ -4,6 +4,7 @@ rest:
   port: 443
   nameSpace: /server
 
+# UMD Customization
 themes:
   - name: 'drum'
     extends: 'dspace'
@@ -25,3 +26,4 @@ bundle:
 # Disable End User Agreement
 info:
   enableEndUserAgreement: false
+# End UMD Customization

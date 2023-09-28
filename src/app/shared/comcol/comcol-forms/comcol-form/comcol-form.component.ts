@@ -84,7 +84,9 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     uploader: FileUploader,
     deleteLogo: boolean,
     operations: Operation[],
-    communityGroupId: number, // UMD Customization for LIBDRUM-701
+    // UMD Customization
+    communityGroupId: number,
+    // End UMD Customization
   }> = new EventEmitter();
 
   /**
@@ -108,12 +110,12 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   markLogoForDeletion = false;
 
-  // UMD Customization for LIBDRUM-701
+  // UMD Customization
   /**
    * Does the community group needs to be updated?
    */
   updateCommunityGroup = false;
-  // End UMD Customization for LIBDRUM-701
+  // End UMD Customization
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -127,15 +129,17 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   protected dsoService: ComColDataService<Community | Collection>;
 
   public constructor(protected formService: DynamicFormService,
-    protected translate: TranslateService,
-    protected notificationsService: NotificationsService,
-    protected authService: AuthService,
-    protected requestService: RequestService,
-    protected objectCache: ObjectCacheService) {
+                     protected translate: TranslateService,
+                     protected notificationsService: NotificationsService,
+                     protected authService: AuthService,
+                     protected requestService: RequestService,
+                     protected objectCache: ObjectCacheService) {
   }
 
   ngOnInit(): void {
-    this.filteredFormModel().forEach( // UMD Customization for LIBDRUM-701
+    // UMD Customization
+    this.filteredFormModel().forEach(
+    // End UMD Customization
       (fieldModel: DynamicInputModel) => {
         fieldModel.value = this.dso.firstMetadataValue(fieldModel.name);
       }
@@ -196,8 +200,10 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       });
     }
 
-    const formMetadata = {} as MetadataMap;
-    this.filteredFormModel().forEach((fieldModel: DynamicInputModel) => { // UMD Customization for LIBDRUM-701
+    const formMetadata = {}  as MetadataMap;
+    // UMD Customization
+    this.filteredFormModel().forEach((fieldModel: DynamicInputModel) => {
+    // End UMD Customization
       const value: MetadataValue = {
         value: fieldModel.value as string,
         language: null
@@ -218,7 +224,9 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     });
 
     const operations: Operation[] = [];
-    this.filteredFormModel().forEach((fieldModel: DynamicInputModel) => { // UMD Customization for LIBDRUM-701
+    // UMD Customization
+    this.filteredFormModel().forEach((fieldModel: DynamicInputModel) => {
+    // End UMD Customization
       if (fieldModel.value !== this.dso.firstMetadataValue(fieldModel.name)) {
         operations.push({
           op: 'replace',
@@ -236,7 +244,9 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
       deleteLogo: this.markLogoForDeletion,
       operations: operations,
-      communityGroupId: this.getCommunityGroupId() // UMD Customization for LIBDRUM-701
+      // UMD Customization
+      communityGroupId: this.getCommunityGroupId()
+      // End UMD Customization
     });
   }
 
@@ -308,7 +318,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       .forEach((subscription) => subscription.unsubscribe());
   }
 
-  // UMD Customization for LIBDRUM-701
+  // UMD Customization
   /**
    * Filters the communityGroup form input model from the formModel
    */
@@ -332,5 +342,5 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     }
     return id;
   }
-  // End UMD Customization for LIBDRUM-701
+  // End UMD Customization
 }

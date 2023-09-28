@@ -50,7 +50,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
   imports: [
     RouterModule.forRoot([
       { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
-      { path: ERROR_PAGE, component: ThemedPageErrorComponent },
+      { path: ERROR_PAGE , component: ThemedPageErrorComponent },
       {
         path: '',
         canActivate: [AuthBlockingGuard],
@@ -257,13 +257,14 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
         ]
       }
     ], {
+      // enableTracing: true,
       useHash: false,
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-    })
+})
   ],
   exports: [RouterModule],
 })

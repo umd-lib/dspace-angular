@@ -8,7 +8,9 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RouteService } from '../../../../core/services/route.service';
 import { Community } from '../../../../core/shared/community.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../../../core/shared/operators'; // UMD Customization for LIBDRUM-701
+// UMD Customization
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../../../core/shared/operators';
+// End UMD Customization
 import { ResourceType } from '../../../../core/shared/resource-type';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -89,7 +91,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
       .subscribe((dsoRD: TDomain) => {
         if (isNotUndefined(dsoRD)) {
           this.newUUID = dsoRD.uuid;
-          // UMD Customization for LIBDRUM-701
+          // UMD Customization
           if (hasValue(event.communityGroupId)) {
             this.dsoDataService.updateCommunityGroup(dsoRD as Community, event.communityGroupId).pipe(
               getFirstCompletedRemoteData()
@@ -104,7 +106,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
               }
             });
           }
-          // End UMD Customization for LIBDRUM-701
+          // End UMD Customization
           if (uploader.queue.length > 0) {
             this.dsoDataService.getLogoEndpoint(this.newUUID).pipe(take(1)).subscribe((href: string) => {
               uploader.options.url = href;

@@ -22,7 +22,7 @@ import {
   nameVariantReducer
 } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
-import { menusReducer } from './shared/menu/menu.reducer';
+import { menusReducer} from './shared/menu/menu.reducer';
 import {
   notificationsReducer,
   NotificationsState

@@ -42,6 +42,7 @@
             "sourceMaps": false,
             "outDir": null
         },
+        // UMD Customization
         {
             "type": "chrome",
             "request": "launch",
@@ -50,5 +51,6 @@
             "webRoot": "${workspaceFolder}",
             "browserLaunchLocation": "ui"
         },
+        // End UMD Customization
     ]
 }

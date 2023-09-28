@@ -234,7 +234,9 @@ import {
 import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
+// UMD Customization
 import { LogInCasComponent } from './log-in/methods/cas/log-in-cas.component';
+// End UMD Customization
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
@@ -469,7 +471,9 @@ const COMPONENTS = [
 
   ImportableListItemControlComponent,
 
+  // UMD Customization
   LogInCasComponent,
+  // End UMD Customization
   LogInShibbolethComponent,
   LogInOidcComponent,
   LogInOrcidComponent,
@@ -553,7 +557,9 @@ const ENTRY_COMPONENTS = [
   MetadataRepresentationListElementComponent,
   ItemMetadataRepresentationListElementComponent,
   LogInPasswordComponent,
+  // UMD Customization
   LogInCasComponent,
+  // End UMD Customization
   LogInShibbolethComponent,
   LogInOidcComponent,
   LogInOrcidComponent,
