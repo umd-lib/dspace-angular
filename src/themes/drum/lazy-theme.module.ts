@@ -37,10 +37,16 @@ import { SharedModule } from '../../app/shared/shared.module';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+// UMD Customization
+import { TranslateModule } from '@ngx-translate/core';
+// End UMD Customization
 import { HomePageModule } from '../../app/home-page/home-page.module';
 import { AppModule } from '../../app/app.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { RouterModule } from '@angular/router';
+// UMD Customization
+import { CommunityListPageModule } from '../../app/community-list-page/community-list-page.module';
+// End UMD Customization
 import { InfoModule } from '../../app/info/info.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
 import { CommunityPageModule } from '../../app/community-page/community-page.module';
@@ -53,6 +59,12 @@ import {
 } from '../../app/shared/resource-policies/resource-policies.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { RootModule } from '../../app/root.module';
+import { BrowseByPageModule } from '../../app/browse-by/browse-by-page.module';
+import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
+import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
+// UMD Customization
 import { PrivacyComponent } from './app/info/privacy/privacy.component';
 import { UnitsRegistryComponent } from 'src/app/access-control/unit-registry/units-registry.component';
 import { EmbargoListPageModule } from '../../app/embargo-list/embargo-list-page.module';
@@ -60,7 +72,7 @@ import { EtdUnitsModule } from 'src/app/etdunit-registry/etdunits.module';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
 import { JsonLdDatasetComponent } from './app/item-page/json-ld/json-ld-dataset.component';
 import { RestrictedAccessPageModule } from 'src/app/restricted-access/restricted-access-page.module';
-
+// End UMD Customization
 
 const DECLARATIONS = [
   ItemPageComponent,
@@ -78,15 +90,22 @@ const DECLARATIONS = [
     RootModule,
     BitstreamFormatsModule,
     BrowseByModule,
+    BrowseByPageModule,
+    ResultsBackButtonModule,
     CollectionFormModule,
     CollectionPageModule,
     CommonModule,
     CommunityFormModule,
+    // UMD Customization
+    // CommunityListPageModule,
+    // End UMD Customization
     CommunityPageModule,
     CoreModule,
     DragDropModule,
+    ItemSharedModule,
     ItemPageModule,
     EditItemPageModule,
+    ItemVersionsModule,
     FormsModule,
     HomePageModule,
     HttpClientModule,
@@ -104,10 +123,14 @@ const DECLARATIONS = [
     ScrollToModule,
     SearchPageModule,
     SharedModule,
+    SharedBrowseByModule,
     StatisticsModule,
     StatisticsPageModule,
     StoreModule,
     StoreRouterConnectingModule,
+    // UMD Customization
+    // TranslateModule,
+    // End UMD Customization
     SubmissionModule,
     MyDSpacePageModule,
     MyDspaceSearchModule,
@@ -115,9 +138,11 @@ const DECLARATIONS = [
     FormsModule,
     ResourcePoliciesModule,
     ComcolModule,
+    // UMD Customization
     EmbargoListPageModule,
     EtdUnitsModule,
     RestrictedAccessPageModule,
+    // End UMD Customization
   ],
   declarations: DECLARATIONS,
 })

@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { ItemPageComponent as BaseComponent } from '../../../../../app/item-page/simple/item-page.component';
 import { fadeInOut } from '../../../../../app/shared/animations/fade';
+import { ServerResponseService } from 'src/app/core/services/server-response.service';
+import { SignpostingDataService } from 'src/app/core/data/signposting-data.service';
+import { LinkHeadService } from 'src/app/core/services/link-head.service';
 
 /**
  * This component renders a simple item page.
@@ -21,11 +24,16 @@ import { fadeInOut } from '../../../../../app/shared/animations/fade';
 export class ItemPageComponent extends BaseComponent {
   constructor(
     protected route: ActivatedRoute,
-    router: Router,
-    items: ItemDataService,
-    authService: AuthService,
-    authorizationService: AuthorizationDataService
+    protected router: Router,
+    protected items: ItemDataService,
+    protected authService: AuthService,
+    protected authorizationService: AuthorizationDataService,
+    protected responseService: ServerResponseService,
+    protected signpostingDataService: SignpostingDataService,
+    protected linkHeadService: LinkHeadService,
+    @Inject(PLATFORM_ID) protected platformId: string
   ) {
-    super(route, router, items, authService, authorizationService);
+    super(route, router, items, authService, authorizationService,
+      responseService, signpostingDataService, linkHeadService, platformId);
   }
 }
