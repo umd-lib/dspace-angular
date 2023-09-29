@@ -38,7 +38,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
 // UMD Customization
-export class CommunityFormComponent extends ComColFormComponent<Community> implements On Changes, OnInit, OnDestroy {
+export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges, OnInit, OnDestroy {
 // End UMD Customization
   /**
    * @type {Community} A new community when a community is being created, an existing Input community when a community is being edited

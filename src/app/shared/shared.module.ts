@@ -385,13 +385,9 @@ const COMPONENTS = [
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
   ImportableListItemControlComponent,
-
   // UMD Customization
   LogInCasComponent,
   // End UMD Customization
-  LogInShibbolethComponent,
-  LogInOidcComponent,
-  LogInOrcidComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
   ModifyItemOverviewComponent,
