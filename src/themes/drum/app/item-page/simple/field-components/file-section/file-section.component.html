@@ -5,12 +5,12 @@
         <span>{{ dsoNameService.getName(file) }}</span>
         <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
         <span *ngIf="!last" innerHTML="{{separator}}"></span>
+        <!-- UMD Customization -->
+        <div>
+          <ds-bitstream-download-counter [bitstream]="file" label="No. of downloads:"></ds-bitstream-download-counter>
+        </div>
+        <!-- End UMD Customization -->
       </ds-themed-file-download-link>
-      <!-- UMD Customization -->
-      <div>
-        <ds-bitstream-download-counter [bitstream]="file" label="No. of downloads:"></ds-bitstream-download-counter>
-      </div>
-      <!-- End UMD Customization -->
       <ds-themed-loading *ngIf="isLoading" message="{{'loading.default' | translate}}" [showMessage]="false"></ds-themed-loading>
       <div *ngIf="!isLastPage" class="mt-1" id="view-more">
         <button class="bitstream-view-more btn btn-outline-secondary btn-sm" (click)="getNextPage()">{{'item.page.bitstreams.view-more' | translate}}</button>

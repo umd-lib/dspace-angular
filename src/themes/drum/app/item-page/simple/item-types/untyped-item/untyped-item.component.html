@@ -25,7 +25,7 @@
     <!-- Left column -->
 
     <!-- Files -->
-    <ng-container *ngIf="!mediaViewer.image || mediaViewer.video)">
+    <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
         <ds-themed-thumbnail [thumbnail]="object?.thumbnail | async"></ds-themed-thumbnail>
       </ds-metadata-field-wrapper>
