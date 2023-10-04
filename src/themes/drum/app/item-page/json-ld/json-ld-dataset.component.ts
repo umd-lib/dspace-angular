@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Item } from 'src/app/core/shared/item.model';
 import { JsonLdService } from './json-ld.service';
-import { DatasetJsonLdTransformer } from './json-ld-dataset.transfomer';
+import { DatasetJsonLdTransformer } from './json-ld-dataset.transformer';
 
 @Component({
   selector: 'ds-json-ld-dataset',
