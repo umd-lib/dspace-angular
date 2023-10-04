@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { EagerThemeModule as DSpaceEagerThemeModule } from './dspace/eager-theme.module';
 // UMD Customization
 import { EagerThemeModule as DrumEagerThemeModule } from './drum/eager-theme.module';
 // import { EagerThemeModule as CustomEagerThemeModule } from './custom/eager-theme.module';

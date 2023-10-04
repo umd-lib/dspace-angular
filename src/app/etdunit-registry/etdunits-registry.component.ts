@@ -12,7 +12,7 @@ import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-l
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { EtdUnit } from './models/etdunit.model';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { EtdUnitDataService } from './etdunit-data.service';
 import { EtdUnitDtoModel } from './models/etdunit-dto.model';

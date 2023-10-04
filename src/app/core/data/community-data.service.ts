@@ -1,10 +1,5 @@
-// UMD Customization
-import { HttpHeaders } from '@angular/common/http';
-// End UMD Customization
 import { Injectable } from '@angular/core';
-// UMD Customization
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-// End UMD Customization
+import {  Observable } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

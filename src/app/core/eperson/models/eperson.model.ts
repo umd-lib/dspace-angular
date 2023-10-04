@@ -69,6 +69,15 @@ export class EPerson extends DSpaceObject {
   @autoserialize
   public password: string;
 
+  // UMD Customization
+  /**
+   * LDAP information for this EPerson
+   * Will be undefined unless the ldap {@link HALLink} has been resolved.
+   */
+  @link(LDAP, false)
+  public ldap?: Observable<RemoteData<Ldap>>;
+  // End UMD Customization
+
   /**
    * Getter to retrieve the EPerson's full name as a string
    */
@@ -94,14 +103,5 @@ export class EPerson extends DSpaceObject {
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [this.constructor.name, ...super.getRenderTypes()];
   }
-
-  // UMD Customization
-  /**
-   * LDAP information for this EPerson
-   * Will be undefined unless the ldap {@link HALLink} has been resolved.
-   */
-   @link(LDAP, false)
-   public ldap?: Observable<RemoteData<Ldap>>;
-   // End UMD Customization
 
 }

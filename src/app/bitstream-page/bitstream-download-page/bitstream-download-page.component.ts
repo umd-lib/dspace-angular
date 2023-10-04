@@ -10,7 +10,6 @@ import { AuthService } from '../../core/auth/auth.service';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { FileService } from '../../core/shared/file.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { isPlatformServer, Location } from '@angular/common';

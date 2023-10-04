@@ -1,4 +1,4 @@
-import { escape } from 'lodash';
+import escape from 'lodash/escape';
 import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
 
 export class DatasetJsonLdTransformer {

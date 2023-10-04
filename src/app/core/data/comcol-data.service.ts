@@ -30,7 +30,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Operation } from 'fast-json-patch';
 // UMD Customization
-import { CommunityGroup } from '../shared/community-group.model';
 import { CommunityGroupDataService } from './community-group-data.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { PutRequest } from './request.models';

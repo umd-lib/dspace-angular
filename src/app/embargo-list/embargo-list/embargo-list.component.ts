@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-import { TranslateService } from '@ngx-translate/core';
 import { EmbargoListService } from '../embargo-list.service';
 import { EmbargoListResponse } from '../models/embargo-list-entry.model';
 

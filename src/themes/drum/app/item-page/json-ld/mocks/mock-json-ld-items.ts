@@ -1,4 +1,4 @@
-import { escape } from 'lodash';
+import escape from 'lodash/escape';
 import { Item } from 'src/app/core/shared/item.model';
 
 /**

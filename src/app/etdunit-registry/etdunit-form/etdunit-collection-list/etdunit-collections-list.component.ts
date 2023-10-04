@@ -10,28 +10,22 @@ import {
   combineLatest as observableCombineLatest,
   ObservedValueOf,
 } from 'rxjs';
-import { defaultIfEmpty, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
+import { defaultIfEmpty, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import {buildPaginatedList, PaginatedList} from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import {
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData, getAllCompletedRemoteData, getRemoteDataPayload, toDSpaceObjectListRD
+  getFirstCompletedRemoteData, getAllCompletedRemoteData, getRemoteDataPayload
 } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { followLink, FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 import { EtdUnitCollectionDtoModel } from './etdunit-collection-dto.model';
 import { EtdUnit } from '../../models/etdunit.model';
 import { EtdUnitDataService } from '../../etdunit-data.service';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { Collection } from 'src/app/core/shared/collection.model';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { PaginatedSearchOptions } from 'src/app/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from 'src/app/core/shared/search/search-configuration.service';
-import { DSpaceObjectType } from 'src/app/core/shared/dspace-object-type.model';
-import { URLCombiner } from 'src/app/core/url-combiner/url-combiner';
-import { HALEndpointService } from 'src/app/core/shared/hal-endpoint.service';
 import { FindListOptions } from 'src/app/core/data/find-list-options.model';
 import { RequestParam } from 'src/app/core/cache/models/request-param.model';
 
