@@ -1,22 +1,29 @@
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { CommunityListComponent } from './community-list.component';
+// UMD Customization
 import { CommunityListService } from '../community-list-service';
 import { showMoreFlatNode, toFlatNode } from '../../../../../app/community-list-page/community-list-service';
+// End UMD Customization
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+// UMD Customization
 import { TranslateLoaderMock } from '../../../../../app/shared/mocks/translate-loader.mock';
+// End UMD Customization
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+// UMD Customization
 import { Community } from '../../../../../app/core/shared/community.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../app/shared/remote-data.utils';
 import { buildPaginatedList } from '../../../../../app/core/data/paginated-list.model';
 import { PageInfo } from '../../../../../app/core/shared/page-info.model';
 import { Collection } from '../../../../../app/core/shared/collection.model';
+// End UMD Customization
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { isEmpty, isNotEmpty } from '../../../../../app/shared/empty.util';
 import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
+import { RouterLinkWithHref } from '@angular/router';
 
 describe('CommunityListComponent', () => {
   let component: CommunityListComponent;
@@ -129,7 +136,9 @@ describe('CommunityListComponent', () => {
         let showMoreTopComNode = false;
         flatnodes = [...mockTopFlatnodesUnexpanded];
         const currentPage = options.currentPage;
+        // UMD Customization
         const elementsPerPage = options.elementsPerPage;
+        // End UMD Customization
         let endPageIndex = (currentPage * elementsPerPage);
         if (endPageIndex >= flatnodes.length) {
           endPageIndex = flatnodes.length;
@@ -184,10 +193,13 @@ describe('CommunityListComponent', () => {
           return observableOf(flatnodes);
         }
       },
+      // UMD Customization
       loadCommunitiesInGroup(options, expandedNodes, communityGroupId) {
         return this.loadCommunities(options, expandedNodes);
       }
+      // End UMD Customization
     };
+    // UMD Customization
     TestBed.overrideComponent(
       CommunityListComponent,
       {
@@ -199,6 +211,7 @@ describe('CommunityListComponent', () => {
         }
       }
     );
+    // End UMD Customization
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -208,10 +221,11 @@ describe('CommunityListComponent', () => {
           },
         }),
         CdkTreeModule,
-        RouterTestingModule],
+        RouterTestingModule,
+        RouterLinkWithHref],
       declarations: [CommunityListComponent],
       providers: [CommunityListComponent,
-        { provide: CommunityListService, useValue: communityListServiceStub }],
+        { provide: CommunityListService, useValue: communityListServiceStub },],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
@@ -220,8 +234,10 @@ describe('CommunityListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CommunityListComponent);
     component = fixture.componentInstance;
+    // UMD Customization
     component.size = 2;
     component.ngOnInit();
+    // End UMD Customization
     fixture.detectChanges();
   });
 
@@ -247,9 +263,14 @@ describe('CommunityListComponent', () => {
     expect(showMoreEl).toBeTruthy();
   });
 
+  it('should not render the show more button as an empty link', () => {
+    const debugElements = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
+    expect(debugElements).toBeTruthy();
+  });
+
   describe('when show more of top communities is clicked', () => {
     beforeEach(fakeAsync(() => {
-      const showMoreLink = fixture.debugElement.query(By.css('.show-more-node a'));
+      const showMoreLink = fixture.debugElement.query(By.css('.show-more-node .btn-outline-primary'));
       showMoreLink.triggerEventHandler('click', {
         preventDefault: () => {/**/
         }
@@ -257,6 +278,7 @@ describe('CommunityListComponent', () => {
       tick();
       fixture.detectChanges();
     }));
+
     it('tree contains maximum of currentPage (2) * (2) elementsPerPage of first top communities, or less if there are less communities (3)', () => {
       const expandableNodesFound = fixture.debugElement.queryAll(By.css('.expandable-node a'));
       const childlessNodesFound = fixture.debugElement.queryAll(By.css('.childless-node a'));

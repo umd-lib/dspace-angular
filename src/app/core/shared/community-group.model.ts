@@ -1,4 +1,4 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, deserialize } from 'cerialize';
 import { Observable } from 'rxjs';
 import { ResourceType } from 'src/app/core/shared/resource-type';
 import { excludeFromEquals } from 'src/app/core/utilities/equals.decorators';

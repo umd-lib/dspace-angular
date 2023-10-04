@@ -2,7 +2,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -125,9 +125,9 @@ describe('EPersonFormComponent', () => {
             const controlModel = model;
             const controlState = { value: controlModel.value, disabled: controlModel.disabled };
             const controlOptions = this.createAbstractControlOptions(controlModel.validators, controlModel.asyncValidators, controlModel.updateOn);
-            controls[model.id] = new FormControl(controlState, controlOptions);
+            controls[model.id] = new UntypedFormControl(controlState, controlOptions);
         });
-        return new FormGroup(controls, options);
+        return new UntypedFormGroup(controls, options);
       },
       createAbstractControlOptions(validatorsConfig = null, asyncValidatorsConfig = null, updateOn = null) {
         return {
@@ -210,10 +210,10 @@ describe('EPersonFormComponent', () => {
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
-        // UMD Customization for LIBDRUM-660
+        // UMD Customization
         { provide: LdapDataService, useValue: ldapDataService },
         { provide: UnitDataService, useValue: unitDataService },
-        // End UMD Customization for LIBDRUM-660
+        // End UMD Customization
         { provide: FormBuilderService, useValue: builderService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthService, useValue: authService },
@@ -556,7 +556,7 @@ describe('EPersonFormComponent', () => {
     });
 
     it('should call epersonRegistrationService.registerEmail', () => {
-      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail);
+      expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail, null, 'forgot');
     });
   });
 });

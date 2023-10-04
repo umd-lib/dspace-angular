@@ -24,6 +24,10 @@ import { JsonLdWebsiteComponent } from './app/item-page/json-ld/json-ld-website.
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
+import { RootModule } from 'src/app/root.module';
+import { ResultsBackButtonModule } from 'src/app/shared/results-back-button/results-back-button.module';
+import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
+import { DsoPageModule } from 'src/app/shared/dso-page/dso-page.module';
 
 
 /**
@@ -70,6 +74,10 @@ const DECLARATIONS = [
     StatisticsModule.forRoot(),
     CommunityListPageModule,
     HomePageModule,
+    RootModule,
+    ResultsBackButtonModule,
+    ItemSharedModule,
+    DsoPageModule,
   ],
   declarations: DECLARATIONS,
   providers: [

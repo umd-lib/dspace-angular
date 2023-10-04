@@ -127,9 +127,14 @@ export function getRequestCopyModulePath() {
 
 export const HEALTH_PAGE_PATH = 'health';
 
+export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
+
 // UMD Customization
 export const EMBARGO_LIST_PAGE_PATH = 'embargo-list';
 export const ETDUNIT_PATH = 'etdunits';
 export const RESTRICTED_ACCESS_MODULE_PATH = 'restricted-access';
 // End UMD Customization
 
+export function getSubscriptionsModuleRoute() {
+  return `/${SUBSCRIPTIONS_MODULE_PATH}`;
+}

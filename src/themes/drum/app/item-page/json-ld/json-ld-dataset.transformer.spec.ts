@@ -1,5 +1,5 @@
-import { cloneDeep } from 'lodash';
-import { DatasetJsonLdTransformer } from './json-ld-dataset.transfomer';
+import cloneDeep from 'lodash/cloneDeep';
+import { DatasetJsonLdTransformer } from './json-ld-dataset.transformer';
 import { emptyDataset, escapeTestDataset, fullDataset, notADataset } from './mocks/mock-json-ld-items';
 
 describe('DatasetJsonLdTransformer', () => {

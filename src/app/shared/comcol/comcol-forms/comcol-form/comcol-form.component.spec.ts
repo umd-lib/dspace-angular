@@ -1,10 +1,12 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+// UMD Customization
 import { DynamicFormControlModel, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+// End UMD Customization
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../../../core/auth/auth.service';
@@ -30,9 +32,9 @@ describe('ComColFormComponent', () => {
       const controls = {};
       if (hasValue(fModel)) {
         fModel.forEach((controlModel) => {
-          controls[controlModel.id] = new FormControl((controlModel as any).value);
+          controls[controlModel.id] = new UntypedFormControl((controlModel as any).value);
         });
-        return new FormGroup(controls);
+        return new UntypedFormGroup(controls);
       }
       return undefined;
     }
@@ -55,10 +57,12 @@ describe('ComColFormComponent', () => {
     })
   ];
 
+  // UMD Customization
   const communityGroup = {
     id: 0,
     shortName: 'testgroup'
   };
+  // End UMD Customization
 
   const logo = {
     id: 'logo'
@@ -67,7 +71,9 @@ describe('ComColFormComponent', () => {
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
     deleteLogo: () => createSuccessfulRemoteDataObject$({}),
+    // UMD Customization
     updateCommunityGroup: () => createSuccessfulRemoteDataObject$({})
+    // End UMD Customization
   });
   const notificationsService = new NotificationsServiceStub();
 
@@ -141,23 +147,25 @@ describe('ComColFormComponent', () => {
         expect(comp.submitForm.emit).toHaveBeenCalledWith(
           {
             dso: Object.assign({}, comp.dso, {
-              metadata: {
-                'dc.title': [{
-                  value: 'New Community Title',
-                  language: null,
-                }],
-                'dc.description.abstract': [{
-                  value: 'Community description',
-                  language: null,
-                }],
-              },
-              type: Community.type,
-            }
+                metadata: {
+                  'dc.title': [{
+                    value: 'New Community Title',
+                    language: null,
+                  }],
+                  'dc.description.abstract': [{
+                    value: 'Community description',
+                    language: null,
+                  }],
+                },
+                type: Community.type,
+              }
             ),
             uploader: undefined,
             deleteLogo: false,
             operations: operations,
+            // UMD Customization
             communityGroupId: undefined
+            // End UMD Customization
           }
         );
       });
@@ -323,6 +331,7 @@ describe('ComColFormComponent', () => {
       });
     });
 
+    // UMD Customization
     describe('onSubmit with community group value', () => {
       const newComGroupId = 2;
       const cgInputModel = new DynamicSelectModel({
@@ -391,6 +400,7 @@ describe('ComColFormComponent', () => {
         );
       });
     });
+    // End UMD Customization
   });
 
   function initComponent(dso: Community) {

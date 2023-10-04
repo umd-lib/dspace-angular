@@ -1,16 +1,23 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
+// UMD Customization
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { take } from 'rxjs';
-import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
+// End UMD Customization
+import { take } from 'rxjs/operators';
+// UMD Customization
 import { SortDirection, SortOptions } from '../../../../../app/core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../../app/core/data/find-list-options.model';
-import { isEmpty } from '../../../../../app/shared/empty.util';
-import { CommunityListDatasource } from '../community-list-datasource';
 import { CommunityListService, MAX_COMCOLS_PER_PAGE } from '../community-list-service';
+// End UMD Customization
+import { CommunityListDatasource } from '../community-list-datasource';
+import { FlatTreeControl } from '@angular/cdk/tree';
+// UMD Customization
+import { isEmpty } from '../../../../../app/shared/empty.util';
+import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
+import { FindListOptions } from '../../../../../app/core/data/find-list-options.model';
+import { DSONameService } from '../../../../../app/core/breadcrumbs/dso-name.service';
 import { CommunityGroupDataService } from '../../../../../app/core/data/community-group-data.service';
 import { CommunityDataService } from '../../../../../app/core/data/community-data.service';
+// End UMD Customization
 
-
+// UMD Customization
 /**
  * This UMD version of the community list uses the custom community-list-datasource to retrieve the
  * top communities list of a particular CommunityGroup whereas the default implementation
@@ -28,13 +35,16 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
   templateUrl: './community-list.component.html',
   providers: [CommunityListService, CommunityDataService, CommunityGroupDataService]
 })
-export class CommunityListComponent implements OnInit, OnDestroy {
+// End UMD Customization
 
+export class CommunityListComponent implements OnInit, OnDestroy {
+  // UMD Customization
   // The community group ID to retrieve the top level communities
   @Input() communityGroupId = 0;
 
   // Size of the top level communities list displayed on initial rendering
   @Input() size = MAX_COMCOLS_PER_PAGE;
+  // End UMD Customization
 
   private expandedNodes: FlatNode[] = [];
   public loadingNode: FlatNode;
@@ -47,21 +57,29 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   paginationConfig: FindListOptions;
 
-  constructor(private communityListService: CommunityListService) {
+  constructor(
+    protected communityListService: CommunityListService,
+    public dsoNameService: DSONameService,
+  ) {
     this.paginationConfig = new FindListOptions();
+    this.paginationConfig.elementsPerPage = 2;
     this.paginationConfig.currentPage = 1;
     this.paginationConfig.sort = new SortOptions('dc.title', SortDirection.ASC);
   }
 
   ngOnInit() {
+    // UMD Customization
     this.paginationConfig.elementsPerPage = this.size;
+    // End UMD Customization
     this.dataSource = new CommunityListDatasource(this.communityListService);
     this.communityListService.getLoadingNodeFromStore().pipe(take(1)).subscribe((result) => {
       this.loadingNode = result;
     });
     this.communityListService.getExpandedNodesFromStore().pipe(take(1)).subscribe((result) => {
       this.expandedNodes = [...result];
+      // UMD Customization
       this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes, this.communityGroupId);
+      // End UMD Customization
     });
   }
 
@@ -98,7 +116,9 @@ export class CommunityListComponent implements OnInit, OnDestroy {
         node.currentCommunityPage = 1;
       }
     }
+    // UMD Customization
     this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes, this.communityGroupId);
+    // End UMD Customization
   }
 
   /**
@@ -118,13 +138,18 @@ export class CommunityListComponent implements OnInit, OnDestroy {
         const parentNodeInExpandedNodes = this.expandedNodes.find((node2: FlatNode) => node.parent.id === node2.id);
         parentNodeInExpandedNodes.currentCommunityPage++;
       }
+      // UMD Customization
       this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes, this.communityGroupId);
+      // End UMD Customization
     } else {
       this.paginationConfig.currentPage++;
+      // UMD Customization
       this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes, this.communityGroupId);
+      // End UMD Customization
     }
   }
 
+  // UMD Customization
   /**
   * The method helps show the entire community list (i.e, upto the MAX_COMCOLS_PER_PAGE) instead
   * of just getting the next page. This is achived by leaving the current page to the initial
@@ -141,5 +166,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     this.paginationConfig.elementsPerPage = MAX_COMCOLS_PER_PAGE;
     this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes, this.communityGroupId);
   }
+  // End UMD Customization
 
 }

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -37,6 +37,8 @@ import { EtdUnitFormComponent } from './etdunit-form.component';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { SearchConfigurationService } from 'src/app/core/shared/search/search-configuration.service';
 import { SearchService } from 'src/app/core/shared/search/search.service';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from 'src/app/shared/mocks/dso-name.service.mock';
 
 describe('EtdUnitFormComponent', () => {
   let component: EtdUnitFormComponent;
@@ -114,9 +116,9 @@ describe('EtdUnitFormComponent', () => {
           const controlModel = model;
           const controlState = { value: controlModel.value, disabled: controlModel.disabled };
           const controlOptions = this.createAbstractControlOptions(controlModel.validators, controlModel.asyncValidators, controlModel.updateOn);
-          controls[model.id] = new FormControl(controlState, controlOptions);
+          controls[model.id] = new UntypedFormControl(controlState, controlOptions);
         });
-        return new FormGroup(controls, options);
+        return new UntypedFormGroup(controls, options);
       },
       createAbstractControlOptions(validatorsConfig = null, asyncValidatorsConfig = null, updateOn = null) {
         return {
@@ -172,7 +174,7 @@ describe('EtdUnitFormComponent', () => {
     translateService = getMockTranslateService();
     router = new RouterMock();
     notificationService = new NotificationsServiceStub();
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
@@ -183,6 +185,7 @@ describe('EtdUnitFormComponent', () => {
       ],
       declarations: [EtdUnitFormComponent],
       providers: [EtdUnitFormComponent,
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EtdUnitDataService, useValue: etdunitsDataServiceStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: FormBuilderService, useValue: builderService },
@@ -224,8 +227,8 @@ describe('EtdUnitFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new etdunit using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      it('should emit a new etdunit using the correct values', (async () => {
+        await fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
         });
       }));
