@@ -12,7 +12,8 @@ The original dspace-angular documentation is in the "README.md" file.
 - Node v12.x, v14.x or v16.x
 - npm >= v5.x
 - yarn == v1.x
-- Ensure that the DRUM API is up and running by following the instructions at <https://github.com/umd-lib/DSpace/tree/drum-main>
+- Ensure that the DRUM API is up and running by following the instructions at
+  <https://github.com/umd-lib/DSpace/tree/drum-main>
 
 ## Development Setup
 
@@ -21,29 +22,29 @@ main branch for DRUM development.
 
 1) Clone the Git repository and switch to the directory:
 
-    ```bash
+    ```zsh
     $ git clone -b drum-main git@github.com:umd-lib/dspace-angular.git drum-ui
     $ cd drum-ui
     ```
 
 2) Create the dev config file
 
-    ```bash
+    ```zsh
     $ cat <<EOF > config/config.dev.yml
     # Angular Universal server settings
     # NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
     ui:
-      ssl: false
-      host: localhost
+      ssl: true
+      host: drum-local.lib.umd.edu
       port: 4000
       nameSpace: /
 
     # The REST API server settings
     # NOTE: these must be 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
     rest:
-      ssl: false
-      host: localhost
-      port: 8080
+      ssl: true
+      host: api.drum-local.lib.umd.edu
+      port: 443
       nameSpace: /server
 
     # UMD Environment Banner settings
@@ -55,23 +56,36 @@ main branch for DRUM development.
     EOF
     ```
 
-3) Install the dependencies
+3) Generate the HTTPS certificate for the front-end:
 
-    ```bash
+    ```zsh
+    $ mkcert -cert-file config/certs/drum-local.pem \
+             -key-file config/certs/drum-local-key.pem \
+             drum-local.lib.umd.edu
+    ```
+
+See the the "CAS and the Local Development Environment" section in the
+["docs/dspace/CASAuthentication.md"](https://github.com/umd-lib/DSpace/blob/drum-main/dspace/docs/CASAuthentication.md)
+file in <https://github.com/umd-lib/DSpace> for more information about this
+step.
+
+4) Install the dependencies
+
+    ```zsh
     # install the local dependencies
     $ yarn install
     ```
 
-4) Start the server in development mode
+5) Start the server in development mode
 
-    ```bash
+    ```zsh
     $ yarn run start:dev
     ```
 
     This will start the angular application in development mode which will
     watch for changes, rebuild the code, and reload the server for you.
 
-    Then go to <http://localhost:4000> in your browser
+    Then go to <https://drum-local.lib.umd.edu:4000> in your browser
 
 ## Production Docker image
 
