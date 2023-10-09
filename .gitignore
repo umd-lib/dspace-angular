@@ -1,3 +1,9 @@
+# UMD Customization
+# Ignore HTTPS certificates
+config/certs/*
+!config/certs/.keep
+# End UMD Customization
+
 /.angular/cache
 /__build__
 /__server_build__

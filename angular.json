@@ -115,7 +115,9 @@
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "dspace-angular:build",
-            "port": 4000
+            "port": 4000,
+            "sslKey": "config/certs/drum-local-key.pem",
+            "sslCert": "config/certs/drum-local.pem"
           },
           "configurations": {
             "development": {
