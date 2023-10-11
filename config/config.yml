@@ -26,4 +26,8 @@ bundle:
 # Disable End User Agreement
 info:
   enableEndUserAgreement: false
+
+# Enable Markdown in metadata display
+markdown:
+  enabled: true
 # End UMD Customization
