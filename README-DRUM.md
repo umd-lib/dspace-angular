@@ -92,15 +92,8 @@ step.
 The Docker image used for running DRUM in Kubernetes is created using the
 "Dockerfile.prod" file.
 
-This Docker image utilizes the "pm2" process manager
-(<https://pm2.keymetrics.io/>) to enable Node to scale to multiple CPUs, as
-suggested in
-<https://wiki.lyrasis.org/display/DSDOC7x/Performance+Tuning+DSpace>.
-
-The "pm2" process manager version is controlled by the "PM2_VERSION" environment
-variable in the "Dockerfile.prod" file.
-
-The "dspace-ui.json" file is used to configure the "pm2" process manager.
+This Docker image runs Angular using Node, relying on Kubernetes to provide
+additional replicas if horizontal scaling is needed.
 
 ## Customizations
 
