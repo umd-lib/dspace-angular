@@ -9,10 +9,10 @@ The original dspace-angular documentation is in the "README.md" file.
 
 ## Prerequisite
 
-- Node v12.x, v14.x or v16.x
-- npm >= v5.x
-- yarn == v1.x
-- Ensure that the DRUM API is up and running by following the instructions at
+* Node v16.x or v18.x
+* npm >= v5.x
+* yarn == v1.x
+* Ensure that the DRUM API is up and running by following the instructions at
   <https://github.com/umd-lib/DSpace/tree/drum-main>
 
 ## Development Setup
@@ -125,12 +125,12 @@ section in <https://wiki.lyrasis.org/display/DSDOC7x/User+Interface+Configuratio
 
 The following environment variables can be used:
 
-- DSPACE_ENVIRONMENTBANNER_TEXT - the text to display in the banner
-- DSPACE_ENVIRONMENTBANNER_FOREGROUNDCOLOR - the foreground color for the
+* DSPACE_ENVIRONMENTBANNER_TEXT - the text to display in the banner
+* DSPACE_ENVIRONMENTBANNER_FOREGROUNDCOLOR - the foreground color for the
   banner, as a CSS color
-- DSPACE_ENVIRONMENTBANNER_BACKGROUNDCOLOR - the background color for the
+* DSPACE_ENVIRONMENTBANNER_BACKGROUNDCOLOR - the background color for the
   banner, as a CSS color
-- DSPACE_ENVIRONMENTBANNER_ENABLED - "true" (case-sensitive) enables the
+* DSPACE_ENVIRONMENTBANNER_ENABLED - "true" (case-sensitive) enables the
   banner. Anything else (including not being provided, or blank) disables the
   banner.
 
@@ -151,6 +151,32 @@ at the bottom of the default "src/assets/i18n/en.json5" file.
 Existing DSpace-provided entries are overridden when added to the
 "UMD Customization" section, because when multiple keys occur in the file,
 the last instance of the key is used.
+
+## Customization Markings
+
+UMD customizations to stock DSpace code should be marked, if possible, with
+a starting comment "UMD Customization" and an ending comment of
+"End UMD Customization", for example, in a Java file:
+
+```java
+// UMD Customization
+... New or modified code ...
+// End UMD Customization
+```
+
+The following customizations *do not* need to be commented:
+
+* Updates to the "\<version>" identifier in "pom.xml" files
+* "Branding" changes in email templates such as "dspace/config/emails/" or
+  the default DSpace license in "dspace/config/default.license", as these files
+  do not have a convenient "comment" mechanism
+* Files that do not have a "comment" mechanism, such as JSON files
+* Extremely trivial whitespace changes unrelated to UMD customizations, such as
+  tabs in the modified DSpace file being automatically converted to spaces by
+  VS Code, or an end-of-file line.
+
+The main goal is to make it immediately when performing DSpace version upgrades
+whether a change in a file is due to an explicit UMD customization.
 
 ## Debugging using VS Code
 
