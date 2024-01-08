@@ -24,6 +24,7 @@ import { By } from '@angular/platform-browser';
 import { isEmpty, isNotEmpty } from '../../../../../app/shared/empty.util';
 import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
 import { RouterLinkWithHref } from '@angular/router';
+import { v4 as uuidv4 } from 'uuid';
 
 describe('CommunityListComponent', () => {
   let component: CommunityListComponent;
@@ -34,11 +35,11 @@ describe('CommunityListComponent', () => {
     uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     name: 'subcommunity1',
   }),
-  Object.assign(new Community(), {
-    id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-    uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-    name: 'subcommunity2',
-  })
+    Object.assign(new Community(), {
+      id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+      uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+      name: 'subcommunity2',
+    })
   ];
   const mockCollectionsPage1 = [
     Object.assign(new Collection(), {
@@ -147,7 +148,7 @@ describe('CommunityListComponent', () => {
         }
         if (expandedNodes === null || isEmpty(expandedNodes)) {
           if (showMoreTopComNode) {
-            return observableOf([...mockTopFlatnodesUnexpanded.slice(0, endPageIndex), showMoreFlatNode('community', 0, null)]);
+            return observableOf([...mockTopFlatnodesUnexpanded.slice(0, endPageIndex), showMoreFlatNode(`community-${uuidv4()}`, 0, null)]);
           } else {
             return observableOf(mockTopFlatnodesUnexpanded.slice(0, endPageIndex));
           }
@@ -174,21 +175,21 @@ describe('CommunityListComponent', () => {
                   const endSubComIndex = this.pageSize * expandedParent.currentCommunityPage;
                   flatnodes = [...flatnodes, ...subComFlatnodes.slice(0, endSubComIndex)];
                   if (subComFlatnodes.length > endSubComIndex) {
-                    flatnodes = [...flatnodes, showMoreFlatNode('community', topNode.level + 1, expandedParent)];
+                    flatnodes = [...flatnodes, showMoreFlatNode(`community-${uuidv4()}`, topNode.level + 1, expandedParent)];
                   }
                 }
                 if (isNotEmpty(collFlatnodes)) {
                   const endColIndex = this.pageSize * expandedParent.currentCollectionPage;
                   flatnodes = [...flatnodes, ...collFlatnodes.slice(0, endColIndex)];
                   if (collFlatnodes.length > endColIndex) {
-                    flatnodes = [...flatnodes, showMoreFlatNode('collection', topNode.level + 1, expandedParent)];
+                    flatnodes = [...flatnodes, showMoreFlatNode(`collection-${uuidv4()}`, topNode.level + 1, expandedParent)];
                   }
                 }
               }
             }
           });
           if (showMoreTopComNode) {
-            flatnodes = [...flatnodes, showMoreFlatNode('community', 0, null)];
+            flatnodes = [...flatnodes, showMoreFlatNode(`community-${uuidv4()}`, 0, null)];
           }
           return observableOf(flatnodes);
         }

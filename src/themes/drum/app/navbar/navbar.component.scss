@@ -1,63 +1,51 @@
 nav.navbar {
-  border-top: 1px var(--ds-header-navbar-border-top-color) solid;
-  // UMD Customization
-  border-bottom: 5px #454545 solid;
-  // End UMD Customization
-  align-items: baseline;
+    background-color: var(--ds-navbar-bg);
+    // UMD Customization
+    border-bottom: 5px #454545 solid;
+    // End UMD Customization
+    align-items: baseline;
 }
 
 /** Mobile menu styling **/
 @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
-  .navbar {
-    width: 100%;
-    background-color: var(--bs-white);
-    position: absolute;
-    overflow: hidden;
-    height: 0;
-    &.open {
-      height: 100vh; //doesn't matter because wrapper is sticky
+    .navbar {
+        width: 100%;
+        background-color: var(--bs-white);
+        position: absolute;
+        overflow: hidden;
+        height: 0;
+        z-index: var(--ds-nav-z-index);
+        &.open {
+          height: auto;
+          min-height: 100vh; //doesn't matter because wrapper is sticky
+          border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid; // open navbar covers header-navbar-wrapper border
+        }
     }
-  }
 }
 
 @media screen and (min-width: map-get($grid-breakpoints, md)) {
-  .reset-padding-md {
-    margin-left: calc(var(--bs-spacer) / -2);
-    margin-right: calc(var(--bs-spacer) / -2);
-  }
+    .reset-padding-md {
+        margin-left: calc(var(--bs-spacer) / -2);
+        margin-right: calc(var(--bs-spacer) / -2);
+    }
 }
 
 /* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
 .navbar-expand-md.navbar-container {
-  @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
-    > .navbar-inner-container {
-      padding: 0 var(--bs-spacer);
-      a.navbar-brand {
-        display: none;
-      }
-      .navbar-collapsed {
-        display: none;
-      }
+    @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
+        > .navbar-inner-container {
+            padding: 0 var(--bs-spacer);
+        }
+        padding: 0;
     }
-    padding: 0;
-  }
-  height: 80px;
-}
-
-a.navbar-brand img {
-  max-height: var(--ds-header-logo-height);
-  // UMD Customization
-  // An SVG in an "img" tag defaults to zero height, and so it not displayed,
-  // unless the "height" attribute is set ("max-height" is not sufficient).
-  height: var(--ds-header-logo-height);
-  // End UMD Customization
 }
 
 .navbar-nav {
   ::ng-deep a.nav-link {
     color: var(--ds-navbar-link-color);
-  }
-  ::ng-deep a.nav-link:hover {
-    color: var(--ds-navbar-link-color-hover);
+
+    &:hover, &:focus {
+      color: var(--ds-navbar-link-color-hover);
+    }
   }
 }

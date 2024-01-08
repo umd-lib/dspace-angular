@@ -20,7 +20,7 @@ import { EtdUnit } from '../models/etdunit.model';
 import { EtdUnitDataService } from '../etdunit-data.service';
 import { NoContent } from 'src/app/core/shared/NoContent.model';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
-import { AlertType } from 'src/app/shared/alert/aletr-type';
+import { AlertType } from 'src/app/shared/alert/alert-type';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { hasValue, isNotEmpty } from 'src/app/shared/empty.util';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';

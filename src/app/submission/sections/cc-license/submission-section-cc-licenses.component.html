@@ -1,3 +1,4 @@
+<!-- UMD Customization -->
 <div>
   You may add a Creative Commons License to your item. These licenses help
   inform others how the item may or may not be used. View the
@@ -21,6 +22,7 @@
     </li>
   </ul>
 </div>
+<!-- End UMD Customization -->
 <div class="mb-4 ccLicense-select">
   <ds-select
     [disabled]="!submissionCcLicenses">
@@ -157,6 +159,7 @@
       <div class="m-2">
         <div (click)="setAccepted(!accepted)">
           <input type="checkbox"
+                 class="mr-2"
                  title="accepted"
                  [checked]="accepted">
           <span> {{ 'submission.sections.ccLicense.confirmation' | translate }}</span>
