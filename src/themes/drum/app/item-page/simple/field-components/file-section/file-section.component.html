@@ -14,7 +14,7 @@
           <span *ngIf="!last" innerHTML="{{separator}}"></span>
         </ds-themed-file-download-link>
         <div>
-          <ds-bitstream-download-counter [bitstream]="file" label="No. of downloads:"></ds-bitstream-download-counter>
+          <ds-bitstream-download-counter [bitstream]="file" label="{{'bitstream.download.counter.label' | translate}}"></ds-bitstream-download-counter>
         </div>
       </ng-container>
       <!-- End UMD Customization -->

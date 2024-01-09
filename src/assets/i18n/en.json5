@@ -5469,6 +5469,8 @@
 
   "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DRUM requires the qualified Dublin Core schema.",
 
+  "bitstream.download.counter.label": "No. of downloads:",
+
   "bitstream.embargoed.text": "(RESTRICTED ACCESS)",
 
   "bitstream.restricted-access.anonymous.forbidden.message": "The file you are attempting to access is restricted.",
