@@ -8,7 +8,7 @@ Angular code, to customize it for DRUM.
 This document is intended to cover specific changes made to Angular behavior
 that are outside of "normal" DSpace customization.
 
-## Disable "End User Agreement"
+## Disabled "End User Agreement"
 
 The "End User Agreement" is not needed, and so is disabled in the
 "config/config.yml" file.
@@ -21,3 +21,8 @@ The list of standard bundles has been augmented with a "PRESERVATION" bundle.
 
 Markdown rendering has been enabled for the "Note" (dc.description) field
 on the simple item page, to enable bare URLs to be rendered as hyperlinks.
+
+## Replaced DSpace logo on login page with DRUM logo
+
+Replaced the DSpace logo on the login page with the DRUM logo to provide
+consistent branding of the application.
