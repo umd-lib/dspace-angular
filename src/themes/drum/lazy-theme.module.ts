@@ -66,11 +66,13 @@ import { EtdUnitsModule } from 'src/app/etdunit-registry/etdunits.module';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
 import { JsonLdDatasetComponent } from './app/item-page/json-ld/json-ld-dataset.component';
 import { RestrictedAccessPageModule } from 'src/app/restricted-access/restricted-access-page.module';
+import { LoginPageComponent } from './app/login-page/login-page.component';
 // End UMD Customization
 
 const DECLARATIONS = [
   ItemPageComponent,
   JsonLdDatasetComponent,
+  LoginPageComponent,
   PrivacyComponent,
   UnitsRegistryComponent,
 ];
