@@ -51,7 +51,9 @@ nav.navbar {
 }
 
 a.navbar-brand img {
-  max-height: var(--ds-header-logo-height);
+  // UMD Customization
+  height: var(--ds-header-logo-height);
+  // End UMD Customization
 }
 
 .navbar-nav {
