@@ -143,6 +143,28 @@ export class MenuResolver implements Resolve<boolean> {
         })));
       });
 
+    // UMD Customization
+    // "Submit item to DRUM" entry, matching the 'new_item' entry in the
+    // administrative sidebar
+    this.authorizationService.isAuthorized(FeatureID.CanSubmit)
+    .subscribe((canSubmit) => {
+      this.menuService.addSection(MenuID.PUBLIC, {
+        id: `drum_customizations_submit_item`,
+        active: false,
+        visible: canSubmit,
+        index: 3, // Statistics menu entry is index 2
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: `nav.umd.submit_item.header`,
+          function: () => {
+            this.modalService.open(ThemedCreateItemParentSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+    });
+    // End UMD Customization
+
     return this.waitForMenu$(MenuID.PUBLIC);
   }
 

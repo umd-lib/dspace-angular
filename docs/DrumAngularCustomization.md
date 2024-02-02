@@ -26,3 +26,11 @@ on the simple item page, to enable bare URLs to be rendered as hyperlinks.
 
 Replaced the DSpace logo on the login page with the DRUM logo to provide
 consistent branding of the application.
+
+## Added "Submit item to DRUM" link in navigation bar
+
+To make it more obvious how to submit items to DRUM, added a
+"Submit item to DRUM" menu entry in the navigation bar. This menu entry is only
+displayed for logged-in users that have "submit" permission to at least one
+collection. It is essentially a duplicate of the "New | Item" menu
+entry in the administrative sidebar.
