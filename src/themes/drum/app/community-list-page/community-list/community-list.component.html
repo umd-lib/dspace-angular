@@ -8,12 +8,10 @@
         <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
       </button>
       <div class="align-middle pt-2">
-        <!-- UMD Customization -->
-        <button *ngIf="node!==loadingNode" (click)="getMaxAllowedCommunities(node)"
+        <button *ngIf="!(dataSource.loading$ | async)" (click)="getNextPage(node)"
            class="btn btn-outline-primary btn-sm" role="button">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
         </button>
-        <!-- End UMD Customization -->
         <ds-themed-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-themed-loading"></ds-themed-loading>
       </div>
     </div>
