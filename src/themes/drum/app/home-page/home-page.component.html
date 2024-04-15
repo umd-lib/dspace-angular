@@ -3,8 +3,68 @@
   <ng-container *ngIf="(site$ | async) as site">
     <ds-view-tracker [object]="site"></ds-view-tracker>
   </ng-container>
-  <ds-themed-search-form [inPlaceSearch]="false" [searchPlaceholder]="'home.search-form.placeholder' | translate"></ds-themed-search-form>
   <!-- UMD Customization -->
+  <ds-themed-search-form class="home-search" [inPlaceSearch]="false" [searchPlaceholder]="'home.search-form.placeholder' | translate"></ds-themed-search-form>
+  <div class="home-card-group">
+    <div class="card">
+      <div class="card-img">
+        <img
+          loading="lazy"
+          src="assets/drum/images/submit.png"
+          alt="Submit to DRUM"
+        />
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">Submit to DRUM</h2>
+        <div class="divider"></div>
+        <div class="card-text">
+          To submit an item to DRUM, login using your UMD credentials. Then select
+          the "Submit Item to DRUM" link in the navigation bar.
+          <a
+            href="https://www.lib.umd.edu/research/oss/publishing-and-digital-projects/repository-services/drum"
+            >View DRUM policies and submission guidelines</a
+          >.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img
+          loading="lazy"
+          src="assets/drum/images/eap.png"
+          alt="Equitable Access Policy"
+        />
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">Equitable Access Policy</h2>
+        <div class="divider"></div>
+        <div class="card-text">
+          The University of Maryland Equitable Access Policy provides equitable,
+          open access to the University's research and scholarship. Faculty can
+          learn more about what is covered by the policy and how to deposit on the
+          <a href="https://equitableaccess.umd.edu/">policy website</a>.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img
+          loading="lazy"
+          src="assets/drum/images/theses.png"
+          alt="Theses and Dissertations"
+        />
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">Theses and Dissertations</h2>
+        <div class="divider"></div>
+        <div class="card-text">
+          DRUM includes all
+          <a href="http://hdl.handle.net/1903/3">UMD theses and dissertations</a>
+          from 2003 forward.
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-sm-6">
       <h2>{{ 'communityList.title' | translate }}</h2>

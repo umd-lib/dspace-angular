@@ -16,3 +16,125 @@
 .notifications-wrapper.top {
   margin-top: var(--umd-ds-umd-campus-banner-height);
 }
+
+/* hero section */
+.page-title {
+  color: #fff;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px; /* 120% */
+}
+
+.page-subtitle {
+  color: #fff;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+}
+
+/* search button (Home page only) */
+.home-search button {
+  background-color: #e21833;
+  border-color: #e21833;
+
+  text-transform: uppercase;
+}
+
+.home-search button:hover {
+  background-color: #9a0217;
+  border-color: #9a0217;
+}
+
+/* card group */
+.home-card-group {
+  width: auto;
+  min-height: 500px;
+
+  margin: 32px 0px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 767px) {
+  .home-card-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .home-card-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* card */
+.home-card-group .card {
+  border: 1px solid var(--border-sytem-primary, #6d7078);
+  border-radius: 0px;
+}
+
+/* card image */
+.home-card-group .card-img img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* card body */
+.home-card-group .card-body {
+  background-color: white;
+
+  height: fit-content;
+
+  padding: 16px 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+/* card title */
+.home-card-group .card-title {
+  color: #000;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 33px; /* 150% */
+
+  margin: 0px;
+  padding: 0px;
+}
+
+/* card description */
+.home-card-group .card-text {
+  color: #6d7078;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* card link in description */
+.home-card-group .card-text a {
+  color: #e21833;
+  text-decoration-line: underline;
+}
+
+.home-card-group .card-text a:hover {
+  color: #9a0217;
+  text-decoration-line: underline;
+}
+
+/* card content divider */
+.home-card-group .divider {
+  background: var(--background-system-tertiary, #e9eaef);
+
+  width: 48px;
+  height: 4px;
+}
