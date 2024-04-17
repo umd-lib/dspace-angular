@@ -6,6 +6,11 @@
   div.background-image-container {
     color: white;
     position: relative;
+    // UMD Customization
+    background-image: url('../../../assets/images/drum-background-image-tile.png');
+    background-repeat: repeat;
+    background-size: 133px auto;
+    // End UMD Customization
 
     .background-image > img {
       // UMD Customization
