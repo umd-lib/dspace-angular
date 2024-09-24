@@ -23,7 +23,6 @@
 
   <ds-pagination *ngIf="(groupSearchDtos | async)?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(groupSearchDtos | async)"
                  [collectionSize]="(groupSearchDtos | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -79,7 +78,6 @@
 
   <ds-pagination *ngIf="(groupsOfUnitDtos | async)?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(groupsOfUnitDtos | async)"
                  [collectionSize]="(groupsOfUnitDtos | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
