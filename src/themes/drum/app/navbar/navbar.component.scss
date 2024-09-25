@@ -56,12 +56,4 @@ a.navbar-brand img {
   // End UMD Customization
 }
 
-.navbar-nav {
-  ::ng-deep a.nav-link {
-    color: var(--ds-navbar-link-color);
-
-    &:hover, &:focus {
-      color: var(--ds-navbar-link-color-hover);
-    }
-  }
 }
