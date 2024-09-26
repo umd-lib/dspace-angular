@@ -185,6 +185,7 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
+import { SubmissionParentBreadcrumbsService } from './submission/submission-parent-breadcrumb.service';
 // UMD Customization
 import { Unit } from './eperson/models/unit.model';
 import { Ldap } from './eperson/models/ldap.model';
@@ -259,6 +260,7 @@ const PROVIDERS = [
   NotificationsService,
   WorkspaceitemDataService,
   WorkflowItemDataService,
+  SubmissionParentBreadcrumbsService,
   DSpaceObjectDataService,
   ConfigurationDataService,
   DSOChangeAnalyzer,
