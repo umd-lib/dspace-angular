@@ -97,7 +97,7 @@
 
   <!-- UMD Customization -->
   <ng-container *ngVar="(ldap | async) as ldapRD">
-    <div *ngIf="ldapRD.hasSucceeded && !ldapRD.hasNoContent">
+    <div *ngIf="ldapRD && ldapRD.hasSucceeded && !ldapRD.hasNoContent">
       <h3>{{ messagePrefix + '.ldap.title' | translate }}</h3>
       <ul>
         <li>{{messagePrefix + '.ldap.name' | translate}} {{ ldapRD.payload.lastName }}, {{ ldapRD.payload.firstName }}</li>
