@@ -1,3 +1,8 @@
+// UMD Customization
+// Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+// This customization should be removed when upgrading to DSpace 8.0 or later
+import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
+// End UMD Customization
 import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { rotate } from '../../../shared/animations/rotate';
 import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
@@ -55,8 +60,17 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     private variableService: CSSVariableService,
     protected injector: Injector,
     protected router: Router,
+    //  UMD Customization
+    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+    // This customization should be removed when upgrading to DSpace 8.0 or later
+    @Inject(NativeWindowService) _window: NativeWindowRef,
+    // End UMD Customization
   ) {
-    super(menuSection, menuService, injector, router);
+    //  UMD Customization
+    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+    // This customization should be removed when upgrading to DSpace 8.0 or later
+    super(menuSection, menuService, injector, router, _window);
+    // End UMD Customization
   }
 
   /**
