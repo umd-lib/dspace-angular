@@ -1,3 +1,10 @@
+// UMD Customization
+// Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+// This customization should be removed when upgrading to DSpace 8.0 or later
+import { NgClass } from '@angular/common';
+import { Inject } from'@angular/core';
+import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
+// End UMD Customization
 import { Component, HostListener, Injector, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, first, map, withLatestFrom } from 'rxjs/operators';
@@ -62,6 +69,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
 
   inFocus$: BehaviorSubject<boolean>;
 
+  // UMD Customization
+  // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+  // This customization should be removed when upgrading to DSpace 8.0 or later
+  browserOsClasses = new BehaviorSubject<string[]>([]);
+  // End UMD Customization
+
   constructor(
     protected menuService: MenuService,
     protected injector: Injector,
@@ -69,7 +82,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
     public route: ActivatedRoute,
-    protected themeService: ThemeService
+    protected themeService: ThemeService,
+    //  UMD Customization
+    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+    // This customization should be removed when upgrading to DSpace 8.0 or later
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
+    // End UMD Customization
   ) {
     super(menuService, injector, authorizationService, route, themeService);
     this.inFocus$ = new BehaviorSubject(false);
@@ -80,6 +98,21 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   ngOnInit(): void {
     super.ngOnInit();
+    //  UMD Customization
+    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+    // This customization should be removed when upgrading to DSpace 8.0 or later
+    const browserName = this.getBrowserName();
+    if (browserName) {
+      const browserOsClasses = new Array<string>();
+      browserOsClasses.push(`browser-${browserName}`);
+      const osName = this.getOSName();
+      if (osName) {
+        browserOsClasses.push(`browser-${browserName}-${osName}`);
+      }
+      this.browserOsClasses.next(browserOsClasses);
+    }
+    // End UMD Customization
+
     this.authService.isAuthenticated()
       .subscribe((loggedIn: boolean) => {
         if (loggedIn) {
@@ -164,4 +197,27 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       this.sidebarOpen = true;
     }
   }
+
+    //  UMD Customization
+    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+    // and https://github.com/DSpace/dspace-angular/pull/3004
+    // This customization should be removed when upgrading to DSpace 8.0 or later
+    getBrowserName(): string {
+      const userAgent = this._window.nativeWindow.navigator?.userAgent;
+      if (/Firefox/.test(userAgent)) {
+        return 'firefox';
+      }
+      if (/Safari/.test(userAgent)) {
+        return 'safari';
+      }
+      return undefined;
+    }
+    getOSName(): string {
+      const userAgent = this._window.nativeWindow.navigator?.userAgent;
+      if (/Windows/.test(userAgent)) {
+        return 'windows';
+      }
+      return undefined;
+    }
+    // End UMD Customization
 }
