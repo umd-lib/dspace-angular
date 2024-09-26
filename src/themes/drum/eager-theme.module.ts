@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../app/shared/shared.module';
-import { NavbarComponent } from './app/navbar/navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { FooterComponent } from './app/footer/footer.component';
 import { NavbarModule } from '../../app/navbar/navbar.module';
@@ -54,7 +53,6 @@ const DECLARATIONS = [
   FileSectionComponent,
   FooterComponent,
   HeaderComponent,
-  NavbarComponent,
   UmdEnvironmentBannerComponent,
   UmdHeaderComponent,
   CommunityListPageComponent,
