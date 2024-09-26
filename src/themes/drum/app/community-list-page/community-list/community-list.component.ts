@@ -34,6 +34,7 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
   selector: 'ds-cg-community-list',
   templateUrl: './community-list.component.html',
   providers: [CommunityListService, CommunityDataService, CommunityGroupDataService]
+  //styleUrls: ['./community-list.component.scss'],
 })
 // End UMD Customization
 
