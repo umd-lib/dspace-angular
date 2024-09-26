@@ -26,14 +26,13 @@ export class ItemPageComponent extends BaseComponent {
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     @Inject(PLATFORM_ID) protected platformId: string
   ) {
-    super(route, router, items, authService, authorizationService,
+    super(route, router, items, authorizationService,
       responseService, signpostingDataService, linkHeadService, platformId);
   }
 }
