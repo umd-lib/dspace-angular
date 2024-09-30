@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/core/auth/auth.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { ItemPageComponent as BaseComponent } from '../../../../../app/item-page/simple/item-page.component';
@@ -26,14 +25,13 @@ export class ItemPageComponent extends BaseComponent {
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     @Inject(PLATFORM_ID) protected platformId: string
   ) {
-    super(route, router, items, authService, authorizationService,
+    super(route, router, items, authorizationService,
       responseService, signpostingDataService, linkHeadService, platformId);
   }
 }
