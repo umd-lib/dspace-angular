@@ -76,6 +76,31 @@ step.
     $ yarn install
     ```
 
+    ---
+
+    :information_source: **Note: "distutils" module error**
+
+    When Python 3.12 or later is the default Python on the system, the
+    `yarn install` command may display the following error:
+
+    ```text
+    ModuleNotFoundError: No module named 'distutils'
+    ```
+
+    DSpace has the "node-gyp" package as a dependency. When installing via
+    Yarn, the package attempts to install modules using the "distutils" package,
+    which was removed from standard Python v3.12 and later
+    (see <https://stackoverflow.com/a/77638742>).
+
+    This error does not meaningfully impact the application (the `yarn install`
+    will indicate "Done"), but to resolve the error, run the following command:
+
+    ```zsh
+    $ brew install python-setuptools
+    ```
+
+    ---
+
 5) Start the server in development mode
 
     ```zsh
