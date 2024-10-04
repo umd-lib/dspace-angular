@@ -21,6 +21,12 @@ import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils
 import { Item } from '../../core/shared/item.model';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+// UMD Customization
+// Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+// This customization should be removed when upgrading to DSpace 8.0 or later
+import { NativeWindowService } from 'src/app/core/services/window.service';
+import { NativeWindowMockFactory } from 'src/app/shared/mocks/mock-native-window-ref';
+// End UMD Customization
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
@@ -69,6 +75,11 @@ describe('AdminSidebarComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: ActivatedRoute, useValue: routeStub },
+        // UMD Customization
+        // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+        // This customization should be removed when upgrading to DSpace 8.0 or later
+        { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
+        // End UMD Customization
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/

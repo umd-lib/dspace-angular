@@ -10,6 +10,12 @@ import { AdminSidebarSectionComponent } from './admin-sidebar-section.component'
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+// UMD Customization
+// Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+// This customization should be removed when upgrading to DSpace 8.0 or later
+import { NativeWindowService } from 'src/app/core/services/window.service';
+import { NativeWindowMockFactory } from 'src/app/shared/mocks/mock-native-window-ref';
+// End UMD Customization
 
 describe('AdminSidebarSectionComponent', () => {
   let component: AdminSidebarSectionComponent;
@@ -27,6 +33,11 @@ describe('AdminSidebarSectionComponent', () => {
           {provide: 'sectionDataProvider', useValue: {model: {link: 'google.com'}, icon: iconString}},
           {provide: MenuService, useValue: menuService},
           {provide: CSSVariableService, useClass: CSSVariableServiceStub},
+          // UMD Customization
+          // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+          // This customization should be removed when upgrading to DSpace 8.0 or later
+          { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
+          // End UMD Customization
         ]
       }).overrideComponent(AdminSidebarSectionComponent, {
         set: {
@@ -67,6 +78,11 @@ describe('AdminSidebarSectionComponent', () => {
           {provide: 'sectionDataProvider', useValue: {model: {link: 'google.com', disabled: true}, icon: iconString}},
           {provide: MenuService, useValue: menuService},
           {provide: CSSVariableService, useClass: CSSVariableServiceStub},
+          // UMD Customization
+          // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+          // This customization should be removed when upgrading to DSpace 8.0 or later
+          { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
+          // End UMD Customization
         ]
       }).overrideComponent(AdminSidebarSectionComponent, {
         set: {
