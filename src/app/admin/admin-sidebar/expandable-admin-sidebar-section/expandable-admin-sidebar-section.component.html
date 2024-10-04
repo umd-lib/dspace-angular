@@ -17,7 +17,13 @@
     <div class="sidebar-fixed-element-wrapper" data-test="sidebar-section-icon" aria-hidden="true">
       <i class="fas fa-{{section.icon}} fa-fw"></i>
     </div>
-    <div class="sidebar-collapsible-element-outer-wrapper">
+    <!-- UMD Customization -->
+    <!--
+        Incorporating DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+        This customization should be removed when upgrading to DSpace 8.0 or later
+    -->
+    <div class="sidebar-collapsible-element-outer-wrapper" [ngClass]="browserOsClasses.asObservable() | async">
+    <!-- End Customization -->
       <div class="sidebar-collapsible-element-inner-wrapper sidebar-item toggler-wrapper">
         <span [id]="adminMenuSectionTitleId(section.id)">
           <ng-container
@@ -31,7 +37,13 @@
   </a>
   <div class="sidebar-section-wrapper subsection" @slide *ngIf="(isExpanded$ | async)">
     <div class="sidebar-fixed-element-wrapper"></div>
-    <div class="sidebar-collapsible-element-outer-wrapper">
+    <!-- UMD Customization -->
+    <!--
+        Incorporating DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+        This customization should be removed when upgrading to DSpace 8.0 or later
+    -->
+    <div class="sidebar-collapsible-element-outer-wrapper" [ngClass]="browserOsClasses.asObservable() | async">
+    <!-- End Customization -->
       <div class="sidebar-collapsible-element-inner-wrapper">
         <div class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section.id)" [attr.aria-label]="('menu.section.' + section.id) | translate">
           <div class="sidebar-item" *ngFor="let subSection of (subSections$ | async)">

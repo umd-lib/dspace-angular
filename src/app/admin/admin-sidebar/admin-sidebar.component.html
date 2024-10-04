@@ -17,7 +17,13 @@
       <div class="sidebar-fixed-element-wrapper">
         <img id="admin-sidebar-logo" src="assets/images/dspace-logo-mini.svg" [alt]="('menu.header.image.logo') | translate" aria-hidden="true">
       </div>
-      <div class="sidebar-collapsible-element-outer-wrapper">
+      <!-- UMD Customization -->
+      <!--
+          Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
+          This customization should be removed when upgrading to DSpace 8.0 or later
+      -->
+      <div class="sidebar-collapsible-element-outer-wrapper" [ngClass]="browserOsClasses.asObservable() | async">
+      <!-- End UMD Customization -->
         <div class="sidebar-collapsible-element-inner-wrapper sidebar-item">
           <h4 class="my-1">{{ 'menu.header.admin' | translate }}</h4>
         </div>
