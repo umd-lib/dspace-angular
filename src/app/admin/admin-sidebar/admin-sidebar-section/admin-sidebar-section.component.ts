@@ -1,7 +1,6 @@
 // UMD Customization
 // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
 // This customization should be removed when upgrading to DSpace 8.0 or later
-import { NgClass } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 // End UMD Customization
