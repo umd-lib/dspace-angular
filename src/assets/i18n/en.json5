@@ -5745,6 +5745,10 @@
 
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DRUM.",
 
+  "submission.sections.submit.progressbar.describe.umdType": "Submission Type",
+
+  "submission.sections.submit.progressbar.describe.mhheaType": "Submission Type",
+
   "submission.sections.submit.progressbar.equitableAccessSubmission": "Equitable Access",
 
   "title": "DRUM",
