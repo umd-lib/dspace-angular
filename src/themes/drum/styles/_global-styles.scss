@@ -8,6 +8,17 @@
   --umd-ds-umd-campus-banner-height: 44px;
 }
 
+// LIBDRUM-879 - Place the z-index of UMD banner below that of the modal
+// dialogs. This enables modal dialogs to overlap the UMD banner, if necessary,
+// instead of being obscured by it. This also ensures that Cypress end-to-end
+// tests that check accessibility will pass successfully.
+//
+// Need the full "body div.umdheader-wrap" selector to override the
+// "umdheader-wrap" selector provided with the UMD banner
+body div.umdheader-wrap {
+  z-index: ($zindex-modal - 100) !important;
+}
+
 // LIBDRUM-694 - Add "margin-top" to notifications-wrapper defined in
 // src/app/shared/notifications/notifications-board/notifications-board.component.scss
 // in order to push notifications appearing in the upper-right corner of the

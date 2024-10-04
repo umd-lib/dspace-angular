@@ -1,8 +1,7 @@
 // UMD Customization
 // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
 // This customization should be removed when upgrading to DSpace 8.0 or later
-import { NgClass } from '@angular/common';
-import { Inject } from'@angular/core';
+import { Inject } from '@angular/core';
 import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
 // End UMD Customization
 import { Component, HostListener, Injector, Input, OnInit } from '@angular/core';
