@@ -1,13 +1,36 @@
-# This image will be published as dspace/dspace-angular
+# This image will be published as dspace/dspace-angular:$DSPACE_VERSION
 # See https://github.com/DSpace/dspace-angular/tree/main/docker for usage details
 
-FROM node:18-alpine AS builder
+# When upgrading, this file should be compared to "Dockerfile.dist"
+FROM node:18-alpine AS build
+
+# Ensure Python and other build tools are available
+# These are needed to install some node modules, especially on linux/arm64
+RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+
 WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --network-timeout 300000
+
 ADD . /app/
+RUN yarn build:prod
+
+FROM node:18-alpine
+RUN npm install --global pm2
+
+COPY --chown=node:node --from=build /app/dist /app/dist
+COPY --chown=node:node config /app/config
+COPY --chown=node:node docker/dspace-ui.json /app/dspace-ui.json
+
+WORKDIR /app
+USER node
+# UMD Customization - Fix "LegacyKeyValueFormat" warning
+ENV NODE_ENV=production
+# End UMD Customization
 EXPOSE 4000
 
-# We run yarn install with an increased network timeout (5min) to avoid "ESOCKETTIMEDOUT" errors from hub.docker.com
-# See, for example https://github.com/yarnpkg/yarn/issues/5540
-RUN yarn install --network-timeout 300000 && yarn run build:prod && rm -rf /usr/local/share/.cache/
-
-CMD NODE_ENV=production node ./dist/server/main.js
+# UMD Customization
+# Running Node directly, instead of using the "pm2" process manager,
+# because Kubernetes is acting as our process manager
+CMD [ "node", "./dist/server/main.js" ]
+# End UMD Customization
