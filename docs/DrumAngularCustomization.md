@@ -34,3 +34,8 @@ To make it more obvious how to submit items to DRUM, added a
 displayed for logged-in users that have "submit" permission to at least one
 collection. It is essentially a duplicate of the "New | Item" menu
 entry in the administrative sidebar.
+
+## Uncommented "/browse/*" endpoints in "robots.txt"
+
+In the "src/robots.txt.ejs" file, uncommented the "/browse/*" endpoints, to dissuade
+crawlers from those URLs.
