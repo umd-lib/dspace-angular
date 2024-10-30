@@ -82,23 +82,26 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
       )
     );
 
-    this.licenses$ = this.paginationService.getCurrentPagination(this.licenseOptions.id, this.licenseOptions).pipe(
-      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
-        this.item,
-        'LICENSE',
-        {elementsPerPage: options.pageSize, currentPage: options.currentPage},
-        true,
-        true,
-        followLink('format'),
-        followLink('thumbnail'),
-      )),
-      tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
-          if (hasValue(rd.errorMessage)) {
-            this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
-          }
-        }
-      )
-    );
+    // UMD Customization
+    // Suppress display of license bundles
+    // this.licenses$ = this.paginationService.getCurrentPagination(this.licenseOptions.id, this.licenseOptions).pipe(
+    //   switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
+    //     this.item,
+    //     'LICENSE',
+    //     {elementsPerPage: options.pageSize, currentPage: options.currentPage},
+    //     true,
+    //     true,
+    //     followLink('format'),
+    //     followLink('thumbnail'),
+    //   )),
+    //   tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
+    //       if (hasValue(rd.errorMessage)) {
+    //         this.notificationsService.error(this.translateService.get('file-section.error.header'), `${rd.statusCode} ${rd.errorMessage}`);
+    //       }
+    //     }
+    //   )
+    // );
+    // End UMD Customization
 
   }
 

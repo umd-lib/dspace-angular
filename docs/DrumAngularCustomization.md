@@ -37,5 +37,24 @@ entry in the administrative sidebar.
 
 ## Uncommented "/browse/*" endpoints in "robots.txt"
 
-In the "src/robots.txt.ejs" file, uncommented the "/browse/*" endpoints, to dissuade
-crawlers from those URLs.
+In the "src/robots.txt.ejs" file, uncommented the "/browse/*" endpoints, to
+dissuade crawlers from those URLs.
+
+## Suppress display of "License bundle" files on full item pages
+
+By default in DSpace the full detail page for an item contains a
+"License bundle" section displaying the license file and enabling it to be
+downloaded.
+
+While the majority of the license files are simply the standard DRUM license,
+users have the ability to upload their own license files, which may contain
+personal information such as email addresses.
+
+In DSpace 6, the license file was not downloadable, and we are continuing that
+policy in DSpace 7, to avoid potentially exposing user-specific information.
+
+Note: It does not seem possible in DSpace to restrict the download of files in
+the "License bundle", as it is in the "Original bundle", so if a user knows the
+specific URL of the license file, they will still be able to download it. This
+is currently no particular concern about this, as the the URLs of the license
+files contain UUID-like opaque identifiers that are unlikely to be guessable.
