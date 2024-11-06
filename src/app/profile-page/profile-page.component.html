@@ -1,7 +1,15 @@
 <ng-container *ngVar="(user$ | async) as user">
   <div class="container" *ngIf="user">
     <h1>{{'profile.title' | translate}}</h1>
-    <ng-container>
+    <!-- UMD Customization -->
+    <!--
+      This change is from dspace-angular Pull Request 3585, specifically
+      commit hash "ded0079".
+      This customization marker can be remove when DRUM is update to
+      a DSpace version containing this change.
+    -->
+    <ng-container *ngIf="isResearcherProfileEnabled$ | async">
+    <!-- End UMD Customization -->
       <div class="card mb-4">
         <div class="card-header">{{'profile.card.researcher' | translate}}</div>
         <div class="card-body">
