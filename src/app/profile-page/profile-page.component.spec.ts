@@ -320,7 +320,13 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return true', () => {
-        const result = component.isResearcherProfileEnabled();
+        // UMD Customization
+        // This change is from dspace-angular Pull Request 3585, specifically
+        // commit hash "ded0079".
+        // This customization marker can be remove when DRUM is update to
+        // a DSpace version containing this change.
+        const result = component.isResearcherProfileEnabled$;
+        // End UMD Customization
         const expected = cold('a', {
           a: true
         });
@@ -336,7 +342,13 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        // UMD Customization
+        // This change is from dspace-angular Pull Request 3585, specifically
+        // commit hash "ded0079".
+        // This customization marker can be remove when DRUM is update to
+        // a DSpace version containing this change.
+        const result = component.isResearcherProfileEnabled$;
+        // End UMD Customization
         const expected = cold('a', {
           a: false
         });
@@ -352,7 +364,13 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        // UMD Customization
+        // This change is from dspace-angular Pull Request 3585, specifically
+        // commit hash "ded0079".
+        // This customization marker can be remove when DRUM is update to
+        // a DSpace version containing this change.
+        const result = component.isResearcherProfileEnabled$;
+        // End UMD Customization
         const expected = cold('a', {
           a: false
         });

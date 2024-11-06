@@ -192,12 +192,18 @@ export class ProfilePageComponent implements OnInit {
     this.updateProfile();
   }
 
-  /**
-   * Returns true if the researcher profile feature is enabled, false otherwise.
-   */
-  isResearcherProfileEnabled(): Observable<boolean> {
-    return this.isResearcherProfileEnabled$.asObservable();
-  }
+  // UMD Customization
+  // This change is from dspace-angular Pull Request 3585, specifically
+  // commit hash "ded0079".
+  // This customization marker can be remove when DRUM is update to
+  // a DSpace version containing this change.
+  // /**
+  //  * Returns true if the researcher profile feature is enabled, false otherwise.
+  //  */
+  // isResearcherProfileEnabled(): Observable<boolean> {
+  //   return this.isResearcherProfileEnabled$.asObservable();
+  // }
+  // End UMD Customization
 
   /**
    * Returns an error message from a password validation request with a specific reason or
