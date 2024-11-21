@@ -3,7 +3,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
@@ -25,6 +26,7 @@ import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
 import { RSSComponent } from './rss.component';
+import { MockActivatedRoute } from '../mocks/active-router.mock';
 
 
 
@@ -88,6 +90,8 @@ describe('RssComponent', () => {
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute },
+        { provide: TranslateService, useValue: getMockTranslateService() },
       ],
     }).compileComponents();
   }));
