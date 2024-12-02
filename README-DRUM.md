@@ -9,7 +9,7 @@ The original dspace-angular documentation is in the "README.md" file.
 
 ## Prerequisite
 
-* Node v16.x or v18.x
+* Node v18.x or v20.x
 * npm >= v5.x
 * yarn == v1.x
 * Ensure that the DRUM API is up and running by following the instructions at
