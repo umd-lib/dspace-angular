@@ -12,13 +12,7 @@
     <div class="sidebar-fixed-element-wrapper" data-test="sidebar-section-icon" aria-hidden="true">
       <i class="fas fa-{{section.icon}} fa-fw"></i>
     </div>
-    <!-- UMD Customization -->
-    <!--
-        Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-        This customization should be removed when upgrading to DSpace 8.0 or later
-    -->
-    <div class="sidebar-collapsible-element-outer-wrapper" [ngClass]="browserOsClasses.asObservable() | async">
-    <!-- End UMD Customization -->
+    <div class="sidebar-collapsible-element-outer-wrapper">
       <div class="sidebar-collapsible-element-inner-wrapper sidebar-item">
         <span [id]="adminMenuSectionTitleId(section.id)">{{itemModel.text | translate}}</span>
       </div>

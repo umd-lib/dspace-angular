@@ -1,27 +1,43 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
 // UMD Customization
 import { DynamicFormControlModel, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 // End UMD Customization
 import { TranslateModule } from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
+
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { RestRequestMethod } from '../../../../core/data/rest-request-method';
 import { Community } from '../../../../core/shared/community.model';
 import { hasValue } from '../../../empty.util';
+import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { VarDirective } from '../../../utils/var.directive';
+import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 import { ComColFormComponent } from './comcol-form.component';
-import { Operation } from 'fast-json-patch';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<any>;
@@ -37,7 +53,7 @@ describe('ComColFormComponent', () => {
         return new UntypedFormGroup(controls);
       }
       return undefined;
-    }
+    },
   };
   const dcTitle = 'dc.title';
   const dcAbstract = 'dc.description.abstract';
@@ -48,13 +64,13 @@ describe('ComColFormComponent', () => {
     new DynamicInputModel({
       id: 'title',
       name: dcTitle,
-      value: newTitleMD[dcTitle][0].value
+      value: newTitleMD[dcTitle][0].value,
     }),
     new DynamicInputModel({
       id: 'abstract',
       name: dcAbstract,
-      value: abstractMD[dcAbstract][0].value
-    })
+      value: abstractMD[dcAbstract][0].value,
+    }),
   ];
 
   // UMD Customization
@@ -65,12 +81,13 @@ describe('ComColFormComponent', () => {
   // End UMD Customization
 
   const logo = {
-    id: 'logo'
+    id: 'logo',
   };
   const logoEndpoint = 'rest/api/logo/endpoint';
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
     deleteLogo: () => createSuccessfulRemoteDataObject$({}),
+    findById: () => createSuccessfulRemoteDataObject$({}),
     // UMD Customization
     updateCommunityGroup: () => createSuccessfulRemoteDataObject$({})
     // End UMD Customization
@@ -82,32 +99,42 @@ describe('ComColFormComponent', () => {
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   const requestServiceStub = jasmine.createSpyObj('requestService', {
-    removeByHrefSubstring: {}
+    removeByHrefSubstring: {},
+    setStaleByHrefSubstring: {},
   });
   const objectCacheStub = jasmine.createSpyObj('objectCache', {
-    remove: {}
+    remove: {},
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [ComColFormComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, ComColFormComponent, VarDirective],
       providers: [
         { provide: Location, useValue: locationStub },
         { provide: DynamicFormService, useValue: formServiceStub },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: RequestService, useValue: requestServiceStub },
-        { provide: ObjectCacheService, useValue: objectCacheStub }
+        { provide: ObjectCacheService, useValue: objectCacheStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ComColFormComponent, {
+        remove: {
+          imports: [
+            FormComponent,
+            UploaderComponent,
+            ComcolPageLogoComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   describe('when the dso doesn\'t contain an ID (newly created)', () => {
     beforeEach(() => {
       initComponent(Object.assign(new Community(), {
-        _links: { self: { href: 'community-self' } }
+        _links: { self: { href: 'community-self' } },
       }));
     });
 
@@ -147,57 +174,45 @@ describe('ComColFormComponent', () => {
         expect(comp.submitForm.emit).toHaveBeenCalledWith(
           {
             dso: Object.assign({}, comp.dso, {
-                metadata: {
-                  'dc.title': [{
-                    value: 'New Community Title',
-                    language: null,
-                  }],
-                  'dc.description.abstract': [{
-                    value: 'Community description',
-                    language: null,
-                  }],
-                },
-                type: Community.type,
-              }
+              metadata: {
+                'dc.title': [{
+                  value: 'New Community Title',
+                  language: null,
+                }],
+                'dc.description.abstract': [{
+                  value: 'Community description',
+                  language: null,
+                }],
+              },
+              type: Community.type,
+            },
             ),
-            uploader: undefined,
-            deleteLogo: false,
             operations: operations,
             // UMD Customization
             communityGroupId: undefined
             // End UMD Customization
-          }
+          },
         );
       });
     });
 
     describe('onCompleteItem', () => {
       beforeEach(() => {
-        spyOn(comp.finish, 'emit');
         comp.onCompleteItem();
       });
 
       it('should show a success notification', () => {
         expect(notificationsService.success).toHaveBeenCalled();
       });
-
-      it('should emit finish', () => {
-        expect(comp.finish.emit).toHaveBeenCalled();
-      });
     });
 
     describe('onUploadError', () => {
       beforeEach(() => {
-        spyOn(comp.finish, 'emit');
         comp.onUploadError();
       });
 
       it('should show an error notification', () => {
         expect(notificationsService.error).toHaveBeenCalled();
-      });
-
-      it('should emit finish', () => {
-        expect(comp.finish.emit).toHaveBeenCalled();
       });
     });
   });
@@ -208,7 +223,7 @@ describe('ComColFormComponent', () => {
         initComponent(Object.assign(new Community(), {
           id: 'community-id',
           logo: createSuccessfulRemoteDataObject$(undefined),
-          _links: { self: { href: 'community-self' } }
+          _links: { self: { href: 'community-self' } },
         }));
       });
 
@@ -218,6 +233,11 @@ describe('ComColFormComponent', () => {
 
       it('should initialize the uploadFilesOptions with a POST method', () => {
         expect(comp.uploadFilesOptions.method).toEqual(RestRequestMethod.POST);
+      });
+
+      it('should not show the delete logo button', () => {
+        const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
+        expect(button).toBeFalsy();
       });
     });
 
@@ -229,7 +249,7 @@ describe('ComColFormComponent', () => {
           _links: {
             self: { href: 'community-self' },
             logo: { href: 'community-logo' },
-          }
+          },
         }));
       });
 
@@ -237,96 +257,71 @@ describe('ComColFormComponent', () => {
         expect(comp.uploadFilesOptions.url).toEqual(logoEndpoint);
       });
 
-      it('should initialize the uploadFilesOptions with a PUT method', () => {
-        expect(comp.uploadFilesOptions.method).toEqual(RestRequestMethod.PUT);
+      it('should show the delete logo button', () => {
+        const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
+        expect(button).toBeTruthy();
       });
 
-      describe('submit with logo marked for deletion', () => {
+      describe('when the delete logo button is clicked', () => {
         beforeEach(() => {
-          spyOn(dsoService, 'deleteLogo').and.callThrough();
-          comp.markLogoForDeletion = true;
-        });
-
-        it('should call dsoService.deleteLogo on the DSO', () => {
-          comp.onSubmit();
+          spyOn(dsoService, 'deleteLogo').and.returnValue(createSuccessfulRemoteDataObject$({}));
+          spyOn(comp, 'handleLogoDeletion').and.callThrough();
+          spyOn(comp, 'createConfirmationModal').and.callThrough();
+          spyOn(comp, 'subscribeToConfirmationResponse').and.callThrough();
+          const deleteButton = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
+          deleteButton.nativeElement.click();
           fixture.detectChanges();
-
-          expect(dsoService.deleteLogo).toHaveBeenCalledWith(comp.dso);
         });
 
-        describe('when dsoService.deleteLogo returns a successful response', () => {
+        it('should create a confirmation modal with the correct labels and properties', () => {
+          const modalServiceSpy = spyOn((comp as any).modalService, 'open').and.callThrough();
+
+          const modalRef = comp.createConfirmationModal();
+
+          expect(modalServiceSpy).toHaveBeenCalled();
+
+          expect(modalRef).toBeDefined();
+          expect(modalRef.componentInstance).toBeDefined();
+
+          expect(modalRef.componentInstance.headerLabel).toBe('community-collection.edit.logo.delete.title');
+          expect(modalRef.componentInstance.infoLabel).toBe('confirmation-modal.delete-community-collection-logo.info');
+          expect(modalRef.componentInstance.cancelLabel).toBe('form.cancel');
+          expect(modalRef.componentInstance.confirmLabel).toBe('community-collection.edit.logo.delete.title');
+          expect(modalRef.componentInstance.confirmIcon).toBe('fas fa-trash');
+        });
+
+        it('should call createConfirmationModal method', () => {
+          expect(comp.createConfirmationModal).toHaveBeenCalled();
+        });
+
+        it('should call subscribeToConfirmationResponse method', () => {
+          expect(comp.subscribeToConfirmationResponse).toHaveBeenCalled();
+        });
+
+        describe('when the modal is closed', () => {
+
+          let modalRef;
+
           beforeEach(() => {
-            dsoService.deleteLogo.and.returnValue(createSuccessfulRemoteDataObject$({}));
-            comp.onSubmit();
+            modalRef = comp.createConfirmationModal();
+            comp.subscribeToConfirmationResponse(modalRef);
           });
 
-          it('should display a success notification', () => {
-            expect(notificationsService.success).toHaveBeenCalled();
-          });
-        });
+          it('should call handleLogoDeletion and dsoService.deleteLogo methods when deletion is confirmed', waitForAsync(() => {
+            modalRef.componentInstance.confirmPressed();
 
-        describe('when dsoService.deleteLogo returns an error response', () => {
-          beforeEach(() => {
-            dsoService.deleteLogo.and.returnValue(createFailedRemoteDataObject$('Error', 500));
-            comp.onSubmit();
-          });
+            expect(comp.handleLogoDeletion).toHaveBeenCalled();
+            expect(dsoService.deleteLogo).toHaveBeenCalled();
 
-          it('should display an error notification', () => {
-            expect(notificationsService.error).toHaveBeenCalled();
-          });
-        });
-      });
+          }));
 
-      describe('deleteLogo', () => {
-        beforeEach(() => {
-          comp.deleteLogo();
-          fixture.detectChanges();
-        });
+          it('should not call handleLogoDeletion and dsoService.deleteLogo methods when deletion is refused', waitForAsync(() => {
+            modalRef.componentInstance.cancelPressed();
 
-        it('should set markLogoForDeletion to true', () => {
-          expect(comp.markLogoForDeletion).toEqual(true);
-        });
+            expect(comp.handleLogoDeletion).not.toHaveBeenCalled();
+            expect(dsoService.deleteLogo).not.toHaveBeenCalled();
+          }));
 
-        it('should mark the logo section with a danger alert', () => {
-          const logoSection = fixture.debugElement.query(By.css('#logo-section.alert-danger'));
-          expect(logoSection).toBeTruthy();
-        });
-
-        it('should hide the delete button', () => {
-          const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
-          expect(button).not.toBeTruthy();
-        });
-
-        it('should show the undo button', () => {
-          const button = fixture.debugElement.query(By.css('#logo-section .btn-warning'));
-          expect(button).toBeTruthy();
-        });
-      });
-
-      describe('undoDeleteLogo', () => {
-        beforeEach(() => {
-          comp.markLogoForDeletion = true;
-          comp.undoDeleteLogo();
-          fixture.detectChanges();
-        });
-
-        it('should set markLogoForDeletion to false', () => {
-          expect(comp.markLogoForDeletion).toEqual(false);
-        });
-
-        it('should disable the danger alert on the logo section', () => {
-          const logoSection = fixture.debugElement.query(By.css('#logo-section.alert-danger'));
-          expect(logoSection).not.toBeTruthy();
-        });
-
-        it('should show the delete button', () => {
-          const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
-          expect(button).toBeTruthy();
-        });
-
-        it('should hide the undo button', () => {
-          const button = fixture.debugElement.query(By.css('#logo-section .btn-warning'));
-          expect(button).not.toBeTruthy();
         });
       });
     });

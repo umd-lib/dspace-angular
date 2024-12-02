@@ -26,7 +26,27 @@ describe(`DSONameService`, () => {
       },
       getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
         return ['Person', Item, DSpaceObject];
-      }
+      },
+    });
+
+    mockEPersonName = 'John Doe';
+    mockEPerson = Object.assign(new DSpaceObject(), {
+      firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+        return mockEPersonName;
+      },
+      getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+        return ['EPerson', Item, DSpaceObject];
+      },
+    });
+
+    mockEPersonNameFirst = 'John';
+    mockEPersonFirst = Object.assign(new DSpaceObject(), {
+      firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+        return mockEPersonNameFirst;
+      },
+      getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+        return ['EPerson', Item, DSpaceObject];
+      },
     });
 
     mockEPersonName = 'John Doe';
@@ -56,7 +76,7 @@ describe(`DSONameService`, () => {
       },
       getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
         return ['OrgUnit', Item, DSpaceObject];
-      }
+      },
     });
 
     mockDSOName = 'Lorem Ipsum';
@@ -66,7 +86,7 @@ describe(`DSONameService`, () => {
       },
       getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
         return [DSpaceObject];
-      }
+      },
     });
 
     service = new DSONameService({ instant: (a) => a } as any);

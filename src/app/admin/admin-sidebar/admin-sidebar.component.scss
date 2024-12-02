@@ -32,11 +32,6 @@
       overflow-x: hidden;
       overflow-y: auto;
       @include dark-scrollbar;
-      // UMD Customization
-      // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-      // This customization should be removed when upgrading to DSpace 8.0 or later
-      scrollbar-gutter: stable;
-      // End UMD Customization
     }
 
     img#admin-sidebar-logo {
@@ -142,19 +137,10 @@
       }
     }
   }
+}
 
-  // UMD Customization
-  // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-  // This customization should be removed when upgrading to DSpace 8.0 or later
-  ::ng-deep {
-    // The "browser-firefox" setting was not included in the DSpace 8.0 pull
-    // request, but appears to be necessary for MacOS.
-    .browser-firefox {
-      --ds-dark-scrollbar-width: 20px;
-    }
-    .browser-firefox-windows {
-      --ds-dark-scrollbar-width: 20px;
-    }
+::ng-deep {
+  .browser-firefox-windows {
+    --ds-dark-scrollbar-width: 20px;
   }
-  // End UMD Customization
 }
