@@ -58,3 +58,14 @@ the "License bundle", as it is in the "Original bundle", so if a user knows the
 specific URL of the license file, they will still be able to download it. This
 is currently no particular concern about this, as the the URLs of the license
 files contain UUID-like opaque identifiers that are unlikely to be guessable.
+
+## Modified GitHub Workflow Actions
+
+Modified the following in ".github/build.yml" so that the GitHub jobs would
+successfully complete:
+
+* Modified the "Verify SSR" step for check for "DRUM" in the title instead of
+  "DSpace"
+
+* Commented out the "codecov" job, because UMD does not have an appropriate key
+  for uploading the results to codecov.io.
