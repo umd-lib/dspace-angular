@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
@@ -30,6 +30,8 @@ import { EtdUnitDataService } from '../../etdunit-data.service';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 import { FindListOptions } from 'src/app/core/data/find-list-options.model';
+import { MockActivatedRoute } from 'src/app/shared/mocks/active-router.mock';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 
 describe('EtdUnitCollectionsListComponent', () => {
   let component: EtdUnitCollectionsListComponent;
@@ -102,7 +104,7 @@ describe('EtdUnitCollectionsListComponent', () => {
 
     paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+      imports: [CommonModule, NgbModule, EtdUnitCollectionsListComponent, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -110,7 +112,7 @@ describe('EtdUnitCollectionsListComponent', () => {
           }
         }),
       ],
-      declarations: [EtdUnitCollectionsListComponent],
+      declarations: [],
       providers: [
         EtdUnitCollectionsListComponent,
         { provide: EtdUnitDataService, useValue: etdUnitsDataServiceStub },
@@ -119,8 +121,15 @@ describe('EtdUnitCollectionsListComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(EtdUnitCollectionsListComponent, {
+      remove: {
+        imports: [
+          PaginationComponent,
+        ],
+      },
     }).compileComponents();
   }));
 

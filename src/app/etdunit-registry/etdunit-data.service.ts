@@ -22,11 +22,9 @@ import { Collection } from '../core/shared/collection.model';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { NoContent } from '../core/shared/NoContent.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
-import { ETDUNIT } from './models/etdunit.resource-type';
 import { EtdUnit } from './models/etdunit.model';
 import { EtdUnitRegistryState } from './etdunit-registry.reducers';
 import { IdentifiableDataService } from '../core/data/base/identifiable-data.service';
-import { dataService } from '../core/data/base/data-service.decorator';
 import { CreateData, CreateDataImpl } from '../core/data/base/create-data';
 import { SearchData, SearchDataImpl } from '../core/data/base/search-data';
 import { PatchData, PatchDataImpl } from '../core/data/base/patch-data';
@@ -42,8 +40,7 @@ const editEtdUnitSelector = createSelector(etdunitRegistryStateSelector, (etduni
  * Provides methods to retrieve etdunit resources from the REST API and
  * EtdUnit related CRUD actions.
  */
-@Injectable()
-@dataService(ETDUNIT)
+@Injectable({ providedIn: 'root' })
 export class EtdUnitDataService extends IdentifiableDataService<EtdUnit> {
   protected browseEndpoint = '';
   public collectionsEndpoint = 'collections';

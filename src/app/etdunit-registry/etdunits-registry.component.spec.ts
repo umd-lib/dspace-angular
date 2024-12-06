@@ -2,9 +2,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { PaginationService } from 'ngx-pagination';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { Observable, of as observableOf } from 'rxjs';
 import { DSOChangeAnalyzer } from 'src/app/core/data/dso-change-analyzer.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
@@ -27,6 +27,10 @@ import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
 import { EtdUnitMock, EtdUnitMock2 } from 'src/app/shared/testing/etdunit-mock';
 
 import { EtdUnitsRegistryComponent } from './etdunits-registry.component';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
+import { provideMockStore } from '@ngrx/store/testing';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 
 describe('EtdUnitsRegistryComponent', () => {
   let component: EtdUnitsRegistryComponent;
@@ -113,9 +117,10 @@ describe('EtdUnitsRegistryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EtdUnitsRegistryComponent],
-      providers: [
-        DSOChangeAnalyzer,
+      declarations: [],
+      imports: [EtdUnitsRegistryComponent],
+      providers: [EtdUnitsRegistryComponent,
+        { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: EtdUnitDataService, useValue: etdunitDataServiceStub },
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -123,10 +128,18 @@ describe('EtdUnitsRegistryComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+    }).overrideComponent(EtdUnitsRegistryComponent, {
+      remove: {
+        imports: [
+          PaginationComponent,
+        ],
+      },
+    }).compileComponents();
   });
 
   beforeEach(() => {

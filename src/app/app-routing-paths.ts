@@ -133,7 +133,6 @@ export const HEALTH_PAGE_PATH = 'health';
 export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
 
 // UMD Customization
-export const ETDUNIT_PATH = 'etdunits';
 export const RESTRICTED_ACCESS_MODULE_PATH = 'restricted-access';
 // End UMD Customization
 
@@ -147,3 +146,6 @@ export function getEditItemPageRoute() {
 }
 export const CORRECTION_TYPE_PATH = 'corrections';
 
+// UMD Customization
+export const ETDUNIT_PATH = 'etdunits';
+// End UMD Customization

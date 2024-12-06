@@ -12,7 +12,7 @@ import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-l
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { EtdUnit } from './models/etdunit.model';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { EtdUnitDataService } from './etdunit-data.service';
 import { EtdUnitDtoModel } from './models/etdunit-dto.model';
@@ -20,17 +20,28 @@ import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { NoContent } from 'src/app/core/shared/NoContent.model';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { Collection } from 'src/app/core/shared/collection.model';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-etdunits-registry',
   templateUrl: './etdunits-registry.component.html',
-  styleUrls: ['./etdunits-registry.component.scss']
+  styleUrls: ['./etdunits-registry.component.scss'],
+  imports: [
+    AsyncPipe, PaginationComponent, NgSwitch, NgbTooltipModule, NgForOf, NgIf,
+    NgSwitchCase,
+    ReactiveFormsModule, RouterLink, ThemedLoadingComponent, TranslateModule
+  ],
+  standalone: true,
 })
 export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
 

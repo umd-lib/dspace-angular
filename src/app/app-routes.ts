@@ -272,7 +272,7 @@ export const APP_ROUTES: Route[] = [
       },
       {
         path: ETDUNIT_PATH,
-        loadChildren: () => import('./etdunit-registry/etdunits.module').then((m) => m.EtdUnitsModule),
+        loadChildren: () => import('./etdunit-registry/etdunits-page-routes').then((m) => m.ROUTES),
         canActivate: [siteAdministratorGuard],
       },
       {

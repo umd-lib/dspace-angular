@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -28,6 +28,8 @@ import { CollectionDataService } from 'src/app/core/data/collection-data.service
 import { Collection } from 'src/app/core/shared/collection.model';
 import { FindListOptions } from 'src/app/core/data/find-list-options.model';
 import { RequestParam } from 'src/app/core/cache/models/request-param.model';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -40,7 +42,12 @@ enum SubKey {
 
 @Component({
   selector: 'ds-etdunit-collections-list',
-  templateUrl: './etdunit-collections-list.component.html'
+  templateUrl: './etdunit-collections-list.component.html',
+  imports: [ 
+    AsyncPipe, NgForOf, NgIf, PaginationComponent, ReactiveFormsModule,
+    RouterLink, TranslateModule
+  ],
+  standalone: true,
 })
 /**
  * The list of collections in the edit ETD unit page

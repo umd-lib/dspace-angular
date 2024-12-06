@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormControlModel, DynamicFormLayout, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
@@ -27,10 +27,16 @@ import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.ser
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
+import { FormComponent } from 'src/app/shared/form/form.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { EtdUnitCollectionsListComponent } from './etdunit-collection-list/etdunit-collections-list.component';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-etdunit-form',
-  templateUrl: './etdunit-form.component.html'
+  templateUrl: './etdunit-form.component.html',
+  imports: [AsyncPipe, EtdUnitCollectionsListComponent, FormComponent, NgIf, TranslateModule],
+  standalone: true,
 })
 /**
  * A form used for creating and editing etdunits
@@ -116,7 +122,9 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
     private authorizationService: AuthorizationDataService,
     private modalService: NgbModal,
     public requestService: RequestService,
-    protected changeDetectorRef: ChangeDetectorRef
+    protected changeDetectorRef: ChangeDetectorRef,
+    public dsoNameService: DSONameService,
+
   ) {
   }
 
@@ -250,7 +258,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
       .subscribe((list: PaginatedList<EtdUnit>) => {
         if (list.totalElements > 0) {
           this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.' + notificationSection + '.failure.etdunitNameInUse', {
-            name: etdunit.name
+            name: this.dsoNameService.getName(etdunit),
           }));
         }
       }));
@@ -275,10 +283,10 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
       getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<EtdUnit>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: rd.payload.name }));
+        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: this.dsoNameService.getName(rd.payload) }));
         this.submitForm.emit(rd.payload);
       } else {
-        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.edited.failure', { name: etdunit.name }));
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.edited.failure', { name: this.dsoNameService.getName(etdunit) }));
         this.cancelForm.emit();
       }
     });
@@ -327,7 +335,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
   delete() {
     this.etdunitDataService.getActiveEtdUnit().pipe(take(1)).subscribe((etdunit: EtdUnit) => {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = etdunit;
+      modalRef.componentInstance.name = this.dsoNameService.getName(etdunit);
       modalRef.componentInstance.headerLabel = this.messagePrefix + '.delete-etdunit.modal.header';
       modalRef.componentInstance.infoLabel = this.messagePrefix + '.delete-etdunit.modal.info';
       modalRef.componentInstance.cancelLabel = this.messagePrefix + '.delete-etdunit.modal.cancel';
@@ -340,11 +348,11 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
             this.etdunitDataService.delete(etdunit.id).pipe(getFirstCompletedRemoteData())
               .subscribe((rd: RemoteData<NoContent>) => {
                 if (rd.hasSucceeded) {
-                  this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: etdunit.name }));
+                  this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: this.dsoNameService.getName(etdunit) }));
                   this.onCancel();
                 } else {
                   this.notificationsService.error(
-                    this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: etdunit.name }),
+                    this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: this.dsoNameService.getName(etdunit) }),
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.content', { cause: rd.errorMessage }));
                 }
               });

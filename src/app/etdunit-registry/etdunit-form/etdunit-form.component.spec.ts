@@ -35,10 +35,9 @@ import { EtdUnitMock, EtdUnitMock2 } from 'src/app/shared/testing/etdunit-mock';
 import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
 import { EtdUnitFormComponent } from './etdunit-form.component';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { SearchConfigurationService } from 'src/app/core/shared/search/search-configuration.service';
-import { SearchService } from 'src/app/core/shared/search/search.service';
 import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from 'src/app/shared/mocks/dso-name.service.mock';
+import { FormComponent } from 'src/app/shared/form/form.component';
 
 describe('EtdUnitFormComponent', () => {
   let component: EtdUnitFormComponent;
@@ -175,7 +174,7 @@ describe('EtdUnitFormComponent', () => {
     router = new RouterMock();
     notificationService = new NotificationsServiceStub();
     return TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+      imports: [CommonModule, EtdUnitFormComponent, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -183,7 +182,7 @@ describe('EtdUnitFormComponent', () => {
           }
         }),
       ],
-      declarations: [EtdUnitFormComponent],
+      declarations: [],
       providers: [EtdUnitFormComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EtdUnitDataService, useValue: etdunitsDataServiceStub },
@@ -203,10 +202,14 @@ describe('EtdUnitFormComponent', () => {
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: CollectionDataService, useValue: {} },
-        { provide: SearchConfigurationService, useValue: {} },
-        { provide: SearchService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(EtdUnitFormComponent, {
+      remove: {
+        imports: [
+          FormComponent,
+        ],
+      },
     }).compileComponents();
   }));
 
