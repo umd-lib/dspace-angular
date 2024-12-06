@@ -39,8 +39,8 @@ describe('EmbargoListExportCsvComponent', () => {
 
     router = jasmine.createSpyObj('authorizationService', ['navigateByUrl']);
     TestBed.configureTestingModule({
-      declarations: [EmbargoListExportCsvComponent],
-      imports: [TranslateModule.forRoot(), NgbModule],
+      declarations: [],
+      imports: [EmbargoListExportCsvComponent, TranslateModule.forRoot(), NgbModule],
       providers: [
         {provide: ScriptDataService, useValue: scriptDataService},
         {provide: AuthorizationDataService, useValue: authorizationDataService},

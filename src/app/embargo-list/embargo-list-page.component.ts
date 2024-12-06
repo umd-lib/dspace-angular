@@ -4,12 +4,19 @@ import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { EmbargoListService } from './embargo-list.service';
 import { EmbargoListResponse } from './models/embargo-list-entry.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { EmbargoListComponent } from './embargo-list/embargo-list.component';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { EmbargoListExportCsvComponent } from './embargo-list-export-csv/embargo-list-export-csv.component';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 
 @Component({
   selector: 'ds-embargo-list-page',
   templateUrl: './embargo-list-page.component.html',
-  styleUrls: ['./embargo-list-page.component.scss']
+  styleUrls: ['./embargo-list-page.component.scss'],
+  imports: [AlertComponent,  AsyncPipe, EmbargoListComponent, EmbargoListExportCsvComponent, NgIf, TranslateModule],
+  standalone: true,
 })
 export class EmbargoListPageComponent implements OnInit {
   /**

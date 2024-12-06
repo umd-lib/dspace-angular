@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { ScriptDataService } from 'src/app/core/data/processes/script-data.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
@@ -12,11 +12,15 @@ import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { Process } from 'src/app/process-page/processes/process.model';
 import { getProcessDetailRoute } from 'src/app/process-page/process-page-routing.paths';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-embargo-list-export-csv',
   styleUrls: ['./embargo-list-export-csv.component.scss'],
   templateUrl: './embargo-list-export-csv.component.html',
+  imports: [AsyncPipe, NgbTooltipModule, NgIf, TranslateModule],
+  standalone: true,
 })
 
 /**
