@@ -22,11 +22,9 @@ import { Group } from './models/group.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { NoContent } from '../shared/NoContent.model';
 import { FindListOptions } from '../data/find-list-options.model';
-import { UNIT } from './models/unit.resource-type';
 import { Unit } from './models/unit.model';
 import { UnitRegistryState } from 'src/app/access-control/unit-registry/unit-registry.reducers';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { CreateData, CreateDataImpl } from '../data/base/create-data';
 import { SearchData, SearchDataImpl } from '../data/base/search-data';
 import { PatchData, PatchDataImpl } from '../data/base/patch-data';
@@ -42,8 +40,7 @@ import { RestRequestMethod } from '../data/rest-request-method';
  * Provides methods to retrieve eperson unit resources from the REST API and
  * Unit related CRUD actions.
  */
-@Injectable()
-@dataService(UNIT)
+@Injectable({ providedIn: 'root' })
 export class UnitDataService extends IdentifiableDataService<Unit> {
   protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';

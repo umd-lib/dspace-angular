@@ -1,5 +1,5 @@
 import { DSpaceObject } from '../../shared/dspace-object.model';
-import {autoserialize, autoserializeAs, deserialize, inheritSerialization} from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize, inheritSerialization} from 'cerialize';
 import { link, typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from 'src/app/core/shared/hal-link.model';
 import { GROUP } from 'src/app/core/eperson/models/group.resource-type';

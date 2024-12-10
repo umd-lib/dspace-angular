@@ -12,7 +12,7 @@ import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-l
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { UnitDtoModel } from 'src/app/core/eperson/models/unit-dto.model';
@@ -20,17 +20,28 @@ import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { NoContent } from 'src/app/core/shared/NoContent.model';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { Group } from 'src/app/core/eperson/models/group.model';
 import { GroupDataService } from 'src/app/core/eperson/group-data.service';
+import { RouterLink } from '@angular/router';
+import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-units-registry',
   templateUrl: './units-registry.component.html',
-  styleUrls: ['./units-registry.component.scss']
+  styleUrls: ['./units-registry.component.scss'],
+  imports: [
+    AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgbTooltipModule,
+    PaginationComponent, ReactiveFormsModule, RouterLink,
+    ThemedLoadingComponent, TranslateModule
+  ],
+  standalone: true,
 })
 export class UnitsRegistryComponent implements OnInit, OnDestroy {
 

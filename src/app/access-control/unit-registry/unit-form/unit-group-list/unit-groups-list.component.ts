@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -27,6 +27,8 @@ import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitGroupDtoModel } from './unit-group-dto.model';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -39,7 +41,12 @@ enum SubKey {
 
 @Component({
   selector: 'ds-unit-groups-list',
-  templateUrl: './unit-groups-list.component.html'
+  templateUrl: './unit-groups-list.component.html',
+  imports: [
+    AsyncPipe, NgIf, NgForOf, PaginationComponent, ReactiveFormsModule,
+    RouterLink, TranslateModule
+  ],
+  standalone: true,
 })
 /**
  * The list of groups in the edit unit page

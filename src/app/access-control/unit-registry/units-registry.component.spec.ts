@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { PaginationService } from 'ngx-pagination';
 import { Observable, of as observableOf } from 'rxjs';
@@ -27,6 +27,10 @@ import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
 import { UnitMock, UnitMock2 } from 'src/app/shared/testing/unit-mock';
 
 import { UnitsRegistryComponent } from './units-registry.component';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
 describe('UnitsRegistryComponent', () => {
   let component: UnitsRegistryComponent;
@@ -113,7 +117,8 @@ describe('UnitsRegistryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UnitsRegistryComponent ],
+      declarations: [  ],
+      imports: [UnitsRegistryComponent],
       providers: [
         DSOChangeAnalyzer,
         { provide: UnitDataService, useValue: unitDataServiceStub },
@@ -123,10 +128,18 @@ describe('UnitsRegistryComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+    }).overrideComponent(UnitsRegistryComponent, {
+      remove: {
+        imports: [
+          PaginationComponent,
+        ],
+      },
+    }).compileComponents();
   });
 
   beforeEach(() => {

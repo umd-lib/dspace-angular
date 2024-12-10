@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicCheckboxModel, DynamicFormControlModel, DynamicFormLayout, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
@@ -28,10 +28,18 @@ import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.ser
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { ValidateUnitExists } from './validators/unit-exists-validator';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { FormComponent } from 'src/app/shared/form/form.component';
+import { UnitGroupsListComponent } from './unit-group-list/unit-groups-list.component';
 
 @Component({
   selector: 'ds-unit-form',
-  templateUrl: './unit-form.component.html'
+  templateUrl: './unit-form.component.html',
+  imports: [
+    AsyncPipe, FormComponent, NgIf, ReactiveFormsModule, TranslateModule,
+    UnitGroupsListComponent
+  ],
+  standalone: true,
 })
 /**
  * A form used for creating and editing units

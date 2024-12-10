@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
@@ -28,6 +28,8 @@ import { UnitGroupsListComponent } from './unit-groups-list.component';
 import { UnitMockWithGroup } from 'src/app/shared/testing/unit-mock';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 
 describe('UnitGroupsListComponent', () => {
   let component: UnitGroupsListComponent;
@@ -114,8 +116,9 @@ describe('UnitGroupsListComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
+        UnitGroupsListComponent
       ],
-      declarations: [UnitGroupsListComponent],
+      declarations: [],
       providers: [UnitGroupsListComponent,
         { provide: UnitDataService, useValue: unitsDataServiceStub },
         { provide: GroupDataService, useValue: groupDataServiceStub },
@@ -123,8 +126,13 @@ describe('UnitGroupsListComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(UnitGroupsListComponent, {
+      remove: {
+        imports: [PaginationComponent],
+      },
     }).compileComponents();
   }));
 

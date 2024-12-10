@@ -36,6 +36,7 @@ import { ValidateUnitExists } from './validators/unit-exists-validator';
 import { UnitFormComponent } from './unit-form.component';
 import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from 'src/app/shared/mocks/dso-name.service.mock';
+import { FormComponent } from 'src/app/shared/form/form.component';
 
 describe('UnitFormComponent', () => {
   let component: UnitFormComponent;
@@ -182,8 +183,9 @@ describe('UnitFormComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
+        UnitFormComponent
       ],
-      declarations: [UnitFormComponent],
+      declarations: [],
       providers: [UnitFormComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: UnitDataService, useValue: unitsDataServiceStub },
@@ -204,6 +206,12 @@ describe('UnitFormComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(UnitFormComponent, {
+      remove: {
+        imports: [
+          FormComponent,
+        ],
+      },
     }).compileComponents();
   }));
 
