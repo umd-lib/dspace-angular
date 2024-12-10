@@ -68,6 +68,9 @@ import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.
 import { CLAIMED_TASK } from './tasks/models/claimed-task-object.resource-type';
 import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
 import { WORKFLOW_ACTION } from './tasks/models/workflow-action-object.resource-type';
+// UMD Customization
+import { COMMUNITY_GROUP } from './shared/community-group.resource-type';
+// End UMD Customization
 
 export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [AUTHORIZATION.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],
@@ -136,4 +139,7 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [SUGGESTION_TARGET.value, () => import('./notifications/suggestions/target/suggestion-target-data.service').then(m => m.SuggestionTargetDataService)],
   [DUPLICATE.value, () => import('./submission/submission-duplicate-data.service').then(m => m.SubmissionDuplicateDataService)],
   [CorrectionType.type.value, () => import('./submission/correctiontype-data.service').then(m => m.CorrectionTypeDataService)],
+  // UMD Customization
+  [COMMUNITY_GROUP.value, () => import('./data/community-group-data.service').then(m => m.CommunityGroupDataService)],
+  // End UMD Customization
 ]);

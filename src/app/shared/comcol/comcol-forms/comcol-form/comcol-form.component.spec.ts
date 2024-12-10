@@ -15,10 +15,10 @@ import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
+  // UMD Customization
+  DynamicSelectModel,
+  // End UMD Customization
 } from '@ng-dynamic-forms/core';
-// UMD Customization
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
-// End UMD Customization
 import { TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
@@ -387,8 +387,6 @@ describe('ComColFormComponent', () => {
               type: Community.type,
             }
             ),
-            uploader: undefined,
-            deleteLogo: false,
             operations: operations,
             communityGroupId: newComGroupId
           }

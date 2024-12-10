@@ -23,7 +23,9 @@ import {
   getFirstSucceededRemoteData,
 } from '../../../../../core/shared/operators';
 import { ResourceType } from '../../../../../core/shared/resource-type';
-import { isEmpty } from '../../../../empty.util';
+// UMD Customization
+import { hasValue, isEmpty } from '../../../../empty.util';
+// End UMD Customization
 import { NotificationsService } from '../../../../notifications/notifications.service';
 
 @Component({
@@ -76,11 +78,6 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
             this.translate.get(`${this.type.value}.edit.notifications.communityGroup.error`),
             response.errorMessage
           );
-        }
-        if (isEmpty(event.operations)) {
-          if (!newLogo && !deleteLogo) {
-            await this.router.navigate([this.frontendURL + event.dso.uuid]);
-          }
         }
       });
     }

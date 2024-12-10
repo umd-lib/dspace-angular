@@ -21,6 +21,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { CommunityFormComponent } from './community-form.component';
+import { FormComponent } from 'src/app/shared/form/form.component';
+import { UploaderComponent } from 'src/app/shared/upload/uploader/uploader.component';
+import { ComcolPageLogoComponent } from 'src/app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -131,8 +134,8 @@ describe('CommunityFormComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [CommunityFormComponent],
+        imports: [CommunityFormComponent, TranslateModule.forRoot(), RouterTestingModule],
+        declarations: [],
         providers: [
           { provide: NotificationsService, useValue: notificationsService },
           { provide: DynamicFormService, useValue: formService },
@@ -151,6 +154,14 @@ describe('CommunityFormComponent', () => {
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
+      }) .overrideComponent(CommunityFormComponent, {
+        remove: {
+          imports: [
+            FormComponent,
+            UploaderComponent,
+            ComcolPageLogoComponent,
+          ],
+        },
       }).compileComponents();
 
     }));

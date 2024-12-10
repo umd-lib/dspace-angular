@@ -21,12 +21,10 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CommunityGroup } from '../shared/community-group.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { BaseDataService } from 'src/app/core/data/base/base-data.service';
-import { dataService } from 'src/app/core/data/base/data-service.decorator';
 import { FindAllDataImpl } from './base/find-all-data';
 
 
-@Injectable()
-@dataService(COMMUNITY_GROUP)
+@Injectable({ providedIn: 'root' })
 export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
   protected linkPath = 'communitygroups';
 
