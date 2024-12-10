@@ -11,17 +11,14 @@ import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Ldap } from './models/ldap.model';
-import { LDAP } from './models/ldap.resource-type';
 import { NoContent } from '../shared/NoContent.model';
 import { EPerson } from './models/eperson.model';
 import { BaseDataService } from '../data/base/base-data.service';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Ldap} information from the REST API
  */
-@Injectable()
-@dataService(LDAP)
+@Injectable({ providedIn: 'root' })
 export class LdapDataService extends BaseDataService<Ldap> {
 
   protected linkPath = 'ldap';

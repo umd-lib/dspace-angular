@@ -84,6 +84,7 @@ import { SelectReviewerAdvancedWorkflowInfo } from './tasks/models/select-review
 import { TaskObject } from './tasks/models/task-object.model';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 // UMD Customization
+import { Ldap } from './eperson/models/ldap.model';
 import { Unit } from './eperson/models/unit.model';
 // End UMD Customization
 
@@ -190,6 +191,7 @@ export const models =
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
     // UMD Customzation
+    Ldap,
     Unit,
     // End UMD Customization
   ];

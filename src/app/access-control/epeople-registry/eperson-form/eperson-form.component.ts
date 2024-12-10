@@ -81,6 +81,7 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { LdapDataService } from '../../../core/eperson/ldap-data.service';
 import { Ldap } from '../../../core/eperson/models/ldap.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
+import { VarDirective } from 'src/app/shared/utils/var.directive';
 // End UMD Customization
 
 @Component({
@@ -97,6 +98,9 @@ import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
     PaginationComponent,
     RouterLink,
     HasNoValuePipe,
+    // UMD Customization
+    VarDirective,
+    // End UMD Customization
   ],
   standalone: true,
 })
