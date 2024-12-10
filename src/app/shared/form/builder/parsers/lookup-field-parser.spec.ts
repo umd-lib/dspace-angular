@@ -5,7 +5,6 @@ import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { LookupFieldParser } from './lookup-field-parser';
 import { ParserOptions } from './parser-options';
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
 describe('LookupFieldParser test suite', () => {
   let field: FormFieldModel;

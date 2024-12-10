@@ -4,7 +4,6 @@ import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scr
 import { FormFieldModel } from '../models/form-field.model';
 import { DropdownFieldParser } from './dropdown-field-parser';
 import { ParserOptions } from './parser-options';
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
 describe('DropdownFieldParser test suite', () => {
   let field: FormFieldModel;
