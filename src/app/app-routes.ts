@@ -277,8 +277,7 @@ export const APP_ROUTES: Route[] = [
       },
       {
         path: RESTRICTED_ACCESS_MODULE_PATH,
-        loadChildren: () => import('./restricted-access/restricted-access-page.module')
-          .then((m) => m.RestrictedAccessPageModule),
+        loadChildren: () => import('./restricted-access/restricted-access-page-routes').then((m) => m.ROUTES),
         canActivate: [endUserAgreementCurrentUserGuard]
       },
       // End UMD Customization

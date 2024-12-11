@@ -21,7 +21,9 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'ds-restricted-access',
   templateUrl: './restricted-access.component.html',
-  styleUrls: ['./restricted-access.component.scss']
+  styleUrls: ['./restricted-access.component.scss'],
+  imports: [],
+  standalone: true,
 })
 
 export class RestrictedAccessComponent implements OnInit {
