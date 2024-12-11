@@ -24,17 +24,6 @@ import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { FileDownloadLinkComponent } from './file-download-link.component';
-// UMD Customization
-import { Pipe, PipeTransform } from '@angular/core';
-
-// eslint-disable-next-line @angular-eslint/pipe-prefix
-@Pipe({ name: 'translate' })
-class MockTranslatePipe implements PipeTransform {
-  transform(value: string): string {
-    return value;
-  }
-}
-//End UMD Customization
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -70,9 +59,6 @@ describe('FileDownloadLinkComponent', () => {
         TranslateModule.forRoot(),
         FileDownloadLinkComponent,
       ],
-      // UMD Customization
-      declarations: [FileDownloadLinkComponent, RouterLinkDirectiveStub, MockTranslatePipe],
-      // End UMD Customization
       providers: [
         RouterLinkDirectiveStub,
         { provide: AuthorizationDataService, useValue: authorizationService },
