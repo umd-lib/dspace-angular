@@ -1,7 +1,7 @@
-import { DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest as observableCombineLatest, filter, map, Observable, of as observableOf, switchMap, take, zip } from 'rxjs';
 import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
@@ -22,7 +22,8 @@ import { Location } from '@angular/common';
   selector: 'ds-restricted-access',
   templateUrl: './restricted-access.component.html',
   styleUrls: ['./restricted-access.component.scss'],
-  imports: [],
+  imports: [AsyncPipe, TranslateModule],
+  providers: [DatePipe],
   standalone: true,
 })
 
