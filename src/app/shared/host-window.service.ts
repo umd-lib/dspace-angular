@@ -146,41 +146,6 @@ export class HostWindowService {
     );
   }
 
-  is(exactWidthCat: WidthCategory): Observable<boolean> {
-    return this.widthCategory.pipe(
-      map((widthCat: WidthCategory) => widthCat === exactWidthCat),
-      distinctUntilChanged()
-    );
-  }
-
-  isIn(widthCatArray: [WidthCategory]): Observable<boolean> {
-    return this.widthCategory.pipe(
-      map((widthCat: WidthCategory) => widthCatArray.includes(widthCat)),
-      distinctUntilChanged()
-    );
-  }
-
-  isUpTo(maxWidthCat: WidthCategory): Observable<boolean> {
-    return this.widthCategory.pipe(
-      map((widthCat: WidthCategory) => widthCat <= maxWidthCat),
-      distinctUntilChanged()
-    );
-  }
-
-  isMobile(): Observable<boolean> {
-    return this.widthCategory.pipe(
-      map((widthCat: WidthCategory) => widthCat <= maxMobileWidth),
-      distinctUntilChanged()
-    );
-  }
-
-  isDesktop(): Observable<boolean> {
-    return this.widthCategory.pipe(
-      map((widthCat: WidthCategory) => widthCat > maxMobileWidth),
-      distinctUntilChanged()
-    );
-  }
-
   isXsOrSm(): Observable<boolean> {
     return observableCombineLatest(
       this.isXs(),
