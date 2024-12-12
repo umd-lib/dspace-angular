@@ -191,7 +191,7 @@ export const models =
     Itemfilter,
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
-    // UMD Customzation
+    // UMD Customization
     CommunityGroup,
     Ldap,
     Unit,

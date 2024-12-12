@@ -130,7 +130,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   // UMD Customization
   etdunitRegistry: etdunitRegistryReducer,
   unitRegistry: unitRegistryReducer,
-  // End UMD Customzation
+  // End UMD Customization
 };
 
 export const routerStateSelector = (state: AppState) => state.router;
