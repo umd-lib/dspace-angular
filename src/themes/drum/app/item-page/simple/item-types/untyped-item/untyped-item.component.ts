@@ -4,6 +4,23 @@ import { Item } from '../../../../../../../app/core/shared/item.model';
 import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from 'src/app/core/shared/context.model';
+import { ThemedResultsBackButtonComponent } from 'src/app/shared/results-back-button/themed-results-back-button.component';
+import { MiradorViewerComponent } from 'src/app/item-page/mirador-viewer/mirador-viewer.component';
+import { MetadataValuesComponent } from 'src/app/item-page/field-components/metadata-values/metadata-values.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.component';
+import { ThemedMediaViewerComponent } from 'src/app/item-page/media-viewer/themed-media-viewer.component';
+import { ThemedFileSectionComponent } from 'src/app/item-page/simple/field-components/file-section/themed-file-section.component';
+import { ItemPageUriFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
+import { ItemPageDateFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/date/item-page-date-field.component';
+import { ThemedMetadataRepresentationListComponent } from 'src/app/item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
+import { GenericItemPageFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ItemPageAbstractFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/abstract/item-page-abstract-field.component';
+import { CollectionsComponent } from 'src/app/item-page/field-components/collections/collections.component';
+import { RouterLink } from '@angular/router';
 
 /**
  * Component that represents a publication Item page
@@ -15,6 +32,17 @@ import { Context } from 'src/app/core/shared/context.model';
   styleUrls: ['./untyped-item.component.scss'],
   templateUrl: './untyped-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    AsyncPipe, CollectionsComponent, DsoEditMenuComponent,
+    GenericItemPageFieldComponent, ItemPageAbstractFieldComponent,
+    ItemPageDateFieldComponent, ItemPageUriFieldComponent,
+    MetadataValuesComponent, MetadataFieldWrapperComponent,
+    MiradorViewerComponent, NgIf, RouterLink, ThemedFileSectionComponent,
+    ThemedMediaViewerComponent, ThemedMetadataRepresentationListComponent,
+    ThemedResultsBackButtonComponent, ThemedThumbnailComponent,
+    TranslateModule
+  ],
+  standalone: true,
 })
 export class UntypedItemComponent extends BaseComponent implements OnInit {
   public publicationLinkLabelI18nKey = 'item.page.publicationLink';

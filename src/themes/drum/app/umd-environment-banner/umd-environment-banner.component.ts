@@ -1,9 +1,12 @@
+import { NgIf } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 @Component({
   selector: 'ds-umd-environment-banner',
   templateUrl: './umd-environment-banner.component.html',
-  styleUrls: ['./umd-environment-banner.component.scss']
+  styleUrls: ['./umd-environment-banner.component.scss'],
+  imports: [NgIf],
+  standalone: true,
 })
 export class UmdEnvironmentBannerComponent implements OnInit {
   bannerText = '';

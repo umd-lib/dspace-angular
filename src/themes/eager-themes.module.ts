@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
+
 // UMD Customization
 import { EagerThemeModule as DrumEagerThemeModule } from './drum/eager-theme.module';
-// import { EagerThemeModule as CustomEagerThemeModule } from './custom/eager-theme.module';
+//import { EagerThemeModule as DSpaceEagerThemeModule } from './dspace/eager-theme.module';
 // End UMD Customization
+// import { EagerThemeModule as CustomEagerThemeModule } from './custom/eager-theme.module';
 
 /**
  * This module bundles the eager theme modules for all available themes.

@@ -22,12 +22,12 @@ import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 export const MAX_COMCOLS_PER_PAGE = 40;
 
 /**
- * The UMD version uses the custom CommunityGroupDataService to get top comunities of a group.
+ * The UMD version uses the custom CommunityGroupDataService to get top communities of a group.
  *
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
  *  and connection to the store to retrieve and save the state of the community list
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CommunityListService extends BaseService {
 
 

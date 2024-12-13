@@ -4,21 +4,21 @@
       <!-- UMD Customization -->
       <!--
         Using a separate ngFor in an ng-container, instead of using ngFor
-        in ds-themed-file-download-link to give ds-bitstream-download-counter
+        in ds-file-download-link to give ds-bitstream-download-counter
         access to the file information.
       -->
       <ng-container *ngFor="let file of bitstreams; let last=last;">
-        <ds-themed-file-download-link [bitstream]="file" [item]="item">
+        <ds-file-download-link [bitstream]="file" [item]="item">
           <span>{{ dsoNameService.getName(file) }}</span>
           <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
           <span *ngIf="!last" innerHTML="{{separator}}"></span>
-        </ds-themed-file-download-link>
+        </ds-file-download-link>
         <div>
           <ds-bitstream-download-counter [bitstream]="file" label="{{'bitstream.download.counter.label' | translate}}"></ds-bitstream-download-counter>
         </div>
       </ng-container>
       <!-- End UMD Customization -->
-      <ds-themed-loading *ngIf="isLoading" message="{{'loading.default' | translate}}" [showMessage]="false"></ds-themed-loading>
+      <ds-loading *ngIf="isLoading" message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>
       <div *ngIf="!isLastPage" class="mt-1" id="view-more">
         <button class="bitstream-view-more btn btn-outline-secondary btn-sm" (click)="getNextPage()">{{'item.page.bitstreams.view-more' | translate}}</button>
       </div>

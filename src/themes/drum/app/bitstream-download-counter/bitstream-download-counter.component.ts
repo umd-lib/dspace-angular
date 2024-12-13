@@ -3,10 +3,13 @@ import {Bitstream} from '../../../../app/core/shared/bitstream.model';
 import {Observable} from 'rxjs';
 import {UsageReportDataService} from '../../../../app/core/statistics/usage-report-data.service';
 import {UsageReport} from '../../../../app/core/statistics/models/usage-report.model';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   template: `{{label}} {{(downloadsReport$ | async)?.points[0].values.views}}`,
-  selector: 'ds-bitstream-download-counter'
+  selector: 'ds-bitstream-download-counter',
+  imports: [AsyncPipe],
+  standalone: true,
 })
 export class BitstreamDownloadCounterComponent implements OnInit {
   @Input() bitstream: Bitstream;

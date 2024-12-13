@@ -7,7 +7,9 @@ import { DatasetJsonLdTransformer } from './json-ld-dataset.transformer';
 @Component({
   selector: 'ds-json-ld-dataset',
   styles: [],
-  template: ''
+  template: '',
+  imports: [],
+  standalone: true,
 })
 export class JsonLdDatasetComponent implements OnInit, OnDestroy {
   transformer: DatasetJsonLdTransformer;

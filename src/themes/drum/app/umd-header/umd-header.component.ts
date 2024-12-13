@@ -10,6 +10,7 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'ds-umd-header',
   template: '',
+  standalone: true,
 })
 export class UmdHeaderComponent implements OnInit {
   ngOnInit() {

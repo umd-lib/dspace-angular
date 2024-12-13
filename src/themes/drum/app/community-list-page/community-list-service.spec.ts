@@ -18,7 +18,7 @@ import { FlatNode } from '../../../../app/community-list-page/flat-node.model';
 import { FindListOptions } from '../../../../app/core/data/find-list-options.model';
 import { CommunityGroupDataService } from '../../../../app/core/data/community-group-data.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.test';
 
 describe('CommunityListService', () => {
   let store: StoreMock<AppState>;

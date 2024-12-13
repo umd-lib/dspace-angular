@@ -7,6 +7,18 @@ import { fadeInOut } from '../../../../../app/shared/animations/fade';
 import { ServerResponseService } from 'src/app/core/services/server-response.service';
 import { SignpostingDataService } from 'src/app/core/data/signposting-data.service';
 import { LinkHeadService } from 'src/app/core/services/link-head.service';
+import { JsonLdDatasetComponent } from '../json-ld/json-ld-dataset.component';
+import { ThemedItemAlertsComponent } from 'src/app/item-page/alerts/themed-item-alerts.component';
+import { ItemVersionsNoticeComponent } from 'src/app/item-page/versions/notice/item-versions-notice.component';
+import { ViewTrackerComponent } from 'src/app/statistics/angulartics/dspace/view-tracker.component';
+import { ListableObjectComponentLoaderComponent } from 'src/app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ItemVersionsComponent } from 'src/app/item-page/versions/item-versions.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ErrorComponent } from 'src/app/shared/error/error.component';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
+import { VarDirective } from 'src/app/shared/utils/var.directive';
 
 /**
  * This component renders a simple item page.
@@ -18,7 +30,14 @@ import { LinkHeadService } from 'src/app/core/services/link-head.service';
   styleUrls: ['../../../../../app/item-page/simple/item-page.component.scss'],
   templateUrl: 'item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
+  imports: [
+    AsyncPipe, ErrorComponent, ItemVersionsComponent,
+    ItemVersionsNoticeComponent, JsonLdDatasetComponent,
+    ListableObjectComponentLoaderComponent, NgIf, ThemedItemAlertsComponent,
+    ThemedLoadingComponent, TranslateModule, VarDirective, ViewTrackerComponent
+  ],
+  standalone: true,
 })
 export class ItemPageComponent extends BaseComponent {
   constructor(
@@ -29,9 +48,10 @@ export class ItemPageComponent extends BaseComponent {
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
+    protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string
   ) {
     super(route, router, items, authorizationService,
-      responseService, signpostingDataService, linkHeadService, platformId);
+      responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
   }
 }

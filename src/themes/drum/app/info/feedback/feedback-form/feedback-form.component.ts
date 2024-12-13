@@ -3,7 +3,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'ds-feedback-form',
   templateUrl: './feedback-form.component.html',
-  styleUrls: ['./feedback-form.component.scss']
+  styleUrls: ['./feedback-form.component.scss'],
+  imports: [],
+  standalone: true,
 })
 /**
  * DRUM relies on a Wufoo form for generating feedback, so this component

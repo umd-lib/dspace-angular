@@ -8,7 +8,9 @@ import { JsonLdService } from './json-ld.service';
 @Component({
   selector: 'ds-json-ld-website',
   styles: [],
-  template: ''
+  template: '',
+  imports: [],
+  standalone: true,
 })
 export class JsonLdWebsiteComponent implements OnInit, OnDestroy {
 

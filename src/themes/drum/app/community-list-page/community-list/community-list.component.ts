@@ -7,7 +7,7 @@ import { SortDirection, SortOptions } from '../../../../../app/core/cache/models
 import { CommunityListService, MAX_COMCOLS_PER_PAGE } from '../community-list-service';
 // End UMD Customization
 import { CommunityListDatasource } from '../community-list-datasource';
-import { FlatTreeControl } from '@angular/cdk/tree';
+import { CdkTreeModule, FlatTreeControl } from '@angular/cdk/tree';
 // UMD Customization
 import { isEmpty } from '../../../../../app/shared/empty.util';
 import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
@@ -15,6 +15,12 @@ import { FindListOptions } from '../../../../../app/core/data/find-list-options.
 import { DSONameService } from '../../../../../app/core/breadcrumbs/dso-name.service';
 import { CommunityGroupDataService } from '../../../../../app/core/data/community-group-data.service';
 import { CommunityDataService } from '../../../../../app/core/data/community-data.service';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
+import { RouterLink } from '@angular/router';
+import { TruncatableComponent } from 'src/app/shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
+import { TranslateModule } from '@ngx-translate/core';
 // End UMD Customization
 
 // UMD Customization
@@ -33,8 +39,10 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
 @Component({
   selector: 'ds-cg-community-list',
   templateUrl: './community-list.component.html',
-  providers: [CommunityListService, CommunityDataService, CommunityGroupDataService]
+  providers: [CommunityListService, CommunityDataService, CommunityGroupDataService],
   //styleUrls: ['./community-list.component.scss'],
+imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  standalone: true,
 })
 // End UMD Customization
 
