@@ -203,7 +203,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     // UMD Customization
     if (hasValue(this.filteredFormModel())) {
       this.filteredFormModel().forEach(
-    // End UMD Customization
+      // End UMD Customization
         (fieldModel: DynamicInputModel) => {
           fieldModel.value = this.dso.firstMetadataValue(fieldModel.name);
         },

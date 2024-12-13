@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import { AbstractControl } from '@angular/forms';
 import { Route } from '@angular/router';
 import {
@@ -11,6 +15,9 @@ import { siteAdministratorGuard } from '../core/data/feature-authorization/featu
 import {
   EPERSON_PATH,
   GROUP_PATH,
+  // UMD Customization
+  UNIT_EDIT_PATH,
+  // End UMD Customization
 } from './access-control-routing-paths';
 import { BulkAccessComponent } from './bulk-access/bulk-access.component';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
@@ -20,7 +27,6 @@ import { GroupFormComponent } from './group-registry/group-form/group-form.compo
 import { groupPageGuard } from './group-registry/group-page.guard';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 // UMD Customization
-import { UNIT_EDIT_PATH } from './access-control-routing-paths';
 import { UnitsRegistryComponent } from './unit-registry/units-registry.component';
 import { UnitFormComponent } from './unit-registry/unit-form/unit-form.component';
 // End UMD Customization
@@ -121,29 +127,29 @@ export const ROUTES: Route[] = [
     path: UNIT_EDIT_PATH,
     component: UnitsRegistryComponent,
     resolve: {
-      breadcrumb: i18nBreadcrumbResolver
+      breadcrumb: i18nBreadcrumbResolver,
     },
     data: { title: 'admin.access-control.units.title', breadcrumbKey: 'admin.access-control.units' },
-    canActivate: [siteAdministratorGuard]
+    canActivate: [siteAdministratorGuard],
   },
   {
     path: `${UNIT_EDIT_PATH}/newUnit`,
     component: UnitFormComponent,
     resolve: {
-      breadcrumb: i18nBreadcrumbResolver
+      breadcrumb: i18nBreadcrumbResolver,
     },
     data: { title: 'admin.access-control.units.title.addUnit', breadcrumbKey: 'admin.access-control.units.addUnit' },
-    canActivate: [siteAdministratorGuard]
+    canActivate: [siteAdministratorGuard],
   },
   {
     path: `${UNIT_EDIT_PATH}/:unitId`,
     component: UnitFormComponent,
     resolve: {
-      breadcrumb: i18nBreadcrumbResolver
+      breadcrumb: i18nBreadcrumbResolver,
     },
     data: { title: 'admin.access-control.units.title.singleUnit', breadcrumbKey: 'admin.access-control.units.singleUnit' },
-    canActivate: [siteAdministratorGuard]
-  }
+    canActivate: [siteAdministratorGuard],
+  },
   // End UMD Customization
 
 ];

@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
@@ -234,7 +238,7 @@ describe('EPersonFormComponent', () => {
 
     // UMD Customization
     unitDataService = jasmine.createSpyObj('unitDataService', {
-      getUnitEditPageRouterLink: ''
+      getUnitEditPageRouterLink: '',
     });
     // End UMD Customization
 

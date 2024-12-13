@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import {
   AsyncPipe,
   NgClass,
@@ -10,7 +14,9 @@ import {
   SimpleChange,
   SimpleChanges,
   // UMD Customization
-  ChangeDetectorRef, OnDestroy, OnInit
+  ChangeDetectorRef,
+  OnDestroy,
+  OnInit,
   // End UMD Customization
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -41,13 +47,23 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 // UMD Customization
-import { hasNoValue, hasValue } from 'src/app/shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from 'src/app/shared/empty.util';
 import { CommunityGroupDataService } from 'src/app/core/data/community-group-data.service';
 import { CommunityGroup } from 'src/app/core/shared/community-group.model';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { Observable, combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import {
+  Observable,
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+} from 'rxjs';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
 // End UMD Customization
 
 /**
@@ -107,10 +123,10 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
     name: 'communityGroup',
     required: true,
     validators: {
-      required: null
+      required: null,
     },
     errorMessages: {
-      required: 'Please select a group'
+      required: 'Please select a group',
     },
   });
   // End UMD Customization
@@ -189,24 +205,24 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
 
     const allCommunityGroups$ = this.communityGroupsRD$.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
     const currentCommunityGroup$ = this.dso.communityGroup === undefined ? observableOf(undefined) :
       this.dso.communityGroup.pipe(
         getFirstSucceededRemoteData(),
-        getRemoteDataPayload()
+        getRemoteDataPayload(),
       );
 
     this.subs.push(
       observableCombineLatest([
         allCommunityGroups$,
-        currentCommunityGroup$
+        currentCommunityGroup$,
       ]).subscribe(([allCommunityGroups, currentCommunityGroup]) => {
         this.communityGroups = allCommunityGroups.page;
         this.originalCommunityGroup = currentCommunityGroup;
         this.updateCommunityGroupModel();
-      })
+      }),
     );
 
     this.changeDetectorRef.detectChanges();
@@ -216,8 +232,8 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
     this.selectedCommunityGroupModel.options = this.communityGroups.map((cg: CommunityGroup) =>
       Object.assign({
         value: cg.id,
-        label: cg.shortName
-      })
+        label: cg.shortName,
+      }),
     );
     if (hasValue(this.originalCommunityGroup)) {
       this.selectedCommunityGroupModel.value = this.originalCommunityGroup.id;

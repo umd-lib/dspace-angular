@@ -9,13 +9,13 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { UnitsRegistryComponent } from 'src/app/access-control/unit-registry/units-registry.component';
 
 import { RootModule } from '../../app/root.module';
-import { ItemPageComponent } from './app/item-page/simple/item-page.component';
-import { JsonLdDatasetComponent } from './app/item-page/json-ld/json-ld-dataset.component';
-import { LoginPageComponent } from './app/login-page/login-page.component';
 import { PrivacyComponent } from './app/info/privacy/privacy.component';
-import { UnitsRegistryComponent } from 'src/app/access-control/unit-registry/units-registry.component';
+import { JsonLdDatasetComponent } from './app/item-page/json-ld/json-ld-dataset.component';
+import { ItemPageComponent } from './app/item-page/simple/item-page.component';
+import { LoginPageComponent } from './app/login-page/login-page.component';
 
 const DECLARATIONS = [
   ItemPageComponent,

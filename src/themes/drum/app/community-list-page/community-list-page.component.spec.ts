@@ -9,18 +9,13 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-
-// UMD Customization
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../../../app/shared/mocks/translate-loader.mock';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
-// End UMD Customization
+
+import { TranslateLoaderMock } from '../../../../app/shared/mocks/translate-loader.mock';
+import { CommunityListComponent } from './community-list/community-list.component';
 import { CommunityListPageComponent } from './community-list-page.component';
 import { CommunityListService } from './community-list-service';
-import { APP_CONFIG, APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment';
-import { provideMockStore } from '@ngrx/store/testing';
-import { CommunityListComponent } from './community-list/community-list.component';
 
 describe('CommunityListPageComponent', () => {
   let component: CommunityListPageComponent;
@@ -44,9 +39,9 @@ describe('CommunityListPageComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).overrideComponent(CommunityListPageComponent, {
-     remove: {
-       imports: [CommunityListComponent],
-     },
+      remove: {
+        imports: [CommunityListComponent],
+      },
     }).compileComponents();
   }));
 

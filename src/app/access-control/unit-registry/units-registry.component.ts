@@ -1,36 +1,65 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { hasValue } from 'src/app/shared/empty.util';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
-import {  map, switchMap, tap } from 'rxjs/operators';
-import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { PageInfo } from 'src/app/core/shared/page-info.model';
-import { Unit } from 'src/app/core/eperson/models/unit.model';
-import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
-import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
-import { UnitDtoModel } from 'src/app/core/eperson/models/unit-dto.model';
-import { followLink } from 'src/app/shared/utils/follow-link-config.model';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import {
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { NoContent } from 'src/app/core/shared/NoContent.model';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { Group } from 'src/app/core/eperson/models/group.model';
 import { GroupDataService } from 'src/app/core/eperson/group-data.service';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { Group } from 'src/app/core/eperson/models/group.model';
+import { Unit } from 'src/app/core/eperson/models/unit.model';
+import { UnitDtoModel } from 'src/app/core/eperson/models/unit-dto.model';
+import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
+import { NoContent } from 'src/app/core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
+import { PageInfo } from 'src/app/core/shared/page-info.model';
+import { hasValue } from 'src/app/shared/empty.util';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-units-registry',
@@ -39,7 +68,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgbTooltipModule,
     PaginationComponent, ReactiveFormsModule, RouterLink,
-    ThemedLoadingComponent, TranslateModule
+    ThemedLoadingComponent, TranslateModule,
   ],
   standalone: true,
 })
@@ -53,7 +82,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'ul',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -74,7 +103,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
   /**
    * List of subscriptions
    */
-   subs: Subscription[] = [];
+  subs: Subscription[] = [];
 
   /**
    * An observable for the pageInfo, needed to pass to the pagination component
@@ -95,7 +124,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private formBuilder: FormBuilder,
               private authorizationService: AuthorizationDataService,
-              private paginationService: PaginationService,) {
+              private paginationService: PaginationService) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
       query: this.currentSearchQuery,
@@ -123,7 +152,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
         const query: string = data.query;
         if (query != null && this.currentSearchQuery !== query) {
           this.currentSearchQuery = query;
-          this.paginationService.updateRouteWithUrl(this.config.id, [], {page: 1});
+          this.paginationService.updateRouteWithUrl(this.config.id, [], { page: 1 });
         }
         return this.unitService.searchUnits(this.currentSearchQuery.trim(), {
           currentPage: paginationOptions.currentPage,
@@ -147,22 +176,22 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
                 ]).pipe(
                   map(([canDelete, canManageUnit, groups]:
                          [boolean, boolean, RemoteData<PaginatedList<Group>>]) => {
-                      const unitDtoModel: UnitDtoModel = new UnitDtoModel();
-                      unitDtoModel.ableToDelete = canDelete;
-                      unitDtoModel.ableToEdit = canManageUnit;
-                      unitDtoModel.unit = unit;
-                      unitDtoModel.groups = groups.payload;
-                      return unitDtoModel;
-                    }
-                  )
+                    const unitDtoModel: UnitDtoModel = new UnitDtoModel();
+                    unitDtoModel.ableToDelete = canDelete;
+                    unitDtoModel.ableToEdit = canManageUnit;
+                    unitDtoModel.unit = unit;
+                    unitDtoModel.groups = groups.payload;
+                    return unitDtoModel;
+                  },
+                  ),
                 );
               }
             })).pipe(map((dtos: UnitDtoModel[]) => {
               return buildPaginatedList(units.pageInfo, dtos);
             }));
-          })
+          }),
         );
-      })
+      }),
     ).subscribe((value: PaginatedList<UnitDtoModel>) => {
       this.unitsDto$.next(value);
       this.pageInfoState$.next(value.pageInfo);
@@ -188,7 +217,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
   /**
    * Delete Unit
    */
-   deleteUnit(unit: UnitDtoModel) {
+  deleteUnit(unit: UnitDtoModel) {
     if (hasValue(unit.unit.id)) {
       this.unitService.delete(unit.unit.id).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<NoContent>) => {
@@ -200,7 +229,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: unit.unit.name }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
-      });
+        });
     }
   }
 
@@ -208,14 +237,14 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
    * Get the groups belonging to this Unit
    * @param unit the Unit to return the groups go.
    */
-   getGroups(unit: Unit): Observable<RemoteData<PaginatedList<Group>>> {
+  getGroups(unit: Unit): Observable<RemoteData<PaginatedList<Group>>> {
     return this.groupService.findListByHref(unit._links.groups.href).pipe(getFirstSucceededRemoteData());
   }
 
   /**
    * Reset all input-fields to be empty and search all search
    */
-   clearFormAndResetResult() {
+  clearFormAndResetResult() {
     this.searchForm.patchValue({
       query: '',
     });
@@ -225,7 +254,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
   /**
    * Unsub all subscriptions
    */
-   ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.cleanupSubscribes();
     this.paginationService.clearPagination(this.config.id);
   }

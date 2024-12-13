@@ -1,7 +1,7 @@
-import { Component, } from '@angular/core';
+import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { LogInExternalProviderComponent } from '../log-in-external-provider/log-in-external-provider.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-log-in-cas',

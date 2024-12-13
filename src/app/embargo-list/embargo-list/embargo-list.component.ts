@@ -1,10 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { NgForOf } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { EmbargoListService } from '../embargo-list.service';
 import { EmbargoListResponse } from '../models/embargo-list-entry.model';
-import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgForOf } from '@angular/common';
 
 /**
  * A component to render the embargo list.

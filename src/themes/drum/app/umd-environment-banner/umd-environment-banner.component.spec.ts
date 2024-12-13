@@ -18,7 +18,7 @@ describe('UMD Environment Banner Component', () => {
       text: 'Unit Test Environment',
       foregroundColor: '#000',
       backgroundColor: '#fff',
-      enabled: true
+      enabled: true,
     };
 
     const component = new UmdEnvironmentBannerComponent(appConfig);

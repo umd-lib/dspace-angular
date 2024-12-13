@@ -8,5 +8,5 @@
   <div *ngIf="(embargoListResponse | async)">
     <ds-embargo-list [embargoListResponse]="(embargoListResponse | async)"></ds-embargo-list>
   </div>
-  <ds-alert *ngIf="!(embargoListResponse | async)" [type]="'alert-danger'" [content]="'embargo-list.error.msg'"></ds-alert>
+  <ds-alert *ngIf="(embargoListResponse | async) === null" [type]="'alert-danger'" [content]="'embargo-list.error.msg'"></ds-alert>
 </div>

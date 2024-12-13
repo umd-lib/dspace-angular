@@ -19,8 +19,16 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
+import { TruncatableComponent } from 'src/app/shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
 import { v4 as uuidv4 } from 'uuid';
 
+import {
+  showMoreFlatNode,
+  toFlatNode,
+} from '../../../../../app/community-list-page/community-list-service';
+import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
 // UMD Customization
 import { buildPaginatedList } from '../../../../../app/core/data/paginated-list.model';
 import { Collection } from '../../../../../app/core/shared/collection.model';
@@ -30,17 +38,9 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../../../../app/shared/empty.util';
-import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../../../../app/shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../app/shared/remote-data.utils';
-import { TruncatableComponent } from 'src/app/shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
 import { CommunityListService } from '../community-list-service';
-import {
-  showMoreFlatNode,
-  toFlatNode
-} from '../../../../../app/community-list-page/community-list-service';
-import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
 // End UMD Customization
 import { CommunityListComponent } from './community-list.component';
 
@@ -215,7 +215,7 @@ describe('CommunityListComponent', () => {
       // UMD Customization
       loadCommunitiesInGroup(options, expandedNodes, communityGroupId) {
         return this.loadCommunities(options, expandedNodes);
-      }
+      },
       // End UMD Customization
     };
     // UMD Customization
@@ -225,10 +225,10 @@ describe('CommunityListComponent', () => {
         set: {
           providers: [{
             provide: CommunityListService,
-            useValue: communityListServiceStub
-          }]
-        }
-      }
+            useValue: communityListServiceStub,
+          }],
+        },
+      },
     );
     // End UMD Customization
     TestBed.configureTestingModule({

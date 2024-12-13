@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * This service appends and removes JSON-LD scripts in the "head" tag of the
@@ -27,7 +27,7 @@ export class JsonLdService {
    * @param jsonLd the JSON-LD object to insert in the document head.
    */
   insertJsonLdSchema(document: Document, scriptId: string, jsonLd: any): void {
-    let script = document.createElement('script');
+    const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.text = JSON.stringify(jsonLd);
     script.id = scriptId;
@@ -41,7 +41,7 @@ export class JsonLdService {
    * @param scriptId the HTML "id" field of the element to remove.
    */
   removeJsonLdSchema(document: Document, scriptId: string): void {
-    let elementToRemove = document.getElementById(scriptId);
+    const elementToRemove = document.getElementById(scriptId);
     if (elementToRemove) {
       document.head.removeChild(elementToRemove);
     }

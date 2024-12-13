@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import { CommonModule } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import {
@@ -12,7 +16,9 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { getForbiddenRoute } from '../../app-routing-paths';
+// UMD Customization
+import { RESTRICTED_ACCESS_MODULE_PATH } from '../../app-routing-paths';
+// End UMD Customization
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
@@ -22,9 +28,6 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { FileService } from '../../core/shared/file.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
-// UMD Customization
-import { RESTRICTED_ACCESS_MODULE_PATH } from '../../app-routing-paths';
-// End UMD Customization
 
 describe('BitstreamDownloadPageComponent', () => {
   let component: BitstreamDownloadPageComponent;
@@ -180,7 +183,7 @@ describe('BitstreamDownloadPageComponent', () => {
       // UMD Customization
       it('should navigate to the restricted access route', () => {
         expect(router.navigateByUrl).toHaveBeenCalledWith(
-         `${RESTRICTED_ACCESS_MODULE_PATH}/bitstreamUuid`, {replaceUrl: true}
+          `${RESTRICTED_ACCESS_MODULE_PATH}/bitstreamUuid`, { replaceUrl: true },
         );
       });
       // End UMD Customization
@@ -200,7 +203,7 @@ describe('BitstreamDownloadPageComponent', () => {
       // UMD Customization
       it('should navigate to the restricted access route', () => {
         expect(router.navigateByUrl).toHaveBeenCalledWith(
-          `${RESTRICTED_ACCESS_MODULE_PATH}/bitstreamUuid`, {replaceUrl: true}
+          `${RESTRICTED_ACCESS_MODULE_PATH}/bitstreamUuid`, { replaceUrl: true },
         );
       });
       // End UMD Customization

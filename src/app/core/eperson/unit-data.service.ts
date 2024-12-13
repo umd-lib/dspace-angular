@@ -1,40 +1,67 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { createSelector, select, Store } from '@ngrx/store';
-import { Observable, zip as observableZip } from 'rxjs';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  zip as observableZip,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
+import {
+  UnitRegistryCancelUnitAction,
+  UnitRegistryEditUnitAction,
+} from 'src/app/access-control/unit-registry/unit-registry.actions';
+import { UnitRegistryState } from 'src/app/access-control/unit-registry/unit-registry.reducers';
+
 import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { DeleteRequest, PostRequest } from '../data/request.models';
-
+import {
+  DeleteRequest,
+  PostRequest,
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Group } from './models/group.model';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { NoContent } from '../shared/NoContent.model';
-import { FindListOptions } from '../data/find-list-options.model';
+import { Group } from './models/group.model';
 import { Unit } from './models/unit.model';
-import { UnitRegistryState } from 'src/app/access-control/unit-registry/unit-registry.reducers';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { CreateData, CreateDataImpl } from '../data/base/create-data';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { PatchData, PatchDataImpl } from '../data/base/patch-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { UnitRegistryCancelUnitAction, UnitRegistryEditUnitAction } from 'src/app/access-control/unit-registry/unit-registry.actions';
-import { Operation } from 'fast-json-patch';
-import { RestRequestMethod } from '../data/rest-request-method';
 
- const unitRegistryStateSelector = (state: AppState) => state.unitRegistry;
- const editUnitSelector = createSelector(unitRegistryStateSelector, (unitRegistryState: UnitRegistryState) => unitRegistryState.editUnit);
+const unitRegistryStateSelector = (state: AppState) => state.unitRegistry;
+const editUnitSelector = createSelector(unitRegistryStateSelector, (unitRegistryState: UnitRegistryState) => unitRegistryState.editUnit);
 
 /**
  * Provides methods to retrieve eperson unit resources from the REST API and

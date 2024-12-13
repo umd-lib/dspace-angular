@@ -131,7 +131,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // UMD Customization
     // Modified to move "CAS" login option (instead of "password" to be the
     // first authMethod, so that it appears first in the "Login" drop-down
-    let firstAuthMethodType: AuthMethodType = AuthMethodType.Cas;
+    const firstAuthMethodType: AuthMethodType = AuthMethodType.Cas;
 
     const sortedAuthMethodModels: AuthMethod[] = [];
     authMethodModels.forEach((method) => {

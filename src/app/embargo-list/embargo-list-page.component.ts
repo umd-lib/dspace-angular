@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { EmbargoListService } from './embargo-list.service';
-import { EmbargoListResponse } from './models/embargo-list-entry.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { EmbargoListComponent } from './embargo-list/embargo-list.component';
+
 import { AlertComponent } from '../shared/alert/alert.component';
+import { EmbargoListService } from './embargo-list.service';
+import { EmbargoListComponent } from './embargo-list/embargo-list.component';
 import { EmbargoListExportCsvComponent } from './embargo-list-export-csv/embargo-list-export-csv.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { EmbargoListResponse } from './models/embargo-list-entry.model';
 
 
 @Component({
@@ -44,7 +50,7 @@ export class EmbargoListPageComponent implements OnInit {
       error: () => {
         this.embargoListResponse.next(null);
         this.embargoListResponseInitialised.next(true);
-      }
+      },
     });
   }
 }

@@ -1,8 +1,32 @@
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, filter, map, Observable, of as observableOf, switchMap, take, zip } from 'rxjs';
+import {
+  AsyncPipe,
+  DatePipe,
+  Location,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  filter,
+  map,
+  Observable,
+  of as observableOf,
+  switchMap,
+  take,
+  zip,
+} from 'rxjs';
+
 import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
@@ -12,8 +36,10 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
 import { getRemoteDataPayload } from '../core/shared/operators';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { Location } from '@angular/common';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
 
 /**
  * This component representing the `Restricted Access` DSpace page.
@@ -64,7 +90,7 @@ export class RestrictedAccessComponent implements OnInit {
 
     this.bitstream$ = this.bitstreamRD$.pipe(
       redirectOn4xx(this.router, this.auth),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
     this.bitstream$.pipe(
@@ -86,7 +112,7 @@ export class RestrictedAccessComponent implements OnInit {
         } else {
           return [[isAuthorized, isLoggedIn, bitstream, '']];
         }
-      })
+      }),
     ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
       if (isAuthorized && isNotEmpty(fileLink)) {
         // This shouldn't happen, as the download is authorized, and the file link is available, so just redirect to
@@ -101,9 +127,9 @@ export class RestrictedAccessComponent implements OnInit {
           header$ = this.translateService.get('bitstream.restricted-access.user.forbidden.header', {});
 
           if (bitstream && bitstream.metadata['dc.title'] &&  bitstream.metadata['dc.title'][0] && bitstream.metadata['dc.title'][0].value) {
-            let filename = bitstream.metadata['dc.title'][0].value;
+            const filename = bitstream.metadata['dc.title'][0].value;
             message$ = this.translateService.get(
-              'bitstream.restricted-access.user.forbidden.with_file.message', {'filename': filename});
+              'bitstream.restricted-access.user.forbidden.with_file.message', { 'filename': filename });
           } else {
             message$ = this.translateService.get(
               'bitstream.restricted-access.user.forbidden.generic.message', {});
@@ -116,25 +142,25 @@ export class RestrictedAccessComponent implements OnInit {
         zip(header$, message$).subscribe(([header, message]) => {
           this.restrictedAccessHeader.next(header);
           this.restrictedAccessMessage.next(message);
-          });
+        });
       }
     });
   }
 
   protected configureAnonymous(bitstream: Bitstream): [Observable<string>, Observable<string>] {
-    let header$ = this.translateService.get('bitstream.restricted-access.header', {});
+    const header$ = this.translateService.get('bitstream.restricted-access.header', {});
     let message$: Observable<string>;
 
-    let embargoRestriction = bitstream.embargoRestriction;
+    const embargoRestriction = bitstream.embargoRestriction;
 
     if (embargoRestriction == null) {
       message$ = this.translateService.get('bitstream.restricted-access.anonymous.forbidden.message', {});
     } else if (('FOREVER' === embargoRestriction)) {
       message$ = this.translateService.get('bitstream.restricted-access.embargo.forever.message', {});
     } else if (this.isValidDate(embargoRestriction)) {
-      let parsedDate = this.datePipe.transform(embargoRestriction, 'longDate');
+      const parsedDate = this.datePipe.transform(embargoRestriction, 'longDate');
       message$ = this.translateService.get(
-        'bitstream.restricted-access.embargo.restricted-until.message', { 'restrictedAccessDate': parsedDate}
+        'bitstream.restricted-access.embargo.restricted-until.message', { 'restrictedAccessDate': parsedDate },
       );
     } else {
       // Reach this branch when embargoRestriction is "NONE", but there is some

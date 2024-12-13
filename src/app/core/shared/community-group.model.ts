@@ -1,15 +1,22 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
 import { Observable } from 'rxjs';
 import { ResourceType } from 'src/app/core/shared/resource-type';
 import { excludeFromEquals } from 'src/app/core/utilities/equals.decorators';
-import { link, typedObject } from '../cache/builders/build-decorators';
+
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { Community } from './community.model';
 import { COMMUNITY } from './community.resource-type';
-import { HALLink } from './hal-link.model';
 import { COMMUNITY_GROUP } from './community-group.resource-type';
+import { HALLink } from './hal-link.model';
 
 @typedObject
 export class CommunityGroup implements CacheableObject {

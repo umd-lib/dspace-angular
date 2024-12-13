@@ -1,27 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { Store } from '@ngrx/store';
-import { Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, skipWhile, take } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  skipWhile,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+import { BaseDataService } from 'src/app/core/data/base/base-data.service';
+
 import { isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { BrowseService } from '../browse/browse.service';
 import { CoreState } from '../core-state.model';
 import { Community } from '../shared/community.model';
-import { COMMUNITY_GROUP } from '../shared/community-group.resource-type';
+import { CommunityGroup } from '../shared/community-group.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { FindAllDataImpl } from './base/find-all-data';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions } from './find-list-options.model';
 import { RequestService } from './request.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { CommunityGroup } from '../shared/community-group.model';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { BaseDataService } from 'src/app/core/data/base/base-data.service';
-import { FindAllDataImpl } from './base/find-all-data';
 
 
 @Injectable({ providedIn: 'root' })
@@ -32,7 +39,7 @@ export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
 
 
   private configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 1
+    elementsPerPage: 1,
   });
 
   constructor(
@@ -44,7 +51,7 @@ export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected comparator: DefaultChangeAnalyzer<CommunityGroup>,
-    protected http: HttpClient
+    protected http: HttpClient,
   ) {
     super(
       'communitygroups',
@@ -81,7 +88,7 @@ export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
   public getTopCommunitiesByGroup(communityGroupID: number, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
     const href$ = this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((communityGroupEndpointHref: string) =>
-        this.halService.getEndpoint('communities', `${communityGroupEndpointHref}/${communityGroupID}`))
+        this.halService.getEndpoint('communities', `${communityGroupEndpointHref}/${communityGroupID}`)),
     );
     return this.findAllCommunitiesByHref(href$, options, true, true, ...linksToFollow);
   }
@@ -107,7 +114,7 @@ export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
     const requestHref$ = href$.pipe(
       isNotEmptyOperator(),
       take(1),
-      map((href: string) => this.buildHrefFromFindOptions(href, findListOptions, []))
+      map((href: string) => this.buildHrefFromFindOptions(href, findListOptions, [])),
     );
 
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
@@ -119,7 +126,7 @@ export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
       // cached completed object
       skipWhile((rd: RemoteData<PaginatedList<Community>>) => useCachedVersionIfAvailable ? rd.isStale : rd.hasCompleted),
       this.reRequestStaleRemoteData(reRequestOnStale, () =>
-        this.findAllCommunitiesByHref(href$, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
+        this.findAllCommunitiesByHref(href$, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
     );
   }
 }

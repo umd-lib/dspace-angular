@@ -1,8 +1,15 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
+
 import { JsonLdService } from './json-ld.service';
 
 @Component({
@@ -39,14 +46,14 @@ export class JsonLdWebsiteComponent implements OnInit, OnDestroy {
     );
 
     combineLatest(
-      [dspaceName$, dspaceBaseUrl$]
+      [dspaceName$, dspaceBaseUrl$],
     ).subscribe(([dspaceNameRd, dspaceBaseUrlRd]) => {
       if (!(dspaceNameRd.hasSucceeded && dspaceBaseUrlRd.hasSucceeded)) {
         return;
       }
 
-      let name = dspaceNameRd.payload.values[0];
-      let baseUrl = dspaceBaseUrlRd.payload.values[0];
+      const name = dspaceNameRd.payload.values[0];
+      const baseUrl = dspaceBaseUrlRd.payload.values[0];
 
 
       this.jsonLdService.insertJsonLdSchema(this.document, this.scriptId, this.asJsonLd(name, baseUrl));
@@ -61,7 +68,7 @@ export class JsonLdWebsiteComponent implements OnInit, OnDestroy {
       '@context' : 'http://schema.org',
       '@type' : 'WebSite',
       'name' : name,
-      'url' : url
+      'url' : url,
     };
   }
 

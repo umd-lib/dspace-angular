@@ -1,9 +1,11 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map} from 'rxjs/operators';
-
-import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
+import { map } from 'rxjs/operators';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
+import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 
 export class ValidateUnitExists {
@@ -16,9 +18,9 @@ export class ValidateUnitExists {
   static createValidator(unitDataService: UnitDataService) {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
       return unitDataService.searchUnits(control.value, {
-            currentPage: 1,
-            elementsPerPage: 100
-          })
+        currentPage: 1,
+        elementsPerPage: 100,
+      })
         .pipe(
           getFirstSucceededRemoteListPayload(),
           map( (units: Unit[]) => {

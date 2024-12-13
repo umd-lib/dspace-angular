@@ -1,4 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 
 /**
  * Simple component to inject the standard UMD header banner. Adds a <script>

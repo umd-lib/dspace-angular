@@ -1,35 +1,66 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { RestResponse } from '../../../../core/cache/response.models';
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { GroupMock, GroupMock2 } from '../../../../shared/testing/group-mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { UnitGroupsListComponent } from './unit-groups-list.component';
-import { UnitMockWithGroup } from 'src/app/shared/testing/unit-mock';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
+import { UnitMockWithGroup } from 'src/app/shared/testing/unit-mock';
+
+import { RestResponse } from '../../../../core/cache/response.models';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../../../../shared/testing/group-mock';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { UnitGroupsListComponent } from './unit-groups-list.component';
 
 describe('UnitGroupsListComponent', () => {
   let component: UnitGroupsListComponent;
@@ -102,7 +133,7 @@ describe('UnitGroupsListComponent', () => {
           this.unitGroups = [];
         }
         return observableOf(new RestResponse(true, 200, 'Success'));
-      }
+      },
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
@@ -113,10 +144,10 @@ describe('UnitGroupsListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        UnitGroupsListComponent
+        UnitGroupsListComponent,
       ],
       declarations: [],
       providers: [UnitGroupsListComponent,
@@ -128,7 +159,7 @@ describe('UnitGroupsListComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(UnitGroupsListComponent, {
       remove: {
         imports: [PaginationComponent],

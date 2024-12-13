@@ -1,9 +1,35 @@
-import { ChangeDetectorRef, Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicCheckboxModel, DynamicFormControlModel, DynamicFormLayout, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  DynamicCheckboxModel,
+  DynamicFormControlModel,
+  DynamicFormLayout,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
@@ -11,7 +37,11 @@ import {
   ObservedValueOf,
   Subscription,
 } from 'rxjs';
-import { switchMap, take, debounceTime } from 'rxjs/operators';
+import {
+  debounceTime,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
@@ -20,24 +50,32 @@ import { RequestService } from 'src/app/core/data/request.service';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { NoContent } from 'src/app/core/shared/NoContent.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
-import { hasValue, hasValueOperator, isNotEmpty } from 'src/app/shared/empty.util';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from 'src/app/shared/empty.util';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
+import { FormComponent } from 'src/app/shared/form/form.component';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
-import { ValidateUnitExists } from './validators/unit-exists-validator';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { FormComponent } from 'src/app/shared/form/form.component';
+
 import { UnitGroupsListComponent } from './unit-group-list/unit-groups-list.component';
+import { ValidateUnitExists } from './validators/unit-exists-validator';
 
 @Component({
   selector: 'ds-unit-form',
   templateUrl: './unit-form.component.html',
   imports: [
     AsyncPipe, FormComponent, NgIf, ReactiveFormsModule, TranslateModule,
-    UnitGroupsListComponent
+    UnitGroupsListComponent,
   ],
   standalone: true,
 })
@@ -70,13 +108,13 @@ export class UnitFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     unitName: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
     facultyOnly: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
   };
 
@@ -151,7 +189,7 @@ export class UnitFormComponent implements OnInit, OnDestroy {
           (isAuthorized: ObservedValueOf<Observable<boolean>>) => {
             return isAuthorized;
           });
-      })
+      }),
     );
     observableCombineLatest(
       this.translateService.get(`${this.messagePrefix}.unitName`),
@@ -171,7 +209,7 @@ export class UnitFormComponent implements OnInit, OnDestroy {
         label: facultyOnlyLabel,
         name: 'facultyOnly',
         required: false,
-        value: false // Initial value
+        value: false, // Initial value
       });
       this.formModel = [
         this.unitName,
@@ -179,7 +217,7 @@ export class UnitFormComponent implements OnInit, OnDestroy {
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
 
-      if (!!this.formGroup.controls.unitName) {
+      if (this.formGroup.controls.unitName) {
         this.formGroup.controls.unitName.setAsyncValidators(ValidateUnitExists.createValidator(this.unitDataService));
         this.unitNameValueChangeSubscribe = this.unitName.valueChanges.pipe(debounceTime(300)).subscribe(() => {
           this.changeDetectorRef.detectChanges();
@@ -189,7 +227,7 @@ export class UnitFormComponent implements OnInit, OnDestroy {
       this.subs.push(
         observableCombineLatest(
           this.unitDataService.getActiveUnit(),
-          this.canEdit$
+          this.canEdit$,
         ).subscribe(([activeUnit, canEdit]) => {
           if (activeUnit != null) {
             // Disable unit name exists validator
@@ -212,7 +250,7 @@ export class UnitFormComponent implements OnInit, OnDestroy {
               }
             }, 200);
           }
-        })
+        }),
       );
     });
   }
@@ -234,14 +272,14 @@ export class UnitFormComponent implements OnInit, OnDestroy {
       (unit: Unit) => {
         const values = {
           name: this.unitName.value,
-          facultyOnly: this.facultyOnly.checked
+          facultyOnly: this.facultyOnly.checked,
         };
         if (unit === null) {
           this.createNewUnit(values);
         } else {
           this.editUnit(unit);
         }
-      }
+      },
     );
   }
 
@@ -252,7 +290,7 @@ export class UnitFormComponent implements OnInit, OnDestroy {
   createNewUnit(values) {
     const unitToCreate = Object.assign(new Unit(), values);
     this.unitDataService.create(unitToCreate).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Unit>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.created.success', { name: unitToCreate.name }));
@@ -281,12 +319,12 @@ export class UnitFormComponent implements OnInit, OnDestroy {
     // Relevant message for unit name in use
     this.subs.push(this.unitDataService.searchUnits(unit.name, {
       currentPage: 1,
-      elementsPerPage: 0
+      elementsPerPage: 0,
     }).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload())
       .subscribe((list: PaginatedList<Unit>) => {
         if (list.totalElements > 0) {
           this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.' + notificationSection + '.failure.unitNameInUse', {
-            name: unit.name
+            name: unit.name,
           }));
         }
       }));
@@ -303,7 +341,7 @@ export class UnitFormComponent implements OnInit, OnDestroy {
       operations = [...operations, {
         op: 'replace',
         path: '/facultyOnly',
-        value: this.facultyOnly.value
+        value: this.facultyOnly.value,
       }];
     }
 
@@ -311,12 +349,12 @@ export class UnitFormComponent implements OnInit, OnDestroy {
       operations = [...operations, {
         op: 'replace',
         path: '/name',
-        value: this.unitName.value
+        value: this.unitName.value,
       }];
     }
 
     this.unitDataService.patch(unit, operations).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Unit>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: rd.payload.name }));

@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import {
   AsyncPipe,
   NgClass,
@@ -406,11 +410,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.ldap = activeEPerson$.pipe(
         switchMap((eperson) => {
           if (eperson != null) {
-            let result = this.ldapDataService.getLdap(eperson, true, true);
+            const result = this.ldapDataService.getLdap(eperson, true, true);
             return result;
           }
           return observableOf(undefined);
-        })
+        }),
       );
       // End UMD Customization
 

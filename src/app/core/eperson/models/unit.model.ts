@@ -1,14 +1,23 @@
-import { DSpaceObject } from '../../shared/dspace-object.model';
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization} from 'cerialize';
-import { link, typedObject } from '../../cache/builders/build-decorators';
-import { HALLink } from 'src/app/core/shared/hal-link.model';
-import { GROUP } from 'src/app/core/eperson/models/group.resource-type';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { RemoteData } from 'src/app/core/data/remote-data';
 import { Group } from 'src/app/core/eperson/models/group.model';
-import { UNIT } from './unit.resource-type';
+import { GROUP } from 'src/app/core/eperson/models/group.resource-type';
+import { HALLink } from 'src/app/core/shared/hal-link.model';
+
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { UNIT } from './unit.resource-type';
 
 @typedObject
 @inheritSerialization(DSpaceObject)

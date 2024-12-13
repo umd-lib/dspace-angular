@@ -1,6 +1,13 @@
 import { EtdUnitMock } from 'src/app/shared/testing/etdunit-mock';
-import { EtdUnitRegistryCancelUnitAction, EtdUnitRegistryEditEtdUnitAction } from './etdunit-registry.actions';
-import { etdunitRegistryReducer, EtdUnitRegistryState } from './etdunit-registry.reducers';
+
+import {
+  EtdUnitRegistryCancelUnitAction,
+  EtdUnitRegistryEditEtdUnitAction,
+} from './etdunit-registry.actions';
+import {
+  etdunitRegistryReducer,
+  EtdUnitRegistryState,
+} from './etdunit-registry.reducers';
 
 const initialState: EtdUnitRegistryState = {
   editEtdUnit: null,

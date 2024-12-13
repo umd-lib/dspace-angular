@@ -1,37 +1,68 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { RestResponse } from '../../../core/cache/response.models';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterMock } from '../../../shared/mocks/router.mock';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { EtdUnitCollectionsListComponent } from './etdunit-collections-list.component';
-import { EtdUnitMockWithCollection } from 'src/app/shared/testing/etdunit-mock';
-import { CollectionMock, CollectionMock2 } from 'src/app/shared/testing/collection-mock';
-import { Collection } from 'src/app/core/shared/collection.model';
-import { EtdUnit } from '../../models/etdunit.model';
-import { EtdUnitDataService } from '../../etdunit-data.service';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 import { FindListOptions } from 'src/app/core/data/find-list-options.model';
+import { Collection } from 'src/app/core/shared/collection.model';
 import { MockActivatedRoute } from 'src/app/shared/mocks/active-router.mock';
 import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import {
+  CollectionMock,
+  CollectionMock2,
+} from 'src/app/shared/testing/collection-mock';
+import { EtdUnitMockWithCollection } from 'src/app/shared/testing/etdunit-mock';
+import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+
+import { RestResponse } from '../../../core/cache/response.models';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { RouterMock } from '../../../shared/mocks/router.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
+import { EtdUnitDataService } from '../../etdunit-data.service';
+import { EtdUnit } from '../../models/etdunit.model';
+import { EtdUnitCollectionsListComponent } from './etdunit-collections-list.component';
 
 describe('EtdUnitCollectionsListComponent', () => {
   let component: EtdUnitCollectionsListComponent;
@@ -97,7 +128,7 @@ describe('EtdUnitCollectionsListComponent', () => {
           this.etdUnitCollections = [];
         }
         return observableOf(new RestResponse(true, 200, 'Success'));
-      }
+      },
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
@@ -108,8 +139,8 @@ describe('EtdUnitCollectionsListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [],
@@ -123,7 +154,7 @@ describe('EtdUnitCollectionsListComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(EtdUnitCollectionsListComponent, {
       remove: {
         imports: [

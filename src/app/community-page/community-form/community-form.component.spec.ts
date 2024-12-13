@@ -1,9 +1,25 @@
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
@@ -11,19 +27,26 @@ import { ObjectCacheService } from 'src/app/core/cache/object-cache.service';
 import { CommunityDataService } from 'src/app/core/data/community-data.service';
 import { CommunityGroupDataService } from 'src/app/core/data/community-group-data.service';
 import { RequestService } from 'src/app/core/data/request.service';
-import { CommunityGroup } from 'src/app/core/shared/community-group.model';
 import { Community } from 'src/app/core/shared/community.model';
+import { CommunityGroup } from 'src/app/core/shared/community-group.model';
+import { ComcolPageLogoComponent } from 'src/app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { FormComponent } from 'src/app/shared/form/form.component';
 import { AuthServiceMock } from 'src/app/shared/mocks/auth.service.mock';
+import { UploaderComponent } from 'src/app/shared/upload/uploader/uploader.component';
+
 import { hasValue } from '../../shared/empty.util';
+import {
+  INotification,
+  Notification,
+} from '../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
-import { INotification, Notification } from '../../shared/notifications/models/notification.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { CommunityFormComponent } from './community-form.component';
-import { FormComponent } from 'src/app/shared/form/form.component';
-import { UploaderComponent } from 'src/app/shared/upload/uploader/uploader.component';
-import { ComcolPageLogoComponent } from 'src/app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -51,8 +74,8 @@ describe('CommunityFormComponent', () => {
         name: 'Collections Organized by Department',
         _links: {
           self: { href: 'communitygroup1-selflink' },
-          communities: { href: 'communitygroup1-communitieslink' }
-        }
+          communities: { href: 'communitygroup1-communitieslink' },
+        },
       }),
       Object.assign({
         id: '2',
@@ -60,9 +83,9 @@ describe('CommunityFormComponent', () => {
         name: 'UM Community-managed Collections',
         _links: {
           self: { href: 'communitygroup2-selflink' },
-          communities: { href: 'communitygroup2-communitieslink' }
-        }
-      })
+          communities: { href: 'communitygroup2-communitieslink' },
+        },
+      }),
     ] as CommunityGroup[];
     selectedCommunityGroup = communityGroups[0];
 
@@ -76,29 +99,29 @@ describe('CommunityFormComponent', () => {
           return new FormGroup(controls);
         }
         return undefined;
-      }
+      },
     });
 
     communityGroupService = jasmine.createSpyObj('communityGroupService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(communityGroups))
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(communityGroups)),
     });
 
     notificationsService = jasmine.createSpyObj('notificationsService',
       {
         info: infoNotification,
         warning: warningNotification,
-        success: successNotification
-      }
+        success: successNotification,
+      },
     );
   });
 
   describe('CommunityFormComponent with communty group value', () => {
 
     const requestServiceStub = jasmine.createSpyObj('requestService', {
-      removeByHrefSubstring: {}
+      removeByHrefSubstring: {},
     });
     const objectCacheStub = jasmine.createSpyObj('objectCache', {
-      remove: {}
+      remove: {},
     });
 
     beforeEach(waitForAsync(() => {
@@ -107,19 +130,19 @@ describe('CommunityFormComponent', () => {
         metadata: {
           'dc.description': [
             {
-              value: 'Community description'
-            }
+              value: 'Community description',
+            },
           ],
           'dc.title': [
             {
-              value: 'Community title'
-            }
-          ]
+              value: 'Community title',
+            },
+          ],
         },
         communityGroup: createSuccessfulRemoteDataObject$(selectedCommunityGroup),
         _links: {
           self: 'community-selflink',
-          communityGroup: 'community-communitygrouplink'
+          communityGroup: 'community-communitygrouplink',
         },
       });
       communityService = jasmine.createSpyObj('communityService', {
@@ -127,10 +150,10 @@ describe('CommunityFormComponent', () => {
         update: createSuccessfulRemoteDataObject$(community),
         updateCommunityGroup: createSuccessfulRemoteDataObject$(community),
         commitUpdates: {},
-        patch: {}
+        patch: {},
       });
       communityGroupService = jasmine.createSpyObj('communityGroupService', {
-        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(communityGroups))
+        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(communityGroups)),
       });
 
       TestBed.configureTestingModule({
@@ -146,14 +169,14 @@ describe('CommunityFormComponent', () => {
             provide: ActivatedRoute,
             useValue: {
               data: observableOf({ community: createSuccessfulRemoteDataObject(community) }),
-              snapshot: { queryParams: {} }
-            }
+              snapshot: { queryParams: {} },
+            },
           },
           { provide: CommunityDataService, useValue: communityService },
           { provide: CommunityGroupDataService, useValue: communityGroupService },
-          ChangeDetectorRef
+          ChangeDetectorRef,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }) .overrideComponent(CommunityFormComponent, {
         remove: {
           imports: [

@@ -1,5 +1,10 @@
 import { Unit } from 'src/app/core/eperson/models/unit.model';
-import { UnitRegistryAction, UnitRegistryActionTypes, UnitRegistryEditUnitAction } from './unit-registry.actions';
+
+import {
+  UnitRegistryAction,
+  UnitRegistryActionTypes,
+  UnitRegistryEditUnitAction,
+} from './unit-registry.actions';
 
 
 /**
@@ -28,13 +33,13 @@ export function unitRegistryReducer(state = initialState, action: UnitRegistryAc
 
     case UnitRegistryActionTypes.EDIT_UNIT: {
       return Object.assign({}, state, {
-        editUnit: (action as UnitRegistryEditUnitAction).unit
+        editUnit: (action as UnitRegistryEditUnitAction).unit,
       });
     }
 
     case UnitRegistryActionTypes.CANCEL_EDIT_UNIT: {
       return Object.assign({}, state, {
-        editUnit: null
+        editUnit: null,
       });
     }
 

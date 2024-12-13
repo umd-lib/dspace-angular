@@ -1,24 +1,34 @@
-import { inject, TestBed } from '@angular/core/testing';
+import {
+  inject,
+  TestBed,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { AppState } from '../../../../app/app.reducer';
-import { SortDirection, SortOptions } from '../../../../app/core/cache/models/sort-options.model';
-import { buildPaginatedList } from '../../../../app/core/data/paginated-list.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../app/shared/remote-data.utils';
-import { StoreMock } from '../../../../app/shared/testing/store.mock';
-import { toFlatNode } from '../../../../app/community-list-page/community-list-service';
-import { CommunityListService } from './community-list-service';
-import { CollectionDataService } from '../../../../app/core/data/collection-data.service';
-import { CommunityDataService } from '../../../../app/core/data/community-data.service';
-import { Community } from '../../../../app/core/shared/community.model';
-import { Collection } from '../../../../app/core/shared/collection.model';
-import { PageInfo } from '../../../../app/core/shared/page-info.model';
-import { FlatNode } from '../../../../app/community-list-page/flat-node.model';
-import { FindListOptions } from '../../../../app/core/data/find-list-options.model';
-import { CommunityGroupDataService } from '../../../../app/core/data/community-group-data.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
+
+import { AppState } from '../../../../app/app.reducer';
+import { toFlatNode } from '../../../../app/community-list-page/community-list-service';
+import { FlatNode } from '../../../../app/community-list-page/flat-node.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../app/core/cache/models/sort-options.model';
+import { CollectionDataService } from '../../../../app/core/data/collection-data.service';
+import { CommunityDataService } from '../../../../app/core/data/community-data.service';
+import { CommunityGroupDataService } from '../../../../app/core/data/community-group-data.service';
+import { FindListOptions } from '../../../../app/core/data/find-list-options.model';
+import { buildPaginatedList } from '../../../../app/core/data/paginated-list.model';
+import { Collection } from '../../../../app/core/shared/collection.model';
+import { Community } from '../../../../app/core/shared/community.model';
+import { PageInfo } from '../../../../app/core/shared/page-info.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../app/shared/remote-data.utils';
+import { StoreMock } from '../../../../app/shared/testing/store.mock';
+import { CommunityListService } from './community-list-service';
 
 describe('CommunityListService', () => {
   let store: StoreMock<AppState>;
@@ -44,31 +54,31 @@ describe('CommunityListService', () => {
     Object.assign(new Community(), {
       id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
       uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-    })
+    }),
     ];
     mockCollectionsPage1 = [
       Object.assign(new Collection(), {
         id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
         uuid: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
-        name: 'Collection 1'
+        name: 'Collection 1',
       }),
       Object.assign(new Collection(), {
         id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
         uuid: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
-        name: 'Collection 2'
-      })
+        name: 'Collection 2',
+      }),
     ];
     mockCollectionsPage2 = [
       Object.assign(new Collection(), {
         id: 'a5159760-f362-4659-9e81-e3253ad91ede',
         uuid: 'a5159760-f362-4659-9e81-e3253ad91ede',
-        name: 'Collection 3'
+        name: 'Collection 3',
       }),
       Object.assign(new Collection(), {
         id: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
         uuid: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
-        name: 'Collection 4'
-      })
+        name: 'Collection 4',
+      }),
     ];
     mockListOfTopCommunitiesPage1 = [
       Object.assign(new Community(), {
@@ -167,7 +177,7 @@ describe('CommunityListService', () => {
         } else {
           return createFailedRemoteDataObject$();
         }
-      }
+      },
     };
     communityGroupDataServiceStub = {
       getTopCommunitiesByGroup(communityGroupID: number, options: FindListOptions = {}) {
@@ -183,7 +193,7 @@ describe('CommunityListService', () => {
           endPageIndex = allTopComs.length;
         }
         return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allTopComs.slice(startPageIndex, endPageIndex)));
-      }
+      },
     };
     collectionDataServiceStub = {
       findByParent(parentUUID: string, options: FindListOptions = {}) {
@@ -208,7 +218,7 @@ describe('CommunityListService', () => {
         } else {
           return createFailedRemoteDataObject$();
         }
-      }
+      },
     };
     TestBed.configureTestingModule({
       providers: [CommunityListService,
@@ -237,7 +247,7 @@ describe('CommunityListService', () => {
 
           service.loadCommunities({
             currentPage: 2,
-            sort: new SortOptions('dc.title', SortDirection.ASC)
+            sort: new SortOptions('dc.title', SortDirection.ASC),
           }, null)
             .pipe(take(1))
             .subscribe((value) => {
@@ -266,7 +276,7 @@ describe('CommunityListService', () => {
         beforeEach((done) => {
           service.loadCommunities({
             currentPage: 1,
-            sort: new SortOptions('dc.title', SortDirection.ASC)
+            sort: new SortOptions('dc.title', SortDirection.ASC),
           }, null)
             .pipe(take(1))
             .subscribe((value) => {
@@ -299,7 +309,7 @@ describe('CommunityListService', () => {
           });
           service.loadCommunities({
             currentPage: 1,
-            sort: new SortOptions('dc.title', SortDirection.ASC)
+            sort: new SortOptions('dc.title', SortDirection.ASC),
           }, expandedNodes)
             .pipe(take(1))
             .subscribe((value) => {
@@ -327,7 +337,7 @@ describe('CommunityListService', () => {
           const expandedNodes = [communityFlatNode];
           service.loadCommunities({
             currentPage: 1,
-            sort: new SortOptions('dc.title', SortDirection.ASC)
+            sort: new SortOptions('dc.title', SortDirection.ASC),
           }, expandedNodes)
             .pipe(take(1))
             .subscribe((value) => {
@@ -352,7 +362,7 @@ describe('CommunityListService', () => {
           const expandedNodes = [communityFlatNode];
           service.loadCommunities({
             currentPage: 1,
-            sort: new SortOptions('dc.title', SortDirection.ASC)
+            sort: new SortOptions('dc.title', SortDirection.ASC),
           }, expandedNodes)
             .pipe(take(1))
             .subscribe((value) => {
@@ -449,8 +459,8 @@ describe('CommunityListService', () => {
           collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
           metadata: {
             'dc.description': [{ language: 'en_US', value: 'no subcoms, 2 coll' }],
-            'dc.title': [{ language: 'en_US', value: 'Community 2' }]
-          }
+            'dc.title': [{ language: 'en_US', value: 'Community 2' }],
+          },
         });
         let flatNodeList;
         describe('should return list containing only flatnode corresponding to that community', () => {
@@ -481,8 +491,8 @@ describe('CommunityListService', () => {
           collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
           metadata: {
             'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
-            'dc.title': [{ language: 'en_US', value: 'Community 1' }]
-          }
+            'dc.title': [{ language: 'en_US', value: 'Community 1' }],
+          },
         });
         let flatNodeList;
         describe('should return list containing only flatnode corresponding to that community', () => {
@@ -515,8 +525,8 @@ describe('CommunityListService', () => {
             collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
             metadata: {
               'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
-              'dc.title': [{ language: 'en_US', value: 'Community 1' }]
-            }
+              'dc.title': [{ language: 'en_US', value: 'Community 1' }],
+            },
           });
           let flatNodeList;
           beforeEach((done) => {
@@ -560,8 +570,8 @@ describe('CommunityListService', () => {
               collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
               metadata: {
                 'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
-                'dc.title': [{ language: 'en_US', value: 'Community 1' }]
-              }
+                'dc.title': [{ language: 'en_US', value: 'Community 1' }],
+              },
             });
             const communityFlatNode = toFlatNode(communityWithCollections, observableOf(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 2;
@@ -611,8 +621,8 @@ describe('CommunityListService', () => {
           collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
           metadata: {
             'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
-            'dc.title': [{ language: 'en_US', value: 'Community 1' }]
-          }
+            'dc.title': [{ language: 'en_US', value: 'Community 1' }],
+          },
         });
         service.getIsExpandable(communityWithSubcoms).pipe(take(1)).subscribe((result) => {
           expect(result).toEqual(true);
@@ -627,8 +637,8 @@ describe('CommunityListService', () => {
           collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockCollectionsPage1)),
           metadata: {
             'dc.description': [{ language: 'en_US', value: 'no subcoms, 2 coll' }],
-            'dc.title': [{ language: 'en_US', value: 'Community 2' }]
-          }
+            'dc.title': [{ language: 'en_US', value: 'Community 2' }],
+          },
         });
         service.getIsExpandable(communityWithCollections).pipe(take(1)).subscribe((result) => {
           expect(result).toEqual(true);
@@ -645,8 +655,8 @@ describe('CommunityListService', () => {
           collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
           metadata: {
             'dc.description': [{ language: 'en_US', value: 'no subcoms, no coll' }],
-            'dc.title': [{ language: 'en_US', value: 'Community 3' }]
-          }
+            'dc.title': [{ language: 'en_US', value: 'Community 3' }],
+          },
         });
         service.getIsExpandable(communityWithNoSubcomsOrColls).pipe(take(1)).subscribe((result) => {
           expect(result).toEqual(false);

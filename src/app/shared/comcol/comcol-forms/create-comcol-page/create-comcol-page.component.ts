@@ -27,7 +27,10 @@ import { RouteService } from '../../../../core/services/route.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 // UMD Customization
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../../core/shared/operators';
 // End UMD Customization
 import { ResourceType } from '../../../../core/shared/resource-type';
 import {
@@ -121,14 +124,14 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
           // UMD Customization
           if (hasValue(event.communityGroupId)) {
             this.dsoDataService.updateCommunityGroup(dsoRD as Community, event.communityGroupId).pipe(
-              getFirstCompletedRemoteData()
+              getFirstCompletedRemoteData(),
             ).subscribe((response: RemoteData<Community>) => {
               if (response.hasSucceeded) {
                 this.dsoDataService.refreshCache(response.payload as TDomain);
               } else {
                 this.notificationsService.error(
                   this.translate.get(`${this.type.value}.create.notifications.communityGroup.error`),
-                  response.errorMessage
+                  response.errorMessage,
                 );
               }
             });

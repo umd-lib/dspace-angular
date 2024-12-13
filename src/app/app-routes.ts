@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import {
   InMemoryScrollingOptions,
   Route,
@@ -278,7 +282,7 @@ export const APP_ROUTES: Route[] = [
       {
         path: RESTRICTED_ACCESS_MODULE_PATH,
         loadChildren: () => import('./restricted-access/restricted-access-page-routes').then((m) => m.ROUTES),
-        canActivate: [endUserAgreementCurrentUserGuard]
+        canActivate: [endUserAgreementCurrentUserGuard],
       },
       // End UMD Customization
       { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },

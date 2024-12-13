@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
 
-import { EmbargoListPageComponent } from './embargo-list-page.component';
-import { siteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { siteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { EmbargoListPageComponent } from './embargo-list-page.component';
 
 export const ROUTES: Route[] = [
   {
@@ -13,6 +13,6 @@ export const ROUTES: Route[] = [
       title: 'embargo-list.title',
     },
     component: EmbargoListPageComponent,
-    canActivate: [siteAdministratorGuard]
+    canActivate: [siteAdministratorGuard],
   },
 ];

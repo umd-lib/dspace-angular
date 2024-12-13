@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { LoginPageComponent as BaseComponent } from '../../../../app/login-page/login-page.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLogInComponent } from 'src/app/shared/log-in/themed-log-in.component';
+
+import { LoginPageComponent as BaseComponent } from '../../../../app/login-page/login-page.component';
 
 /**
  * This component represents the login page

@@ -1,10 +1,13 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 
 import { EtdUnitDataService } from '../../etdunit-data.service';
 import { EtdUnit } from '../../models/etdunit.model';
-import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 
 export class ValidateEtdUnitExists {
 
@@ -17,7 +20,7 @@ export class ValidateEtdUnitExists {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
       return etdunitDataService.searchEtdUnits(control.value, {
         currentPage: 1,
-        elementsPerPage: 100
+        elementsPerPage: 100,
       })
         .pipe(
           getFirstSucceededRemoteListPayload(),

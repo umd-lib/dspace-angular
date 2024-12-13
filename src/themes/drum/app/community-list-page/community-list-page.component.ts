@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedCommunityListComponent } from 'src/app/community-list-page/community-list/themed-community-list.component';
+
 import { CommunityListPageComponent as BaseComponent } from '../../../../app/community-list-page/community-list-page.component';
 import { CommunityListComponent } from './community-list/community-list.component';
 

@@ -148,22 +148,22 @@ export class MenuResolverService  {
     // "Submit item to DRUM" entry, matching the 'new_item' entry in the
     // administrative sidebar
     this.authorizationService.isAuthorized(FeatureID.CanSubmit)
-    .subscribe((canSubmit) => {
-      this.menuService.addSection(MenuID.PUBLIC, {
-        id: `drum_customizations_submit_item`,
-        active: false,
-        visible: canSubmit,
-        index: 3, // Statistics menu entry is index 2
-        model: {
-          type: MenuItemType.ONCLICK,
-          text: `nav.umd.submit_item.header`,
-          function: () => {
-            this.modalService.open(ThemedCreateItemParentSelectorComponent);
-          }
-        } as OnClickMenuItemModel,
-        shouldPersistOnRouteChange: true
+      .subscribe((canSubmit) => {
+        this.menuService.addSection(MenuID.PUBLIC, {
+          id: `drum_customizations_submit_item`,
+          active: false,
+          visible: canSubmit,
+          index: 3, // Statistics menu entry is index 2
+          model: {
+            type: MenuItemType.ONCLICK,
+            text: `nav.umd.submit_item.header`,
+            function: () => {
+              this.modalService.open(ThemedCreateItemParentSelectorComponent);
+            },
+          } as OnClickMenuItemModel,
+          shouldPersistOnRouteChange: true,
+        });
       });
-    });
     // End UMD Customization
 
     return this.waitForMenu$(MenuID.PUBLIC);
@@ -790,7 +790,7 @@ export class MenuResolverService  {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.access_control_units',
-            link: '/access-control/units'
+            link: '/access-control/units',
           } as LinkMenuItemModel,
         },
         // End UMD Customization
@@ -896,10 +896,10 @@ export class MenuResolverService  {
           visible: authorized,
           model: {
             type: MenuItemType.TEXT,
-            text: 'menu.section.drum_customizations'
+            text: 'menu.section.drum_customizations',
           } as TextMenuItemModel,
           icon: 'drum',
-          index: 50
+          index: 50,
         },
         /* Embargo List */
         {
@@ -910,7 +910,7 @@ export class MenuResolverService  {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.drum_customizations_embargo_list',
-            link: '/embargo-list'
+            link: '/embargo-list',
           } as LinkMenuItemModel,
         },
         /* EtdUnits */
@@ -922,7 +922,7 @@ export class MenuResolverService  {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.drum_customizations_etdunits',
-            link: '/etdunits'
+            link: '/etdunits',
           } as LinkMenuItemModel,
         },
       ];

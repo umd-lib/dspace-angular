@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
@@ -318,10 +322,10 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     const requestId = this.requestService.generateRequestId();
     const communityHref$ = this.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${community.id}`),
-      switchMap((href: string) => this.halService.getEndpoint('communityGroup', href))
+      switchMap((href: string) => this.halService.getEndpoint('communityGroup', href)),
     );
     const cgHref$ = this.cgService.getBrowseEndpoint().pipe(
-      map((href: string) => `${href}/${cgId}`)
+      map((href: string) => `${href}/${cgId}`),
     );
     observableCombineLatest([communityHref$, cgHref$]).pipe(
       map(([communityHref, cgHref]) => {
@@ -333,7 +337,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
           , options);
       }),
       sendRequest(this.requestService),
-      take(1)
+      take(1),
     ).subscribe(() => {
       this.requestService.removeByHrefSubstring(community.self + '/communityGroup');
     });

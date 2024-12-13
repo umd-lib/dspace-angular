@@ -24,7 +24,10 @@ import {
 } from '../../../../../core/shared/operators';
 import { ResourceType } from '../../../../../core/shared/resource-type';
 // UMD Customization
-import { hasValue, isEmpty } from '../../../../empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../../../empty.util';
 // End UMD Customization
 import { NotificationsService } from '../../../../notifications/notifications.service';
 
@@ -68,15 +71,15 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
     // UMD Customization
     if (hasValue(event.communityGroupId)) {
       this.dsoDataService.updateCommunityGroup(event.dso, event.communityGroupId).pipe(
-        getFirstCompletedRemoteData()
-      ).subscribe(async (response: RemoteData<Community>) => {
+        getFirstCompletedRemoteData(),
+      ).subscribe((response: RemoteData<Community>) => {
         if (response.hasSucceeded) {
-          let community: Community = response.payload;
+          const community: Community = response.payload;
           this.dsoDataService.refreshCache(community as TDomain);
         } else {
           this.notificationsService.error(
             this.translate.get(`${this.type.value}.edit.notifications.communityGroup.error`),
-            response.errorMessage
+            response.errorMessage,
           );
         }
       });

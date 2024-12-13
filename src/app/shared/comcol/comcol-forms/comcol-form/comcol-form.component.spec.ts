@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
@@ -76,7 +80,7 @@ describe('ComColFormComponent', () => {
   // UMD Customization
   const communityGroup = {
     id: 0,
-    shortName: 'testgroup'
+    shortName: 'testgroup',
   };
   // End UMD Customization
 
@@ -89,7 +93,7 @@ describe('ComColFormComponent', () => {
     deleteLogo: () => createSuccessfulRemoteDataObject$({}),
     findById: () => createSuccessfulRemoteDataObject$({}),
     // UMD Customization
-    updateCommunityGroup: () => createSuccessfulRemoteDataObject$({})
+    updateCommunityGroup: () => createSuccessfulRemoteDataObject$({}),
     // End UMD Customization
   });
   const notificationsService = new NotificationsServiceStub();
@@ -189,7 +193,7 @@ describe('ComColFormComponent', () => {
             ),
             operations: operations,
             // UMD Customization
-            communityGroupId: undefined
+            communityGroupId: undefined,
             // End UMD Customization
           },
         );
@@ -332,7 +336,7 @@ describe('ComColFormComponent', () => {
       const cgInputModel = new DynamicSelectModel({
         id: 'communityGroup',
         name: 'communityGroup',
-        value: newComGroupId
+        value: newComGroupId,
       });
       beforeEach(() => {
         initComponent(Object.assign(new Community(), {
@@ -341,7 +345,7 @@ describe('ComColFormComponent', () => {
           _links: {
             self: { href: 'community-self' },
             logo: { href: 'community-logo' },
-          }
+          },
         }));
         spyOn(comp.submitForm, 'emit');
         comp.formModel = [...formModel, cgInputModel];
@@ -385,11 +389,11 @@ describe('ComColFormComponent', () => {
                 }],
               },
               type: Community.type,
-            }
+            },
             ),
             operations: operations,
-            communityGroupId: newComGroupId
-          }
+            communityGroupId: newComGroupId,
+          },
         );
       });
     });

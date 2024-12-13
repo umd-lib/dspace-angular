@@ -1,19 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { ScriptDataService } from 'src/app/core/data/processes/script-data.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
-import { hasValue } from 'src/app/shared/empty.util';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { Process } from 'src/app/process-page/processes/process.model';
-import { getProcessDetailRoute } from 'src/app/process-page/process-page-routing.paths';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe, NgIf } from '@angular/common';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { ScriptDataService } from 'src/app/core/data/processes/script-data.service';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
+import { getProcessDetailRoute } from 'src/app/process-page/process-page-routing.paths';
+import { Process } from 'src/app/process-page/processes/process.model';
+import { hasValue } from 'src/app/shared/empty.util';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-embargo-list-export-csv',
@@ -41,20 +53,20 @@ export class EmbargoListExportCsvComponent implements OnInit {
               private authorizationDataService: AuthorizationDataService,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
-              private router: Router
+              private router: Router,
   ) {
   }
 
   ngOnInit(): void {
     const scriptExists$ = this.scriptDataService.findById('embargo-list-export').pipe(
       getFirstCompletedRemoteData(),
-      map((rd) => rd.isSuccess && hasValue(rd.payload))
+      map((rd) => rd.isSuccess && hasValue(rd.payload)),
     );
 
     const isAuthorized$ = this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf);
 
     this.shouldShowButton$ = observableCombineLatest([scriptExists$, isAuthorized$]).pipe(
-      map(([scriptExists, isAuthorized]: [boolean, boolean]) => scriptExists && isAuthorized)
+      map(([scriptExists, isAuthorized]: [boolean, boolean]) => scriptExists && isAuthorized),
     );
   }
 
@@ -64,7 +76,7 @@ export class EmbargoListExportCsvComponent implements OnInit {
   export() {
     const parameters = [];
     this.scriptDataService.invoke('embargo-list-export', parameters, []).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Process>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('embargo-list-export-csv.submit.success'));

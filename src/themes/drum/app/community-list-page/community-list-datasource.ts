@@ -1,10 +1,18 @@
-import { hasValue } from '../../../../app/shared/empty.util';
-import { CommunityListService } from './community-list-service';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {
+  CollectionViewer,
+  DataSource,
+} from '@angular/cdk/collections';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { finalize } from 'rxjs/operators';
+
 import { FlatNode } from '../../../../app/community-list-page/flat-node.model';
 import { FindListOptions } from '../../../../app/core/data/find-list-options.model';
+import { hasValue } from '../../../../app/shared/empty.util';
+import { CommunityListService } from './community-list-service';
 
 /**
  * The UMD version uses the custom community-list-service to get top comunities of a group.

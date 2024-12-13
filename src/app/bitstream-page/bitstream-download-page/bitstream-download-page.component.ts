@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import {
   AsyncPipe,
   isPlatformServer,
@@ -26,7 +30,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { getForbiddenRoute } from '../../app-routing-paths';
+// UMD Customization
+import { RESTRICTED_ACCESS_MODULE_PATH } from '../../app-routing-paths';
+// End UMD Customization
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -44,10 +50,6 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
-
-// UMD Customization
-import { RESTRICTED_ACCESS_MODULE_PATH } from '../../app-routing-paths';
-// End UMD Customization
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -126,11 +128,11 @@ export class BitstreamDownloadPageComponent implements OnInit {
         // This can happen due to a "Campus" group IP restrictions
         void this.router.navigateByUrl(
           `${RESTRICTED_ACCESS_MODULE_PATH}/${bitstream.uuid}`,
-          { replaceUrl: true }
+          { replaceUrl: true },
         );
       } else if (!isAuthorized && !isLoggedIn) {
         void this.router.navigateByUrl(`${RESTRICTED_ACCESS_MODULE_PATH}/${bitstream.uuid}`,
-          { replaceUrl: true }
+          { replaceUrl: true },
         );
       // End UMD Customization
       }

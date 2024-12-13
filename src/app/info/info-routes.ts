@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import {
   Route,
   Routes,
@@ -26,9 +30,9 @@ export const ROUTES: Routes = [
   {
     path: FEEDBACK_PATH,
     component: ThemedFeedbackComponent,
-      // UMD Customization
-      resolve: { breadcrumb: i18nBreadcrumbResolver, wufoo: WufooFeedbackResolver },
-      // End UMD Customization
+    // UMD Customization
+    resolve: { breadcrumb: i18nBreadcrumbResolver, wufoo: WufooFeedbackResolver },
+    // End UMD Customization
     data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
     canActivate: [feedbackGuard],
   },

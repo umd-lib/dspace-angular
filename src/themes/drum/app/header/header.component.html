@@ -21,7 +21,7 @@
       </a>
       <!-- UMD Customization -->
       <!-- Change from dspace-angular Pull 3513 -->
-      <nav *ngIf="!(isMobile$ | async)" class="navbar navbar-expand p-0 align-items-stretch align-self-stretch flex-grow-1 flex-shrink-1" id="desktop-navbar" [attr.aria-label]="'nav.main.description' | translate">
+      <nav *ngIf="(isMobile$ | async) === false" class="navbar navbar-expand p-0 align-items-stretch align-self-stretch flex-grow-1 flex-shrink-1" id="desktop-navbar" [attr.aria-label]="'nav.main.description' | translate">
         <ds-themed-navbar></ds-themed-navbar>
       </nav>
       <!-- End UMD Customization -->
@@ -41,7 +41,7 @@
 
       <div id="mobile-navbar-toggler" class="d-block d-lg-none ml-3" *ngIf="(isMobile$ | async)">
         <button id="navbar-toggler" class="btn" type="button" (click)="toggleNavbar()"
-                [attr.aria-label]="'nav.toggle' | translate" aria-controls="collapsible-mobile-navbar" [attr.aria-expanded]="!(isNavBarCollapsed$ | async)">
+                [attr.aria-label]="'nav.toggle' | translate" aria-controls="collapsible-mobile-navbar" [attr.aria-expanded]="(isNavBarCollapsed$ | async) === false">
           <span class="fas fa-bars fa-fw fa-xl toggler-icon" aria-hidden="true"></span>
         </button>
       </div>

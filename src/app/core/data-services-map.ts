@@ -1,3 +1,7 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
 import { LazyDataServicesMap } from '../../config/app-config.interface';
 import {
   LDN_SERVICE,

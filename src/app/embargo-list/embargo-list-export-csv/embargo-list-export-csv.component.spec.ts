@@ -1,18 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { EmbargoListExportCsvComponent } from './embargo-list-export-csv.component';
-import { ScriptDataService } from 'src/app/core/data/processes/script-data.service';
+import { Router } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { Script } from 'src/app/process-page/scripts/script.model';
-import { Process } from 'src/app/process-page/processes/process.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
-import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { ScriptDataService } from 'src/app/core/data/processes/script-data.service';
 import { getProcessDetailRoute } from 'src/app/process-page/process-page-routing.paths';
+import { Process } from 'src/app/process-page/processes/process.model';
+import { Script } from 'src/app/process-page/scripts/script.model';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from 'src/app/shared/remote-data.utils';
+import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
+
+import { EmbargoListExportCsvComponent } from './embargo-list-export-csv.component';
 
 describe('EmbargoListExportCsvComponent', () => {
   let component: EmbargoListExportCsvComponent;
@@ -23,16 +31,16 @@ describe('EmbargoListExportCsvComponent', () => {
   let notificationsService;
   let router;
 
-  const script = Object.assign(new Script(), {id: 'embargo-list-export', name: 'embargo-list-export'});
-  const process = Object.assign(new Process(), {processId: 5, scriptName: 'embargo-list-export'});
+  const script = Object.assign(new Script(), { id: 'embargo-list-export', name: 'embargo-list-export' });
+  const process = Object.assign(new Process(), { processId: 5, scriptName: 'embargo-list-export' });
 
   function initBeforeEachAsync() {
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
       findById: createSuccessfulRemoteDataObject$(script),
-      invoke: createSuccessfulRemoteDataObject$(process)
+      invoke: createSuccessfulRemoteDataObject$(process),
     });
     authorizationDataService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
 
     notificationsService = new NotificationsServiceStub();
@@ -42,11 +50,11 @@ describe('EmbargoListExportCsvComponent', () => {
       declarations: [],
       imports: [EmbargoListExportCsvComponent, TranslateModule.forRoot(), NgbModule],
       providers: [
-        {provide: ScriptDataService, useValue: scriptDataService},
-        {provide: AuthorizationDataService, useValue: authorizationDataService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: Router, useValue: router},
-      ]
+        { provide: ScriptDataService, useValue: scriptDataService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: Router, useValue: router },
+      ],
     }).compileComponents();
   }
 
