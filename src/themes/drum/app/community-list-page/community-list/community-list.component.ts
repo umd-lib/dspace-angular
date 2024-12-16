@@ -42,15 +42,10 @@ import {
  * top communities list of a particular CommunityGroup whereas the default implementation
  * uses the CommunityDataService to the overall top communities.
  */
-
-// The reason for using 'ds-cg-community-list' as the selector is:
-// The custom version accepts a "Input" field, whereas the 'ds-themed-community-list' does not.
-// Therefore, the parent CommunityListPage component cannot use the 'ds-themed-community-list' to
-// get the custom version loaded, and using the 'ds-community-list' tag as the selector and referencing
-// that in the  CommunityListPage component template leads to runtime error due to multiple components
-// matching that selector.
+// The "ds-themed-base-community-list" selector is used to satisfy the
+// "dspace-angular-ts/themed-component-selectors" Angular Lint error
 @Component({
-  selector: 'ds-cg-community-list',
+  selector: 'ds-themed-base-community-list',
   templateUrl: './community-list.component.html',
   providers: [CommunityListService, CommunityDataService, CommunityGroupDataService],
   //styleUrls: ['./community-list.component.scss'],

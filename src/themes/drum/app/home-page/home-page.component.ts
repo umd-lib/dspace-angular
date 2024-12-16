@@ -17,7 +17,7 @@ import { PageWithSidebarComponent } from 'src/app/shared/sidebar/page-with-sideb
 import { ViewTrackerComponent } from 'src/app/statistics/angulartics/dspace/view-tracker.component';
 
 import { HomePageComponent as BaseComponent } from '../../../../app/home-page/home-page.component';
-import { CommunityListComponent } from '../community-list-page/community-list/community-list.component';
+import { ThemedCommunityListComponent } from '../community-list-page/community-list/themed-community-list.component';
 import {
   FACULTY_COMMUNITY_GROUP,
   UM_COMMUNITY_GROUP,
@@ -29,7 +29,7 @@ import {
   // styleUrls: ['./home-page.component.scss'],
   styleUrls: ['../../../../app/home-page/home-page.component.scss'],
   templateUrl: './home-page.component.html',
-  imports: [CommunityListComponent, ThemedHomeNewsComponent, NgTemplateOutlet, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
+  imports: [ThemedCommunityListComponent, ThemedHomeNewsComponent, NgTemplateOutlet, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
   standalone: true,
 })
 export class HomePageComponent extends BaseComponent {
