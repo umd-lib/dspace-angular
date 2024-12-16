@@ -233,3 +233,20 @@ In the launch configuration, the line:
 
 is needed to prevent Chrome from displaying a "Restore" session dialog every
 time Chrome starts. See <https://github.com/microsoft/vscode-js-debug/issues/723#issuecomment-866227122>
+
+## Running the Tests
+
+To run the TypeScript unit tests:
+
+```zsh
+$ yarn test
+```
+
+## TypeScript Linter
+
+To run the TypeScript Linter (from the "Run lint" step in
+".github/workflows/build.yml"):
+
+```zsh
+$ yarn run lint:nobuild --quiet
+```
