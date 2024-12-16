@@ -8,7 +8,7 @@ import { LoginPageComponent as BaseComponent } from '../../../../app/login-page/
  * This component represents the login page
  */
 @Component({
-  selector: 'ds-login-page',
+  selector: 'ds-themed-login-page',
   styleUrls: ['./login-page.component.scss'],
   templateUrl: './login-page.component.html',
   imports: [ThemedLogInComponent, TranslateModule],

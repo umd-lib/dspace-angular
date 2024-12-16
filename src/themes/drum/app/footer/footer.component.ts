@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.component';
 
 @Component({
-  selector: 'ds-footer',
+  selector: 'ds-themed-footer',
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html',
   imports: [NgIf, RouterLink, TranslateModule],

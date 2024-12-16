@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ds-feedback-form',
+  selector: 'ds-themed-feedback-form',
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
   imports: [],

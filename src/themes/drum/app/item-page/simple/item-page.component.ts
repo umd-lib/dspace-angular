@@ -38,7 +38,7 @@ import { JsonLdDatasetComponent } from '../json-ld/json-ld-dataset.component';
  * All fields of the item that should be displayed, are defined in its template.
  */
 @Component({
-  selector: 'ds-item-page',
+  selector: 'ds-themed-item-page',
   styleUrls: ['../../../../../app/item-page/simple/item-page.component.scss'],
   templateUrl: 'item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
