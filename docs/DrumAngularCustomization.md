@@ -51,7 +51,8 @@ users have the ability to upload their own license files, which may contain
 personal information such as email addresses.
 
 In DSpace 6, the license file was not downloadable, and we are continuing that
-policy in DSpace 7, to avoid potentially exposing user-specific information.
+policy in DSpace 7 and later, to avoid potentially exposing user-specific
+information.
 
 Note: It does not seem possible in DSpace to restrict the download of files in
 the "License bundle", as it is in the "Original bundle", so if a user knows the
