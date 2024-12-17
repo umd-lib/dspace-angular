@@ -173,7 +173,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     } else {
       this.paginationConfig.currentPage++;
       // UMD Customization
-      // When the "Show More" button is clicked in a subcommunoty, retrieve up
+      // When the "Show More" button is clicked in a subcommunity, retrieve up
       // to MAX_COMCOLS_PER_PAGE additional entries, instead of the DSpace
       // default of 5 entries
       this.paginationConfig.elementsPerPage = MAX_COMCOLS_PER_PAGE;
