@@ -1,6 +1,25 @@
 // UMD Customization
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
-// End UMD Customization
+/* eslint-disable import-newlines/enforce */
+/* eslint-disable simple-import-sort/imports */
+// End Customization
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges,
+  // UMD Customization
+  ChangeDetectorRef,
+  OnDestroy,
+  OnInit,
+  // End UMD Customization
+} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -8,26 +27,44 @@ import {
   // UMD Customization
   DynamicSelectModel,
   // End UMD Customization
-  DynamicTextAreaModel
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
+import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { RequestService } from '../../core/data/request.service';
 import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
-import { TranslateService } from '@ngx-translate/core';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { RequestService } from '../../core/data/request.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 // UMD Customization
-import { hasNoValue, hasValue } from 'src/app/shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from 'src/app/shared/empty.util';
 import { CommunityGroupDataService } from 'src/app/core/data/community-group-data.service';
 import { CommunityGroup } from 'src/app/core/shared/community-group.model';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { Observable, combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import {
+  Observable,
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+} from 'rxjs';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
 // End UMD Customization
-import { environment } from '../../../environments/environment';
 
 /**
  * Form used for creating and editing communities
@@ -35,7 +72,18 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'ds-community-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
+  standalone: true,
+  imports: [
+    FormComponent,
+    TranslateModule,
+    UploaderComponent,
+    AsyncPipe,
+    ComcolPageLogoComponent,
+    NgIf,
+    NgClass,
+    VarDirective,
+  ],
 })
 // UMD Customization
 export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges, OnInit, OnDestroy {
@@ -75,10 +123,10 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
     name: 'communityGroup',
     required: true,
     validators: {
-      required: null
+      required: null,
     },
     errorMessages: {
-      required: 'Please select a group'
+      required: 'Please select a group',
     },
   });
   // End UMD Customization
@@ -93,10 +141,10 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
       name: 'dc.title',
       required: true,
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'Please enter a name for this title'
+        required: 'Please enter a name for this title',
       },
     }),
     // UMD Customization
@@ -137,14 +185,15 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
                      protected cgService: CommunityGroupDataService,
                      // End UMD Customization
                      protected requestService: RequestService,
-                     protected objectCache: ObjectCacheService) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache);
+                     protected objectCache: ObjectCacheService,
+                     protected modalService: NgbModal) {
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     const dsoChange: SimpleChange = changes.dso;
     if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
-       super.ngOnInit();
+      super.ngOnInit();
     }
   }
 
@@ -156,24 +205,24 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
 
     const allCommunityGroups$ = this.communityGroupsRD$.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
     const currentCommunityGroup$ = this.dso.communityGroup === undefined ? observableOf(undefined) :
       this.dso.communityGroup.pipe(
         getFirstSucceededRemoteData(),
-        getRemoteDataPayload()
+        getRemoteDataPayload(),
       );
 
     this.subs.push(
       observableCombineLatest([
         allCommunityGroups$,
-        currentCommunityGroup$
+        currentCommunityGroup$,
       ]).subscribe(([allCommunityGroups, currentCommunityGroup]) => {
         this.communityGroups = allCommunityGroups.page;
         this.originalCommunityGroup = currentCommunityGroup;
         this.updateCommunityGroupModel();
-      })
+      }),
     );
 
     this.changeDetectorRef.detectChanges();
@@ -183,8 +232,8 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
     this.selectedCommunityGroupModel.options = this.communityGroups.map((cg: CommunityGroup) =>
       Object.assign({
         value: cg.id,
-        label: cg.shortName
-      })
+        label: cg.shortName,
+      }),
     );
     if (hasValue(this.originalCommunityGroup)) {
       this.selectedCommunityGroupModel.value = this.originalCommunityGroup.id;

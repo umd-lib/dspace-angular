@@ -1,27 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FileDownloadLinkComponent } from './file-download-link.component';
-import { Bitstream } from '../../core/shared/bitstream.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { cold, getTestScheduler } from 'jasmine-marbles';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
+import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
-import { TranslateModule } from '@ngx-translate/core';
-// UMD Customization
-import { Pipe, PipeTransform } from '@angular/core';
-
-// eslint-disable-next-line @angular-eslint/pipe-prefix
-@Pipe({ name: 'translate' })
-class MockTranslatePipe implements PipeTransform {
-  transform(value: string): string {
-    return value;
-  }
-}
-//End UMD Customization
+import { FileDownloadLinkComponent } from './file-download-link.component';
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -35,19 +37,19 @@ describe('FileDownloadLinkComponent', () => {
 
   function init() {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: cold('-a', {a: true})
+      isAuthorized: cold('-a', { a: true }),
     });
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
       _links: {
-        self: {href: 'obj-selflink'}
-      }
+        self: { href: 'obj-selflink' },
+      },
     });
     item = Object.assign(new Item(), {
       uuid: 'itemUuid',
       _links: {
-        self: {href: 'obj-selflink'}
-      }
+        self: { href: 'obj-selflink' },
+      },
     });
   }
 
@@ -55,14 +57,18 @@ describe('FileDownloadLinkComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        FileDownloadLinkComponent,
       ],
-      // UMD Customization
-      declarations: [FileDownloadLinkComponent, RouterLinkDirectiveStub, MockTranslatePipe],
-      // End UMD Customization
       providers: [
-        {provide: AuthorizationDataService, useValue: authorizationService},
-      ]
+        RouterLinkDirectiveStub,
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
     })
+      .overrideComponent(FileDownloadLinkComponent, {
+        remove: { imports: [RouterLink] },
+        add: { imports: [RouterLinkDirectiveStub] },
+      })
       .compileComponents();
   }
 
@@ -83,8 +89,8 @@ describe('FileDownloadLinkComponent', () => {
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: {} }}));
-          expect(component.canDownload$).toBeObservable(cold('--a', {a: true}));
+          expect(component.bitstreamPath$).toBeObservable(cold('-a', { a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: {} } }));
+          expect(component.canDownload$).toBeObservable(cold('--a', { a: true }));
 
         });
         it('should init the component', () => {
@@ -102,9 +108,9 @@ describe('FileDownloadLinkComponent', () => {
           init();
           (authorizationService.isAuthorized as jasmine.Spy).and.callFake((featureId, object) => {
             if (featureId === FeatureID.CanDownload) {
-              return cold('-a', {a: false});
+              return cold('-a', { a: false });
             }
-            return cold('-a', {a: true});
+            return cold('-a', { a: true });
           });
           initTestbed();
         }));
@@ -116,8 +122,8 @@ describe('FileDownloadLinkComponent', () => {
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: { routerLink: new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString(), queryParams: { bitstream: bitstream.uuid } }}));
-          expect(component.canDownload$).toBeObservable(cold('--a', {a: false}));
+          expect(component.bitstreamPath$).toBeObservable(cold('-a', { a: { routerLink: new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString(), queryParams: { bitstream: bitstream.uuid } } }));
+          expect(component.canDownload$).toBeObservable(cold('--a', { a: false }));
 
         });
         it('should init the component', () => {
@@ -133,7 +139,7 @@ describe('FileDownloadLinkComponent', () => {
         beforeEach(waitForAsync(() => {
           scheduler = getTestScheduler();
           init();
-          (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(cold('-a', {a: false}));
+          (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(cold('-a', { a: false }));
           initTestbed();
         }));
         beforeEach(() => {
@@ -144,8 +150,8 @@ describe('FileDownloadLinkComponent', () => {
           fixture.detectChanges();
         });
         it('should return the bitstreamPath based on the input bitstream', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', {a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: {} }}));
-          expect(component.canDownload$).toBeObservable(cold('--a', {a: false}));
+          expect(component.bitstreamPath$).toBeObservable(cold('-a', { a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: {} } }));
+          expect(component.canDownload$).toBeObservable(cold('--a', { a: false }));
 
         });
         it('should init the component', () => {

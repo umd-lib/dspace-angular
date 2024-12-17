@@ -1,33 +1,46 @@
 /* eslint-disable max-classes-per-file */
-import { Inject, Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
-
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-
-import { Community } from '../../../../app/core/shared/community.model';
-import { PageInfo } from '../../../../app/core/shared/page-info.model';
-import { buildPaginatedList, PaginatedList } from '../../../../app/core/data/paginated-list.model';
-import { CollectionDataService } from '../../../../app/core/data/collection-data.service';
-import { CommunityDataService } from '../../../../app/core/data/community-data.service';
-import { getFirstSucceededRemoteData } from '../../../../app/core/shared/operators';
-import { followLink } from '../../../../app/shared/utils/follow-link-config.model';
-import { FlatNode } from '../../../../app/community-list-page/flat-node.model';
-import { FindListOptions } from '../../../../app/core/data/find-list-options.model';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
 import { CommunityListService as BaseService } from '../../../../app/community-list-page/community-list-service';
+import { FlatNode } from '../../../../app/community-list-page/flat-node.model';
+import { CollectionDataService } from '../../../../app/core/data/collection-data.service';
+import { CommunityDataService } from '../../../../app/core/data/community-data.service';
 import { CommunityGroupDataService } from '../../../../app/core/data/community-group-data.service';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { FindListOptions } from '../../../../app/core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../app/core/data/paginated-list.model';
+import { Community } from '../../../../app/core/shared/community.model';
+import { getFirstSucceededRemoteData } from '../../../../app/core/shared/operators';
+import { PageInfo } from '../../../../app/core/shared/page-info.model';
+import { followLink } from '../../../../app/shared/utils/follow-link-config.model';
 
 export const MAX_COMCOLS_PER_PAGE = 40;
 
 /**
- * The UMD version uses the custom CommunityGroupDataService to get top comunities of a group.
+ * The UMD version uses the custom CommunityGroupDataService to get top communities of a group.
  *
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
  *  and connection to the store to retrieve and save the state of the community list
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CommunityListService extends BaseService {
 
 
@@ -41,7 +54,7 @@ export class CommunityListService extends BaseService {
   }
 
   private _configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 1
+    elementsPerPage: 1,
   });
 
   /**
@@ -66,7 +79,7 @@ export class CommunityListService extends BaseService {
           newPageInfo = Object.assign({}, coms[0].pageInfo, { currentPage });
         }
         return buildPaginatedList(newPageInfo, newPage);
-      })
+      }),
     );
     return topComs$.pipe(
       switchMap((topComs: PaginatedList<Community>) => this.transformListOfCommunities(topComs, 0, null, expandedNodes)),
@@ -84,8 +97,8 @@ export class CommunityListService extends BaseService {
         elementsPerPage: options.elementsPerPage,
         sort: {
           field: options.sort.field,
-          direction: options.sort.direction
-        }
+          direction: options.sort.direction,
+        },
       },
       followLink('subcommunities', { findListOptions: this._configOnePage }),
       followLink('collections', { findListOptions: this._configOnePage }))

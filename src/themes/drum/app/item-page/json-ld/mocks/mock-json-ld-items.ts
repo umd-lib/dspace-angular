@@ -18,12 +18,12 @@ export const notADataset = {
           {
             'value': 'Technical Report',
             'language': 'en_US',
-          }
-        ]
+          },
+        ],
       },
-    }
+    },
   ),
-  'expectedJsonLd': ''
+  'expectedJsonLd': '',
 };
 
 /**
@@ -45,10 +45,10 @@ export const emptyDataset = {
             {
               'value': 'Dataset',
               'language': 'en_US',
-            }
-          ]
+            },
+          ],
         },
-      }
+      },
     ),
   // The expected JSON-LD object
   'expectedJsonLd':
@@ -61,8 +61,8 @@ export const emptyDataset = {
       'temporalCoverage':'',
       'creator': [],
       'identifier': [],
-      'license': ''
-    }
+      'license': '',
+    },
 };
 
 /**
@@ -72,75 +72,75 @@ export const escapeTestDataset = {
   'url': 'https://example.org/items/escapeTestDataset',
   'dspaceObject':
     Object.assign(new Item(),
-    {
-      'id': 'escapeTestDataset ID',
-      'uuid': 'escapeTestDataset UUID',
-      'name': '',
-      'handle': '1903/99998',
-      'metadata': {
-        'dc.contributor.author': [
-          {
-            'value': 'Pound, Marc </script><script>alert("XXS author1")</script>',
-            'language': null,
-          },
-          {
-            'value': 'Wolfire, Mark  </script><script>alert("XXS author2")</script>',
-            'language': null,
-          }
-        ],
-        'dc.date.issued': [
-          {
-            'value': '2022-08-31 </script><script>alert("XXS date")</script>',
-            'language': null,
-          }
-        ],
-        'dc.description': [
-          {
-            'value': 'escapeTestDataset Description </script><script>alert("XXS description")</script>',
-            'language': 'en_US',
-          }
-        ],
-        'dc.description.abstract': [
-          {
-            'value': 'escapeTestDataset Abstract </script><script>alert("XXS abstract")</script>',
-            'language': 'en_US',
-          }
-        ],
-        'dc.identifier': [
-          {
-            'value': 'https://doi.org/10.13016/hohs-ldyr </script><script>alert("XXS identifier")</script>',
-            'language': null,
-          }
-        ],
-        'dc.identifier.uri': [
-          {
-            'value': 'http://hdl.handle.net/1903/29105 </script><script>alert("XXS identifier")</script>',
-            'language': null,
-          }
-        ],
-        'dc.rights.uri': [
-          {
-            'value': 'http://creativecommons.org/publicdomain/zero/1.0/ </script><script>alert("XXS rights")</script>',
-            'language': '*',
-            'authority': null,
-            'confidence': -1,
-            'place': 0
-          }
-        ],
-        'dc.title': [
-          {
-            'value': 'escapeTestDataset Title </script><script>alert("XXS rights")</script>',
-            'language': 'en_US',
-          }
-        ],
-        'dc.type': [
-          {
-            'value': 'Dataset',
-            'language': 'en_US',
-          }
-        ]
-      },
-    }),
+      {
+        'id': 'escapeTestDataset ID',
+        'uuid': 'escapeTestDataset UUID',
+        'name': '',
+        'handle': '1903/99998',
+        'metadata': {
+          'dc.contributor.author': [
+            {
+              'value': 'Pound, Marc </script><script>alert("XXS author1")</script>',
+              'language': null,
+            },
+            {
+              'value': 'Wolfire, Mark  </script><script>alert("XXS author2")</script>',
+              'language': null,
+            },
+          ],
+          'dc.date.issued': [
+            {
+              'value': '2022-08-31 </script><script>alert("XXS date")</script>',
+              'language': null,
+            },
+          ],
+          'dc.description': [
+            {
+              'value': 'escapeTestDataset Description </script><script>alert("XXS description")</script>',
+              'language': 'en_US',
+            },
+          ],
+          'dc.description.abstract': [
+            {
+              'value': 'escapeTestDataset Abstract </script><script>alert("XXS abstract")</script>',
+              'language': 'en_US',
+            },
+          ],
+          'dc.identifier': [
+            {
+              'value': 'https://doi.org/10.13016/hohs-ldyr </script><script>alert("XXS identifier")</script>',
+              'language': null,
+            },
+          ],
+          'dc.identifier.uri': [
+            {
+              'value': 'http://hdl.handle.net/1903/29105 </script><script>alert("XXS identifier")</script>',
+              'language': null,
+            },
+          ],
+          'dc.rights.uri': [
+            {
+              'value': 'http://creativecommons.org/publicdomain/zero/1.0/ </script><script>alert("XXS rights")</script>',
+              'language': '*',
+              'authority': null,
+              'confidence': -1,
+              'place': 0,
+            },
+          ],
+          'dc.title': [
+            {
+              'value': 'escapeTestDataset Title </script><script>alert("XXS rights")</script>',
+              'language': 'en_US',
+            },
+          ],
+          'dc.type': [
+            {
+              'value': 'Dataset',
+              'language': 'en_US',
+            },
+          ],
+        },
+      }),
   'expectedJsonLd':
     {
       '@context' : 'http://schema.org',
@@ -150,20 +150,20 @@ export const escapeTestDataset = {
       'url':'https://example.org/items/escapeTestDataset',
       'temporalCoverage':'2022-08-31 &lt;/script&gt;&lt;script&gt;alert(&quot;XXS date&quot;)&lt;/script&gt;',
       'creator': [
-          {
-              '@type': 'Person',
-              'name': 'Pound, Marc &lt;/script&gt;&lt;script&gt;alert(&quot;XXS author1&quot;)&lt;/script&gt;'
-          },
-          {
-              '@type': 'Person',
-              'name': 'Wolfire, Mark  &lt;/script&gt;&lt;script&gt;alert(&quot;XXS author2&quot;)&lt;/script&gt;'
-          }
+        {
+          '@type': 'Person',
+          'name': 'Pound, Marc &lt;/script&gt;&lt;script&gt;alert(&quot;XXS author1&quot;)&lt;/script&gt;',
+        },
+        {
+          '@type': 'Person',
+          'name': 'Wolfire, Mark  &lt;/script&gt;&lt;script&gt;alert(&quot;XXS author2&quot;)&lt;/script&gt;',
+        },
       ],
       'identifier': [
         'http://hdl.handle.net/1903/29105 &lt;/script&gt;&lt;script&gt;alert(&quot;XXS identifier&quot;)&lt;/script&gt;',
-        'https://doi.org/10.13016/hohs-ldyr &lt;/script&gt;&lt;script&gt;alert(&quot;XXS identifier&quot;)&lt;/script&gt;'
+        'https://doi.org/10.13016/hohs-ldyr &lt;/script&gt;&lt;script&gt;alert(&quot;XXS identifier&quot;)&lt;/script&gt;',
       ],
-      'license':'http://creativecommons.org/publicdomain/zero/1.0/ &lt;/script&gt;&lt;script&gt;alert(&quot;XXS rights&quot;)&lt;/script&gt;'
+      'license':'http://creativecommons.org/publicdomain/zero/1.0/ &lt;/script&gt;&lt;script&gt;alert(&quot;XXS rights&quot;)&lt;/script&gt;',
     },
 };
 
@@ -188,15 +188,15 @@ export const fullDataset = {
               'language': null,
               'authority': null,
               'confidence': -1,
-              'place': 0
+              'place': 0,
             },
             {
               'value': 'Wolfire, Mark',
               'language': null,
               'authority': null,
               'confidence': -1,
-              'place': 1
-            }
+              'place': 1,
+            },
           ],
           'dc.date.accessioned': [
             {
@@ -204,8 +204,8 @@ export const fullDataset = {
               'language': null,
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.date.available': [
             {
@@ -213,8 +213,8 @@ export const fullDataset = {
               'language': null,
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.date.issued': [
             {
@@ -222,8 +222,8 @@ export const fullDataset = {
               'language': null,
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.description': [
             {
@@ -231,8 +231,8 @@ export const fullDataset = {
               'language': 'en_US',
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.description.abstract': [
             {
@@ -240,8 +240,8 @@ export const fullDataset = {
               'language': 'en_US',
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.description.sponsorship': [
             {
@@ -249,8 +249,8 @@ export const fullDataset = {
               'language': 'en_US',
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.identifier': [
             {
@@ -258,8 +258,8 @@ export const fullDataset = {
               'language': null,
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.identifier.uri': [
             {
@@ -267,8 +267,8 @@ export const fullDataset = {
               'language': null,
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.language.iso': [
             {
@@ -276,8 +276,8 @@ export const fullDataset = {
               'language': 'en_US',
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.relation.isAvailableAt': [
             {
@@ -285,29 +285,29 @@ export const fullDataset = {
               'language': 'en_us',
               'authority': null,
               'confidence': -1,
-              'place': 0
+              'place': 0,
             },
             {
               'value': 'College of Computer, Mathematical & Natural Sciences',
               'language': 'en_us',
               'authority': null,
               'confidence': -1,
-              'place': 1
+              'place': 1,
             },
             {
               'value': 'Digital Repository at the University of Maryland',
               'language': 'en_us',
               'authority': null,
               'confidence': -1,
-              'place': 2
+              'place': 2,
             },
             {
               'value': 'University of Maryland (College Park, MD)',
               'language': 'en_us',
               'authority': null,
               'confidence': -1,
-              'place': 3
-            }
+              'place': 3,
+            },
           ],
           'dc.rights': [
             {
@@ -315,8 +315,8 @@ export const fullDataset = {
               'language': '*',
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.rights.uri': [
             {
@@ -324,8 +324,8 @@ export const fullDataset = {
               'language': '*',
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.subject': [
             {
@@ -333,22 +333,22 @@ export const fullDataset = {
               'language': 'en_US',
               'authority': null,
               'confidence': -1,
-              'place': 0
+              'place': 0,
             },
             {
               'value': 'Python data analysis',
               'language': 'en_US',
               'authority': null,
               'confidence': -1,
-              'place': 1
+              'place': 1,
             },
             {
               'value': 'interstellar gas',
               'language': 'en_US',
               'authority': null,
               'confidence': -1,
-              'place': 2
-            }
+              'place': 2,
+            },
           ],
           'dc.title': [
             {
@@ -356,8 +356,8 @@ export const fullDataset = {
               'language': 'en_US',
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
+              'place': 0,
+            },
           ],
           'dc.type': [
             {
@@ -365,9 +365,9 @@ export const fullDataset = {
               'language': 'en_US',
               'authority': null,
               'confidence': -1,
-              'place': 0
-            }
-          ]
+              'place': 0,
+            },
+          ],
         },
         'inArchive': true,
         'discoverable': true,
@@ -377,34 +377,34 @@ export const fullDataset = {
         'type': 'item',
         '_links': {
           'accessStatus': {
-            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/accessStatus'
+            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/accessStatus',
           },
           'bundles': {
-            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/bundles'
+            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/bundles',
           },
           'mappedCollections': {
-            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/mappedCollections'
+            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/mappedCollections',
           },
           'owningCollection': {
-            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/owningCollection'
+            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/owningCollection',
           },
           'relationships': {
-            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/relationships'
+            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/relationships',
           },
           'version': {
-            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/version'
+            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/version',
           },
           'templateItemOf': {
-            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/templateItemOf'
+            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/templateItemOf',
           },
           'thumbnail': {
-            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/thumbnail'
+            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc/thumbnail',
           },
           'self': {
-            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc'
-          }
-        }
-      }
+            'href': 'http://localhost:8080/server/api/core/items/ff20f203-99ef-4d9c-8c24-81d8aa4886dc',
+          },
+        },
+      },
     ),
   'expectedJsonLd':
     {
@@ -415,18 +415,18 @@ export const fullDataset = {
       'url':'https://example.org/items/fullDataset',
       'temporalCoverage':'2022-08-31',
       'creator': [
-          {
-              '@type': 'Person',
-              'name': 'Pound, Marc'
-          },
-          {
-              '@type': 'Person',
-              'name': 'Wolfire, Mark'
-          }
+        {
+          '@type': 'Person',
+          'name': 'Pound, Marc',
+        },
+        {
+          '@type': 'Person',
+          'name': 'Wolfire, Mark',
+        },
       ],
       'identifier': [
-      'http://hdl.handle.net/1903/29105','https://doi.org/10.13016/hohs-ldyr'
+        'http://hdl.handle.net/1903/29105','https://doi.org/10.13016/hohs-ldyr',
       ],
-      'license': 'http://creativecommons.org/publicdomain/zero/1.0/'
-    }
+      'license': 'http://creativecommons.org/publicdomain/zero/1.0/',
+    },
 };

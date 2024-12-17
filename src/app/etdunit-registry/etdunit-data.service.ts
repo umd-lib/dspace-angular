@@ -1,39 +1,67 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  zip as observableZip,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { createSelector, select, Store } from '@ngrx/store';
-import { Observable, zip as observableZip } from 'rxjs';
-import { map, take } from 'rxjs/operators';
 import { AppState } from '../app.reducer';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../shared/utils/follow-link-config.model';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
 import { RequestParam } from '../core/cache/models/request-param.model';
 import { ObjectCacheService } from '../core/cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../core/data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../core/data/base/delete-data';
+import { IdentifiableDataService } from '../core/data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../core/data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../core/data/base/search-data';
 import { DSOChangeAnalyzer } from '../core/data/dso-change-analyzer.service';
+import { FindListOptions } from '../core/data/find-list-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
-import { DeleteRequest, PostRequest } from '../core/data/request.models';
-
+import {
+  DeleteRequest,
+  PostRequest,
+} from '../core/data/request.models';
 import { RequestService } from '../core/data/request.service';
-import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../core/shared/hal-endpoint.service';
-import { Collection } from '../core/shared/collection.model';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { NoContent } from '../core/shared/NoContent.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { ETDUNIT } from './models/etdunit.resource-type';
-import { EtdUnit } from './models/etdunit.model';
-import { EtdUnitRegistryState } from './etdunit-registry.reducers';
-import { IdentifiableDataService } from '../core/data/base/identifiable-data.service';
-import { dataService } from '../core/data/base/data-service.decorator';
-import { CreateData, CreateDataImpl } from '../core/data/base/create-data';
-import { SearchData, SearchDataImpl } from '../core/data/base/search-data';
-import { PatchData, PatchDataImpl } from '../core/data/base/patch-data';
-import { DeleteData, DeleteDataImpl } from '../core/data/base/delete-data';
-import { EtdUnitRegistryCancelUnitAction, EtdUnitRegistryEditEtdUnitAction } from './etdunit-registry.actions';
-import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../core/data/rest-request-method';
+import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
+import { Collection } from '../core/shared/collection.model';
+import { HALEndpointService } from '../core/shared/hal-endpoint.service';
+import { NoContent } from '../core/shared/NoContent.model';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../shared/utils/follow-link-config.model';
+import {
+  EtdUnitRegistryCancelUnitAction,
+  EtdUnitRegistryEditEtdUnitAction,
+} from './etdunit-registry.actions';
+import { EtdUnitRegistryState } from './etdunit-registry.reducers';
+import { EtdUnit } from './models/etdunit.model';
 
 const etdunitRegistryStateSelector = (state: AppState) => state.etdunitRegistry;
 const editEtdUnitSelector = createSelector(etdunitRegistryStateSelector, (etdunitRegistryState: EtdUnitRegistryState) => etdunitRegistryState.editEtdUnit);
@@ -42,8 +70,7 @@ const editEtdUnitSelector = createSelector(etdunitRegistryStateSelector, (etduni
  * Provides methods to retrieve etdunit resources from the REST API and
  * EtdUnit related CRUD actions.
  */
-@Injectable()
-@dataService(ETDUNIT)
+@Injectable({ providedIn: 'root' })
 export class EtdUnitDataService extends IdentifiableDataService<EtdUnit> {
   protected browseEndpoint = '';
   public collectionsEndpoint = 'collections';

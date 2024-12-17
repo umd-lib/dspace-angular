@@ -47,7 +47,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:4000",
+            "url": "https://drum-local.lib.umd.edu:4000",
             "webRoot": "${workspaceFolder}",
             "browserLaunchLocation": "ui"
         },

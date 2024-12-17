@@ -1,6 +1,13 @@
 import { UnitMock } from 'src/app/shared/testing/unit-mock';
-import { UnitRegistryCancelUnitAction, UnitRegistryEditUnitAction } from './unit-registry.actions';
-import { unitRegistryReducer, UnitRegistryState } from './unit-registry.reducers';
+
+import {
+  UnitRegistryCancelUnitAction,
+  UnitRegistryEditUnitAction,
+} from './unit-registry.actions';
+import {
+  unitRegistryReducer,
+  UnitRegistryState,
+} from './unit-registry.reducers';
 
 const initialState: UnitRegistryState = {
   editUnit: null,

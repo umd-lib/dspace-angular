@@ -1,33 +1,22 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../app/shared/shared.module';
-import { HeaderComponent } from './app/header/header.component';
-import { FooterComponent } from './app/footer/footer.component';
-import { NavbarModule } from '../../app/navbar/navbar.module';
-import { ItemPageModule } from '../../app/item-page/item-page.module';
 
-import { UmdEnvironmentBannerComponent } from './app/umd-environment-banner/umd-environment-banner.component';
-import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
-import { UmdHeaderComponent } from './app/umd-header/umd-header.component';
-import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
-import { BitstreamDownloadCounterComponent } from './app/bitstream-download-counter/bitstream-download-counter.component';
 import { CommunityGroup } from '../../app/core/shared/community-group.model';
-import { HomePageComponent } from './app/home-page/home-page.component';
-import { StatisticsModule } from 'src/app/statistics/statistics.module';
-import { CommunityListPageModule } from 'src/app/community-list-page/community-list-page.module';
+import { BitstreamDownloadCounterComponent } from './app/bitstream-download-counter/bitstream-download-counter.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
-import { HomePageModule } from 'src/app/home-page/home-page.module';
-import { JsonLdWebsiteComponent } from './app/item-page/json-ld/json-ld-website.component';
+import { FooterComponent } from './app/footer/footer.component';
+import { HeaderComponent } from './app/header/header.component';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
-import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
+import { HomePageComponent } from './app/home-page/home-page.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
-import { RootModule } from 'src/app/root.module';
-import { ResultsBackButtonModule } from 'src/app/shared/results-back-button/results-back-button.module';
-import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
-import { DsoPageModule } from 'src/app/shared/dso-page/dso-page.module';
-
+import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
+import { JsonLdWebsiteComponent } from './app/item-page/json-ld/json-ld-website.component';
+import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
+import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
+import { UmdEnvironmentBannerComponent } from './app/umd-environment-banner/umd-environment-banner.component';
+import { UmdHeaderComponent } from './app/umd-header/umd-header.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -65,21 +54,11 @@ const DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
-    NavbarModule,
-    SharedModule,
-    ItemPageModule,
     TranslateModule,
-    StatisticsModule.forRoot(),
-    CommunityListPageModule,
-    HomePageModule,
-    RootModule,
-    ResultsBackButtonModule,
-    ItemSharedModule,
-    DsoPageModule,
+    ...DECLARATIONS,
   ],
-  declarations: DECLARATIONS,
   providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+    ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
   ],
 })
 /**

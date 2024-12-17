@@ -1,30 +1,52 @@
-// UMD Customization
-// Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-// This customization should be removed when upgrading to DSpace 8.0 or later
-import { Inject } from '@angular/core';
-import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
-// End UMD Customization
-import { Component, HostListener, Injector, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, first, map, withLatestFrom } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  HostListener,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  first,
+  map,
+  withLatestFrom,
+} from 'rxjs/operators';
+
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
-import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { ActivatedRoute } from '@angular/router';
+import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
 /**
  * Component representing the admin sidebar
  */
 @Component({
-  selector: 'ds-admin-sidebar',
+  selector: 'ds-base-admin-sidebar',
   templateUrl: './admin-sidebar.component.html',
   styleUrls: ['./admin-sidebar.component.scss'],
-  animations: [slideSidebar]
+  animations: [slideSidebar],
+  standalone: true,
+  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
 })
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
   /**
@@ -68,12 +90,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
 
   inFocus$: BehaviorSubject<boolean>;
 
-  // UMD Customization
-  // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-  // This customization should be removed when upgrading to DSpace 8.0 or later
-  browserOsClasses = new BehaviorSubject<string[]>([]);
-  // End UMD Customization
-
   constructor(
     protected menuService: MenuService,
     protected injector: Injector,
@@ -82,11 +98,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     public authorizationService: AuthorizationDataService,
     public route: ActivatedRoute,
     protected themeService: ThemeService,
-    //  UMD Customization
-    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-    // This customization should be removed when upgrading to DSpace 8.0 or later
-    @Inject(NativeWindowService) private _window: NativeWindowRef,
-    // End UMD Customization
   ) {
     super(menuService, injector, authorizationService, route, themeService);
     this.inFocus$ = new BehaviorSubject(false);
@@ -97,21 +108,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   ngOnInit(): void {
     super.ngOnInit();
-    //  UMD Customization
-    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-    // This customization should be removed when upgrading to DSpace 8.0 or later
-    const browserName = this.getBrowserName();
-    if (browserName) {
-      const browserOsClasses = new Array<string>();
-      browserOsClasses.push(`browser-${browserName}`);
-      const osName = this.getOSName();
-      if (osName) {
-        browserOsClasses.push(`browser-${browserName}-${osName}`);
-      }
-      this.browserOsClasses.next(browserOsClasses);
-    }
-    // End UMD Customization
-
     this.authService.isAuthenticated()
       .subscribe((loggedIn: boolean) => {
         if (loggedIn) {
@@ -125,13 +121,13 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       });
     this.sidebarExpanded = combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
       .pipe(
-        map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
+        map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed)),
       );
     this.inFocus$.pipe(
       debounceTime(50),
       distinctUntilChanged(),  // disregard focusout in situations like --(focusout)-(focusin)--
       withLatestFrom(
-        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
+        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed]),
       ),
     ).subscribe(([inFocus, [collapsed, previewCollapsed]]) => {
       if (collapsed) {
@@ -196,27 +192,4 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       this.sidebarOpen = true;
     }
   }
-
-    //  UMD Customization
-    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-    // and https://github.com/DSpace/dspace-angular/pull/3004
-    // This customization should be removed when upgrading to DSpace 8.0 or later
-    getBrowserName(): string {
-      const userAgent = this._window.nativeWindow.navigator?.userAgent;
-      if (/Firefox/.test(userAgent)) {
-        return 'firefox';
-      }
-      if (/Safari/.test(userAgent)) {
-        return 'safari';
-      }
-      return undefined;
-    }
-    getOSName(): string {
-      const userAgent = this._window.nativeWindow.navigator?.userAgent;
-      if (/Windows/.test(userAgent)) {
-        return 'windows';
-      }
-      return undefined;
-    }
-    // End UMD Customization
 }

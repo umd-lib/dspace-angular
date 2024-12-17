@@ -1,7 +1,14 @@
 import { DOCUMENT } from '@angular/common';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+
 import { JsonLdService } from './json-ld.service';
-import { emptyDataset, fullDataset } from './mocks/mock-json-ld-items';
+import {
+  emptyDataset,
+  fullDataset,
+} from './mocks/mock-json-ld-items';
 
 describe('JsonLdService', () => {
   let jsonLdService: JsonLdService;

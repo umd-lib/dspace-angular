@@ -1,20 +1,31 @@
-// UMD Customization
-// Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-// This customization should be removed when upgrading to DSpace 8.0 or later
-import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
-// End UMD Customization
-import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { rotate } from '../../../shared/animations/rotate';
-import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
-import { slide } from '../../../shared/animations/slide';
-import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
-import { bgColor } from '../../../shared/animations/bgColor';
-import { MenuService } from '../../../shared/menu/menu.service';
-import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
-import { MenuID } from '../../../shared/menu/menu-id.model';
+import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as combineLatestObservable,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { bgColor } from '../../../shared/animations/bgColor';
+import { rotate } from '../../../shared/animations/rotate';
+import { slide } from '../../../shared/animations/slide';
+import { MenuService } from '../../../shared/menu/menu.service';
+import { MenuID } from '../../../shared/menu/menu-id.model';
+import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
+import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
 
 /**
  * Represents a expandable section in the sidebar
@@ -23,10 +34,11 @@ import { Router } from '@angular/router';
   selector: 'ds-expandable-admin-sidebar-section',
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
-  animations: [rotate, slide, bgColor]
+  animations: [rotate, slide, bgColor],
+  standalone: true,
+  imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule],
 })
 
-@rendersSectionForMenu(MenuID.ADMIN, true)
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
   /**
    * This section resides in the Admin Sidebar
@@ -60,17 +72,8 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     private variableService: CSSVariableService,
     protected injector: Injector,
     protected router: Router,
-    //  UMD Customization
-    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-    // This customization should be removed when upgrading to DSpace 8.0 or later
-    @Inject(NativeWindowService) _window: NativeWindowRef,
-    // End UMD Customization
   ) {
-    //  UMD Customization
-    // Adaption of DSpace 8.0 fix from https://github.com/DSpace/dspace-angular/pull/2976
-    // This customization should be removed when upgrading to DSpace 8.0 or later
-    super(menuSection, menuService, injector, router, _window);
-    // End UMD Customization
+    super(menuSection, menuService, injector, router);
   }
 
   /**
@@ -82,7 +85,7 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     this.isSidebarCollapsed$ = this.menuService.isMenuCollapsed(this.menuID);
     this.isSidebarPreviewCollapsed$ = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.isExpanded$ = combineLatestObservable([this.active, this.isSidebarCollapsed$, this.isSidebarPreviewCollapsed$]).pipe(
-      map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed)))
+      map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed))),
     );
   }
 

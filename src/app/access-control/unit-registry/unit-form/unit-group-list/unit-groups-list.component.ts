@@ -1,32 +1,64 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import {
-  Observable,
-  of as observableOf,
-  Subscription,
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  Observable,
   ObservedValueOf,
+  of as observableOf,
+  Subscription,
 } from 'rxjs';
-import { defaultIfEmpty, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import {buildPaginatedList, PaginatedList} from '../../../../core/data/paginated-list.model';
+import {
+  defaultIfEmpty,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+import { GroupDtoModel } from 'src/app/core/eperson/models/group-dto.model';
+import { Unit } from 'src/app/core/eperson/models/unit.model';
+import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData, getAllCompletedRemoteData, getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { GroupDtoModel } from 'src/app/core/eperson/models/group-dto.model';
-import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
-import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitGroupDtoModel } from './unit-group-dto.model';
-import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -39,7 +71,12 @@ enum SubKey {
 
 @Component({
   selector: 'ds-unit-groups-list',
-  templateUrl: './unit-groups-list.component.html'
+  templateUrl: './unit-groups-list.component.html',
+  imports: [
+    AsyncPipe, NgIf, NgForOf, PaginationComponent, ReactiveFormsModule,
+    RouterLink, TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * The list of groups in the edit unit page
@@ -64,7 +101,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'gugl',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
   /**
    * Pagination config used to display the list of Groups of active unit being edited
@@ -72,7 +109,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'ugl',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -132,38 +169,38 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((currentPagination) => {
           return this.groupDataService.findListByHref(this.unitBeingEdited._links.groups.href, {
-              currentPage: currentPagination.currentPage,
-              elementsPerPage: currentPagination.pageSize
-            }, true, true, followLink('object')
+            currentPage: currentPagination.currentPage,
+            elementsPerPage: currentPagination.pageSize,
+          }, true, true, followLink('object'),
           );
         }),
-      getAllCompletedRemoteData(),
-      map((rd: RemoteData<any>) => {
-        if (rd.hasFailed) {
-          this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', {cause: rd.errorMessage}));
-        } else {
-          return rd;
-        }
-      }),
-      switchMap((groupListRD: RemoteData<PaginatedList<Group>>) => {
-        const dtos$ = observableCombineLatest(...groupListRD.payload.page.map((group: Group) => {
-          const dto$: Observable<UnitGroupDtoModel> = observableCombineLatest(
-            this.isGroupOfUnit(group), (isInUnit: ObservedValueOf<Observable<boolean>>) => {
-              const unitGroupDtoModel: UnitGroupDtoModel = new UnitGroupDtoModel();
-              unitGroupDtoModel.group = group;
-              unitGroupDtoModel.isInUnit = isInUnit;
-              unitGroupDtoModel.object = group.object;
-              return unitGroupDtoModel;
-            });
-          return dto$;
+        getAllCompletedRemoteData(),
+        map((rd: RemoteData<any>) => {
+          if (rd.hasFailed) {
+            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', { cause: rd.errorMessage }));
+          } else {
+            return rd;
+          }
+        }),
+        switchMap((groupListRD: RemoteData<PaginatedList<Group>>) => {
+          const dtos$ = observableCombineLatest(...groupListRD.payload.page.map((group: Group) => {
+            const dto$: Observable<UnitGroupDtoModel> = observableCombineLatest(
+              this.isGroupOfUnit(group), (isInUnit: ObservedValueOf<Observable<boolean>>) => {
+                const unitGroupDtoModel: UnitGroupDtoModel = new UnitGroupDtoModel();
+                unitGroupDtoModel.group = group;
+                unitGroupDtoModel.isInUnit = isInUnit;
+                unitGroupDtoModel.object = group.object;
+                return unitGroupDtoModel;
+              });
+            return dto$;
+          }));
+          return dtos$.pipe(defaultIfEmpty([]), map((dtos: UnitGroupDtoModel[]) => {
+            return buildPaginatedList(groupListRD.payload.pageInfo, dtos);
+          }));
+        }))
+        .subscribe((paginatedListOfDTOs: PaginatedList<UnitGroupDtoModel>) => {
+          this.groupsOfUnitDtos.next(paginatedListOfDTOs);
         }));
-        return dtos$.pipe(defaultIfEmpty([]), map((dtos: UnitGroupDtoModel[]) => {
-          return buildPaginatedList(groupListRD.payload.pageInfo, dtos);
-        }));
-      }))
-      .subscribe((paginatedListOfDTOs: PaginatedList<UnitGroupDtoModel>) => {
-        this.groupsOfUnitDtos.next(paginatedListOfDTOs);
-      }));
   }
 
   /**
@@ -176,7 +213,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
         if (unit != null) {
           return this.groupDataService.findListByHref(unit._links.groups.href, {
             currentPage: 1,
-            elementsPerPage: 9999
+            elementsPerPage: 9999,
           })
             .pipe(
               getFirstSucceededRemoteData(),
@@ -247,14 +284,14 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
           const scope: string = data.scope;
           if (query != null && this.currentSearchQuery !== query && this.unitBeingEdited) {
             this.router.navigate([], {
-              queryParamsHandling: 'merge'
+              queryParamsHandling: 'merge',
             });
             this.currentSearchQuery = query;
             this.paginationService.resetPage(this.configSearch.id);
           }
           if (scope != null && this.currentSearchScope !== scope && this.unitBeingEdited) {
             this.router.navigate([], {
-              queryParamsHandling: 'merge'
+              queryParamsHandling: 'merge',
             });
             this.currentSearchScope = scope;
             this.paginationService.resetPage(this.configSearch.id);
@@ -269,7 +306,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
         getAllCompletedRemoteData(),
         map((rd: RemoteData<any>) => {
           if (rd.hasFailed) {
-            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', {cause: rd.errorMessage}));
+            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', { cause: rd.errorMessage }));
           } else {
             return rd;
           }

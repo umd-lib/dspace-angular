@@ -1,11 +1,16 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
-import { typedObject } from '../../cache/builders/build-decorators';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 
+import { typedObject } from '../../cache/builders/build-decorators';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
-import { LDAP } from './ldap.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { Group } from './group.model';
+import { LDAP } from './ldap.resource-type';
 import { Unit } from './unit.model';
 
 @typedObject
@@ -41,8 +46,8 @@ export class Ldap extends DSpaceObject {
   /**
    * A string representing the user's phone number
    */
-   @autoserialize
-   public phone: string;
+  @autoserialize
+  public phone: string;
 
   /**
    * The user's email address
@@ -53,10 +58,10 @@ export class Ldap extends DSpaceObject {
   /**
    * True if the user is faculty, false otherwise
    */
-   @autoserialize
-   public isFaculty: boolean;
+  @autoserialize
+  public isFaculty: boolean;
 
-   /**
+  /**
    * An array representing the user's UM appointments
    */
   @autoserialize

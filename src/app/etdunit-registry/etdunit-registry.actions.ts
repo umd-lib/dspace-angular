@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-import { EtdUnit } from './models/etdunit.model';
+
 import { type } from '../shared/ngrx/type';
+import { EtdUnit } from './models/etdunit.model';
 
 /**
  * For each action type in an action etdunit, make a simple

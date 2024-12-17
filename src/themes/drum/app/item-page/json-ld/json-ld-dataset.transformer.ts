@@ -23,20 +23,20 @@ export class DatasetJsonLdTransformer {
       'descriptions': this.escapeAll(dspaceObject.allMetadataValues('dc.description.abstract')),
       'creators': this.escapeAll(dspaceObject.allMetadataValues('dc.contributor.author')),
       'identifiers': this.escapeAll(dspaceObject.allMetadataValues(['dc.identifier.uri', 'dc.identifier.*', 'dc.identifier'])),
-      'license': escape(dspaceObject.firstMetadataValue('dc.rights.uri')  || '')
+      'license': escape(dspaceObject.firstMetadataValue('dc.rights.uri')  || ''),
     };
   }
 
   asJsonLd(url: string, dspaceObject: DSpaceObject): any {
-    let jsonObj = this.fromDspaceObject(url, dspaceObject);
-    let description = jsonObj.descriptions.join(' ');
-    let identifiers = jsonObj.identifiers;
-    let creator = [];
+    const jsonObj = this.fromDspaceObject(url, dspaceObject);
+    const description = jsonObj.descriptions.join(' ');
+    const identifiers = jsonObj.identifiers;
+    const creator = [];
 
     for (const creatorName of jsonObj.creators) {
-      let c = {
+      const c = {
         '@type': 'Person',
-        'name': creatorName
+        'name': creatorName,
       };
       creator.push(c);
     }
@@ -50,7 +50,7 @@ export class DatasetJsonLdTransformer {
       'temporalCoverage': jsonObj.temporalCoverage,
       'creator': creator,
       'identifier': identifiers,
-      'license': jsonObj.license
+      'license': jsonObj.license,
     };
   }
 

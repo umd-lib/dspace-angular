@@ -1,36 +1,77 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { hasValue } from 'src/app/shared/empty.util';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { PageInfo } from 'src/app/core/shared/page-info.model';
-import { EtdUnit } from './models/etdunit.model';
-import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
-import { TranslateService } from '@ngx-translate/core';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
-import { EtdUnitDataService } from './etdunit-data.service';
-import { EtdUnitDtoModel } from './models/etdunit-dto.model';
-import { followLink } from 'src/app/shared/utils/follow-link-config.model';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import {
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { NoContent } from 'src/app/core/shared/NoContent.model';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { Collection } from 'src/app/core/shared/collection.model';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
+import { NoContent } from 'src/app/core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
+import { PageInfo } from 'src/app/core/shared/page-info.model';
+import { hasValue } from 'src/app/shared/empty.util';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { EtdUnitDataService } from './etdunit-data.service';
+import { EtdUnit } from './models/etdunit.model';
+import { EtdUnitDtoModel } from './models/etdunit-dto.model';
 
 @Component({
   selector: 'ds-etdunits-registry',
   templateUrl: './etdunits-registry.component.html',
-  styleUrls: ['./etdunits-registry.component.scss']
+  styleUrls: ['./etdunits-registry.component.scss'],
+  imports: [
+    AsyncPipe, PaginationComponent, NgSwitch, NgbTooltipModule, NgForOf, NgIf,
+    NgSwitchCase,
+    ReactiveFormsModule, RouterLink, ThemedLoadingComponent, TranslateModule,
+  ],
+  standalone: true,
 })
 export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
 
@@ -42,7 +83,7 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'etdul',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -85,7 +126,7 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
     private notificationsService: NotificationsService,
     private formBuilder: FormBuilder,
     private authorizationService: AuthorizationDataService,
-    private paginationService: PaginationService,) {
+    private paginationService: PaginationService) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
       query: this.currentSearchQuery,
@@ -143,16 +184,16 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
                     etdunitDtoModel.etdunit = etdunit;
                     etdunitDtoModel.collections = collections.payload;
                     return etdunitDtoModel;
-                  }
-                  )
+                  },
+                  ),
                 );
               }
             })).pipe(map((dtos: EtdUnitDtoModel[]) => {
               return buildPaginatedList(etdunits.pageInfo, dtos);
             }));
-          })
+          }),
         );
-      })
+      }),
     ).subscribe((value: PaginatedList<EtdUnitDtoModel>) => {
       this.etdunitsDto$.next(value);
       this.pageInfoState$.next(value.pageInfo);

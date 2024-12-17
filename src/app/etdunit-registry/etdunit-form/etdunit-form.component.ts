@@ -1,36 +1,74 @@
-import { ChangeDetectorRef, Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormControlModel, DynamicFormLayout, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormLayout,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
   Observable,
   Subscription,
 } from 'rxjs';
-import { take, debounceTime } from 'rxjs/operators';
+import {
+  debounceTime,
+  take,
+} from 'rxjs/operators';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { RequestService } from 'src/app/core/data/request.service';
-import { EtdUnit } from '../models/etdunit.model';
-import { EtdUnitDataService } from '../etdunit-data.service';
 import { NoContent } from 'src/app/core/shared/NoContent.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
-import { hasValue, isNotEmpty } from 'src/app/shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from 'src/app/shared/empty.util';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
+import { FormComponent } from 'src/app/shared/form/form.component';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+
+import { EtdUnitDataService } from '../etdunit-data.service';
+import { EtdUnit } from '../models/etdunit.model';
+import { EtdUnitCollectionsListComponent } from './etdunit-collection-list/etdunit-collections-list.component';
 import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
 
 @Component({
   selector: 'ds-etdunit-form',
-  templateUrl: './etdunit-form.component.html'
+  templateUrl: './etdunit-form.component.html',
+  imports: [AsyncPipe, EtdUnitCollectionsListComponent, FormComponent, NgIf, TranslateModule],
+  standalone: true,
 })
 /**
  * A form used for creating and editing etdunits
@@ -60,8 +98,8 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     etdunitName: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
   };
 
@@ -116,7 +154,9 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
     private authorizationService: AuthorizationDataService,
     private modalService: NgbModal,
     public requestService: RequestService,
-    protected changeDetectorRef: ChangeDetectorRef
+    protected changeDetectorRef: ChangeDetectorRef,
+    public dsoNameService: DSONameService,
+
   ) {
   }
 
@@ -146,7 +186,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
 
-      if (!!this.formGroup.controls.etdunitName) {
+      if (this.formGroup.controls.etdunitName) {
         this.formGroup.controls.etdunitName.setAsyncValidators(ValidateEtdUnitExists.createValidator(this.etdunitDataService));
         this.etdunitNameValueChangeSubscribe = this.etdunitName.valueChanges.pipe(debounceTime(300)).subscribe(() => {
           this.changeDetectorRef.detectChanges();
@@ -156,7 +196,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
       this.subs.push(
         observableCombineLatest(
           this.etdunitDataService.getActiveEtdUnit(),
-          this.canEdit$
+          this.canEdit$,
         ).subscribe(([activeEtdUnit, canEdit]) => {
           if (activeEtdUnit != null) {
             // Disable etdunit name exists validator
@@ -177,7 +217,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
               }
             }, 200);
           }
-        })
+        }),
       );
     });
   }
@@ -205,7 +245,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
         } else {
           this.editEtdUnit(etdunit);
         }
-      }
+      },
     );
   }
 
@@ -216,7 +256,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
   createNewEtdUnit(values) {
     const etdunitToCreate = Object.assign(new EtdUnit(), values);
     this.etdunitDataService.create(etdunitToCreate).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<EtdUnit>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.created.success', { name: etdunitToCreate.name }));
@@ -245,12 +285,12 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
     // Relevant message for etdunit name in use
     this.subs.push(this.etdunitDataService.searchEtdUnits(etdunit.name, {
       currentPage: 1,
-      elementsPerPage: 0
+      elementsPerPage: 0,
     }).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload())
       .subscribe((list: PaginatedList<EtdUnit>) => {
         if (list.totalElements > 0) {
           this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.' + notificationSection + '.failure.etdunitNameInUse', {
-            name: etdunit.name
+            name: this.dsoNameService.getName(etdunit),
           }));
         }
       }));
@@ -267,18 +307,18 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
       operations = [...operations, {
         op: 'replace',
         path: '/name',
-        value: this.etdunitName.value
+        value: this.etdunitName.value,
       }];
     }
 
     this.etdunitDataService.patch(etdunit, operations).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<EtdUnit>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: rd.payload.name }));
+        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: this.dsoNameService.getName(rd.payload) }));
         this.submitForm.emit(rd.payload);
       } else {
-        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.edited.failure', { name: etdunit.name }));
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.edited.failure', { name: this.dsoNameService.getName(etdunit) }));
         this.cancelForm.emit();
       }
     });
@@ -327,7 +367,7 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
   delete() {
     this.etdunitDataService.getActiveEtdUnit().pipe(take(1)).subscribe((etdunit: EtdUnit) => {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = etdunit;
+      modalRef.componentInstance.name = this.dsoNameService.getName(etdunit);
       modalRef.componentInstance.headerLabel = this.messagePrefix + '.delete-etdunit.modal.header';
       modalRef.componentInstance.infoLabel = this.messagePrefix + '.delete-etdunit.modal.info';
       modalRef.componentInstance.cancelLabel = this.messagePrefix + '.delete-etdunit.modal.cancel';
@@ -340,11 +380,11 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
             this.etdunitDataService.delete(etdunit.id).pipe(getFirstCompletedRemoteData())
               .subscribe((rd: RemoteData<NoContent>) => {
                 if (rd.hasSucceeded) {
-                  this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: etdunit.name }));
+                  this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: this.dsoNameService.getName(etdunit) }));
                   this.onCancel();
                 } else {
                   this.notificationsService.error(
-                    this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: etdunit.name }),
+                    this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: this.dsoNameService.getName(etdunit) }),
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.content', { cause: rd.errorMessage }));
                 }
               });

@@ -1,5 +1,9 @@
+import {
+  EtdUnitRegistryAction,
+  EtdUnitRegistryActionTypes,
+  EtdUnitRegistryEditEtdUnitAction,
+} from './etdunit-registry.actions';
 import { EtdUnit } from './models/etdunit.model';
-import { EtdUnitRegistryAction, EtdUnitRegistryActionTypes, EtdUnitRegistryEditEtdUnitAction } from './etdunit-registry.actions';
 
 
 /**
@@ -28,13 +32,13 @@ export function etdunitRegistryReducer(state = initialState, action: EtdUnitRegi
 
     case EtdUnitRegistryActionTypes.EDIT_UNIT: {
       return Object.assign({}, state, {
-        editEtdUnit: (action as EtdUnitRegistryEditEtdUnitAction).etdunit
+        editEtdUnit: (action as EtdUnitRegistryEditEtdUnitAction).etdunit,
       });
     }
 
     case EtdUnitRegistryActionTypes.CANCEL_EDIT_UNIT: {
       return Object.assign({}, state, {
-        editEtdUnit: null
+        editEtdUnit: null,
       });
     }
 

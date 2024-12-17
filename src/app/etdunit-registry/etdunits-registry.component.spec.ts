@@ -1,32 +1,60 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { PaginationService } from 'ngx-pagination';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { DSOChangeAnalyzer } from 'src/app/core/data/dso-change-analyzer.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { Collection } from 'src/app/core/shared/collection.model';
-import { EtdUnit } from './models/etdunit.model';
-import { EtdUnitDataService } from './etdunit-data.service';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { RouteService } from 'src/app/core/services/route.service';
+import { Collection } from 'src/app/core/shared/collection.model';
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { RouterMock } from 'src/app/shared/mocks/router.mock';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import {
+  EtdUnitMock,
+  EtdUnitMock2,
+} from 'src/app/shared/testing/etdunit-mock';
 import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from 'src/app/shared/testing/pagination-service.stub';
 import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
-import { EtdUnitMock, EtdUnitMock2 } from 'src/app/shared/testing/etdunit-mock';
+import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { EtdUnitDataService } from './etdunit-data.service';
 import { EtdUnitsRegistryComponent } from './etdunits-registry.component';
+import { EtdUnit } from './models/etdunit.model';
 
 describe('EtdUnitsRegistryComponent', () => {
   let component: EtdUnitsRegistryComponent;
@@ -61,8 +89,8 @@ describe('EtdUnitsRegistryComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
     });
   });
@@ -81,7 +109,7 @@ describe('EtdUnitsRegistryComponent', () => {
               elementsPerPage: this.allUnits.length,
               totalElements: this.allUnits.length,
               totalPages: 1,
-              currentPage: 1
+              currentPage: 1,
             }), this.allUnits));
           }
           case 'query_with_no_results':
@@ -89,20 +117,20 @@ describe('EtdUnitsRegistryComponent', () => {
               elementsPerPage: 1,
               totalElements: 0,
               totalPages: 0,
-              currentPage: 1
+              currentPage: 1,
             }), []));
           case 'query_with_one_result':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
               elementsPerPage: 1,
               totalElements: 1,
               totalPages: 1,
-              currentPage: 1
+              currentPage: 1,
             }), [EtdUnitMock]));
         }
       },
       getEtdUnitEditPageRouterLink(etdunit: EtdUnit): string {
         return '/access-control/etdunit/' + etdunit.id;
-      }
+      },
     };
     collectionDataServiceStub = {
       findListByHref(href: string): Observable<RemoteData<PaginatedList<Collection>>> {
@@ -113,9 +141,10 @@ describe('EtdUnitsRegistryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EtdUnitsRegistryComponent],
-      providers: [
-        DSOChangeAnalyzer,
+      declarations: [],
+      imports: [EtdUnitsRegistryComponent],
+      providers: [EtdUnitsRegistryComponent,
+        { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: EtdUnitDataService, useValue: etdunitDataServiceStub },
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -123,10 +152,18 @@ describe('EtdUnitsRegistryComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        provideMockStore(),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(EtdUnitsRegistryComponent, {
+      remove: {
+        imports: [
+          PaginationComponent,
+        ],
+      },
+    }).compileComponents();
   });
 
   beforeEach(() => {

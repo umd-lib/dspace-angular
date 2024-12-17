@@ -1,21 +1,40 @@
-// UMD Customization
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-// End UMD Customization
+import {
+  CdkTreeModule,
+  FlatTreeControl,
+} from '@angular/cdk/tree';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
-// UMD Customization
-import { SortDirection, SortOptions } from '../../../../../app/core/cache/models/sort-options.model';
-import { CommunityListService, MAX_COMCOLS_PER_PAGE } from '../community-list-service';
-// End UMD Customization
-import { CommunityListDatasource } from '../community-list-datasource';
-import { FlatTreeControl } from '@angular/cdk/tree';
-// UMD Customization
-import { isEmpty } from '../../../../../app/shared/empty.util';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
+import { TruncatableComponent } from 'src/app/shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
+
 import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
-import { FindListOptions } from '../../../../../app/core/data/find-list-options.model';
 import { DSONameService } from '../../../../../app/core/breadcrumbs/dso-name.service';
-import { CommunityGroupDataService } from '../../../../../app/core/data/community-group-data.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../../app/core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../../../../app/core/data/community-data.service';
-// End UMD Customization
+import { CommunityGroupDataService } from '../../../../../app/core/data/community-group-data.service';
+import { FindListOptions } from '../../../../../app/core/data/find-list-options.model';
+import { isEmpty } from '../../../../../app/shared/empty.util';
+import { CommunityListDatasource } from '../community-list-datasource';
+import {
+  CommunityListService,
+  MAX_COMCOLS_PER_PAGE,
+} from '../community-list-service';
 
 // UMD Customization
 /**
@@ -23,18 +42,15 @@ import { CommunityDataService } from '../../../../../app/core/data/community-dat
  * top communities list of a particular CommunityGroup whereas the default implementation
  * uses the CommunityDataService to the overall top communities.
  */
-
-// The reason for using 'ds-cg-community-list' as the selector is:
-// The custom version accepts a "Input" field, whereas the 'ds-themed-community-list' does not.
-// Therefore, the parent CommunityListPage component cannot use the 'ds-themed-community-list' to
-// get the custom version loaded, and using the 'ds-community-list' tag as the selector and referencing
-// that in the  CommunityListPage component template leads to runtime error due to multiple components
-// matching that selector.
+// The "ds-themed-base-community-list" selector is used to satisfy the
+// "dspace-angular-ts/themed-component-selectors" Angular Lint error
 @Component({
-  selector: 'ds-cg-community-list',
+  selector: 'ds-themed-base-community-list',
   templateUrl: './community-list.component.html',
-  providers: [CommunityListService, CommunityDataService, CommunityGroupDataService]
+  providers: [CommunityListService, CommunityDataService, CommunityGroupDataService],
   //styleUrls: ['./community-list.component.scss'],
+  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  standalone: true,
 })
 // End UMD Customization
 
@@ -51,7 +67,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   public loadingNode: FlatNode;
 
   treeControl = new FlatTreeControl<FlatNode>(
-    (node: FlatNode) => node.level, (node: FlatNode) => true
+    (node: FlatNode) => node.level, (node: FlatNode) => true,
   );
   dataSource: CommunityListDatasource;
   paginationConfig: FindListOptions;
@@ -157,7 +173,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     } else {
       this.paginationConfig.currentPage++;
       // UMD Customization
-      // When the "Show More" button is clicked in a subcommunoty, retrieve up
+      // When the "Show More" button is clicked in a subcommunity, retrieve up
       // to MAX_COMCOLS_PER_PAGE additional entries, instead of the DSpace
       // default of 5 entries
       this.paginationConfig.elementsPerPage = MAX_COMCOLS_PER_PAGE;

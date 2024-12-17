@@ -1,4 +1,5 @@
 import { Unit } from 'src/app/core/eperson/models/unit.model';
+
 import { GroupMock } from './group-mock';
 
 export const UnitMock: Unit = Object.assign(new Unit(), {
@@ -8,7 +9,7 @@ export const UnitMock: Unit = Object.assign(new Unit(), {
   type: 'unit',
   _links: {
     self: {
-        href: 'https://rest.api/server/api/eperson/units/testunitid',
+      href: 'https://rest.api/server/api/eperson/units/testunitid',
     },
     groups: {  },
   },
@@ -21,7 +22,7 @@ export const UnitMock2: Unit = Object.assign(new Unit(), {
   type: 'unit',
   _links: {
     self: {
-        href: 'https://rest.api/server/api/eperson/units/testunitid2',
+      href: 'https://rest.api/server/api/eperson/units/testunitid2',
     },
     groups: {  },
   },
@@ -35,7 +36,7 @@ export const UnitMockWithGroup: Unit = Object.assign(new Unit(), {
   groups: [GroupMock],
   _links: {
     self: {
-        href: 'https://rest.api/server/api/eperson/units/testunitid3_with_group',
+      href: 'https://rest.api/server/api/eperson/units/testunitid3_with_group',
     },
     groups: { href: 'https://rest.api/server/api/eperson/units/testunitid3_with_group/groups' },
   },

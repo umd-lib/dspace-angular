@@ -1,9 +1,21 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { CommunityListPageComponent } from './community-list-page.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../app/shared/mocks/translate-loader.mock';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
+
+import { TranslateLoaderMock } from '../../../../app/shared/mocks/translate-loader.mock';
+import { ThemedCommunityListComponent } from './community-list/themed-community-list.component';
+import { CommunityListPageComponent } from './community-list-page.component';
+import { CommunityListService } from './community-list-service';
 
 describe('CommunityListPageComponent', () => {
   let component: CommunityListPageComponent;
@@ -15,17 +27,22 @@ describe('CommunityListPageComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
+            useClass: TranslateLoaderMock,
           },
         }),
-      ],
-      declarations: [CommunityListPageComponent],
-      providers: [
         CommunityListPageComponent,
       ],
+      providers: [
+        CommunityListPageComponent,
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: CommunityListService, useValue: {} },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-      .compileComponents();
+    }).overrideComponent(CommunityListPageComponent, {
+      remove: {
+        imports: [ThemedCommunityListComponent],
+      },
+    }).compileComponents();
   }));
 
   beforeEach(() => {

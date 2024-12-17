@@ -35,11 +35,13 @@ export class AuthMethod {
         this.location = location;
         break;
       }
+      // UMD Customization
       case 'cas': {
         this.authMethodType = AuthMethodType.Cas;
         this.location = location;
         break;
       }
+      // End UMD Customization
       case 'orcid': {
         this.authMethodType = AuthMethodType.Orcid;
         this.location = location;

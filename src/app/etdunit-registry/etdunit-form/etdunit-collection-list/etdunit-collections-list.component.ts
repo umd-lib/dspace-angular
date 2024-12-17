@@ -1,33 +1,65 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import {
-  Observable,
-  of as observableOf,
-  Subscription,
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  Observable,
   ObservedValueOf,
+  of as observableOf,
+  Subscription,
 } from 'rxjs';
-import { defaultIfEmpty, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import {buildPaginatedList, PaginatedList} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import {
+  defaultIfEmpty,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+import { RequestParam } from 'src/app/core/cache/models/request-param.model';
+import { CollectionDataService } from 'src/app/core/data/collection-data.service';
+import { FindListOptions } from 'src/app/core/data/find-list-options.model';
+import { Collection } from 'src/app/core/shared/collection.model';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
+import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData, getAllCompletedRemoteData, getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
-import { EtdUnitCollectionDtoModel } from './etdunit-collection-dto.model';
-import { EtdUnit } from '../../models/etdunit.model';
 import { EtdUnitDataService } from '../../etdunit-data.service';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { Collection } from 'src/app/core/shared/collection.model';
-import { FindListOptions } from 'src/app/core/data/find-list-options.model';
-import { RequestParam } from 'src/app/core/cache/models/request-param.model';
+import { EtdUnit } from '../../models/etdunit.model';
+import { EtdUnitCollectionDtoModel } from './etdunit-collection-dto.model';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -40,7 +72,12 @@ enum SubKey {
 
 @Component({
   selector: 'ds-etdunit-collections-list',
-  templateUrl: './etdunit-collections-list.component.html'
+  templateUrl: './etdunit-collections-list.component.html',
+  imports: [
+    AsyncPipe, NgForOf, NgIf, PaginationComponent, ReactiveFormsModule,
+    RouterLink, TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * The list of collections in the edit ETD unit page
@@ -65,7 +102,7 @@ export class EtdUnitCollectionsListComponent implements OnInit, OnDestroy {
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'etdUnitsSearchResult',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
   /**
    * Pagination config used to display the list of Collections of active ETD unit being edited
@@ -73,7 +110,7 @@ export class EtdUnitCollectionsListComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'etdUnitCollectionsList',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -133,37 +170,37 @@ export class EtdUnitCollectionsListComponent implements OnInit, OnDestroy {
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((currentPagination) => {
           return this.collectionDataService.findListByHref(this.etdUnitBeingEdited._links.collections.href, {
-              currentPage: currentPagination.currentPage,
-              elementsPerPage: currentPagination.pageSize
-            }, true, true
+            currentPage: currentPagination.currentPage,
+            elementsPerPage: currentPagination.pageSize,
+          }, true, true,
           );
         }),
-      getAllCompletedRemoteData(),
-      map((rd: RemoteData<any>) => {
-        if (rd.hasFailed) {
-          this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', {cause: rd.errorMessage}));
-        } else {
-          return rd;
-        }
-      }),
-      switchMap((collectionListRD: RemoteData<PaginatedList<Collection>>) => {
-        const dtos$ = observableCombineLatest(...collectionListRD.payload.page.map((collection: Collection) => {
-          const dto$: Observable<EtdUnitCollectionDtoModel> = observableCombineLatest(
-            this.isCollectionOfEtdUnit(collection), (isInEtdUnit: ObservedValueOf<Observable<boolean>>) => {
-              const etdUnitCollectionDtoModel: EtdUnitCollectionDtoModel = new EtdUnitCollectionDtoModel();
-              etdUnitCollectionDtoModel.collection = collection;
-              etdUnitCollectionDtoModel.isInEtdUnit = isInEtdUnit;
-              return etdUnitCollectionDtoModel;
-            });
-          return dto$;
+        getAllCompletedRemoteData(),
+        map((rd: RemoteData<any>) => {
+          if (rd.hasFailed) {
+            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', { cause: rd.errorMessage }));
+          } else {
+            return rd;
+          }
+        }),
+        switchMap((collectionListRD: RemoteData<PaginatedList<Collection>>) => {
+          const dtos$ = observableCombineLatest(...collectionListRD.payload.page.map((collection: Collection) => {
+            const dto$: Observable<EtdUnitCollectionDtoModel> = observableCombineLatest(
+              this.isCollectionOfEtdUnit(collection), (isInEtdUnit: ObservedValueOf<Observable<boolean>>) => {
+                const etdUnitCollectionDtoModel: EtdUnitCollectionDtoModel = new EtdUnitCollectionDtoModel();
+                etdUnitCollectionDtoModel.collection = collection;
+                etdUnitCollectionDtoModel.isInEtdUnit = isInEtdUnit;
+                return etdUnitCollectionDtoModel;
+              });
+            return dto$;
+          }));
+          return dtos$.pipe(defaultIfEmpty([]), map((dtos: EtdUnitCollectionDtoModel[]) => {
+            return buildPaginatedList(collectionListRD.payload.pageInfo, dtos);
+          }));
+        }))
+        .subscribe((paginatedListOfDTOs: PaginatedList<EtdUnitCollectionDtoModel>) => {
+          this.collectionsOfEtdUnitDtos.next(paginatedListOfDTOs);
         }));
-        return dtos$.pipe(defaultIfEmpty([]), map((dtos: EtdUnitCollectionDtoModel[]) => {
-          return buildPaginatedList(collectionListRD.payload.pageInfo, dtos);
-        }));
-      }))
-      .subscribe((paginatedListOfDTOs: PaginatedList<EtdUnitCollectionDtoModel>) => {
-        this.collectionsOfEtdUnitDtos.next(paginatedListOfDTOs);
-      }));
   }
 
   /**
@@ -176,7 +213,7 @@ export class EtdUnitCollectionsListComponent implements OnInit, OnDestroy {
         if (etdUnit != null) {
           return this.collectionDataService.findListByHref(etdUnit._links.collections.href, {
             currentPage: 1,
-            elementsPerPage: 9999
+            elementsPerPage: 9999,
           })
             .pipe(
               getFirstSucceededRemoteData(),
@@ -247,14 +284,14 @@ export class EtdUnitCollectionsListComponent implements OnInit, OnDestroy {
           const scope: string = data.scope;
           if (query != null && this.currentSearchQuery !== query && this.etdUnitBeingEdited) {
             this.router.navigate([], {
-              queryParamsHandling: 'merge'
+              queryParamsHandling: 'merge',
             });
             this.currentSearchQuery = query;
             this.paginationService.resetPage(this.configSearch.id);
           }
           if (scope != null && this.currentSearchScope !== scope && this.etdUnitBeingEdited) {
             this.router.navigate([], {
-              queryParamsHandling: 'merge'
+              queryParamsHandling: 'merge',
             });
             this.currentSearchScope = scope;
             this.paginationService.resetPage(this.configSearch.id);
@@ -264,12 +301,12 @@ export class EtdUnitCollectionsListComponent implements OnInit, OnDestroy {
           return this.searchCollections(this.currentSearchQuery, {
             currentPage: paginationOptions.currentPage,
             elementsPerPage: paginationOptions.pageSize,
-           }, true, true/*, followLink('object')*/);
+          }, true, true/*, followLink('object')*/);
         }),
         getAllCompletedRemoteData(),
         map((rd: RemoteData<any>) => {
           if (rd.hasFailed) {
-            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', {cause: rd.errorMessage}));
+            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', { cause: rd.errorMessage }));
           } else {
             return rd;
           }

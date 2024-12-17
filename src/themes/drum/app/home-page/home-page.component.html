@@ -1,10 +1,10 @@
-<ds-themed-home-news></ds-themed-home-news>
+<ds-home-news></ds-home-news>
 <div class="container">
   <ng-container *ngIf="(site$ | async) as site">
     <ds-view-tracker [object]="site"></ds-view-tracker>
   </ng-container>
   <!-- UMD Customization -->
-  <ds-themed-search-form class="home-search" [inPlaceSearch]="false" [searchPlaceholder]="'home.search-form.placeholder' | translate"></ds-themed-search-form>
+  <ds-search-form class="home-search" [inPlaceSearch]="false" [searchPlaceholder]="'home.search-form.placeholder' | translate"></ds-search-form>
   <div class="home-card-group">
     <div class="card">
       <div class="card-img">
@@ -69,11 +69,11 @@
     <div class="col-sm-6">
       <h2>{{ 'communityList.title' | translate }}</h2>
       <h3>{{ 'community_group.faculty.title' | translate }}</h3>
-      <ds-cg-community-list [communityGroupId]="FACULTY_COMMUNITY_GROUP" [size]="COMMUNITY_LIST_SIZE">
-      </ds-cg-community-list>
+      <ds-community-list [communityGroupId]="FACULTY_COMMUNITY_GROUP" [size]="COMMUNITY_LIST_SIZE">
+      </ds-community-list>
       <h3 class="mt-4">{{ 'community_group.um.title' | translate }}</h3>
-      <ds-cg-community-list [communityGroupId]="UM_COMMUNITY_GROUP" [size]="COMMUNITY_LIST_SIZE">
-      </ds-cg-community-list>
+      <ds-community-list [communityGroupId]="UM_COMMUNITY_GROUP" [size]="COMMUNITY_LIST_SIZE">
+      </ds-community-list>
     </div>
     <div class="col-sm-6">
       <ds-recent-item-list *ngIf="recentSubmissionspageSize>0"></ds-recent-item-list>

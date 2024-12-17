@@ -1,4 +1,4 @@
-<ds-themed-results-back-button *ngIf="showBackButton | async" [back]="back"></ds-themed-results-back-button>
+<ds-results-back-button *ngIf="showBackButton$ | async" [back]="back"></ds-results-back-button>
 <div class="row" *ngIf="iiifEnabled">
   <div class="col-12">
     <ds-mirador-viewer id="iiif-viewer"
@@ -27,13 +27,13 @@
     <!-- Files -->
     <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
-        <ds-themed-thumbnail [thumbnail]="object?.thumbnail | async"></ds-themed-thumbnail>
+        <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     </ng-container>
     <div *ngIf="mediaViewer.image || mediaViewer.video" class="mb-2">
-      <ds-themed-media-viewer [item]="object"></ds-themed-media-viewer>
+      <ds-media-viewer [item]="object"></ds-media-viewer>
     </div>
-    <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
+    <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
 
     <!-- Publication or External Link -->
     <ds-item-page-uri-field [item]="object"
@@ -45,12 +45,12 @@
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
 
     <!-- Authors -->
-    <ds-themed-metadata-representation-list class="ds-item-page-mixed-author-field"
+    <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
       [parentItem]="object"
       [itemType]="'Person'"
       [metadataFields]="['dc.contributor.author', 'dc.creator']"
       [label]="'relationships.isAuthorOf' | translate">
-    </ds-themed-metadata-representation-list>
+    </ds-metadata-representation-list>
 
     <!-- Advisor -->
     <ds-generic-item-page-field [item]="object"

@@ -1,44 +1,72 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from 'src/app/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from 'src/app/core/cache/object-cache.service';
+import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { DSOChangeAnalyzer } from 'src/app/core/data/dso-change-analyzer.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList, PaginatedList } from 'src/app/core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { EtdUnit } from '../models/etdunit.model';
-import { EtdUnitDataService } from '../etdunit-data.service';
 import { HALEndpointService } from 'src/app/core/shared/hal-endpoint.service';
 import { NoContent } from 'src/app/core/shared/NoContent.model';
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { UUIDService } from 'src/app/core/shared/uuid.service';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
+import { FormComponent } from 'src/app/shared/form/form.component';
+import { DSONameServiceMock } from 'src/app/shared/mocks/dso-name.service.mock';
 import { getMockFormBuilderService } from 'src/app/shared/mocks/form-builder-service.mock';
 import { RouterMock } from 'src/app/shared/mocks/router.mock';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import {
+  EtdUnitMock,
+  EtdUnitMock2,
+} from 'src/app/shared/testing/etdunit-mock';
 import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
-import { EtdUnitMock, EtdUnitMock2 } from 'src/app/shared/testing/etdunit-mock';
-import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
+
+import { EtdUnitDataService } from '../etdunit-data.service';
+import { EtdUnit } from '../models/etdunit.model';
 import { EtdUnitFormComponent } from './etdunit-form.component';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { SearchConfigurationService } from 'src/app/core/shared/search/search-configuration.service';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from 'src/app/shared/mocks/dso-name.service.mock';
+import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
 
 describe('EtdUnitFormComponent', () => {
   let component: EtdUnitFormComponent;
@@ -94,7 +122,7 @@ describe('EtdUnitFormComponent', () => {
       create(etdunit: EtdUnit): Observable<RemoteData<EtdUnit>> {
         this.allUnits = [...this.allUnits, etdunit];
         this.createdUnit = Object.assign({}, etdunit, {
-          _links: { self: { href: 'etdunit-selflink' } }
+          _links: { self: { href: 'etdunit-selflink' } },
         });
         return createSuccessfulRemoteDataObject$(this.createdUnit);
       },
@@ -103,10 +131,10 @@ describe('EtdUnitFormComponent', () => {
       },
       getEtdUnitEditPageRouterLinkWithID(id: string) {
         return `etdunit-edit-page-for-${id}`;
-      }
+      },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     builderService = Object.assign(getMockFormBuilderService(), {
       createFormGroup(formModel, options = null) {
@@ -169,21 +197,21 @@ describe('EtdUnitFormComponent', () => {
       },
       isObject(value) {
         return typeof value === 'object' && value !== null;
-      }
+      },
     });
     translateService = getMockTranslateService();
     router = new RouterMock();
     notificationService = new NotificationsServiceStub();
     return TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+      imports: [CommonModule, EtdUnitFormComponent, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
-      declarations: [EtdUnitFormComponent],
+      declarations: [],
       providers: [EtdUnitFormComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EtdUnitDataService, useValue: etdunitsDataServiceStub },
@@ -198,15 +226,19 @@ describe('EtdUnitFormComponent', () => {
         { provide: HALEndpointService, useValue: {} },
         {
           provide: ActivatedRoute,
-          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) }
+          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) },
         },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: CollectionDataService, useValue: {} },
-        { provide: SearchConfigurationService, useValue: {} },
-        { provide: SearchService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(EtdUnitFormComponent, {
+      remove: {
+        imports: [
+          FormComponent,
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -305,7 +337,7 @@ describe('EtdUnitFormComponent', () => {
         const etdunitsDataServiceStubWithUnit = Object.assign(etdunitsDataServiceStub, {
           searchEtdUnits(query: string): Observable<RemoteData<PaginatedList<EtdUnit>>> {
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [expected]));
-          }
+          },
         });
         component.formGroup.controls.etdunitName.setValue('testName');
         component.formGroup.controls.etdunitName.setAsyncValidators(ValidateEtdUnitExists.createValidator(etdunitsDataServiceStubWithUnit));

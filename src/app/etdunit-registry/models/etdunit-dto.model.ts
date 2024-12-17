@@ -1,5 +1,6 @@
-import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Collection } from 'src/app/core/shared/collection.model';
+
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { EtdUnit } from './etdunit.model';
 
 /**

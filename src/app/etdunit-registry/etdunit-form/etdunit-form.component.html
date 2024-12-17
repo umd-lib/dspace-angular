@@ -18,14 +18,14 @@
           <button (click)="onCancel()" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i>
             {{messagePrefix + '.return' | translate}}</button>
         </div>
-        <div after *ngIf="etdunitBeingEdited != null" class="btn-group">
-          <button class="btn btn-danger delete-button" [disabled]="!(canEdit$ | async)" (click)="delete()">
+        <div after *ngIf="(canEdit$ | async)" class="btn-group">
+          <button (click)="delete()" class="btn btn-danger delete-button" type="button">
             <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
           </button>
         </div>
       </ds-form>
 
-      <ds-etdunit-collections-list *ngIf="etdunitBeingEdited != null"
+      <ds-etdunit-collections-list *ngIf="etdunitBeingEdited !== undefined"
                          [messagePrefix]="messagePrefix + '.collections-list'"></ds-etdunit-collections-list>
 
     </div>
