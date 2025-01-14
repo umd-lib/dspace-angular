@@ -56,6 +56,7 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { EtdUnitDataService } from './etdunit-data.service';
@@ -126,7 +127,9 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
     private notificationsService: NotificationsService,
     private formBuilder: FormBuilder,
     private authorizationService: AuthorizationDataService,
-    private paginationService: PaginationService) {
+    private paginationService: PaginationService,
+    public dsoNameService: DSONameService,
+  ) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
       query: this.currentSearchQuery,
@@ -225,10 +228,10 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
         .subscribe((rd: RemoteData<NoContent>) => {
           if (rd.hasSucceeded) {
             this.deletedEtdUnitsIds = [...this.deletedEtdUnitsIds, etdunit.etdunit.id];
-            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: etdunit.etdunit.name }));
+            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(etdunit.etdunit) }));
           } else {
             this.notificationsService.error(
-              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: etdunit.etdunit.name }),
+              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: this.dsoNameService.getName(etdunit.etdunit) }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
         });

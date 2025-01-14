@@ -33,6 +33,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import {
@@ -124,7 +125,9 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private formBuilder: FormBuilder,
               private authorizationService: AuthorizationDataService,
-              private paginationService: PaginationService) {
+              private paginationService: PaginationService,
+              public dsoNameService: DSONameService,
+  ) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
       query: this.currentSearchQuery,
@@ -223,10 +226,10 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
         .subscribe((rd: RemoteData<NoContent>) => {
           if (rd.hasSucceeded) {
             this.deletedUnitsIds = [...this.deletedUnitsIds, unit.unit.id];
-            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: unit.unit.name }));
+            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(unit.unit) }));
           } else {
             this.notificationsService.error(
-              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: unit.unit.name }),
+              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: this.dsoNameService.getName(unit.unit) }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
         });
