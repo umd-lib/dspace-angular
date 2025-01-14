@@ -34,6 +34,8 @@ import {
 } from 'rxjs';
 import {
   debounceTime,
+  map,
+  switchMap,
   take,
 } from 'rxjs/operators';
 import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
@@ -52,6 +54,7 @@ import { AlertType } from 'src/app/shared/alert/alert-type';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import {
   hasValue,
+  hasValueOperator,
   isNotEmpty,
 } from 'src/app/shared/empty.util';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
@@ -170,8 +173,15 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
         this.setActiveEtdUnit(params.etdunitId);
       }
     }));
-    this.canEdit$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
-    observableCombineLatest(this.translateService.get(`${this.messagePrefix}.etdunitName`)).subscribe(([etdunitNameLabel]) => {
+    this.canEdit$ = this.etdunitDataService.getActiveEtdUnit().pipe(
+      hasValueOperator(),
+      switchMap((etdUnit: EtdUnit) => {
+        return this.authorizationService.isAuthorized(FeatureID.CanDelete, isNotEmpty(etdUnit) ? etdUnit.self : undefined).pipe(
+          map((isAuthorized: boolean) => isAuthorized),
+        );
+      }),
+    );
+    this.translateService.get(`${this.messagePrefix}.etdunitName`).subscribe((etdunitNameLabel) => {
       this.etdunitName = new DynamicInputModel({
         id: 'etdunitName',
         label: etdunitNameLabel,
@@ -194,10 +204,10 @@ export class EtdUnitFormComponent implements OnInit, OnDestroy {
       }
 
       this.subs.push(
-        observableCombineLatest(
+        observableCombineLatest([
           this.etdunitDataService.getActiveEtdUnit(),
           this.canEdit$,
-        ).subscribe(([activeEtdUnit, canEdit]) => {
+        ]).subscribe(([activeEtdUnit, canEdit]) => {
           if (activeEtdUnit != null) {
             // Disable etdunit name exists validator
             this.formGroup.controls.etdunitName.clearAsyncValidators();
