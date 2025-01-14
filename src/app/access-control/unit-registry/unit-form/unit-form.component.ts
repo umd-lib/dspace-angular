@@ -42,6 +42,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
@@ -168,7 +169,9 @@ export class UnitFormComponent implements OnInit, OnDestroy {
     private authorizationService: AuthorizationDataService,
     private modalService: NgbModal,
     public requestService: RequestService,
-    protected changeDetectorRef: ChangeDetectorRef) {
+    protected changeDetectorRef: ChangeDetectorRef,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   ngOnInit() {
@@ -324,7 +327,7 @@ export class UnitFormComponent implements OnInit, OnDestroy {
       .subscribe((list: PaginatedList<Unit>) => {
         if (list.totalElements > 0) {
           this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.' + notificationSection + '.failure.unitNameInUse', {
-            name: unit.name,
+            name: this.dsoNameService.getName(unit),
           }));
         }
       }));
@@ -357,10 +360,10 @@ export class UnitFormComponent implements OnInit, OnDestroy {
       getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Unit>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: rd.payload.name }));
+        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: this.dsoNameService.getName(rd.payload) }));
         this.submitForm.emit(rd.payload);
       } else {
-        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.edited.failure', { name: unit.name }));
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.edited.failure', { name: this.dsoNameService.getName(unit) }));
         this.cancelForm.emit();
       }
     });
@@ -407,7 +410,7 @@ export class UnitFormComponent implements OnInit, OnDestroy {
   delete() {
     this.unitDataService.getActiveUnit().pipe(take(1)).subscribe((unit: Unit) => {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = unit;
+      modalRef.componentInstance.name = this.dsoNameService.getName(unit);
       modalRef.componentInstance.headerLabel = this.messagePrefix + '.delete-unit.modal.header';
       modalRef.componentInstance.infoLabel = this.messagePrefix + '.delete-unit.modal.info';
       modalRef.componentInstance.cancelLabel = this.messagePrefix + '.delete-unit.modal.cancel';
@@ -420,11 +423,11 @@ export class UnitFormComponent implements OnInit, OnDestroy {
             this.unitDataService.delete(unit.id).pipe(getFirstCompletedRemoteData())
               .subscribe((rd: RemoteData<NoContent>) => {
                 if (rd.hasSucceeded) {
-                  this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: unit.name }));
+                  this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: this.dsoNameService.getName(unit) }));
                   this.onCancel();
                 } else {
                   this.notificationsService.error(
-                    this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: unit.name }),
+                    this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: this.dsoNameService.getName(unit) }),
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.content', { cause: rd.errorMessage }));
                 }
               });
