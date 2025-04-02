@@ -57,6 +57,7 @@ import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { BtnDisabledDirective } from '../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { EtdUnitDataService } from './etdunit-data.service';
@@ -68,8 +69,8 @@ import { EtdUnitDtoModel } from './models/etdunit-dto.model';
   templateUrl: './etdunits-registry.component.html',
   styleUrls: ['./etdunits-registry.component.scss'],
   imports: [
-    AsyncPipe, PaginationComponent, NgSwitch, NgbTooltipModule, NgForOf, NgIf,
-    NgSwitchCase,
+    AsyncPipe, BtnDisabledDirective, PaginationComponent, NgSwitch,
+    NgbTooltipModule, NgForOf, NgIf, NgSwitchCase,
     ReactiveFormsModule, RouterLink, ThemedLoadingComponent, TranslateModule,
   ],
   standalone: true,

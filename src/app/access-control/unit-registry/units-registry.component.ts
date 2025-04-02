@@ -55,6 +55,7 @@ import {
   getRemoteDataPayload,
 } from 'src/app/core/shared/operators';
 import { PageInfo } from 'src/app/core/shared/page-info.model';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 import { hasValue } from 'src/app/shared/empty.util';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
@@ -67,8 +68,8 @@ import { followLink } from 'src/app/shared/utils/follow-link-config.model';
   templateUrl: './units-registry.component.html',
   styleUrls: ['./units-registry.component.scss'],
   imports: [
-    AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgbTooltipModule,
-    PaginationComponent, ReactiveFormsModule, RouterLink,
+    AsyncPipe, BtnDisabledDirective, NgForOf, NgIf, NgSwitch, NgSwitchCase,
+    NgbTooltipModule, PaginationComponent, ReactiveFormsModule, RouterLink,
     ThemedLoadingComponent, TranslateModule,
   ],
   standalone: true,

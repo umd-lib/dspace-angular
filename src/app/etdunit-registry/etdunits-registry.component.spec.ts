@@ -242,7 +242,8 @@ describe('EtdUnitsRegistryComponent', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#etdunits tr td:nth-child(4) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
-          expect(editButtonFound.nativeElement.disabled).toBeTrue();
+          expect(editButtonFound.nativeElement.getAttribute('aria-disabled')).toBe('true');
+          expect(editButtonFound.nativeElement.classList.contains('disabled')).toBeTrue();
         });
       });
     });
