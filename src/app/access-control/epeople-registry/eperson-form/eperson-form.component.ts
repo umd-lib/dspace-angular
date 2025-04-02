@@ -406,17 +406,17 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       map(groupsRD => groupsRD.payload.pageInfo),
     );
 
-      // UMD Customization
-      this.ldap = activeEPerson$.pipe(
-        switchMap((eperson) => {
-          if (eperson != null) {
-            const result = this.ldapDataService.getLdap(eperson, true, true);
-            return result;
-          }
-          return observableOf(undefined);
-        }),
-      );
-      // End UMD Customization
+    // UMD Customization
+    this.ldap = this.activeEPerson$.pipe(
+      switchMap((eperson) => {
+        if (eperson != null) {
+          const result = this.ldapDataService.getLdap(eperson, true, true);
+          return result;
+        }
+        return observableOf(undefined);
+      }),
+    );
+    // End UMD Customization
 
     this.canImpersonate$ = this.activeEPerson$.pipe(
       switchMap((eperson) => {
