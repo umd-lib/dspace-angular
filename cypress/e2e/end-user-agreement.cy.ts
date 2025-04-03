@@ -1,7 +1,9 @@
 import { testA11y } from 'cypress/support/utils';
 
+// UMD Customization
+// End User Agreement is suppressed in the UMD configuration
 describe('End User Agreement', () => {
-  it('should pass accessibility tests', () => {
+  it.skip('should pass accessibility tests', () => {
     cy.visit('/info/end-user-agreement');
 
     // Page must first be visible
@@ -11,3 +13,4 @@ describe('End User Agreement', () => {
     testA11y('ds-end-user-agreement');
   });
 });
+// End UMD Customization
