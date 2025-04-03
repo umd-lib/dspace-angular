@@ -69,7 +69,7 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 
 import { UnitGroupsListComponent } from './unit-group-list/unit-groups-list.component';
-import { ValidateUnitExists } from './validators/unit-exists-validator';
+import { ValidateUnitExists } from './validators/unit-exists.validator';
 
 @Component({
   selector: 'ds-unit-form',
