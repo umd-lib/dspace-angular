@@ -20,13 +20,7 @@ import { AccessStatusObject } from '../shared/object-collection/shared/badges/ac
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
-// UMD Customization
-// Backports DSpace fix to System-wide Alert banner
-// See https://github.com/DSpace/dspace-angular/pull/3671
-// This customization marker should be removed after upgrading to a
-// DSpace version that contains the change.
 import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
-// End UMD Customization
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
@@ -202,13 +196,7 @@ export const models =
     Itemfilter,
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
-    // UMD Customization
-    // Backports DSpace fix to System-wide Alert banner
-    // See https://github.com/DSpace/dspace-angular/pull/3671
-    // This customization marker should be removed after upgrading to a
-    // DSpace version that contains the change.
     SystemWideAlert,
-    // Emd UMD Customization
     // UMD Customization
     CommunityGroup,
     Ldap,

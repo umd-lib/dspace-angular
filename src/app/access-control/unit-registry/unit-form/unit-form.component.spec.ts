@@ -65,7 +65,7 @@ import {
 } from 'src/app/shared/testing/unit-mock';
 
 import { UnitFormComponent } from './unit-form.component';
-import { ValidateUnitExists } from './validators/unit-exists-validator';
+import { ValidateUnitExists } from './validators/unit-exists.validator';
 
 describe('UnitFormComponent', () => {
   let component: UnitFormComponent;

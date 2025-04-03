@@ -66,7 +66,7 @@ import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-s
 import { EtdUnitDataService } from '../etdunit-data.service';
 import { EtdUnit } from '../models/etdunit.model';
 import { EtdUnitFormComponent } from './etdunit-form.component';
-import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
+import { ValidateEtdUnitExists } from './validators/etdunit-exists.validator';
 
 describe('EtdUnitFormComponent', () => {
   let component: EtdUnitFormComponent;
