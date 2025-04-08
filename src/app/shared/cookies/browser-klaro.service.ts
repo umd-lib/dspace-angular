@@ -35,6 +35,7 @@ import { KlaroService } from './klaro.service';
 import {
   ANONYMOUS_STORAGE_NAME_KLARO,
   klaroConfiguration,
+  MATOMO_KLARO_KEY,
 } from './klaro-configuration';
 
 /**
@@ -85,6 +86,8 @@ export class BrowserKlaroService extends KlaroService {
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
+  private readonly MATOMO_ENABLED = 'matomo.enabled';
+
   /**
    * Initial Klaro configuration
    */
@@ -126,14 +129,25 @@ export class BrowserKlaroService extends KlaroService {
       ),
     );
 
-    const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
-      map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
+    const hideMatomo$ =
+      this.configService.findByPropertyName(this.MATOMO_ENABLED).pipe(
+        getFirstCompletedRemoteData(),
+        map((remoteData) =>
+          !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true',
+        ),
+      );
+
+    const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$, hideMatomo$]).pipe(
+      map(([hideGoogleAnalytics, hideRegistrationVerification, hideMatomo]) => {
         const servicesToHideArray: string[] = [];
         if (hideGoogleAnalytics) {
           servicesToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
         }
         if (hideRegistrationVerification) {
           servicesToHideArray.push(CAPTCHA_NAME);
+        }
+        if (hideMatomo) {
+          servicesToHideArray.push(MATOMO_KLARO_KEY);
         }
         return servicesToHideArray;
       }),
