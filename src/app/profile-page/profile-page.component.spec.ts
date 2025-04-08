@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
@@ -29,7 +30,10 @@ import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -134,6 +138,10 @@ describe('ProfilePageComponent', () => {
             ProfilePageSecurityFormComponent,
             ProfilePageResearcherFormComponent,
             SuggestionsNotificationComponent,
+            NgTemplateOutlet,
+            PaginationComponent,
+            ThemedLoadingComponent,
+            ErrorComponent,
           ],
         },
       })
@@ -369,13 +377,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return true', () => {
-        // UMD Customization
-        // This change is from dspace-angular Pull Request 3585, specifically
-        // commit hash "ded0079".
-        // This customization marker can be remove when DRUM is update to
-        // a DSpace version containing this change.
         const result = component.isResearcherProfileEnabled$;
-        // End UMD Customization
         const expected = cold('a', {
           a: true,
         });
@@ -391,13 +393,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        // UMD Customization
-        // This change is from dspace-angular Pull Request 3585, specifically
-        // commit hash "ded0079".
-        // This customization marker can be remove when DRUM is update to
-        // a DSpace version containing this change.
         const result = component.isResearcherProfileEnabled$;
-        // End UMD Customization
         const expected = cold('a', {
           a: false,
         });
@@ -413,13 +409,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        // UMD Customization
-        // This change is from dspace-angular Pull Request 3585, specifically
-        // commit hash "ded0079".
-        // This customization marker can be remove when DRUM is update to
-        // a DSpace version containing this change.
         const result = component.isResearcherProfileEnabled$;
-        // End UMD Customization
         const expected = cold('a', {
           a: false,
         });
