@@ -50,6 +50,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { MatomoService } from '../../statistics/matomo.service';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -79,6 +80,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
     public dsoNameService: DSONameService,
     private signpostingDataService: SignpostingDataService,
     private responseService: ServerResponseService,
+    private matomoService: MatomoService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     this.initPageLinks();
@@ -115,14 +117,20 @@ export class BitstreamDownloadPageComponent implements OnInit {
               return [isAuthorized, isLoggedIn, bitstream, fileLink];
             }));
         } else {
-          return [[isAuthorized, isLoggedIn, bitstream, '']];
+          return [[isAuthorized, isLoggedIn, bitstream, bitstream._links.content.href]];
         }
       }),
+      switchMap(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) =>
+        this.matomoService.appendVisitorId(fileLink)
+          .pipe(
+            map((fileLinkWithVisitorId) => [isAuthorized, isLoggedIn, bitstream, fileLinkWithVisitorId]),
+          ),
+      ),
     ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
         this.hardRedirectService.redirect(fileLink);
       } else if (isAuthorized && !isLoggedIn) {
-        this.hardRedirectService.redirect(bitstream._links.content.href);
+        this.hardRedirectService.redirect(fileLink);
       // UMD Customization
       } else if (!isAuthorized && isLoggedIn) {
         // This can happen due to a "Campus" group IP restrictions
