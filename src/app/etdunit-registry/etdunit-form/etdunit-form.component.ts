@@ -65,7 +65,7 @@ import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { EtdUnitDataService } from '../etdunit-data.service';
 import { EtdUnit } from '../models/etdunit.model';
 import { EtdUnitCollectionsListComponent } from './etdunit-collection-list/etdunit-collections-list.component';
-import { ValidateEtdUnitExists } from './validators/etdunit-exists-validator';
+import { ValidateEtdUnitExists } from './validators/etdunit-exists.validator';
 
 @Component({
   selector: 'ds-etdunit-form',

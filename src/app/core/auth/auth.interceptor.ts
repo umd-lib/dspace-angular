@@ -134,11 +134,23 @@ export class AuthInterceptor implements HttpInterceptor {
     const firstAuthMethodType: AuthMethodType = AuthMethodType.Cas;
 
     const sortedAuthMethodModels: AuthMethod[] = [];
+    let passwordAuthFound = false;
+    let ldapAuthFound = false;
+
     authMethodModels.forEach((method) => {
       if (method.authMethodType === firstAuthMethodType) {
         sortedAuthMethodModels.push(method);
+        passwordAuthFound = true;
+      }
+      if (method.authMethodType === AuthMethodType.Ldap) {
+        ldapAuthFound = true;
       }
     });
+
+    // Using password authentication method to provide UI for LDAP authentication even if password auth is not present in server
+    if (ldapAuthFound && !(passwordAuthFound)) {
+      sortedAuthMethodModels.push(new AuthMethod(AuthMethodType.Password,0));
+    }
 
     authMethodModels.forEach((method) => {
       if (method.authMethodType !== firstAuthMethodType) {

@@ -1,5 +1,6 @@
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
+import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { ActuatorsConfig } from './actuators.config';
 import { AppConfig } from './app-config.interface';
@@ -18,6 +19,7 @@ import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
+import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
@@ -515,6 +517,7 @@ export class DefaultAppConfig implements AppConfig {
       enabled: false,
       filter: ['title', 'author', 'subject', 'entityType'],
     },
+    filterPlaceholdersCount: 5,
   };
 
   notifyMetrics: AdminNotifyMetricsRow[] = [
@@ -591,4 +594,12 @@ export class DefaultAppConfig implements AppConfig {
       ],
     },
   ];
+
+  // Live Region configuration, used by the LiveRegionService
+  liveRegion: LiveRegionConfig = {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
+  };
+
+  matomo: MatomoConfig = {};
 }

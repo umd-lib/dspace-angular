@@ -61,7 +61,7 @@
                         title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: etdunitDto.etdunit.name} }}">
                         <i class="fas fa-edit fa-fw"></i>
                       </button>
-                      <button *ngSwitchCase="false" [disabled]="true" class="btn btn-outline-primary btn-sm btn-edit"
+                      <button *ngSwitchCase="false" [dsBtnDisabled]="true" class="btn btn-outline-primary btn-sm btn-edit"
                         placement="left" [ngbTooltip]="'admin.etdunit.table.edit.buttons.edit-disabled' | translate">
                         <i class="fas fa-edit fa-fw"></i>
                       </button>

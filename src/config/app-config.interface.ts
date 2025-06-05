@@ -6,6 +6,7 @@ import {
 
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
+import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -23,6 +24,7 @@ import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
+import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
@@ -32,6 +34,7 @@ import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -63,6 +66,8 @@ interface AppConfig extends Config {
   qualityAssuranceConfig: QualityAssuranceConfig;
   search: SearchConfig;
   notifyMetrics: AdminNotifyMetricsRow[];
+  liveRegion: LiveRegionConfig;
+  matomo?: MatomoConfig;
 }
 
 /**

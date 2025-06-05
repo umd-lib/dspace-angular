@@ -26,6 +26,7 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../core/services/cookie.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { MATOMO_ENABLED } from '../../statistics/matomo.service';
 import {
   hasValue,
   isEmpty,
@@ -35,6 +36,7 @@ import { KlaroService } from './klaro.service';
 import {
   ANONYMOUS_STORAGE_NAME_KLARO,
   klaroConfiguration,
+  MATOMO_KLARO_KEY,
 } from './klaro-configuration';
 
 /**
@@ -85,6 +87,8 @@ export class BrowserKlaroService extends KlaroService {
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
+  private readonly MATOMO_ENABLED = MATOMO_ENABLED;
+
   /**
    * Initial Klaro configuration
    */
@@ -111,7 +115,7 @@ export class BrowserKlaroService extends KlaroService {
   initialize() {
     if (!environment.info.enablePrivacyStatement) {
       delete this.klaroConfig.privacyPolicy;
-      this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
+      this.klaroConfig.translations.zy.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
     const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
@@ -126,14 +130,25 @@ export class BrowserKlaroService extends KlaroService {
       ),
     );
 
-    const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
-      map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
+    const hideMatomo$ =
+      this.configService.findByPropertyName(this.MATOMO_ENABLED).pipe(
+        getFirstCompletedRemoteData(),
+        map((remoteData) =>
+          !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true',
+        ),
+      );
+
+    const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$, hideMatomo$]).pipe(
+      map(([hideGoogleAnalytics, hideRegistrationVerification, hideMatomo]) => {
         const servicesToHideArray: string[] = [];
         if (hideGoogleAnalytics) {
           servicesToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
         }
         if (hideRegistrationVerification) {
           servicesToHideArray.push(CAPTCHA_NAME);
+        }
+        if (hideMatomo) {
+          servicesToHideArray.push(MATOMO_KLARO_KEY);
         }
         return servicesToHideArray;
       }),
@@ -258,12 +273,12 @@ export class BrowserKlaroService extends KlaroService {
    */
   addAppMessages() {
     this.klaroConfig.services.forEach((app) => {
-      this.klaroConfig.translations.zz[app.name] = {
+      this.klaroConfig.translations.zy[app.name] = {
         title: this.getTitleTranslation(app.name),
         description: this.getDescriptionTranslation(app.name),
       };
       app.purposes.forEach((purpose) => {
-        this.klaroConfig.translations.zz.purposes[purpose] = this.getPurposeTranslation(purpose);
+        this.klaroConfig.translations.zy.purposes[purpose] = this.getPurposeTranslation(purpose);
       });
     });
   }
@@ -277,7 +292,7 @@ export class BrowserKlaroService extends KlaroService {
      */
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
-    this.translate(this.klaroConfig.translations.zz);
+    this.translate(this.klaroConfig.translations.zy);
   }
 
   /**

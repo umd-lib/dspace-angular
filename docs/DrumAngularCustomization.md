@@ -62,8 +62,13 @@ files contain UUID-like opaque identifiers that are unlikely to be guessable.
 
 ## Modified GitHub Workflow Actions
 
-Modified the following in ".github/build.yml" so that the GitHub jobs would
-successfully complete:
+Modified the following in ".github/workflows/build.yml" so that the GitHub jobs
+would successfully complete:
+
+* Commented out the "DOCKER_REGISTRY" environment variable and
+  "Login to ${{ env.DOCKER_REGISTRY }}" step, because it was causing Docker
+  image pulls to fail when running the
+  "Start DSpace REST Backend via Docker (for e2e tests)" step.
 
 * Modified the "Verify SSR" step for check for "DRUM" in the title instead of
   "DSpace"
