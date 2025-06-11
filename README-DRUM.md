@@ -168,6 +168,12 @@ DSPACE_ENVIRONMENTBANNER_BACKGROUNDCOLOR=#fff100
 DSPACE_ENVIRONMENTBANNER_ENABLED=true
 ```
 
+### Angular Customizations
+
+Specific customizations made to the stock DSpace Angular codebase (outside of
+normal DSpace customizations) are recorded in
+[docs/DrumAngularCustomizations.md](docs/DrumAngularCustomizations.md).
+
 ### I18n Customizations
 
 All changes to I18n assets should be made in the "UMD Customization" section
