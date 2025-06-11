@@ -10,7 +10,7 @@ The original dspace-angular documentation is in the "README.md" file.
 ## Prerequisite
 
 * Node v18.x or v20.x
-* npm >= v5.x
+* npm >= v10.x
 * yarn == v1.x
 * Ensure that the DRUM API is up and running by following the instructions at
   <https://github.com/umd-lib/DSpace/tree/drum-main>
@@ -128,9 +128,11 @@ In keeping with [SSDR policy](https://confluence.umd.edu/display/LIB/Create+Envi
 an "environment banner" will be displayed at the top of each page when running
 on non-production servers.
 
-There are two ways to configure the environment banner:
+The environment banner can be configured either via a config/config.*.yml" YAML
+file or by environment variables. In both are present, the environment variables
+take precedence.
 
-### YAML format
+#### YAML file
 
 The following is an example of configuring in a "config/config.*.yml" YAML file,
 such as "config/config.dev.yml":
@@ -143,6 +145,8 @@ environmentBanner:
   backgroundColor: "#008000"
   enabled: true
 ```
+
+#### Environment variables
 
 In DSpace, the configuration from the YAML files can be overridden using either
 environment variables, or a ".env" file (see the "Configuration Override"
@@ -168,6 +172,12 @@ DSPACE_ENVIRONMENTBANNER_BACKGROUNDCOLOR=#fff100
 DSPACE_ENVIRONMENTBANNER_ENABLED=true
 ```
 
+### Angular Customizations
+
+Specific customizations made to the stock DSpace Angular codebase (outside of
+normal DSpace customizations) are recorded in
+[docs/DrumAngularCustomizations.md](docs/DrumAngularCustomizations.md).
+
 ### I18n Customizations
 
 All changes to I18n assets should be made in the "UMD Customization" section
@@ -181,9 +191,9 @@ the last instance of the key is used.
 
 UMD customizations to stock DSpace code should be marked, if possible, with
 a starting comment "UMD Customization" and an ending comment of
-"End UMD Customization", for example, in a Java file:
+"End UMD Customization", for example, in a JavaScript file:
 
-```java
+```javascript
 // UMD Customization
 ... New or modified code ...
 // End UMD Customization
@@ -191,14 +201,8 @@ a starting comment "UMD Customization" and an ending comment of
 
 The following customizations *do not* need to be commented:
 
-* Updates to the "\<version>" identifier in "pom.xml" files
-* "Branding" changes in email templates such as "dspace/config/emails/" or
-  the default DSpace license in "dspace/config/default.license", as these files
-  do not have a convenient "comment" mechanism
-* Files that do not have a "comment" mechanism, such as JSON files
-* Extremely trivial whitespace changes unrelated to UMD customizations, such as
-  tabs in the modified DSpace file being automatically converted to spaces by
-  VS Code, or an end-of-file line.
+* Files that at wholly written by UMD, for which there is no corresponding
+  stock DSpace file.
 
 The main goal is to make it immediately when performing DSpace version upgrades
 whether a change in a file is due to an explicit UMD customization.
