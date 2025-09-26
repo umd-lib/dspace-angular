@@ -14,7 +14,6 @@ import { SuggestionsPopupComponent } from 'src/app/notifications/suggestions-pop
 import { ThemedConfigurationSearchPageComponent } from 'src/app/search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from 'src/app/shared/search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from 'src/app/shared/sidebar/page-with-sidebar.component';
-import { ViewTrackerComponent } from 'src/app/statistics/angulartics/dspace/view-tracker.component';
 
 import { HomePageComponent as BaseComponent } from '../../../../app/home-page/home-page.component';
 import { ThemedCommunityListComponent } from '../community-list-page/community-list/themed-community-list.component';
@@ -29,7 +28,7 @@ import {
   // styleUrls: ['./home-page.component.scss'],
   styleUrls: ['../../../../app/home-page/home-page.component.scss'],
   templateUrl: './home-page.component.html',
-  imports: [ThemedCommunityListComponent, ThemedHomeNewsComponent, NgTemplateOutlet, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
+  imports: [ThemedCommunityListComponent, ThemedHomeNewsComponent, NgTemplateOutlet, NgIf, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
   standalone: true,
 })
 export class HomePageComponent extends BaseComponent {
