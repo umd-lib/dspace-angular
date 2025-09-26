@@ -4,7 +4,6 @@
 // End Customization
 import {
   AsyncPipe,
-  NgClass,
   NgFor,
   NgIf,
 } from '@angular/common';
@@ -98,7 +97,6 @@ import { VarDirective } from 'src/app/shared/utils/var.directive';
     NgFor,
     AsyncPipe,
     TranslateModule,
-    NgClass,
     ThemedLoadingComponent,
     PaginationComponent,
     RouterLink,

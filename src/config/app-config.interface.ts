@@ -4,6 +4,7 @@ import {
   Type,
 } from '@angular/core';
 
+import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
@@ -68,6 +69,7 @@ interface AppConfig extends Config {
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
   matomo?: MatomoConfig;
+  accessibility: AccessibilitySettingsConfig;
 }
 
 /**
