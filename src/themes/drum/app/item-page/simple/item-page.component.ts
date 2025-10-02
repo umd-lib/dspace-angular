@@ -26,7 +26,6 @@ import { ErrorComponent } from 'src/app/shared/error/error.component';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from 'src/app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from 'src/app/shared/utils/var.directive';
-import { ViewTrackerComponent } from 'src/app/statistics/angulartics/dspace/view-tracker.component';
 
 import { ItemPageComponent as BaseComponent } from '../../../../../app/item-page/simple/item-page.component';
 import { fadeInOut } from '../../../../../app/shared/animations/fade';
@@ -47,7 +46,7 @@ import { JsonLdDatasetComponent } from '../json-ld/json-ld-dataset.component';
     AsyncPipe, ErrorComponent, ItemVersionsComponent,
     ItemVersionsNoticeComponent, JsonLdDatasetComponent,
     ListableObjectComponentLoaderComponent, NgIf, ThemedItemAlertsComponent,
-    ThemedLoadingComponent, TranslateModule, VarDirective, ViewTrackerComponent,
+    ThemedLoadingComponent, TranslateModule, VarDirective,
   ],
   standalone: true,
 })

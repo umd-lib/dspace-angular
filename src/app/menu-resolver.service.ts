@@ -196,6 +196,7 @@ export class MenuResolverService  {
     this.createDrumCustomizationsMenuSections();
     // End UMD Customization
 
+    this.createReportMenuSections();
     return this.waitForMenu$(MenuID.ADMIN);
   }
 
