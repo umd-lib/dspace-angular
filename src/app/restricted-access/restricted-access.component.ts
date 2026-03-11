@@ -32,6 +32,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
+import { ServerResponseService } from '../core/services/server-response.service';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
@@ -42,7 +43,7 @@ import {
 } from '../shared/empty.util';
 
 /**
- * This component representing the `Restricted Access` DSpace page.
+ * This component represents the `Restricted Access` DSpace page.
  */
 @Component({
   selector: 'ds-restricted-access',
@@ -77,6 +78,7 @@ export class RestrictedAccessComponent implements OnInit {
     private translateService: TranslateService,
     private datePipe: DatePipe,
     private location: Location,
+    private responseService: ServerResponseService,
   ) {
   }
 
@@ -124,6 +126,8 @@ export class RestrictedAccessComponent implements OnInit {
 
         if (isLoggedIn) {
           // This is a logged in user
+          // Set 403 Forbidden response status code for logged-in users without download permission
+          this.responseService.setForbidden();
           header$ = this.translateService.get('bitstream.restricted-access.user.forbidden.header', {});
 
           if (bitstream && bitstream.metadata['dc.title'] &&  bitstream.metadata['dc.title'][0] && bitstream.metadata['dc.title'][0].value) {
@@ -136,6 +140,8 @@ export class RestrictedAccessComponent implements OnInit {
           }
         } else {
           // This is an anonymous user
+          // Set 401 Unauthorized response status code for anonymous users
+          this.responseService.setUnauthorized();
           [header$, message$] = this.configureAnonymous(bitstream);
         }
 
@@ -164,7 +170,7 @@ export class RestrictedAccessComponent implements OnInit {
       );
     } else {
       // Reach this branch when embargoRestriction is "NONE", but there is some
-      // other restriction, such as a "Campus" IP address group restiction.
+      // other restriction, such as a "Campus" IP address group restriction.
       message$ = this.translateService.get('bitstream.restricted-access.anonymous.forbidden.message', {});
     }
 
@@ -172,10 +178,10 @@ export class RestrictedAccessComponent implements OnInit {
   }
 
   /**
-   * Returns true if the given String represents a valid date, false otherise.
+   * Returns true if the given String represents a valid date, false otherwise.
    *
    * @param str the String to check.
-   * @true if the given String represents a valid date, false otherise.
+   * @returns true if the given String represents a valid date, false otherwise.
    */
   private isValidDate(str: string): boolean {
     // Expected date is in yyyy-MM-dd format.
