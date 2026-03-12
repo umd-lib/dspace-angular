@@ -95,7 +95,7 @@ describe('RestrictedAccessComponent', () => {
   }
 
   function initTestBed() {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         RestrictedAccessComponent,
