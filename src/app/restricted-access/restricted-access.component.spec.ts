@@ -147,9 +147,9 @@ describe('RestrictedAccessComponent', () => {
 
       verify401StatusCodeAndNoRedirectToDownload();
 
-      it('should set the restrictedAccessMessage indicating the file is embargoed forever', waitForAsync(() => {
+      it('should set the restrictedAccessMessage indicating the file is embargoed forever', () => {
         expect(component.restrictedAccessMessage.value).toBe('bitstream.restricted-access.embargo.forever.message');
-      }));
+      });
     });
 
     describe('when there is an embargo end date', () => {
@@ -248,7 +248,7 @@ describe('RestrictedAccessComponent', () => {
       });
     });
 
-    describe('returns 403 Forbidden with a generic message when no filename is not provided', () => {
+    describe('returns 403 Forbidden with a generic message when a filename is not provided', () => {
       beforeEach(waitForAsync(() => {
         init({ metadata: {} });
         (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
@@ -262,10 +262,10 @@ describe('RestrictedAccessComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should set the generic forbidden message', waitForAsync(() => {
+      it('should set the generic forbidden message', () => {
         expect(component.restrictedAccessMessage.value).toBe(
           'bitstream.restricted-access.user.forbidden.generic.message');
-      }));
+      });
     });
 
     describe('allows access to the file when the user is authorized', () => {
