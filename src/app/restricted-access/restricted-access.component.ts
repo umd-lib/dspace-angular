@@ -5,8 +5,11 @@ import {
 } from '@angular/common';
 import {
   Component,
+  DestroyRef,
+  inject,
   OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ActivatedRoute,
   Router,
@@ -18,6 +21,7 @@ import {
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  EMPTY,
   filter,
   map,
   Observable,
@@ -68,6 +72,8 @@ export class RestrictedAccessComponent implements OnInit {
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
   bitstream$: Observable<Bitstream>;
 
+  private destroyRef = inject(DestroyRef);
+
   constructor(
     private route: ActivatedRoute,
     protected router: Router,
@@ -112,15 +118,17 @@ export class RestrictedAccessComponent implements OnInit {
               return [isAuthorized, isLoggedIn, bitstream, fileLink];
             }));
         } else {
-          return [[isAuthorized, isLoggedIn, bitstream, '']];
+          return observableOf([isAuthorized, isLoggedIn, bitstream, ''] as [boolean, boolean, Bitstream, string]);
         }
       }),
-    ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
-      if (isAuthorized && isNotEmpty(fileLink)) {
-        // This shouldn't happen, as the download is authorized, and the file link is available, so just redirect to
-        // actual download page.
-        this.hardRedirectService.redirect(fileLink);
-      } else {
+      switchMap(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
+        if (isAuthorized && isNotEmpty(fileLink)) {
+          // This shouldn't happen, as the download is authorized, and the file link is available, so just redirect to
+          // actual download page.
+          this.hardRedirectService.redirect(fileLink);
+          return EMPTY;
+        }
+
         let header$: Observable<string>;
         let message$: Observable<string>;
 
@@ -130,7 +138,7 @@ export class RestrictedAccessComponent implements OnInit {
           this.responseService.setForbidden();
           header$ = this.translateService.get('bitstream.restricted-access.user.forbidden.header', {});
 
-          if (bitstream && bitstream.metadata['dc.title'] &&  bitstream.metadata['dc.title'][0] && bitstream.metadata['dc.title'][0].value) {
+          if (bitstream && bitstream.metadata['dc.title'] && bitstream.metadata['dc.title'][0] && bitstream.metadata['dc.title'][0].value) {
             const filename = bitstream.metadata['dc.title'][0].value;
             message$ = this.translateService.get(
               'bitstream.restricted-access.user.forbidden.with_file.message', { 'filename': filename });
@@ -145,11 +153,12 @@ export class RestrictedAccessComponent implements OnInit {
           [header$, message$] = this.configureAnonymous(bitstream);
         }
 
-        zip(header$, message$).subscribe(([header, message]) => {
-          this.restrictedAccessHeader.next(header);
-          this.restrictedAccessMessage.next(message);
-        });
-      }
+        return zip(header$, message$);
+      }),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(([header, message]: [string, string]) => {
+      this.restrictedAccessHeader.next(header);
+      this.restrictedAccessMessage.next(message);
     });
   }
 

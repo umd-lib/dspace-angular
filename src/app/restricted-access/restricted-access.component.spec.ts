@@ -116,7 +116,7 @@ describe('RestrictedAccessComponent', () => {
 
   // Helper function for setting up anonymous tests with a specific embargo
   // restriction
-  function setupAnonymous(bitstreamOverrides) {
+  function setupAnonymous(bitstreamOverrides: Partial<Bitstream>) {
     beforeEach(waitForAsync(() => {
       init(bitstreamOverrides);
       (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
@@ -134,17 +134,11 @@ describe('RestrictedAccessComponent', () => {
   // Helper function verifying that a HTTP 401 Unauthorized status code is
   // set, and that a redirect to the bitstream is not performed.
   function verify401StatusCodeAndNoRedirectToDownload() {
-    it('should set 401 Unauthorized and not redirect to the file', waitForAsync(() => {
-      fixture.whenStable().then(() => {
-        expect(serverResponseService.setUnauthorized).toHaveBeenCalled();
-      });
-      fixture.whenStable().then(() => {
-        expect(serverResponseService.setForbidden).not.toHaveBeenCalled();
-      });
-      fixture.whenStable().then(() => {
-        expect(hardRedirectService.redirect).not.toHaveBeenCalled();
-      });
-    }));
+    it('should set 401 Unauthorized and not redirect to the file', () => {
+      expect(serverResponseService.setUnauthorized).toHaveBeenCalled();
+      expect(serverResponseService.setForbidden).not.toHaveBeenCalled();
+      expect(hardRedirectService.redirect).not.toHaveBeenCalled();
+    });
   }
 
   describe('when the user is anonymous (not logged in)', () => {
@@ -154,9 +148,7 @@ describe('RestrictedAccessComponent', () => {
       verify401StatusCodeAndNoRedirectToDownload();
 
       it('should set the restrictedAccessMessage indicating the file is embargoed forever', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.restrictedAccessMessage.value).toBe('bitstream.restricted-access.embargo.forever.message');
-        });
+        expect(component.restrictedAccessMessage.value).toBe('bitstream.restricted-access.embargo.forever.message');
       }));
     });
 
@@ -165,12 +157,10 @@ describe('RestrictedAccessComponent', () => {
 
       verify401StatusCodeAndNoRedirectToDownload();
 
-      it('should set the restrictedAccessMessage indicating an end date', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.restrictedAccessMessage.value).toBe(
-            'bitstream.restricted-access.embargo.restricted-until.message');
-        });
-      }));
+      it('should set the restrictedAccessMessage indicating an end date', () => {
+        expect(component.restrictedAccessMessage.value).toBe(
+          'bitstream.restricted-access.embargo.restricted-until.message');
+      });
     });
 
     describe('when embargoRestriction is NONE (embargo over, but file is restricted for another reason)', () => {
@@ -178,11 +168,9 @@ describe('RestrictedAccessComponent', () => {
 
       verify401StatusCodeAndNoRedirectToDownload();
 
-      it('should set the restrictedAccessMessage to a simple "forbidden" message', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.restrictedAccessMessage.value).toBe('bitstream.restricted-access.anonymous.forbidden.message');
-        });
-      }));
+      it('should set the restrictedAccessMessage to a simple "forbidden" message', () => {
+        expect(component.restrictedAccessMessage.value).toBe('bitstream.restricted-access.anonymous.forbidden.message');
+      });
     });
 
     describe('when file is restricted for non-embargo reasons (such as Campus IP restriction)', () => {
@@ -190,14 +178,12 @@ describe('RestrictedAccessComponent', () => {
 
       verify401StatusCodeAndNoRedirectToDownload();
 
-      it('should set the restrictedAccessMessage to a simple "forbidden" message', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.restrictedAccessMessage.value).toBe('bitstream.restricted-access.anonymous.forbidden.message');
-        });
-      }));
+      it('should set the restrictedAccessMessage to a simple "forbidden" message', () => {
+        expect(component.restrictedAccessMessage.value).toBe('bitstream.restricted-access.anonymous.forbidden.message');
+      });
     });
 
-    describe('when the user is authorized (even if there is an embargo)', () => {
+    describe('but the user is authorized (even if there is an embargo)', () => {
       beforeEach(waitForAsync(() => {
         init();
         (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
@@ -211,23 +197,17 @@ describe('RestrictedAccessComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should redirect to the content link', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(hardRedirectService.redirect).toHaveBeenCalled();
-        });
-      }));
+      it('should redirect to the content link', () => {
+        expect(hardRedirectService.redirect).toHaveBeenCalled();
+      });
 
-      it('should NOT call setUnauthorized', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(serverResponseService.setUnauthorized).not.toHaveBeenCalled();
-        });
-      }));
+      it('should NOT call setUnauthorized', () => {
+        expect(serverResponseService.setUnauthorized).not.toHaveBeenCalled();
+      });
 
-      it('should NOT call setForbidden', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(serverResponseService.setForbidden).not.toHaveBeenCalled();
-        });
-      }));
+      it('should NOT call setForbidden', () => {
+        expect(serverResponseService.setForbidden).not.toHaveBeenCalled();
+      });
     });
   });
 
@@ -246,34 +226,45 @@ describe('RestrictedAccessComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should call setForbidden on ServerResponseService', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(serverResponseService.setForbidden).toHaveBeenCalled();
-        });
+      it('should call setForbidden on ServerResponseService', () => {
+        expect(serverResponseService.setForbidden).toHaveBeenCalled();
+      });
+
+      it('should NOT call setUnauthorized on ServerResponseService', () => {
+        expect(serverResponseService.setUnauthorized).not.toHaveBeenCalled();
+      });
+
+      it('should NOT redirect to a download', () => {
+        expect(hardRedirectService.redirect).not.toHaveBeenCalled();
+      });
+
+      it('should set the restrictedAccessHeader', () => {
+        expect(component.restrictedAccessHeader.value).toBe('bitstream.restricted-access.user.forbidden.header');
+      });
+
+      it('should set the restrictedAccessMessage', () => {
+        expect(component.restrictedAccessMessage.value).toBe(
+          'bitstream.restricted-access.user.forbidden.with_file.message');
+      });
+    });
+
+    describe('returns 403 Forbidden with a generic message when no filename is not provided', () => {
+      beforeEach(waitForAsync(() => {
+        init({ metadata: {} });
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        initTestBed();
       }));
 
-      it('should NOT call setUnauthorized on ServerResponseService', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(serverResponseService.setUnauthorized).not.toHaveBeenCalled();
-        });
-      }));
+      beforeEach(() => {
+        fixture = TestBed.createComponent(RestrictedAccessComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
 
-      it('should NOT redirect to a download', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(hardRedirectService.redirect).not.toHaveBeenCalled();
-        });
-      }));
-
-      it('should set the restrictedAccessHeader', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.restrictedAccessHeader.value).toBe('bitstream.restricted-access.user.forbidden.header');
-        });
-      }));
-      it('should set the restrictedAccessMessage', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.restrictedAccessMessage.value).toBe(
-            'bitstream.restricted-access.user.forbidden.with_file.message');
-        });
+      it('should set the generic forbidden message', waitForAsync(() => {
+        expect(component.restrictedAccessMessage.value).toBe(
+          'bitstream.restricted-access.user.forbidden.generic.message');
       }));
     });
 
@@ -291,23 +282,17 @@ describe('RestrictedAccessComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should NOT call setUnauthorized', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(serverResponseService.setUnauthorized).not.toHaveBeenCalled();
-        });
-      }));
+      it('should NOT call setUnauthorized', () => {
+        expect(serverResponseService.setUnauthorized).not.toHaveBeenCalled();
+      });
 
-      it('should NOT call setForbidden', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(serverResponseService.setForbidden).not.toHaveBeenCalled();
-        });
-      }));
+      it('should NOT call setForbidden', () => {
+        expect(serverResponseService.setForbidden).not.toHaveBeenCalled();
+      });
 
-      it('should redirect to the file download link', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(hardRedirectService.redirect).toHaveBeenCalledWith('content-url-with-headers');
-        });
-      }));
+      it('should redirect to the file download link', () => {
+        expect(hardRedirectService.redirect).toHaveBeenCalledWith('content-url-with-headers');
+      });
     });
   });
 
