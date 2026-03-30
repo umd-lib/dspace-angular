@@ -1,7 +1,3 @@
-// UMD Customization
-/* eslint-disable import-newlines/enforce */
-/* eslint-disable simple-import-sort/imports */
-// End Customization
 import {
   Route,
   Routes,
@@ -24,17 +20,13 @@ import {
 } from './info-routing-paths';
 import { NotifyInfoComponent } from './notify-info/notify-info.component';
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
-// UMD Customization
-import { WufooFeedbackResolver } from '../wufoo/wufoo-feedback-resolver';
-// End UMD Customization
+
 
 export const ROUTES: Routes = [
   {
     path: FEEDBACK_PATH,
     component: ThemedFeedbackComponent,
-    // UMD Customization
-    resolve: { breadcrumb: i18nBreadcrumbResolver, wufoo: WufooFeedbackResolver },
-    // End UMD Customization
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
     canActivate: [feedbackGuard],
   },

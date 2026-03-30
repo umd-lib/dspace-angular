@@ -10,8 +10,6 @@ import { FooterComponent } from './app/footer/footer.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { HomePageComponent } from './app/home-page/home-page.component';
-import { FeedbackComponent } from './app/info/feedback/feedback.component';
-import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
 import { JsonLdWebsiteComponent } from './app/item-page/json-ld/json-ld-website.component';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
@@ -37,8 +35,6 @@ const ENTRY_COMPONENTS = [
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
   BitstreamDownloadCounterComponent,
-  FeedbackComponent,
-  FeedbackFormComponent,
   FileSectionComponent,
   FooterComponent,
   HeaderComponent,

@@ -40,7 +40,7 @@
   <div class="bottom-footer p-1 d-flex justify-content-center align-items-center">
     <div class="content-container">
       <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
-        <li>
+        <li *ngIf="showSendFeedback$ | async">
           <a skipLocationChange="true" routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
         </li>
         <li>
