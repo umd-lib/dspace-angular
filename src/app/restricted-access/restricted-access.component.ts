@@ -5,8 +5,11 @@ import {
 } from '@angular/common';
 import {
   Component,
+  DestroyRef,
+  inject,
   OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ActivatedRoute,
   Router,
@@ -18,6 +21,7 @@ import {
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  EMPTY,
   filter,
   map,
   Observable,
@@ -32,6 +36,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
+import { ServerResponseService } from '../core/services/server-response.service';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
@@ -42,7 +47,7 @@ import {
 } from '../shared/empty.util';
 
 /**
- * This component representing the `Restricted Access` DSpace page.
+ * This component represents the `Restricted Access` DSpace page.
  */
 @Component({
   selector: 'ds-restricted-access',
@@ -67,6 +72,8 @@ export class RestrictedAccessComponent implements OnInit {
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
   bitstream$: Observable<Bitstream>;
 
+  private destroyRef = inject(DestroyRef);
+
   constructor(
     private route: ActivatedRoute,
     protected router: Router,
@@ -77,6 +84,7 @@ export class RestrictedAccessComponent implements OnInit {
     private translateService: TranslateService,
     private datePipe: DatePipe,
     private location: Location,
+    private responseService: ServerResponseService,
   ) {
   }
 
@@ -110,23 +118,27 @@ export class RestrictedAccessComponent implements OnInit {
               return [isAuthorized, isLoggedIn, bitstream, fileLink];
             }));
         } else {
-          return [[isAuthorized, isLoggedIn, bitstream, '']];
+          return observableOf([isAuthorized, isLoggedIn, bitstream, ''] as [boolean, boolean, Bitstream, string]);
         }
       }),
-    ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
-      if (isAuthorized && isNotEmpty(fileLink)) {
-        // This shouldn't happen, as the download is authorized, and the file link is available, so just redirect to
-        // actual download page.
-        this.hardRedirectService.redirect(fileLink);
-      } else {
+      switchMap(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
+        if (isAuthorized && isNotEmpty(fileLink)) {
+          // This shouldn't happen, as the download is authorized, and the file link is available, so just redirect to
+          // actual download page.
+          this.hardRedirectService.redirect(fileLink);
+          return EMPTY;
+        }
+
         let header$: Observable<string>;
         let message$: Observable<string>;
 
         if (isLoggedIn) {
           // This is a logged in user
+          // Set 403 Forbidden response status code for logged-in users without download permission
+          this.responseService.setForbidden();
           header$ = this.translateService.get('bitstream.restricted-access.user.forbidden.header', {});
 
-          if (bitstream && bitstream.metadata['dc.title'] &&  bitstream.metadata['dc.title'][0] && bitstream.metadata['dc.title'][0].value) {
+          if (bitstream && bitstream.metadata['dc.title'] && bitstream.metadata['dc.title'][0] && bitstream.metadata['dc.title'][0].value) {
             const filename = bitstream.metadata['dc.title'][0].value;
             message$ = this.translateService.get(
               'bitstream.restricted-access.user.forbidden.with_file.message', { 'filename': filename });
@@ -136,14 +148,17 @@ export class RestrictedAccessComponent implements OnInit {
           }
         } else {
           // This is an anonymous user
+          // Set 401 Unauthorized response status code for anonymous users
+          this.responseService.setUnauthorized();
           [header$, message$] = this.configureAnonymous(bitstream);
         }
 
-        zip(header$, message$).subscribe(([header, message]) => {
-          this.restrictedAccessHeader.next(header);
-          this.restrictedAccessMessage.next(message);
-        });
-      }
+        return zip(header$, message$);
+      }),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(([header, message]: [string, string]) => {
+      this.restrictedAccessHeader.next(header);
+      this.restrictedAccessMessage.next(message);
     });
   }
 
@@ -164,7 +179,7 @@ export class RestrictedAccessComponent implements OnInit {
       );
     } else {
       // Reach this branch when embargoRestriction is "NONE", but there is some
-      // other restriction, such as a "Campus" IP address group restiction.
+      // other restriction, such as a "Campus" IP address group restriction.
       message$ = this.translateService.get('bitstream.restricted-access.anonymous.forbidden.message', {});
     }
 
@@ -172,10 +187,10 @@ export class RestrictedAccessComponent implements OnInit {
   }
 
   /**
-   * Returns true if the given String represents a valid date, false otherise.
+   * Returns true if the given String represents a valid date, false otherwise.
    *
    * @param str the String to check.
-   * @true if the given String represents a valid date, false otherise.
+   * @returns true if the given String represents a valid date, false otherwise.
    */
   private isValidDate(str: string): boolean {
     // Expected date is in yyyy-MM-dd format.
