@@ -60,6 +60,11 @@ specific URL of the license file, they will still be able to download it. This
 is currently no particular concern about this, as the the URLs of the license
 files contain UUID-like opaque identifiers that are unlikely to be guessable.
 
+## Display Syndication Feed for "Recent Submissions"
+
+Added a "Syndication Feed" button to the "Recent Submissions" section of the
+home page, to allow users to access an RSS feeds of recent submissions.
+
 ## Modified GitHub Workflow Actions
 
 Modified the following in ".github/workflows/build.yml" so that the GitHub jobs
