@@ -43,6 +43,9 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+// UMD Customization
+import { RSSComponent } from '../../shared/rss-feed/rss.component';
+// End UMD Customization
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import {
   followLink,
@@ -50,9 +53,6 @@ import {
 } from '../../shared/utils/follow-link-config.model';
 import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
 import { VarDirective } from '../../shared/utils/var.directive';
-// UMD Customization
-import { RSSComponent } from '../../shared/rss-feed/rss.component';
-// End UMD Customization
 
 @Component({
   selector: 'ds-recent-item-list',

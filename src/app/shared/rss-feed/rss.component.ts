@@ -9,11 +9,15 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import isUndefined from 'lodash/isUndefined';
 import {
   BehaviorSubject,
   Observable,
@@ -32,10 +36,9 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { SearchFilter } from '../search/models/search-filter.model';
 import { hasValue } from '../empty.util';
-import { isUndefined } from 'lodash';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+
 /**
  * The Rss feed button componenet.
  */
