@@ -7200,6 +7200,8 @@
 
   "item.page.doi": "DRUM DOI",
 
+  "item.page.externalDataFilesLink": "External Link to Data Files",
+
   "item.page.publicationLink": "Publication or External Link",
 
   "item.page.publicationLink.datasetOrSoftware": "Related Publication Link",
