@@ -43,6 +43,9 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+// UMD Customization
+import { RSSComponent } from '../../shared/rss-feed/rss.component';
+// End UMD Customization
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import {
   followLink,
@@ -61,7 +64,9 @@ import { VarDirective } from '../../shared/utils/var.directive';
     fadeInOut,
   ],
   standalone: true,
-  imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  // UMD Customization
+  imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, RSSComponent],
+  // End UMD Customization
 })
 export class RecentItemListComponent implements OnInit, OnDestroy {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;

@@ -2,8 +2,11 @@
   <!-- UMD Customization -->
   <div class="mt-4 mt-sm-0" [ngClass]="placeholderFontClass" *ngIf="itemRD?.hasSucceeded && itemRD?.payload?.page.length > 0" @fadeIn>
     <div class="d-xs-block d-sm-none d-flex flex-row border-bottom mb-4 pb-4"></div>
-  <!-- End UMD Customization -->
+    <!-- End UMD Customization -->
     <h2> {{'home.recent-submissions.head' | translate}}</h2>
+    <!-- UMD Customization -->
+    <ds-rss></ds-rss>
+    <!-- End UMD Customization -->
     <ul class="list-unstyled m-0 p-0">
       <li class="my-4" *ngFor="let item of itemRD?.payload?.page">
         <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode" class="pb-4">

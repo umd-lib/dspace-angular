@@ -3,7 +3,11 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
@@ -14,7 +18,9 @@ import { LinkHeadService } from '../../core/services/link-head.service';
 import { Collection } from '../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { RouterMock } from '../mocks/router.mock';
+import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import {
   createSuccessfulRemoteDataObject,
@@ -88,6 +94,8 @@ describe('RssComponent', () => {
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute },
+        { provide: TranslateService, useValue: getMockTranslateService() },
       ],
     }).compileComponents();
   }));

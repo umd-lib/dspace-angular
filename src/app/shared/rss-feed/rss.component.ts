@@ -9,8 +9,15 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import isUndefined from 'lodash/isUndefined';
 import {
   BehaviorSubject,
   Observable,
@@ -29,8 +36,8 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { hasValue } from '../empty.util';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-
 
 /**
  * The Rss feed button componenet.
@@ -51,6 +58,8 @@ export class RSSComponent implements OnInit, OnDestroy  {
 
   isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
+  isActivated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   uuid: string;
   configuration$: Observable<string>;
 
@@ -61,7 +70,9 @@ export class RSSComponent implements OnInit, OnDestroy  {
               private configurationService: ConfigurationDataService,
               private searchConfigurationService: SearchConfigurationService,
               private router: Router,
-              protected paginationService: PaginationService) {
+              private route: ActivatedRoute,
+              protected paginationService: PaginationService,
+              protected translateService: TranslateService) {
   }
   /**
    * Removes the linktag created when the component gets removed from the page.
@@ -78,8 +89,11 @@ export class RSSComponent implements OnInit, OnDestroy  {
    * Generates the link tags and the url to opensearch when the component is loaded.
    */
   ngOnInit(): void {
-    this.configuration$ = this.searchConfigurationService.getCurrentConfiguration('default');
-
+    if (hasValue(this.route.snapshot.data?.enableRSS)) {
+      this.isActivated$.next(this.route.snapshot.data.enableRSS);
+    } else if (isUndefined(this.route.snapshot.data?.enableRSS)) {
+      this.isActivated$.next(false);
+    }
     this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((result) => {
