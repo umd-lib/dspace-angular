@@ -80,3 +80,22 @@ would successfully complete:
 
 * Commented out the "codecov" job, because UMD does not have an appropriate key
   for uploading the results to codecov.io.
+
+## Change to Submission Form Validation Handling
+
+The "updateForm" method in the "SubmissionSectionFormComponent" class
+(src/app/submission/sections/form/section-form.component.ts) has been
+modified to clear the form validation errors held by Angular when
+receiving a form update from the back-end.
+
+This change is intended to fix an issue (see LIBDRUM-909) in which submitting
+a form without all the required fields populated would only show a brief
+"flash" of the validation errors, and then not show GUI validation
+warnings on all affected fields. This is apparently caused by a race condition
+between the Angular validation handling, and a page refresh triggered by the
+DSpace backend response.
+
+It is unclear whether this is the optimal fix, so it has not been submitted
+upstream to DSpace. Also, DSpace has been working on various similar fixes, so
+the changes in this class should be re-evaluated on upgrades, and
+removed if possible.

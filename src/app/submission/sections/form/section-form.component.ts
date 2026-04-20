@@ -370,6 +370,20 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         this.isUpdating = true;
         this.formModel = null;
         this.cdr.detectChanges();
+        // UMD Customization
+        // Clear errors before calling initForm.
+        // This is needed because this code path may be called multiple times,
+        // and checksForErrors does a no-op (essentially clearing the
+        // validation errors) if the "this.sectionData.errorsToShow" hasn't
+        // changed.
+        // Clearing the "errorsToShow" ensures that checksForErrors actually
+        // shows the errors, no matter how many times this code block is called.
+        //
+        // Note: Future DSpace changes may eliminate the need for this change,
+        // so it should be checked when doing DSpace upgrades, and removed,
+        // if possible.
+        this.sectionData.errorsToShow = [];
+        // End UMD Customization
         this.initForm(sectionData, errors, sectionState.serverValidationErrors);
         this.checksForErrors(errors);
         this.isUpdating = false;
