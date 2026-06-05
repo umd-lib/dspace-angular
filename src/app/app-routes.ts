@@ -33,6 +33,7 @@ import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routin
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
 import { authBlockingGuard } from './core/auth/auth-blocking.guard';
 import { authenticatedGuard } from './core/auth/authenticated.guard';
+import { notAuthenticatedGuard } from './core/auth/not-authenticated.guard';
 import { groupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { siteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { siteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
@@ -57,7 +58,7 @@ import { EMBARGO_LIST_PAGE_PATH } from './embargo-list/embargo-list-page-routing
 // End UMD Customization
 
 export const APP_ROUTES: Route[] = [
-  { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
+  { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent, data: { title: '500.page-internal-server-error' } },
   { path: ERROR_PAGE, component: ThemedPageErrorComponent },
   {
     path: '',
@@ -79,7 +80,9 @@ export const APP_ROUTES: Route[] = [
         data: {
           showBreadcrumbs: false,
           dsoPath: 'site',
+          // UMD Customization
           enableRSS: true,
+          // End UMD Customization
         },
         providers: [provideSuggestionNotificationsState()],
         canActivate: [endUserAgreementCurrentUserGuard],
@@ -110,26 +113,30 @@ export const APP_ROUTES: Route[] = [
         path: REGISTER_PATH,
         loadChildren: () => import('./register-page/register-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [siteRegisterGuard],
+        canActivate: [notAuthenticatedGuard, siteRegisterGuard],
       },
       {
         path: FORGOT_PASSWORD_PATH,
         loadChildren: () => import('./forgot-password/forgot-password-routes')
           .then((m) => m.ROUTES),
-        canActivate: [endUserAgreementCurrentUserGuard, forgotPasswordCheckGuard],
+        canActivate: [notAuthenticatedGuard, endUserAgreementCurrentUserGuard, forgotPasswordCheckGuard],
       },
       {
         path: COMMUNITY_MODULE_PATH,
         loadChildren: () => import('./community-page/community-page-routes')
           .then((m) => m.ROUTES),
+        // UMD Customization
         data: { enableRSS: true },
+        // End UMD Customization
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {
         path: COLLECTION_MODULE_PATH,
         loadChildren: () => import('./collection-page/collection-page-routes')
           .then((m) => m.ROUTES),
+        // UMD Customization
         data: { showBreadcrumbs: false,  enableRSS: true },
+        // End UMD Customization
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {
@@ -160,7 +167,9 @@ export const APP_ROUTES: Route[] = [
         path: 'mydspace',
         loadChildren: () => import('./my-dspace-page/my-dspace-page-routes')
           .then((m) => m.ROUTES),
+        // UMD Customization
         data: { enableRSS: true },
+        // End UMD Customization
         providers: [provideSuggestionNotificationsState()],
         canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
@@ -168,7 +177,9 @@ export const APP_ROUTES: Route[] = [
         path: 'search',
         loadChildren: () => import('./search-page/search-page-routes')
           .then((m) => m.ROUTES),
+        // UMD Customization
         data: { enableRSS: true },
+        // End UMD Customization
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {
@@ -181,7 +192,9 @@ export const APP_ROUTES: Route[] = [
         path: ADMIN_MODULE_PATH,
         loadChildren: () => import('./admin/admin-routes')
           .then((m) => m.ROUTES),
+        // UMD Customization
         data: { enableRSS: true },
+        // End UMD Customization
         canActivate: [siteAdministratorGuard, endUserAgreementCurrentUserGuard],
       },
       {
@@ -195,11 +208,13 @@ export const APP_ROUTES: Route[] = [
         path: 'login',
         loadChildren: () => import('./login-page/login-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [notAuthenticatedGuard],
       },
       {
         path: 'logout',
         loadChildren: () => import('./logout-page/logout-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [authenticatedGuard],
       },
       {
         path: 'submit',
@@ -226,7 +241,9 @@ export const APP_ROUTES: Route[] = [
         providers: [provideSubmissionState()],
         loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page-routes')
           .then((m) => m.ROUTES),
+        // UMD Customization
         data: { enableRSS: true },
+        // End UMD Customization
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {
@@ -261,6 +278,7 @@ export const APP_ROUTES: Route[] = [
       {
         path: FORBIDDEN_PATH,
         component: ThemedForbiddenComponent,
+        data: { title: '403.forbidden' },
       },
       {
         path: 'statistics',
@@ -301,7 +319,7 @@ export const APP_ROUTES: Route[] = [
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       // End UMD Customization
-      { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+      { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent, data: { title: '404.page-not-found' } },
     ],
   },
 ];
