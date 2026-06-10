@@ -37,6 +37,7 @@ main branch for DRUM development.
       ssl: true
       host: drum-local.lib.umd.edu
       port: 4000
+      baseUrl: https://drum-local.lib.umd.edu:4000
       nameSpace: /
 
     # The REST API server settings
