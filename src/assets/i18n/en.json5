@@ -7216,6 +7216,12 @@
 
   "home.top-level-communities.head": "Communities in DRUM",
 
+  "info.umd-about.breadcrumbs": "About DRUM",
+
+  "info.umd-about.head": "About DRUM",
+
+  "info.umd-about.title": "About DRUM",
+
   "item.page.advisor": "Advisor",
 
   "item.page.citation.datasetOrSoftware": "Related Publication Citation",
@@ -7255,6 +7261,8 @@
   "menu.section.drum_customizations_embargo_list": "Embargo List",
 
   "menu.section.drum_customizations_etdunits": "ETD Departments",
+
+  "menu.section.umd-about": "About DRUM",
 
   "mydspace.breadcrumbs": "My Submissions",
 

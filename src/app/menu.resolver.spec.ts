@@ -133,6 +133,14 @@ describe('menuResolver', () => {
         });
       });
 
+      // UMD Customization
+      it('should include a UMD about link', () => {
+        expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
+          id: 'umd-about', visible: true,
+        }));
+      });
+      // End UMD Customization
+
       it('should include community list link', () => {
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
           id: 'browse_global_communities_and_collections', visible: true,

@@ -13,6 +13,14 @@ that are outside of "normal" DSpace customization.
 The "End User Agreement" is not needed, and so is disabled in the
 "config/config.yml" file.
 
+## About DRUM page
+
+Added an "About DRUM" page at the "/info/drum-about" endpoint providing detailed
+information about DRUM and its submission guidelines.
+
+In the navigation bar menu, added an "About DRUM" link to the page (placed
+immediately after the DRUM logo).
+
 ## "PRESERVATION" added to standard bundle list
 
 The list of standard bundles has been augmented with a "PRESERVATION" bundle.

@@ -2,7 +2,10 @@ import {
   Route,
   Routes,
 } from '@angular/router';
+// UMD Customization
+import { UmdAboutComponent } from 'src/themes/drum/app/info/umd-about/umd-about.component';
 
+// End UMD Customization
 import { environment } from '../../environments/environment';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { notifyInfoGuard } from '../core/coar-notify/notify-info/notify-info.guard';
@@ -17,6 +20,7 @@ import {
   END_USER_AGREEMENT_PATH,
   FEEDBACK_PATH,
   PRIVACY_PATH,
+  UMD_ABOUT_PATH, // UMD Customization
 } from './info-routing-paths';
 import { NotifyInfoComponent } from './notify-info/notify-info.component';
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
@@ -30,6 +34,14 @@ export const ROUTES: Routes = [
     data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
     canActivate: [feedbackGuard],
   },
+  // UMD Customization
+  {
+    path: UMD_ABOUT_PATH,
+    component: UmdAboutComponent,
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
+    data: { title: 'info.umd-about.title', breadcrumbKey: 'info.umd-about' },
+  },
+  // End UMD Customization
   {
     path: ACCESSIBILITY_SETTINGS_PATH,
     component: AccessibilitySettingsComponent,
