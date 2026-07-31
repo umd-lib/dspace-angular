@@ -34,6 +34,9 @@ import { RemoteData } from './core/data/remote-data';
 import { BrowseDefinition } from './core/shared/browse-definition.model';
 import { ConfigurationProperty } from './core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from './core/shared/operators';
+// UMD Customization
+import { getUmdAboutPath } from './info/info-routing-paths';
+// End UMD Customization
 import { ThemedCreateCollectionParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import { ThemedCreateCommunityParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import { ThemedCreateItemParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
@@ -98,6 +101,20 @@ export class MenuResolverService  {
    */
   createPublicMenu$(): Observable<boolean> {
     const menuList: any[] = [
+      // UMD Customization
+      // UMD About Link
+      {
+        id: `umd-about`,
+        active: false,
+        visible: true,
+        index: -1, // Place immediately after logo
+        model: {
+          type: MenuItemType.LINK,
+          text: `menu.section.umd-about`,
+          link: getUmdAboutPath(),
+        } as LinkMenuItemModel,
+      },
+      // End UMD Customization
       /* Communities & Collections tree */
       {
         id: `browse_global_communities_and_collections`,
