@@ -39,6 +39,8 @@
   <!-- UMD Customization -->
   <div class="bottom-footer p-1 d-flex justify-content-center align-items-center">
     <div class="content-container">
+      <!-- Color of link in the following is modified to #268FB5 to satisfy the "testA11y" test in cypress/e2e/footer.cy.ts -->
+      <div>For DRUM accessibility information, please visit <a routerLink="info/drum-about" fragment="accessibility" style="color: #268FB5">About DRUM: Accessibility</a></div>
       <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
         <li *ngIf="showSendFeedback$ | async">
           <a skipLocationChange="true" routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
