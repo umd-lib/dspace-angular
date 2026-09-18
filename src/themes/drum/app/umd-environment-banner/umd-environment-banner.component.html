@@ -1,1 +1,3 @@
-<div [style]="bannerStyle" *ngIf="bannerEnabled">{{ bannerText }}</div>
+@if (bannerEnabled) {
+  <div [style]="bannerStyle">{{ bannerText }}</div>
+}

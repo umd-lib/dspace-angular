@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -74,9 +70,12 @@ enum SubKey {
   selector: 'ds-etdunit-collections-list',
   templateUrl: './etdunit-collections-list.component.html',
   imports: [
-    AsyncPipe, NgForOf, NgIf, PaginationComponent, ReactiveFormsModule,
-    RouterLink, TranslateModule,
-  ],
+    AsyncPipe,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule
+],
   standalone: true,
 })
 /**

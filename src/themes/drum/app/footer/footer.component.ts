@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +9,7 @@ import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.
   selector: 'ds-themed-footer',
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html',
-  imports: [NgIf, RouterLink, AsyncPipe, TranslateModule],
+  imports: [RouterLink, AsyncPipe, TranslateModule],
   standalone: true,
 })
 export class FooterComponent extends BaseComponent {

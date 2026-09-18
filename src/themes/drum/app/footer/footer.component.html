@@ -1,39 +1,38 @@
 <footer class="text-lg-start">
-  <div *ngIf="showTopFooter" class="top-footer">
-    <!-- Grid container -->
-    <div class=" container p-4">
-      <!--Grid row-->
-      <div class="row">
-
-        <!--Grid column-->
-        <!-- UMD Customization -->
-        <div class="col-md-6 col-sm-12 mb-4 mb-md-0">
-          <div class="top-footer-logo">
-            <a href="https://www.lib.umd.edu" title="Libraries Home Page">
-              <img class=".img-fluid" src="assets/drum/images/university_libraries_logo.svg" alt="UMD Libraries logo">
-            </a>
+  @if (showTopFooter) {
+    <div class="top-footer">
+      <!-- Grid container -->
+      <div class=" container p-4">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <!-- UMD Customization -->
+          <div class="col-md-6 col-sm-12 mb-4 mb-md-0">
+            <div class="top-footer-logo">
+              <a href="https://www.lib.umd.edu" title="Libraries Home Page">
+                <img class=".img-fluid" src="assets/drum/images/university_libraries_logo.svg" alt="UMD Libraries logo">
+              </a>
+            </div>
           </div>
-        </div>
-        <!-- End UMD Customization -->
-
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <!-- UMD Customization -->
-        <div class="col-md-6 col-sm-12 mb-4 mb-md-0">
-          <div class="top-footer-address">
-            <strong>Digital Repository at the University of Maryland</strong><br>
-            <span>University of Maryland, College Park, MD 20742-7011</span><br>
-            <a href="tel:+3013141328">(301) 314-1328</a><br />
-            <a href="mailto:drum-help@umd.edu">drum-help&#64;umd.edu</a>
+          <!-- End UMD Customization -->
+          <!--Grid column-->
+          <!--Grid column-->
+          <!-- UMD Customization -->
+          <div class="col-md-6 col-sm-12 mb-4 mb-md-0">
+            <div class="top-footer-address">
+              <strong>Digital Repository at the University of Maryland</strong><br>
+              <span>University of Maryland, College Park, MD 20742-7011</span><br>
+              <a href="tel:+3013141328">(301) 314-1328</a><br />
+              <a href="mailto:drum-help@umd.edu">drum-help&#64;umd.edu</a>
+            </div>
           </div>
+          <!-- End UMD Customization -->
+          <!--Grid column-->
         </div>
-        <!-- End UMD Customization -->
-        <!--Grid column-->
+        <!--Grid row-->
       </div>
-      <!--Grid row-->
     </div>
-  </div>
+  }
   <!-- Grid container -->
 
   <!-- UMD Customization -->
@@ -42,9 +41,11 @@
       <!-- Color of link in the following is modified to #268FB5 to satisfy the "testA11y" test in cypress/e2e/footer.cy.ts -->
       <div>For DRUM accessibility information, please visit <a routerLink="info/drum-about" fragment="accessibility" style="color: #268FB5">About DRUM: Accessibility</a></div>
       <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
-        <li *ngIf="showSendFeedback$ | async">
-          <a skipLocationChange="true" routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
-        </li>
+        @if (showSendFeedback$ | async) {
+          <li>
+            <a skipLocationChange="true" routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
+          </li>
+        }
         <li>
           <a routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
         </li>
@@ -56,7 +57,7 @@
         </li>
         <li>
           <a href="javascript:void(0);"
-             (click)="openCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
+          (click)="openCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
         </li>
       </ul>
     </div>

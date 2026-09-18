@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -16,7 +16,7 @@ import { EmbargoListResponse } from '../models/embargo-list-entry.model';
   selector: 'ds-embargo-list',
   templateUrl: './embargo-list.component.html',
   styleUrls: ['./embargo-list.component.scss'],
-  imports: [NgForOf, RouterLink, TranslateModule],
+  imports: [RouterLink, TranslateModule],
   standalone: true,
 })
 export class EmbargoListComponent {

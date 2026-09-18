@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -43,11 +40,17 @@ import { JsonLdDatasetComponent } from '../json-ld/json-ld-dataset.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
   imports: [
-    AsyncPipe, ErrorComponent, ItemVersionsComponent,
-    ItemVersionsNoticeComponent, JsonLdDatasetComponent,
-    ListableObjectComponentLoaderComponent, NgIf, ThemedItemAlertsComponent,
-    ThemedLoadingComponent, TranslateModule, VarDirective,
-  ],
+    AsyncPipe,
+    ErrorComponent,
+    ItemVersionsComponent,
+    ItemVersionsNoticeComponent,
+    JsonLdDatasetComponent,
+    ListableObjectComponentLoaderComponent,
+    ThemedItemAlertsComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective
+],
   standalone: true,
 })
 export class ItemPageComponent extends BaseComponent {

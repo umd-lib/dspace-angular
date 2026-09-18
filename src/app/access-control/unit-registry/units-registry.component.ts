@@ -1,10 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-  NgSwitch,
-  NgSwitchCase,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -68,10 +62,15 @@ import { followLink } from 'src/app/shared/utils/follow-link-config.model';
   templateUrl: './units-registry.component.html',
   styleUrls: ['./units-registry.component.scss'],
   imports: [
-    AsyncPipe, BtnDisabledDirective, NgForOf, NgIf, NgSwitch, NgSwitchCase,
-    NgbTooltipModule, PaginationComponent, ReactiveFormsModule, RouterLink,
-    ThemedLoadingComponent, TranslateModule,
-  ],
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbTooltipModule,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule
+],
   standalone: true,
 })
 export class UnitsRegistryComponent implements OnInit, OnDestroy {

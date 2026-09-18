@@ -1,10 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-  NgSwitch,
-  NgSwitchCase,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -69,10 +63,15 @@ import { EtdUnitDtoModel } from './models/etdunit-dto.model';
   templateUrl: './etdunits-registry.component.html',
   styleUrls: ['./etdunits-registry.component.scss'],
   imports: [
-    AsyncPipe, BtnDisabledDirective, PaginationComponent, NgSwitch,
-    NgbTooltipModule, NgForOf, NgIf, NgSwitchCase,
-    ReactiveFormsModule, RouterLink, ThemedLoadingComponent, TranslateModule,
-  ],
+    AsyncPipe,
+    BtnDisabledDirective,
+    PaginationComponent,
+    NgbTooltipModule,
+    ReactiveFormsModule,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule
+],
   standalone: true,
 })
 export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {

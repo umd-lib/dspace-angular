@@ -4,9 +4,15 @@
     <ds-embargo-list-export-csv></ds-embargo-list-export-csv>
   </div>
 </div>
-<div class="container" *ngIf="(embargoListResponseInitialised | async)">
-  <div *ngIf="(embargoListResponse | async)">
-    <ds-embargo-list [embargoListResponse]="(embargoListResponse | async)"></ds-embargo-list>
+@if ((embargoListResponseInitialised | async)) {
+  <div class="container">
+    @if ((embargoListResponse | async)) {
+      <div>
+        <ds-embargo-list [embargoListResponse]="(embargoListResponse | async)"></ds-embargo-list>
+      </div>
+    }
+    @if ((embargoListResponse | async) === null) {
+      <ds-alert [type]="'alert-danger'" [content]="'embargo-list.error.msg'"></ds-alert>
+    }
   </div>
-  <ds-alert *ngIf="(embargoListResponse | async) === null" [type]="'alert-danger'" [content]="'embargo-list.error.msg'"></ds-alert>
-</div>
+}

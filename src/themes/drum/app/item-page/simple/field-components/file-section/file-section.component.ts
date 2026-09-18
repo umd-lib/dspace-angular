@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedFileDownloadLinkComponent } from 'src/app/shared/file-download-link/themed-file-download-link.component';
@@ -23,11 +19,15 @@ import { slideSidebarPadding } from '../../../../../../../app/shared/animations/
   animations: [slideSidebarPadding],
   providers: [UsageReportDataService],
   imports: [
-    AsyncPipe, BitstreamDownloadCounterComponent, FileSizePipe,
-    MetadataFieldWrapperComponent, NgFor, NgIf,
-    ThemedFileDownloadLinkComponent, ThemedLoadingComponent,
-    TranslateModule, VarDirective,
-  ],
+    AsyncPipe,
+    BitstreamDownloadCounterComponent,
+    FileSizePipe,
+    MetadataFieldWrapperComponent,
+    ThemedFileDownloadLinkComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective
+],
   standalone: true,
 })
 export class FileSectionComponent extends BaseComponent {

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Inject,
@@ -13,7 +13,7 @@ import {
   selector: 'ds-umd-environment-banner',
   templateUrl: './umd-environment-banner.component.html',
   styleUrls: ['./umd-environment-banner.component.scss'],
-  imports: [NgIf],
+  imports: [],
   standalone: true,
 })
 export class UmdEnvironmentBannerComponent implements OnInit {

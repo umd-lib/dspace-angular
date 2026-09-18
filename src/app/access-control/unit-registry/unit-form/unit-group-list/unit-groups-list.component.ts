@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -73,9 +69,12 @@ enum SubKey {
   selector: 'ds-unit-groups-list',
   templateUrl: './unit-groups-list.component.html',
   imports: [
-    AsyncPipe, NgIf, NgForOf, PaginationComponent, ReactiveFormsModule,
-    RouterLink, TranslateModule,
-  ],
+    AsyncPipe,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule
+],
   standalone: true,
 })
 /**

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -41,15 +38,24 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
   templateUrl: './untyped-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    AsyncPipe, CollectionsComponent, DsoEditMenuComponent,
-    GenericItemPageFieldComponent, ItemPageAbstractFieldComponent,
-    ItemPageDateFieldComponent, ItemPageUriFieldComponent,
-    MetadataValuesComponent, MetadataFieldWrapperComponent,
-    MiradorViewerComponent, NgIf, RouterLink, ThemedFileSectionComponent,
-    ThemedMediaViewerComponent, ThemedMetadataRepresentationListComponent,
-    ThemedResultsBackButtonComponent, ThemedThumbnailComponent,
-    TranslateModule,
-  ],
+    AsyncPipe,
+    CollectionsComponent,
+    DsoEditMenuComponent,
+    GenericItemPageFieldComponent,
+    ItemPageAbstractFieldComponent,
+    ItemPageDateFieldComponent,
+    ItemPageUriFieldComponent,
+    MetadataValuesComponent,
+    MetadataFieldWrapperComponent,
+    MiradorViewerComponent,
+    RouterLink,
+    ThemedFileSectionComponent,
+    ThemedMediaViewerComponent,
+    ThemedMetadataRepresentationListComponent,
+    ThemedResultsBackButtonComponent,
+    ThemedThumbnailComponent,
+    TranslateModule
+],
   standalone: true,
 })
 export class UntypedItemComponent extends BaseComponent implements OnInit {

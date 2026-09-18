@@ -5,7 +5,7 @@
         <h2 id="header" class="pb-2">{{messagePrefix + 'head' | translate}}</h2>
         <div>
           <button class="mr-auto btn btn-success"
-                  [routerLink]="['newUnit']">
+            [routerLink]="['newUnit']">
             <i class="fas fa-plus"></i>
             <span class="d-none d-sm-inline">{{messagePrefix + 'button.add' | translate}}</span>
           </button>
@@ -17,8 +17,8 @@
         <div class="flex-grow-1 mr-3">
           <div class="form-group input-group">
             <input type="text" name="query" id="query" formControlName="query"
-                   class="form-control" attr.aria-label="{{messagePrefix + 'search.placeholder' | translate}}"
-                   [placeholder]="(messagePrefix + 'search.placeholder' | translate)" >
+              class="form-control" attr.aria-label="{{messagePrefix + 'search.placeholder' | translate}}"
+              [placeholder]="(messagePrefix + 'search.placeholder' | translate)" >
             <span class="input-group-append">
               <button type="submit" class="search-button btn btn-primary">
                 <i class="fas fa-search"></i> {{ messagePrefix + 'search.button' | translate }}
@@ -33,63 +33,75 @@
         </div>
       </form>
 
-      <ds-loading *ngIf="loading$ | async"></ds-loading>
-      <ds-pagination
-        *ngIf="(pageInfoState$ | async)?.totalElements > 0 && (loading$ | async) !== true"
-        [paginationOptions]="config"
-        [collectionSize]="(pageInfoState$ | async)?.totalElements"
-        [hideGear]="true"
-        [hidePagerWhenSinglePage]="true">
-
-        <div  class="table-responsive">
-          <table id="units" class="table table-striped table-hover table-bordered">
-            <thead>
-            <tr>
-              <th scope="col">{{messagePrefix + 'table.id' | translate}}</th>
-              <th scope="col">{{messagePrefix + 'table.name' | translate}}</th>
-              <th scope="col">{{messagePrefix + 'table.members' | translate}}</th>
-              <th>{{messagePrefix + 'table.edit' | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let unitDto of (unitsDto$ | async)?.page">
-              <td>{{unitDto.unit.id}}</td>
-              <td>{{unitDto.unit.name}}</td>
-              <td>{{unitDto.groups?.totalElements}}</td>
-              <td>
-                <div class="btn-group edit-field">
-                  <ng-container [ngSwitch]="unitDto.ableToEdit">
-                    <button *ngSwitchCase="true"
-                      [routerLink]="unitService.getUnitEditPageRouterLink(unitDto.unit)"
-                      class="btn btn-outline-primary btn-sm btn-edit"
-                      title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: unitDto.unit.name} }}"
-                    >
-                      <i class="fas fa-edit fa-fw"></i>
-                    </button>
-                    <button *ngSwitchCase="false"
-                      [dsBtnDisabled]="true"
-                      class="btn btn-outline-primary btn-sm btn-edit"
-                      placement="left"
-                      [ngbTooltip]="'admin.access-control.epeople.table.edit.buttons.edit-disabled' | translate"
-                    >
-                      <i class="fas fa-edit fa-fw"></i>
-                    </button>
-                  </ng-container>
-                  <button *ngIf="unitDto.ableToDelete"
-                          (click)="deleteUnit(unitDto)" class="btn btn-outline-danger btn-sm btn-delete"
-                          title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: unitDto.unit.name} }}">
-                    <i class="fas fa-trash-alt fa-fw"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+      @if (loading$ | async) {
+        <ds-loading></ds-loading>
+      }
+      @if ((pageInfoState$ | async)?.totalElements > 0 && (loading$ | async) !== true) {
+        <ds-pagination
+          [paginationOptions]="config"
+          [collectionSize]="(pageInfoState$ | async)?.totalElements"
+          [hideGear]="true"
+          [hidePagerWhenSinglePage]="true">
+          <div  class="table-responsive">
+            <table id="units" class="table table-striped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">{{messagePrefix + 'table.id' | translate}}</th>
+                  <th scope="col">{{messagePrefix + 'table.name' | translate}}</th>
+                  <th scope="col">{{messagePrefix + 'table.members' | translate}}</th>
+                  <th>{{messagePrefix + 'table.edit' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (unitDto of (unitsDto$ | async)?.page; track unitDto) {
+                  <tr>
+                    <td>{{unitDto.unit.id}}</td>
+                    <td>{{unitDto.unit.name}}</td>
+                    <td>{{unitDto.groups?.totalElements}}</td>
+                    <td>
+                      <div class="btn-group edit-field">
+                        @switch (unitDto.ableToEdit) {
+                          @case (true) {
+                            <button
+                              [routerLink]="unitService.getUnitEditPageRouterLink(unitDto.unit)"
+                              class="btn btn-outline-primary btn-sm btn-edit"
+                              title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: unitDto.unit.name} }}"
+                              >
+                              <i class="fas fa-edit fa-fw"></i>
+                            </button>
+                          }
+                          @case (false) {
+                            <button
+                              [dsBtnDisabled]="true"
+                              class="btn btn-outline-primary btn-sm btn-edit"
+                              placement="left"
+                              [ngbTooltip]="'admin.access-control.epeople.table.edit.buttons.edit-disabled' | translate"
+                              >
+                              <i class="fas fa-edit fa-fw"></i>
+                            </button>
+                          }
+                        }
+                        @if (unitDto.ableToDelete) {
+                          <button
+                            (click)="deleteUnit(unitDto)" class="btn btn-outline-danger btn-sm btn-delete"
+                            title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: unitDto.unit.name} }}">
+                            <i class="fas fa-trash-alt fa-fw"></i>
+                          </button>
+                        }
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </ds-pagination>
+      }
+      @if ((pageInfoState$ | async)?.totalElements === 0) {
+        <div class="alert alert-info w-100 mb-2" role="alert">
+          {{messagePrefix + 'no-items' | translate}}
         </div>
-      </ds-pagination>
-      <div *ngIf="(pageInfoState$ | async)?.totalElements === 0" class="alert alert-info w-100 mb-2" role="alert">
-        {{messagePrefix + 'no-items' | translate}}
-      </div>
+      }
 
     </div>
   </div>

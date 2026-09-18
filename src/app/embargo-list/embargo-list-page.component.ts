@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -21,7 +18,7 @@ import { EmbargoListResponse } from './models/embargo-list-entry.model';
   selector: 'ds-embargo-list-page',
   templateUrl: './embargo-list-page.component.html',
   styleUrls: ['./embargo-list-page.component.scss'],
-  imports: [AlertComponent,  AsyncPipe, EmbargoListComponent, EmbargoListExportCsvComponent, NgIf, TranslateModule],
+  imports: [AlertComponent, AsyncPipe, EmbargoListComponent, EmbargoListExportCsvComponent, TranslateModule],
   standalone: true,
 })
 export class EmbargoListPageComponent implements OnInit {
