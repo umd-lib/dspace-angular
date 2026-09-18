@@ -1,7 +1,11 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
-  HttpClientTestingModule,
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
   HttpTestingController,
+  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
@@ -31,7 +35,7 @@ describe(`LocaleInterceptor`, () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [],
       providers: [
         DspaceRestService,
         {
@@ -41,6 +45,8 @@ describe(`LocaleInterceptor`, () => {
         },
         { provide: HALEndpointService, useValue: mockHalEndpointService },
         { provide: LocaleService, useValue: mockLocaleService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
       ],
     });
 

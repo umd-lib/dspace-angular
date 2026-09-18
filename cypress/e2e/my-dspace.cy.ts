@@ -84,7 +84,7 @@ describe('My DSpace page', () => {
       cy.url().should('include', '/mydspace');
 
       // Close any open notifications, to make sure they don't get in the way of next steps
-      cy.get('[data-dismiss="alert"]').click({ multiple: true });
+      cy.get('[data-bs-dismiss="alert"]').click({ multiple: true });
 
       // This is the GET command that will actually run the search
       cy.intercept('GET', '/server/api/discover/search/objects*').as('search-results');
@@ -214,7 +214,7 @@ describe('My DSpace page', () => {
     cy.get('#dc_title').type('Workflow test item');
     cy.get('#dc_date_issued_year').type(currentYear.toString());
     cy.get('input[name="dc.type"]').click();
-    cy.get('.dropdown-menu').should('be.visible').contains('button', 'Animation').click();
+    cy.get('.dropdown-menu').should('be.visible').contains('button', 'Other').click();
     cy.get('#granted').check();
 
     //Press deposit button

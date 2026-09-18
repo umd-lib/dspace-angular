@@ -1,9 +1,3 @@
-// Load the implementations that should be tested
-import {
-  AsyncPipe,
-  NgClass,
-  NgIf,
-} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -22,10 +16,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  NgbModule,
-  NgbTooltipModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicFormLayoutService,
@@ -382,14 +373,8 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
-    DsDynamicRelationGroupComponent,
-    NgIf,
-    AsyncPipe,
-    NgbTooltipModule,
     TranslateModule,
-    NgClass,
   ],
 })
 class TestComponent {

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   OnInit,
@@ -36,8 +36,10 @@ import {
 @Component({
   selector: 'ds-base-create-collection-parent-selector',
   templateUrl: './create-collection-parent-selector.component.html',
-  standalone: true,
-  imports: [NgIf, AuthorizedCommunitySelectorComponent, TranslateModule],
+  imports: [
+    AuthorizedCommunitySelectorComponent,
+    TranslateModule,
+  ],
 })
 export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;

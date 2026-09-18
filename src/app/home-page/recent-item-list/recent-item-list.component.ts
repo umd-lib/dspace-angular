@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   isPlatformBrowser,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -63,10 +61,18 @@ import { VarDirective } from '../../shared/utils/var.directive';
     fadeIn,
     fadeInOut,
   ],
-  standalone: true,
-  // UMD Customization
-  imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, RSSComponent],
-  // End UMD Customization
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    // UMD Customization
+    RSSComponent,
+    // End UMD Customization
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class RecentItemListComponent implements OnInit, OnDestroy {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;

@@ -39,9 +39,10 @@ import { HeadTagService } from '../../app/core/metadata/head-tag.service';
 import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
-import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
@@ -79,7 +80,7 @@ export class BrowserInitService extends InitService {
     protected googleAnalyticsService: GoogleAnalyticsService,
     protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
-    protected klaroService: KlaroService,
+    protected orejimeService: OrejimeService,
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
@@ -88,7 +89,7 @@ export class BrowserInitService extends InitService {
     private requestService: RequestService,
     private halService: HALEndpointService,
     private matomoService: MatomoService,
-
+    protected menuProviderService: MenuProviderService,
   ) {
     super(
       store,
@@ -101,6 +102,7 @@ export class BrowserInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      menuProviderService,
     );
   }
 
@@ -132,9 +134,10 @@ export class BrowserInitService extends InitService {
       this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
 
-      this.initKlaro();
+      this.initOrejime();
 
       await lastValueFrom(this.authenticationReady$());
+      this.menuProviderService.initPersistentMenus(false);
 
       return true;
     };
@@ -169,12 +172,12 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * Initialize Klaro (once authentication is resolved)
+   * Initialize Orejime (once authentication is resolved)
    * @protected
    */
-  protected initKlaro() {
+  protected initOrejime() {
     this.authenticationReady$().subscribe(() => {
-      this.klaroService.initialize();
+      this.orejimeService.initialize();
     });
   }
 
@@ -221,6 +224,7 @@ export class BrowserInitService extends InitService {
   protected initRouteListeners(): void {
     super.initRouteListeners();
     this.listenForRouteChanges();
+    this.menuProviderService.listenForRouteChanges(false);
   }
 
   /**

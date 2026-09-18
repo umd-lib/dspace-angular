@@ -4,7 +4,29 @@
 name: Build
 
 # Run this Build for all pushes / PRs to current branch
-on: [push, pull_request]
+on:
+  push:
+    # Don't run if PR is only updating static documentation or IDE/editor rules
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.vscode/*'
+      - 'docs/*'
+      - 'LICENSE'
+      - 'LICENSES_THIRD_PARTY'
+      - 'NOTICE'
+      - '**/*.md'
+  pull_request:
+    # Don't run if PR is only updating static documentation or IDE/editor rules
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.vscode/*'
+      - 'docs/*'
+      - 'LICENSE'
+      - 'LICENSES_THIRD_PARTY'
+      - 'NOTICE'
+      - '**/*.md'
 
 permissions:
   contents: read  # to fetch code (actions/checkout)
@@ -21,7 +43,7 @@ jobs:
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
-      # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 18+
+      # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 20+
       DSPACE_UI_HOST: 127.0.0.1
       DSPACE_UI_PORT: 4000
       DSPACE_UI_BASEURL: http://127.0.0.1:4000
@@ -48,18 +70,18 @@ jobs:
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [20.x, 22.x]
       # Do NOT exit immediately if one matrix job fails
       fail-fast: false
     # These are the actual CI steps to perform per job
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # https://github.com/actions/setup-node
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -79,46 +101,46 @@ jobs:
           fi
           google-chrome --version
 
-      # https://github.com/actions/cache/blob/main/examples.md#node---yarn
-      - name: Get Yarn cache directory
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - name: Cache Yarn dependencies
-        uses: actions/cache@v5
+      # https://github.com/actions/cache/blob/main/examples.md#node---npm
+      - name: Get NPM cache directory
+        id: npm-cache-dir
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+      - name: Cache NPM dependencies
+        uses: actions/cache@v6
         with:
-          # Cache entire Yarn cache directory (see previous step)
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          # Cache key is hash of yarn.lock. Therefore changes to yarn.lock will invalidate cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+          # Cache entire NPM cache directory (see previous step)
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          # Cache key is hash of package-lock.json. Therefore changes to package-lock.json will invalidate cache
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-
 
-      - name: Install Yarn dependencies
-        run: yarn install --frozen-lockfile
+      - name: Install NPM dependencies
+        run: npm clean-install
 
       - name: Build lint plugins
-        run: yarn run build:lint
+        run: npm run build:lint
 
       - name: Run lint plugin tests
-        run: yarn run test:lint:nobuild
+        run: npm run test:lint:nobuild
 
       - name: Run lint
-        run: yarn run lint:nobuild --quiet
+        run: npm run lint:nobuild -- --quiet
 
       - name: Check for circular dependencies
-        run: yarn run check-circ-deps
+        run: npm run check-circ-deps
 
       - name: Run build
-        run: yarn run build:prod
+        run: npm run build:prod
 
       - name: Run specs (unit tests)
-        run: yarn run test:headless
+        run: npm run test:headless
 
       # Upload code coverage report to artifact (for one version of Node only),
       # so that it can be shared with the 'codecov' job (see below)
       # NOTE: Angular CLI only supports code coverage for specs. See https://github.com/angular/angular-cli/issues/6286
       - name: Upload code coverage report to Artifact
         uses: actions/upload-artifact@v7
-        if: matrix.node-version == '18.x'
+        if: matrix.node-version == '20.x'
         with:
           name: coverage-report-${{ matrix.node-version }}
           path: 'coverage/dspace-angular/lcov.info'
@@ -149,12 +171,12 @@ jobs:
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v7.1.9
+        uses: cypress-io/github-action@v7.4.3
         with:
           # Run tests in Chrome, headless mode (default)
           browser: chrome
           # Start app before running tests (will be stopped automatically after tests finish)
-          start: yarn run serve:ssr
+          start: npm run serve:ssr
           # Wait for backend & frontend to be available
           # NOTE: We use the 'sites' REST endpoint to also ensure the database is ready
           wait-on: http://127.0.0.1:8080/server/api/core/sites, http://127.0.0.1:4000
@@ -190,7 +212,7 @@ jobs:
       # Start up the app with SSR enabled (run in background)
       - name: Start app in SSR (server-side rendering) mode
         run: |
-          nohup yarn run serve:ssr &
+          nohup npm run serve:ssr &
           printf 'Waiting for app to start'
           until curl --output /dev/null --silent --head --fail http://127.0.0.1:4000/home; do
             printf '.'
@@ -318,42 +340,39 @@ jobs:
       - name: Shutdown Docker containers
         run: docker compose -f ./docker/docker-compose-ci.yml down
 
-  # UMD Customization
-  # Commented out, because UMD does not have a an appropriate key for uploading the results to codecov.io.
-  # # Codecov upload is a separate job in order to allow us to restart this separate from the entire build/test
-  # # job above. This is necessary because Codecov uploads seem to randomly fail at times.
-  # # See https://community.codecov.com/t/upload-issues-unable-to-locate-build-via-github-actions-api/3954
-  # codecov:
-  #   # Must run after 'tests' job above
-  #   needs: tests
-  #   # Only run on the upstream repository: forks do not have the CODECOV_TOKEN secret,
-  #   # and Codecov refuses to create a commit on a protected branch without a token.
-  #   if: github.repository == 'dspace/dspace-angular'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v6
-  #
-  #     # Download artifacts from previous 'tests' job
-  #     - name: Download coverage artifacts
-  #       uses: actions/download-artifact@v8
-  #
-  #     # Now attempt upload to Codecov using its action.
-  #     # NOTE: We use a retry action to retry the Codecov upload if it fails the first time.
-  #     #
-  #     # Retry action: https://github.com/marketplace/actions/retry-action
-  #     # Codecov action: https://github.com/codecov/codecov-action
-  #     - name: Upload coverage to Codecov.io
-  #       uses: Wandalen/wretry.action@v3.8.0
-  #       with:
-  #         action: codecov/codecov-action@v4
-  #         # Ensure codecov-action throws an error when it fails to upload
-  #         # This allows us to auto-restart the action if an error is thrown
-  #         with: |
-  #           fail_ci_if_error: true
-  #           token: ${{ secrets.CODECOV_TOKEN }}
-  #         # Try re-running action 5 times max
-  #         attempt_limit: 5
-  #         # Run again in 30 seconds
-  #         attempt_delay: 30000
-  # End UMD Customization
+  # Codecov upload is a separate job in order to allow us to restart this separate from the entire build/test
+  # job above. This is necessary because Codecov uploads seem to randomly fail at times.
+  # See https://community.codecov.com/t/upload-issues-unable-to-locate-build-via-github-actions-api/3954
+  codecov:
+    # Must run after 'tests' job above
+    needs: tests
+    # Only run on the upstream repository: forks do not have the CODECOV_TOKEN secret,
+    # and Codecov refuses to create a commit on a protected branch without a token.
+    if: github.repository == 'dspace/dspace-angular'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Download artifacts from previous 'tests' job
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@v8
+
+      # Now attempt upload to Codecov using its action.
+      # NOTE: We use a retry action to retry the Codecov upload if it fails the first time.
+      #
+      # Retry action: https://github.com/marketplace/actions/retry-action
+      # Codecov action: https://github.com/codecov/codecov-action
+      - name: Upload coverage to Codecov.io
+        uses: Wandalen/wretry.action@v3.8.0
+        with:
+          action: codecov/codecov-action@v4
+          # Ensure codecov-action throws an error when it fails to upload
+          # This allows us to auto-restart the action if an error is thrown
+          with: |
+            fail_ci_if_error: true
+            token: ${{ secrets.CODECOV_TOKEN }}
+          # Try re-running action 5 times max
+          attempt_limit: 5
+          # Run again in 30 seconds
+          attempt_delay: 30000

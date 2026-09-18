@@ -2,11 +2,7 @@
 /* eslint-disable import-newlines/enforce */
 /* eslint-disable simple-import-sort/imports */
 // End Customization
-import {
-  AsyncPipe,
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -58,7 +54,7 @@ import { RemoteData } from 'src/app/core/data/remote-data';
 import {
   Observable,
   combineLatest as observableCombineLatest,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   getFirstSucceededRemoteData,
@@ -73,15 +69,12 @@ import {
   selector: 'ds-community-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
-  standalone: true,
   imports: [
+    AsyncPipe,
+    ComcolPageLogoComponent,
     FormComponent,
     TranslateModule,
     UploaderComponent,
-    AsyncPipe,
-    ComcolPageLogoComponent,
-    NgIf,
-    NgClass,
     VarDirective,
   ],
 })
@@ -208,7 +201,7 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
       getRemoteDataPayload(),
     );
 
-    const currentCommunityGroup$ = this.dso.communityGroup === undefined ? observableOf(undefined) :
+    const currentCommunityGroup$ = this.dso.communityGroup === undefined ? of(undefined) :
       this.dso.communityGroup.pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),

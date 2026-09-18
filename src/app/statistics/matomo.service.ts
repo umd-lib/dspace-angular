@@ -13,6 +13,7 @@ import {
   from as fromPromise,
   Observable,
   of,
+  ReplaySubject,
 } from 'rxjs';
 import {
   map,
@@ -25,7 +26,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { NativeWindowService } from '../core/services/window.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { KlaroService } from '../shared/cookies/klaro.service';
+import { OrejimeService } from '../shared/cookies/orejime.service';
 import { isNotEmpty } from '../shared/empty.util';
 
 export const MATOMO_TRACKER_URL = 'matomo.tracker.url';
@@ -45,20 +46,40 @@ export const MATOMO_ENABLED = 'matomo.enabled';
  * Provides methods for initializing tracking, managing consent, and appending visitor identifiers.
  */
 export class MatomoService {
-
   /** Injects the MatomoInitializerService to initialize the Matomo tracker. */
   matomoInitializer: MatomoInitializerService;
 
   /** Injects the MatomoTracker to manage Matomo tracking operations. */
   matomoTracker: MatomoTracker;
-  klaroService = inject(KlaroService);
+
+  /** Injects the OrejimeService to manage cookie consent preferences. */
+  orejimeService = inject(OrejimeService);
+
+  /** Injects the NativeWindowService to access the native window object. */
   _window = inject(NativeWindowService);
 
   /** Injects the ConfigurationService. */
   configService = inject(ConfigurationDataService);
 
-  constructor(private injector: EnvironmentInjector) {
+  private statusSubject = new ReplaySubject<'loading' | 'loaded' | 'error'>(1);
+  private status$ = this.statusSubject.asObservable();
 
+  constructor(private injector: EnvironmentInjector) {
+    this.statusSubject.next('loading');
+  }
+
+  /**
+   * This method indicates that the Matomo script loaded successfully thus we set state to loaded
+   */
+  markAsLoaded() {
+    this.statusSubject.next('loaded');
+  }
+
+  /**
+   * This method indicates that the Matomo script failed to download or execute and sets state to error
+   */
+  markAsError() {
+    this.statusSubject.next('error');
   }
 
   /**
@@ -72,7 +93,7 @@ export class MatomoService {
     }
 
     if (environment.production) {
-      const preferences$ = this.klaroService.getSavedPreferences();
+      const preferences$ = this.orejimeService.getSavedPreferences();
 
       combineLatest([preferences$, this.isMatomoEnabled$(), this.getSiteId$(), this.getTrackerUrl$()])
         .subscribe(([preferences, isMatomoEnabled, siteId, trackerUrl]) => {
@@ -106,9 +127,6 @@ export class MatomoService {
    * @returns An Observable that emits the URL with the visitor ID appended.
    */
   appendVisitorId(url: string): Observable<string> {
-    if (!this.matomoTracker) {
-      return of(url);
-    }
     return fromPromise(this.matomoTracker?.getVisitorId())
       .pipe(
         map(visitorId => this.appendTrackerId(url, visitorId)),
@@ -162,6 +180,16 @@ export class MatomoService {
             res.payload.values[0]?.toLowerCase() === 'true';
         }),
       );
+  }
+
+  /**
+   * Checks if Matomo script loaded correctly
+   * @returns An Observable that emits a boolean indicating whether Matomo script loaded correctly.
+   */
+  isMatomoScriptLoaded$(): Observable<boolean> {
+    return this.status$.pipe(
+      map(status => status === 'loaded'),
+    );
   }
 
   /**

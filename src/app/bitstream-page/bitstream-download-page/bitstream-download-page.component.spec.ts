@@ -17,7 +17,7 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 // UMD Customization
 import { RESTRICTED_ACCESS_MODULE_PATH } from '../../app-routing-paths';
@@ -67,16 +67,16 @@ describe('BitstreamDownloadPageComponent', () => {
 
   function init() {
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
       setRedirectUrl: {},
-      getShortlivedToken: observableOf('token'),
+      getShortlivedToken: of('token'),
     });
     authorizationService = jasmine.createSpyObj('authorizationSerivice', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     fileService = jasmine.createSpyObj('fileService', {
-      retrieveFileDownloadLink: observableOf('content-url-with-headers'),
+      retrieveFileDownloadLink: of('content-url-with-headers'),
     });
 
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
@@ -99,13 +99,13 @@ describe('BitstreamDownloadPageComponent', () => {
       },
     });
     activatedRoute = {
-      data: observableOf({
+      data: of({
         bitstream: createSuccessfulRemoteDataObject(bitstream),
       }),
-      params: observableOf({
+      params: of({
         id: 'testid',
       }),
-      queryParams: observableOf({
+      queryParams: of({
         accessToken: undefined,
       }),
     };
@@ -117,13 +117,14 @@ describe('BitstreamDownloadPageComponent', () => {
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink, mocklink2]),
+      getLinks: of([mocklink, mocklink2]),
     });
     matomoService = jasmine.createSpyObj('MatomoService', {
-      appendVisitorId: observableOf(''),
-      isMatomoEnabled$: observableOf(true),
+      appendVisitorId: of(''),
+      isMatomoEnabled$: of(true),
+      isMatomoScriptLoaded$: of(true),
     });
-    matomoService.appendVisitorId.and.callFake((link) => observableOf(link));
+    matomoService.appendVisitorId.and.callFake((link) => of(link));
   }
 
   function initTestbed() {
@@ -167,7 +168,7 @@ describe('BitstreamDownloadPageComponent', () => {
     describe('when the user is authorized and not logged in', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(false));
 
         initTestbed();
       }));
@@ -204,7 +205,7 @@ describe('BitstreamDownloadPageComponent', () => {
     describe('when the user is not authorized and logged in', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
         initTestbed();
       }));
       beforeEach(() => {
@@ -225,8 +226,8 @@ describe('BitstreamDownloadPageComponent', () => {
     describe('when the user is not authorized and not logged in', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
-        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(false));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
         initTestbed();
       }));
       beforeEach(() => {
@@ -249,7 +250,7 @@ describe('BitstreamDownloadPageComponent', () => {
   describe('when Matomo is enabled', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (matomoService.appendVisitorId as jasmine.Spy).and.callFake((link) => observableOf(link + '?visitorId=12345'));
+      (matomoService.appendVisitorId as jasmine.Spy).and.callFake((link) => of(link + '?visitorId=12345'));
       initTestbed();
     }));
     beforeEach(() => {
@@ -268,7 +269,7 @@ describe('BitstreamDownloadPageComponent', () => {
   describe('when Matomo is not enabled', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (matomoService.isMatomoEnabled$ as jasmine.Spy).and.returnValue(observableOf(false));
+      (matomoService.isMatomoEnabled$ as jasmine.Spy).and.returnValue(of(false));
       initTestbed();
     }));
     beforeEach(() => {

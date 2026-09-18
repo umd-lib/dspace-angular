@@ -123,7 +123,7 @@ export abstract class FieldParser {
 
       const layout: DynamicFormControlLayout = {
         grid: {
-          group: 'form-row',
+          group: 'row',
         },
       };
 

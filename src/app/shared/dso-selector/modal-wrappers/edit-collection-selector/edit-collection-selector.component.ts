@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -33,8 +32,10 @@ import {
 @Component({
   selector: 'ds-base-edit-collection-selector',
   templateUrl: './edit-collection-selector.component.html',
-  standalone: true,
-  imports: [NgIf, AuthorizedCollectionSelectorComponent, TranslateModule],
+  imports: [
+    AuthorizedCollectionSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;

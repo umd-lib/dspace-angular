@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -47,11 +44,9 @@ import {
   selector: 'ds-base-create-community-parent-selector',
   styleUrls: ['./create-community-parent-selector.component.scss'],
   templateUrl: './create-community-parent-selector.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     AuthorizedCommunitySelectorComponent,
-    NgIf,
     TranslateModule,
   ],
 })
