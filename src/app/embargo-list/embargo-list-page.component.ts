@@ -11,7 +11,7 @@ import { AlertComponent } from '../shared/alert/alert.component';
 import { EmbargoListService } from './embargo-list.service';
 import { EmbargoListComponent } from './embargo-list/embargo-list.component';
 import { EmbargoListExportCsvComponent } from './embargo-list-export-csv/embargo-list-export-csv.component';
-import { EmbargoListResponse } from './models/embargo-list-entry.model';
+import { EmbargoListEntry } from './models/embargo-list-entry.model';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class EmbargoListPageComponent implements OnInit {
   /**
    * Embargo list endpoint response
    */
-  embargoListResponse: BehaviorSubject<EmbargoListResponse> = new BehaviorSubject<EmbargoListResponse>(null);
+  embargoListResponse = new BehaviorSubject<EmbargoListEntry[] | null>(null);
 
   /**
    * True if the response from embargo list endpoint has already retrieved, false otherwise
@@ -39,10 +39,12 @@ export class EmbargoListPageComponent implements OnInit {
    * Retrieve response from REST endpoint
    */
   ngOnInit(): void {
-    this.embargoListService.getEmbargoList().pipe(take(1)).subscribe({
-      next: (data: any) => {
-        this.embargoListResponse.next(data.payload);
-        this.embargoListResponseInitialised.next(true);
+    this.embargoListService.getEmbargoList()
+      .pipe(take(1))
+      .subscribe({
+        next: (entries: EmbargoListEntry[]) => {
+          this.embargoListResponse.next(entries);
+          this.embargoListResponseInitialised.next(true);
       },
       error: () => {
         this.embargoListResponse.next(null);

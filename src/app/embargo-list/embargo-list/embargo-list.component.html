@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (entry of embargoListResponse; track entry) {
+      @for (entry of embargoListResponse; track entry.bitstreamId) {
         <tr>
           <td><a (click)="embargoListService.getHandleLink(entry.handle)"
           [routerLink]="[embargoListService.getHandleLink(entry.handle)]">{{ entry.handle }}</a></td>

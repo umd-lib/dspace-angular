@@ -4,14 +4,13 @@
     <ds-embargo-list-export-csv></ds-embargo-list-export-csv>
   </div>
 </div>
-@if ((embargoListResponseInitialised | async)) {
+@if (embargoListResponseInitialised | async) {
   <div class="container">
-    @if ((embargoListResponse | async)) {
+    @if (embargoListResponse | async; as entries) {
       <div>
-        <ds-embargo-list [embargoListResponse]="(embargoListResponse | async)"></ds-embargo-list>
+        <ds-embargo-list [embargoListResponse]="entries"></ds-embargo-list>
       </div>
-    }
-    @if ((embargoListResponse | async) === null) {
+    } @else {
       <ds-alert [type]="'alert-danger'" [content]="'embargo-list.error.msg'"></ds-alert>
     }
   </div>
