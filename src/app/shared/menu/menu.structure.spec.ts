@@ -23,6 +23,7 @@ import { StatisticsMenuProvider } from './providers/statistics.menu';
 import { SystemWideAlertMenuProvider } from './providers/system-wide-alert.menu';
 // UMD Customization
 import { UmdAboutMenuProvider } from './providers/umd-about.menu';
+import { UmdDrumCustomizationsMenuProvider } from './providers/umd-drum-customizations.menu';
 import { UmdSubmitItemMenuProvider } from './providers/umd-submit-item.menu';
 // End UMD Customization
 import { WorkflowMenuProvider } from './providers/workflow.menu';
@@ -54,6 +55,9 @@ describe('buildMenuStructure', () => {
         WorkflowMenuProvider,
         HealthMenuProvider,
         SystemWideAlertMenuProvider,
+        // UMD Customization
+        UmdDrumCustomizationsMenuProvider,
+        // End UMD Customization
       ],
       [MenuID.DSO_EDIT]: [
         DsoOptionMenuProvider.withSubs([
@@ -103,6 +107,9 @@ describe('buildMenuStructure', () => {
       WorkflowMenuProvider,
       HealthMenuProvider,
       SystemWideAlertMenuProvider,
+      // UMD Customization
+      UmdDrumCustomizationsMenuProvider,
+      // End UMD Customization
       SubscribeMenuProvider,
       DSpaceObjectEditMenuProvider,
       VersioningMenuProvider,

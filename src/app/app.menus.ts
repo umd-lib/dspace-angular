@@ -33,6 +33,7 @@ import { StatisticsMenuProvider } from './shared/menu/providers/statistics.menu'
 import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide-alert.menu';
 // UMD Customization
 import { UmdAboutMenuProvider } from './shared/menu/providers/umd-about.menu';
+import { UmdDrumCustomizationsMenuProvider } from './shared/menu/providers/umd-drum-customizations.menu';
 import { UmdSubmitItemMenuProvider } from './shared/menu/providers/umd-submit-item.menu';
 // End UMD Customization
 import { WithdrawnReinstateItemMenuProvider } from './shared/menu/providers/withdrawn-reinstate-item.menu';
@@ -82,6 +83,9 @@ export const MENUS = buildMenuStructure({
     HealthMenuProvider,
     SystemWideAlertMenuProvider,
     CoarNotifyMenuProvider,
+    // UMD Customization
+    UmdDrumCustomizationsMenuProvider,
+    // End UMD Customization
   ],
   [MenuID.DSO_EDIT]: [
     DsoOptionMenuProvider.withSubs([
