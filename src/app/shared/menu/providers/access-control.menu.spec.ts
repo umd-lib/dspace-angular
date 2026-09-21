@@ -53,6 +53,17 @@ describe('AccessControlMenuProvider', () => {
         link: '/access-control/bulk-access',
       },
     },
+    // UMD Customization
+    // Access Control - Units admin sidebar menu item
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.access_control_units',
+        link: '/access-control/units',
+      },
+    },
+    // End UMD Customization
   ];
 
   let provider: AccessControlMenuProvider;
