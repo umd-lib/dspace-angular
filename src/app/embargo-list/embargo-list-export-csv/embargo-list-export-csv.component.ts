@@ -28,8 +28,11 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
   selector: 'ds-embargo-list-export-csv',
   styleUrls: ['./embargo-list-export-csv.component.scss'],
   templateUrl: './embargo-list-export-csv.component.html',
-  imports: [AsyncPipe, NgbTooltipModule, TranslateModule],
-  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 
 /**

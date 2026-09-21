@@ -26,9 +26,8 @@ import { slideSidebarPadding } from '../../../../../../../app/shared/animations/
     ThemedFileDownloadLinkComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    VarDirective
-],
-  standalone: true,
+    VarDirective,
+  ],
 })
 export class FileSectionComponent extends BaseComponent {
 

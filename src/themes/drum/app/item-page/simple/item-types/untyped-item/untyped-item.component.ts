@@ -45,8 +45,8 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
     ItemPageAbstractFieldComponent,
     ItemPageDateFieldComponent,
     ItemPageUriFieldComponent,
-    MetadataValuesComponent,
     MetadataFieldWrapperComponent,
+    MetadataValuesComponent,
     MiradorViewerComponent,
     RouterLink,
     ThemedFileSectionComponent,
@@ -54,9 +54,8 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
     ThemedMetadataRepresentationListComponent,
     ThemedResultsBackButtonComponent,
     ThemedThumbnailComponent,
-    TranslateModule
-],
-  standalone: true,
+    TranslateModule,
+  ],
 })
 export class UntypedItemComponent extends BaseComponent implements OnInit {
   public publicationLinkLabelI18nKey = 'item.page.publicationLink';

@@ -19,7 +19,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -65,14 +65,13 @@ import { EtdUnitDtoModel } from './models/etdunit-dto.model';
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    PaginationComponent,
     NgbTooltipModule,
+    PaginationComponent,
     ReactiveFormsModule,
     RouterLink,
     ThemedLoadingComponent,
-    TranslateModule
-],
-  standalone: true,
+    TranslateModule,
+  ],
 })
 export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
 
@@ -168,7 +167,7 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
       switchMap((etdunits: PaginatedList<EtdUnit>) => {
         if (etdunits.page.length === 0) {
-          return observableOf(buildPaginatedList(etdunits.pageInfo, []));
+          return of(buildPaginatedList(etdunits.pageInfo, []));
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
@@ -216,7 +215,7 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
    */
   canManageEtdUnit$(isSiteAdmin: boolean): Observable<boolean> {
     // Only admins can manage etdunits (and can manage all EtdUnits)
-    return observableOf(isSiteAdmin);
+    return of(isSiteAdmin);
   }
 
   /**

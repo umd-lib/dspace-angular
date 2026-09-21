@@ -22,7 +22,7 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   ObservedValueOf,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -74,9 +74,8 @@ enum SubKey {
     PaginationComponent,
     ReactiveFormsModule,
     RouterLink,
-    TranslateModule
-],
-  standalone: true,
+    TranslateModule,
+  ],
 })
 /**
  * The list of collections in the edit ETD unit page
@@ -220,7 +219,7 @@ export class EtdUnitCollectionsListComponent implements OnInit, OnDestroy {
               map((listCollectionsInEtdUnit: PaginatedList<Collection>) => listCollectionsInEtdUnit.page.filter((collectionInList: Collection) => collectionInList.id === possibleCollection.id)),
               map((collections: Collection[]) => collections.length > 0));
         } else {
-          return observableOf(false);
+          return of(false);
         }
       }));
   }

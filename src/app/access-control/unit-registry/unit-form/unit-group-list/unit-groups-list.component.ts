@@ -22,7 +22,7 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   ObservedValueOf,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -73,9 +73,8 @@ enum SubKey {
     PaginationComponent,
     ReactiveFormsModule,
     RouterLink,
-    TranslateModule
-],
-  standalone: true,
+    TranslateModule,
+  ],
 })
 /**
  * The list of groups in the edit unit page
@@ -220,7 +219,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
               map((listGroupsInUnit: PaginatedList<Group>) => listGroupsInUnit.page.filter((groupInList: Group) => groupInList.id === possibleGroup.id)),
               map((groups: Group[]) => groups.length > 0));
         } else {
-          return observableOf(false);
+          return of(false);
         }
       }));
   }

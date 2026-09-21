@@ -16,8 +16,10 @@ import { EmbargoListEntry } from '../models/embargo-list-entry.model';
   selector: 'ds-embargo-list',
   templateUrl: './embargo-list.component.html',
   styleUrls: ['./embargo-list.component.scss'],
-  imports: [RouterLink, TranslateModule],
-  standalone: true,
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class EmbargoListComponent {
 

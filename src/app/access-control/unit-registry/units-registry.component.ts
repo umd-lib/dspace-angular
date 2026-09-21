@@ -19,7 +19,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -69,9 +69,8 @@ import { followLink } from 'src/app/shared/utils/follow-link-config.model';
     ReactiveFormsModule,
     RouterLink,
     ThemedLoadingComponent,
-    TranslateModule
-],
-  standalone: true,
+    TranslateModule,
+  ],
 })
 export class UnitsRegistryComponent implements OnInit, OnDestroy {
 
@@ -166,7 +165,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
       switchMap((units: PaginatedList<Unit>) => {
         if (units.page.length === 0) {
-          return observableOf(buildPaginatedList(units.pageInfo, []));
+          return of(buildPaginatedList(units.pageInfo, []));
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
@@ -214,7 +213,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
    */
   canManageUnit$(isSiteAdmin: boolean): Observable<boolean> {
     // Only admins can manage units (and can manage all Units)
-    return observableOf(isSiteAdmin);
+    return of(isSiteAdmin);
   }
 
   /**

@@ -49,9 +49,8 @@ import { JsonLdDatasetComponent } from '../json-ld/json-ld-dataset.component';
     ThemedItemAlertsComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    VarDirective
-],
-  standalone: true,
+    VarDirective,
+  ],
 })
 export class ItemPageComponent extends BaseComponent {
   constructor(

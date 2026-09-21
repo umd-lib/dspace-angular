@@ -14,7 +14,6 @@ import {
   templateUrl: './umd-environment-banner.component.html',
   styleUrls: ['./umd-environment-banner.component.scss'],
   imports: [],
-  standalone: true,
 })
 export class UmdEnvironmentBannerComponent implements OnInit {
   bannerText = '';

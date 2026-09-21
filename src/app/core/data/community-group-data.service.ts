@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -108,7 +108,7 @@ export class CommunityGroupDataService extends BaseDataService<CommunityGroup> {
    */
   findAllCommunitiesByHref(href$: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
     if (typeof href$ === 'string') {
-      href$ = observableOf(href$);
+      href$ = of(href$);
     }
 
     const requestHref$ = href$.pipe(

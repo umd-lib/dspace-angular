@@ -10,8 +10,10 @@ export const UM_COMMUNITY_GROUP = 2;
 @Component({
   selector: 'ds-themed-community-list-page',
   templateUrl: './community-list-page.component.html',
-  standalone: true,
-  imports: [ThemedCommunityListComponent, TranslateModule],
+  imports: [
+    ThemedCommunityListComponent,
+    TranslateModule,
+  ],
 })
 
 /**

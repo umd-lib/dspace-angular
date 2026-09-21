@@ -7,8 +7,9 @@ import { PrivacyComponent as BaseComponent } from '../../../../../app/info/priva
   selector: 'ds-themed-privacy',
   styleUrls: ['./privacy.component.scss'],
   templateUrl: './privacy.component.html',
-  imports: [TranslateModule],
-  standalone: true,
+  imports: [
+    TranslateModule,
+  ],
 })
 
 /**

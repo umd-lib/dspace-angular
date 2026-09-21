@@ -25,7 +25,7 @@ import {
   filter,
   map,
   Observable,
-  of as observableOf,
+  of,
   switchMap,
   take,
   zip,
@@ -53,9 +53,11 @@ import {
   selector: 'ds-restricted-access',
   templateUrl: './restricted-access.component.html',
   styleUrls: ['./restricted-access.component.scss'],
-  imports: [AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
   providers: [DatePipe],
-  standalone: true,
 })
 
 export class RestrictedAccessComponent implements OnInit {
@@ -105,7 +107,7 @@ export class RestrictedAccessComponent implements OnInit {
       switchMap((bitstream: Bitstream) => {
         const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined);
         const isLoggedIn$ = this.auth.isAuthenticated();
-        return observableCombineLatest([isAuthorized$, isLoggedIn$, observableOf(bitstream)]);
+        return observableCombineLatest([isAuthorized$, isLoggedIn$, of(bitstream)]);
       }),
       filter(([isAuthorized, isLoggedIn, bitstream]: [boolean, boolean, Bitstream]) => hasValue(isAuthorized) && hasValue(isLoggedIn)),
       take(1),
@@ -118,7 +120,7 @@ export class RestrictedAccessComponent implements OnInit {
               return [isAuthorized, isLoggedIn, bitstream, fileLink];
             }));
         } else {
-          return observableOf([isAuthorized, isLoggedIn, bitstream, ''] as [boolean, boolean, Bitstream, string]);
+          return of([isAuthorized, isLoggedIn, bitstream, ''] as [boolean, boolean, Bitstream, string]);
         }
       }),
       switchMap(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {

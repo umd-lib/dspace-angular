@@ -76,9 +76,8 @@ import { ValidateUnitExists } from './validators/unit-exists.validator';
     FormComponent,
     ReactiveFormsModule,
     TranslateModule,
-    UnitGroupsListComponent
-],
-  standalone: true,
+    UnitGroupsListComponent,
+  ],
 })
 /**
  * A form used for creating and editing units

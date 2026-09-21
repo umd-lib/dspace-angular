@@ -29,7 +29,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
@@ -103,7 +103,7 @@ describe('UnitGroupsListComponent', () => {
       unitGroups: unitGroups,
       allGroups: allGroups,
       getActiveUnit(): Observable<Unit> {
-        return observableOf(activeUnit);
+        return of(activeUnit);
       },
       getGroups() {
         return this.unitGroups;
@@ -112,7 +112,7 @@ describe('UnitGroupsListComponent', () => {
         this.unitGroups = [...this.unitGroups, group];
         unitGroups = this.unitGroups;
         activeUnit.groups = this.unitGroups;
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       clearUnitsRequests() {
         // empty
@@ -132,7 +132,7 @@ describe('UnitGroupsListComponent', () => {
         if (this.unitGroups === undefined) {
           this.unitGroups = [];
         }
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
     };
     builderService = getMockFormBuilderService();

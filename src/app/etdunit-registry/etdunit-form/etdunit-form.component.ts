@@ -67,8 +67,12 @@ import { ValidateEtdUnitExists } from './validators/etdunit-exists.validator';
 @Component({
   selector: 'ds-etdunit-form',
   templateUrl: './etdunit-form.component.html',
-  imports: [AsyncPipe, EtdUnitCollectionsListComponent, FormComponent, TranslateModule],
-  standalone: true,
+  imports: [
+    AsyncPipe,
+    EtdUnitCollectionsListComponent,
+    FormComponent,
+    TranslateModule,
+  ],
 })
 /**
  * A form used for creating and editing etdunits

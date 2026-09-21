@@ -9,8 +9,11 @@ import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.
   selector: 'ds-themed-footer',
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html',
-  imports: [RouterLink, AsyncPipe, TranslateModule],
-  standalone: true,
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class FooterComponent extends BaseComponent {
   /**

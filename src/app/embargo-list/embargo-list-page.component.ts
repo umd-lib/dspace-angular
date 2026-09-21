@@ -18,8 +18,13 @@ import { EmbargoListEntry } from './models/embargo-list-entry.model';
   selector: 'ds-embargo-list-page',
   templateUrl: './embargo-list-page.component.html',
   styleUrls: ['./embargo-list-page.component.scss'],
-  imports: [AlertComponent, AsyncPipe, EmbargoListComponent, EmbargoListExportCsvComponent, TranslateModule],
-  standalone: true,
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    EmbargoListComponent,
+    EmbargoListExportCsvComponent,
+    TranslateModule,
+  ],
 })
 export class EmbargoListPageComponent implements OnInit {
   /**
@@ -45,11 +50,11 @@ export class EmbargoListPageComponent implements OnInit {
         next: (entries: EmbargoListEntry[]) => {
           this.embargoListResponse.next(entries);
           this.embargoListResponseInitialised.next(true);
-      },
-      error: () => {
-        this.embargoListResponse.next(null);
-        this.embargoListResponseInitialised.next(true);
-      },
-    });
+        },
+        error: () => {
+          this.embargoListResponse.next(null);
+          this.embargoListResponseInitialised.next(true);
+        },
+      });
   }
 }

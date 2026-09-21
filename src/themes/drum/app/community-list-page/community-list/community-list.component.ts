@@ -2,7 +2,10 @@ import {
   CdkTreeModule,
   FlatTreeControl,
 } from '@angular/cdk/tree';
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -45,8 +48,16 @@ import {
   templateUrl: './community-list.component.html',
   providers: [CommunityListService, CommunityDataService, CommunityGroupDataService],
   //styleUrls: ['./community-list.component.scss'],
-  imports: [ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
-  standalone: true,
+  imports: [
+    AsyncPipe,
+    CdkTreeModule,
+    NgClass,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 // End UMD Customization
 

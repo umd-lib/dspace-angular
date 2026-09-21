@@ -18,7 +18,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { TruncatableComponent } from 'src/app/shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
@@ -112,7 +112,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community1',
-      }), observableOf(true), 0, false, null,
+      }), of(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -121,7 +121,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
         name: 'community2',
-      }), observableOf(true), 0, false, null,
+      }), of(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -130,7 +130,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community3',
-      }), observableOf(false), 0, false, null,
+      }), of(false), 0, false, null,
     ),
   ];
   let communityListServiceStub;
@@ -141,10 +141,10 @@ describe('CommunityListComponent', () => {
       expandedNodes: [],
       loadingNode: null,
       getLoadingNodeFromStore() {
-        return observableOf(this.loadingNode);
+        return of(this.loadingNode);
       },
       getExpandedNodesFromStore() {
-        return observableOf(this.expandedNodes);
+        return of(this.expandedNodes);
       },
       saveCommunityListStateToStore(expandedNodes, loadingNode) {
         this.expandedNodes = expandedNodes;
@@ -166,9 +166,9 @@ describe('CommunityListComponent', () => {
         }
         if (expandedNodes === null || isEmpty(expandedNodes)) {
           if (showMoreTopComNode) {
-            return observableOf([...mockTopFlatnodesUnexpanded.slice(0, endPageIndex), showMoreFlatNode(`community-${uuidv4()}`, 0, null)]);
+            return of([...mockTopFlatnodesUnexpanded.slice(0, endPageIndex), showMoreFlatNode(`community-${uuidv4()}`, 0, null)]);
           } else {
-            return observableOf(mockTopFlatnodesUnexpanded.slice(0, endPageIndex));
+            return of(mockTopFlatnodesUnexpanded.slice(0, endPageIndex));
           }
         } else {
           flatnodes = [];
@@ -182,12 +182,12 @@ describe('CommunityListComponent', () => {
                 const possibleSubcoms: Community[] = matchingTopComWithArrays.subcommunities;
                 let subComFlatnodes = [];
                 possibleSubcoms.map((subcom: Community) => {
-                  subComFlatnodes = [...subComFlatnodes, toFlatNode(subcom, observableOf(false), topNode.level + 1, false, topNode)];
+                  subComFlatnodes = [...subComFlatnodes, toFlatNode(subcom, of(false), topNode.level + 1, false, topNode)];
                 });
                 const possibleColls: Collection[] = matchingTopComWithArrays.collections;
                 let collFlatnodes = [];
                 possibleColls.map((coll: Collection) => {
-                  collFlatnodes = [...collFlatnodes, toFlatNode(coll, observableOf(false), topNode.level + 1, false, topNode)];
+                  collFlatnodes = [...collFlatnodes, toFlatNode(coll, of(false), topNode.level + 1, false, topNode)];
                 });
                 if (isNotEmpty(subComFlatnodes)) {
                   const endSubComIndex = this.pageSize * expandedParent.currentCommunityPage;
@@ -209,7 +209,7 @@ describe('CommunityListComponent', () => {
           if (showMoreTopComNode) {
             flatnodes = [...flatnodes, showMoreFlatNode(`community-${uuidv4()}`, 0, null)];
           }
-          return observableOf(flatnodes);
+          return of(flatnodes);
         }
       },
       // UMD Customization

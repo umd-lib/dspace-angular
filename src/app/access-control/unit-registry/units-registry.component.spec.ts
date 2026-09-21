@@ -23,7 +23,7 @@ import {
 import { PaginationService } from 'ngx-pagination';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { DSOChangeAnalyzer } from 'src/app/core/data/dso-change-analyzer.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
@@ -73,9 +73,9 @@ describe('UnitsRegistryComponent', () => {
     (authorizationService as any).isAuthorized.and.callFake((featureId?: FeatureID) => {
       switch (featureId) {
         case FeatureID.AdministratorOf:
-          return observableOf(isAdmin);
+          return of(isAdmin);
         case FeatureID.CanDelete:
-          return observableOf(true);
+          return of(true);
         default:
           throw new Error(`setIsAuthorized: this fake implementation does not support ${featureId}.`);
       }

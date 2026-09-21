@@ -12,7 +12,7 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
@@ -58,16 +58,16 @@ describe('RestrictedAccessComponent', () => {
     bitstream = initBitstream(bitstreamOverrides);
 
     authService = jasmine.createSpyObj('AuthService', {
-      isAuthenticated: observableOf(false),
+      isAuthenticated: of(false),
       setRedirectUrl: {},
     });
 
     authorizationService = jasmine.createSpyObj('AuthorizationDataService', {
-      isAuthorized: observableOf(false),
+      isAuthorized: of(false),
     });
 
     fileService = jasmine.createSpyObj('FileService', {
-      retrieveFileDownloadLink: observableOf('content-url-with-headers'),
+      retrieveFileDownloadLink: of('content-url-with-headers'),
     });
 
     hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
@@ -88,7 +88,7 @@ describe('RestrictedAccessComponent', () => {
     location = jasmine.createSpyObj('Location', ['back']);
 
     activatedRoute = {
-      data: observableOf({
+      data: of({
         bitstream: createSuccessfulRemoteDataObject(bitstream),
       }),
     };
@@ -119,8 +119,8 @@ describe('RestrictedAccessComponent', () => {
   function setupAnonymous(bitstreamOverrides: Partial<Bitstream>) {
     beforeEach(waitForAsync(() => {
       init(bitstreamOverrides);
-      (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
-      (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+      (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(false));
+      (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
       initTestBed();
     }));
 
@@ -186,8 +186,8 @@ describe('RestrictedAccessComponent', () => {
     describe('but the user is authorized (even if there is an embargo)', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
-        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(true));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(false));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(true));
         initTestBed();
       }));
 
@@ -215,8 +215,8 @@ describe('RestrictedAccessComponent', () => {
     describe('returns 403 Forbidden when the user is not authorized to access the file', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
-        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(true));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
         initTestBed();
       }));
 
@@ -251,8 +251,8 @@ describe('RestrictedAccessComponent', () => {
     describe('returns 403 Forbidden with a generic message when a filename is not provided', () => {
       beforeEach(waitForAsync(() => {
         init({ metadata: {} });
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
-        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(true));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
         initTestBed();
       }));
 
@@ -271,8 +271,8 @@ describe('RestrictedAccessComponent', () => {
     describe('allows access to the file when the user is authorized', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
-        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(true));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(true));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(true));
         initTestBed();
       }));
 

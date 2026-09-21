@@ -30,16 +30,15 @@ import { UmdHeaderComponent } from '../umd-header/umd-header.component';
     ContextHelpToggleComponent,
     ImpersonateNavbarComponent,
     JsonLdWebsiteComponent,
-    ThemedNavbarComponent,
     RouterLink,
-    UmdEnvironmentBannerComponent,
-    UmdHeaderComponent,
     ThemedAuthNavMenuComponent,
     ThemedLangSwitchComponent,
+    ThemedNavbarComponent,
     ThemedSearchNavbarComponent,
-    TranslateModule
-],
-  standalone: true,
+    TranslateModule,
+    UmdEnvironmentBannerComponent,
+    UmdHeaderComponent,
+  ],
 })
 export class HeaderComponent extends BaseComponent implements OnInit {
   public isNavBarCollapsed$: Observable<boolean>;

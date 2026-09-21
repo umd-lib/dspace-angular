@@ -21,7 +21,7 @@ import {
   DynamicFormService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ObjectCacheService } from 'src/app/core/cache/object-cache.service';
 import { CommunityDataService } from 'src/app/core/data/community-data.service';
@@ -168,7 +168,7 @@ describe('CommunityFormComponent', () => {
           {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({ community: createSuccessfulRemoteDataObject(community) }),
+              data: of({ community: createSuccessfulRemoteDataObject(community) }),
               snapshot: { queryParams: {} },
             },
           },

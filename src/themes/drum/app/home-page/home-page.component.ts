@@ -1,4 +1,8 @@
-import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgTemplateOutlet,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { HomeCoarComponent } from 'src/app/home-page/home-coar/home-coar.component';
@@ -23,8 +27,21 @@ import {
   // styleUrls: ['./home-page.component.scss'],
   styleUrls: ['../../../../app/home-page/home-page.component.scss'],
   templateUrl: './home-page.component.html',
-  imports: [ThemedCommunityListComponent, ThemedHomeNewsComponent, NgTemplateOutlet, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
-  standalone: true,
+  imports: [
+    AsyncPipe,
+    HomeCoarComponent,
+    NgClass,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    RecentItemListComponent,
+    SuggestionsPopupComponent,
+    ThemedCommunityListComponent,
+    ThemedConfigurationSearchPageComponent,
+    ThemedHomeNewsComponent,
+    ThemedSearchFormComponent,
+    ThemedTopLevelCommunityListComponent,
+    TranslateModule,
+  ],
 })
 export class HomePageComponent extends BaseComponent {
   public FACULTY_COMMUNITY_GROUP = FACULTY_COMMUNITY_GROUP;
