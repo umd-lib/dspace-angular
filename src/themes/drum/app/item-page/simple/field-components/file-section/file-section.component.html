@@ -2,25 +2,25 @@
   @if (bitstreams?.length > 0) {
     <ds-metadata-field-wrapper [label]="label | translate">
       <div class="file-section">
-        <!-- UMD Customization -->
-        <!--
-        Using a separate ngFor in an ng-container, instead of using ngFor
-        in ds-file-download-link to give ds-bitstream-download-counter
-        access to the file information.
-        -->
         @for (file of bitstreams; track file; let last = $last) {
           <ds-file-download-link [bitstream]="file" [item]="item">
-            <span>{{ dsoNameService.getName(file) }}</span>
+          <span>
+            @if (primaryBitstreamId === file.id) {
+              <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
+            }
+            {{ dsoNameService.getName(file) }}
+          </span>
             <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
             @if (!last) {
               <span innerHTML="{{separator}}"></span>
             }
           </ds-file-download-link>
+          <!-- UMD Customization -->
           <div>
             <ds-bitstream-download-counter [bitstream]="file" label="{{'bitstream.download.counter.label' | translate}}"></ds-bitstream-download-counter>
           </div>
+          <!-- End UMD Customization -->
         }
-        <!-- End UMD Customization -->
         @if (isLoading) {
           <ds-loading message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>
         }

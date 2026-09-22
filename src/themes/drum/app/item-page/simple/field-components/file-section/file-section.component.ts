@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedFileDownloadLinkComponent } from 'src/app/shared/file-download-link/themed-file-download-link.component';
@@ -19,8 +19,8 @@ import { slideSidebarPadding } from '../../../../../../../app/shared/animations/
   animations: [slideSidebarPadding],
   providers: [UsageReportDataService],
   imports: [
-    AsyncPipe,
     BitstreamDownloadCounterComponent,
+    CommonModule,
     FileSizePipe,
     MetadataFieldWrapperComponent,
     ThemedFileDownloadLinkComponent,
@@ -30,5 +30,4 @@ import { slideSidebarPadding } from '../../../../../../../app/shared/animations/
   ],
 })
 export class FileSectionComponent extends BaseComponent {
-
 }

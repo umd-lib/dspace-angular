@@ -4,6 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { ContextHelpToggleComponent } from 'src/app/header/context-help-toggle/context-help-toggle.component';
@@ -30,6 +31,7 @@ import { UmdHeaderComponent } from '../umd-header/umd-header.component';
     ContextHelpToggleComponent,
     ImpersonateNavbarComponent,
     JsonLdWebsiteComponent,
+    NgbDropdownModule,
     RouterLink,
     ThemedAuthNavMenuComponent,
     ThemedLangSwitchComponent,
