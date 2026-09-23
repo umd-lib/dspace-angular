@@ -179,7 +179,7 @@ The following customizations *do not* need to be commented:
 * Files that at wholly written by UMD, for which there is no corresponding
   stock DSpace file.
 
-The main goal is to make it immediately when performing DSpace version upgrades
+The main goal is to make it obvious when performing DSpace version upgrades
 whether a change in a file is due to an explicit UMD customization.
 
 ## Debugging using VS Code
@@ -218,5 +218,5 @@ To run the TypeScript Linter (from the "Run lint" step in
 ".github/workflows/build.yml"):
 
 ```zsh
-$ npm run lint:nobuild --quiet
+$ npm run lint:nobuild -- --quiet
 ```
