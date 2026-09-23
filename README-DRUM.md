@@ -204,15 +204,6 @@ Due to lazy module loading in Angular, a breakpoint may not be immediately
 "bound", if the relevant code has not been loaded. The breakpoint should
 bind automatically when the code is loaded.
 
-In the launch configuration, the line:
-
-```json
-"browserLaunchLocation": "ui"
-```
-
-is needed to prevent Chrome from displaying a "Restore" session dialog every
-time Chrome starts. See <https://github.com/microsoft/vscode-js-debug/issues/723#issuecomment-866227122>
-
 ## Running the Tests
 
 To run the TypeScript unit tests:
