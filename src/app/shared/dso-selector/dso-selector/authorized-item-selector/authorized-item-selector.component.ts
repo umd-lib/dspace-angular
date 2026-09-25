@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -47,7 +45,6 @@ import { DSOSelectorComponent } from '../dso-selector.component';
   selector: 'ds-authorized-item-selector',
   styleUrls: ['../dso-selector.component.scss'],
   templateUrl: '../dso-selector.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,
@@ -58,8 +55,6 @@ import { DSOSelectorComponent } from '../dso-selector.component';
     ReactiveFormsModule,
     ThemedLoadingComponent,
     TranslateModule,
-    NgIf,
-    NgFor,
   ],
 })
 /**

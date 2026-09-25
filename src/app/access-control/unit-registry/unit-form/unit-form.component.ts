@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -75,10 +72,12 @@ import { ValidateUnitExists } from './validators/unit-exists.validator';
   selector: 'ds-unit-form',
   templateUrl: './unit-form.component.html',
   imports: [
-    AsyncPipe, FormComponent, NgIf, ReactiveFormsModule, TranslateModule,
+    AsyncPipe,
+    FormComponent,
+    ReactiveFormsModule,
+    TranslateModule,
     UnitGroupsListComponent,
   ],
-  standalone: true,
 })
 /**
  * A form used for creating and editing units

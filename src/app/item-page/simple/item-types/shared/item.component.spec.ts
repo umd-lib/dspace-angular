@@ -21,7 +21,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
@@ -101,13 +101,19 @@ export function getIIIFEnabled(enabled: boolean): MetadataValue {
 
 export const mockRouteService = {
   getPreviousUrl(): Observable<string> {
-    return observableOf('');
+    return of('');
+  },
+  storeUrlInSession(key: string, url: string): void {
+    // no-op
+  },
+  getUrlFromSession(key: string): string | null {
+    return null;
   },
   getQueryParameterValue(): Observable<string> {
-    return observableOf('');
+    return of('');
   },
   getRouteParameterValue(): Observable<string> {
-    return observableOf('');
+    return of('');
   },
 };
 
@@ -132,7 +138,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
       };
 
       const authorizationService = jasmine.createSpyObj('authorizationService', {
-        isAuthorized: observableOf(true),
+        isAuthorized: of(true),
       });
 
       relationshipService = jasmine.createSpyObj('relationshipService', {
@@ -483,6 +489,7 @@ describe('ItemComponent', () => {
 
     const searchUrl = '/search?query=test&spc.page=2';
     const browseUrl = '/browse/title?scope=0cc&bbm.page=3';
+    const homeUrl = '/home';
     const recentSubmissionsUrl = '/collections/be7b8430-77a5-4016-91c9-90863e50583a?cp.page=3';
 
     beforeEach(waitForAsync(() => {
@@ -537,31 +544,57 @@ describe('ItemComponent', () => {
     }));
 
     it('should hide back button', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf('/item'));
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of('/item'));
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeFalse();
       });
     });
     it('should show back button for search', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(searchUrl));
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(searchUrl));
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
       });
     });
     it('should show back button for browse', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(browseUrl));
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(browseUrl));
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
       });
     });
     it('should show back button for recent submissions', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(recentSubmissionsUrl));
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(recentSubmissionsUrl));
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
+      });
+    });
+
+    it('should show back button for home', () => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(homeUrl));
+      comp.ngOnInit();
+      comp.showBackButton$.subscribe((val) => {
+        expect(val).toBeTrue();
+      });
+    });
+
+    it('should prioritize home previous url over session fallback', () => {
+      const staleSessionUrl = searchUrl;
+      const getPreviousUrlSpy = spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(homeUrl));
+      const getUrlFromSessionSpy = spyOn(mockRouteService, 'getUrlFromSession').and.returnValue(staleSessionUrl);
+      const storeUrlInSessionSpy = spyOn(mockRouteService, 'storeUrlInSession');
+
+      comp.ngOnInit();
+      comp.showBackButton$.subscribe((val) => {
+        expect(val).toBeTrue();
+        expect(getPreviousUrlSpy).toHaveBeenCalled();
+        expect(getUrlFromSessionSpy).not.toHaveBeenCalled();
+        expect(storeUrlInSessionSpy).toHaveBeenCalledWith('item-previous-url', homeUrl);
+
+        comp.back();
+        expect(router.navigateByUrl).toHaveBeenCalledWith(homeUrl);
       });
     });
   });

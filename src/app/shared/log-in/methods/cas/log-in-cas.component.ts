@@ -7,8 +7,9 @@ import { LogInExternalProviderComponent } from '../log-in-external-provider/log-
   selector: 'ds-log-in-cas',
   templateUrl: './log-in-cas.component.html',
   styleUrls: ['./log-in-cas.component.scss'],
-  imports: [TranslateModule],
-  standalone: true,
+  imports: [
+    TranslateModule,
+  ],
 })
 export class LogInCasComponent extends LogInExternalProviderComponent {
 

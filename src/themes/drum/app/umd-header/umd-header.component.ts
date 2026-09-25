@@ -13,7 +13,6 @@ import {
 @Component({
   selector: 'ds-umd-header',
   template: '',
-  standalone: true,
 })
 export class UmdHeaderComponent implements OnInit {
   ngOnInit() {

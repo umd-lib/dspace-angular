@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { EmbargoListService } from '../embargo-list.service';
-import { EmbargoListResponse } from '../models/embargo-list-entry.model';
+import { EmbargoListEntry } from '../models/embargo-list-entry.model';
 
 /**
  * A component to render the embargo list.
@@ -16,12 +16,15 @@ import { EmbargoListResponse } from '../models/embargo-list-entry.model';
   selector: 'ds-embargo-list',
   templateUrl: './embargo-list.component.html',
   styleUrls: ['./embargo-list.component.scss'],
-  imports: [NgForOf, RouterLink, TranslateModule],
-  standalone: true,
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class EmbargoListComponent {
 
-  @Input() embargoListResponse: EmbargoListResponse;
+  @Input({ required: true })
+  embargoListResponse!: EmbargoListEntry[];
 
   /*
    * The labelPrefix for all translation

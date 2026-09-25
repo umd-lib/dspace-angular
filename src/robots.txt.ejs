@@ -5,8 +5,10 @@ Sitemap: <%= origin %>/sitemap_index.html
 
 ##########################
 # Default Access Group
-# (NOTE: blank lines are not allowable in a group record)
 ##########################
+# UMD Customization
+# (NOTE: blank lines are not allowable in a group record)
+# End UMD Customization
 User-agent: *
 # Disable access to Discovery search and filters; admin pages; processes; submission; workspace; workflow & profile page
 Disallow: /search
@@ -26,11 +28,9 @@ Disallow: /communities/*?spc.page
 # UMD Customization
 Disallow: /browse/*
 # End UMD Customization
-#
 # If you have configured DSpace (Solr-based) Statistics to be publicly
 # accessible, then you may not want this content to be indexed
 # Disallow: /statistics
-#
 # You also may wish to disallow access to the following paths, in order
 # to stop web spiders from accessing user-based content
 # Disallow: /contact

@@ -1,13 +1,10 @@
-import {
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -27,9 +24,8 @@ describe('OrcidBadgeAndTooltipComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         OrcidBadgeAndTooltipComponent,
-        NgbTooltipModule,
+        NgbTooltip,
         NgClass,
-        NgIf,
       ],
       providers: [
         { provide: TranslateService, useValue: { instant: (key: string) => key } },
@@ -72,7 +68,7 @@ describe('OrcidBadgeAndTooltipComponent', () => {
     expect(badgeIcon.nativeElement.getAttribute('src')).toEqual('assets/images/orcid.logo.icon.svg');
   });
 
-  it('should display the unfilled green ORCID icon if there is no authenticated timestamp', () => {
+  it('should display the green unfilled ORCID icon if there is no authenticated timestamp', () => {
     component.authenticatedTimestamp = null;
     fixture.detectChanges();
     const badgeIcon = fixture.debugElement.query(By.css('img[data-test="orcidIcon"]'));

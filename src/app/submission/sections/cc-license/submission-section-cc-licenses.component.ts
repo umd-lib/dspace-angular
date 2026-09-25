@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -22,7 +18,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -50,7 +46,6 @@ import {
 import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
-import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import {
   hasNoValue,
@@ -72,19 +67,15 @@ import { SectionsType } from '../sections-type';
   templateUrl: './submission-section-cc-licenses.component.html',
   styleUrls: ['./submission-section-cc-licenses.component.scss'],
   imports: [
-    TranslateModule,
-    NgIf,
-    ThemedLoadingComponent,
     AsyncPipe,
-    VarDirective,
-    NgForOf,
     DsSelectComponent,
-    NgbDropdownModule,
     FormsModule,
     InfiniteScrollModule,
-    BtnDisabledDirective,
+    NgbDropdownModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent implements OnChanges, OnInit {
 
@@ -289,7 +280,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   getCcLicenseLink$(): Observable<string> {
 
     if (this.storedCcLicenseLink) {
-      return observableOf(this.storedCcLicenseLink);
+      return of(this.storedCcLicenseLink);
     }
     if (!this.getSelectedCcLicense() || this.getSelectedCcLicense().fields.some(
       (field) => !this.getSelectedOption(this.getSelectedCcLicense(), field))) {

@@ -2,32 +2,34 @@
   <div class="etdunit-form row">
     <div class="col-12">
 
-      <div *ngIf="etdunitDataService.getActiveEtdUnit() | async; then editheader; else createHeader"></div>
-
-      <ng-template #createHeader>
-        <h2 class="border-bottom pb-2">{{messagePrefix + '.head.create' | translate}}</h2>
-      </ng-template>
-
-      <ng-template #editheader>
+      @if (etdunitDataService.getActiveEtdUnit() | async) {
         <h2 class="border-bottom pb-2">{{messagePrefix + '.head.edit' | translate}}</h2>
-      </ng-template>
+      } @else {
+        <h2 class="border-bottom pb-2">{{messagePrefix + '.head.create' | translate}}</h2>
+      }
+
+
 
       <ds-form [formId]="formId" [formModel]="formModel" [formGroup]="formGroup" [formLayout]="formLayout"
         [displayCancel]="false" (submitForm)="onSubmit()">
         <div before class="btn-group">
           <button (click)="onCancel()" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i>
-            {{messagePrefix + '.return' | translate}}</button>
-        </div>
-        <div after *ngIf="(canEdit$ | async)" class="btn-group">
+        {{messagePrefix + '.return' | translate}}</button>
+      </div>
+      @if ((canEdit$ | async)) {
+        <div after class="btn-group">
           <button (click)="delete()" class="btn btn-danger delete-button" type="button">
             <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
           </button>
         </div>
-      </ds-form>
+      }
+    </ds-form>
 
-      <ds-etdunit-collections-list *ngIf="etdunitBeingEdited !== undefined"
-                         [messagePrefix]="messagePrefix + '.collections-list'"></ds-etdunit-collections-list>
+    @if (etdunitBeingEdited !== undefined) {
+      <ds-etdunit-collections-list
+      [messagePrefix]="messagePrefix + '.collections-list'"></ds-etdunit-collections-list>
+    }
 
-    </div>
   </div>
+</div>
 </div>

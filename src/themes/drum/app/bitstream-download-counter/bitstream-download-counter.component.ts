@@ -13,8 +13,9 @@ import { UsageReportDataService } from '../../../../app/core/statistics/usage-re
 @Component({
   template: `{{label}} {{(downloadsReport$ | async)?.points[0].values.views}}`,
   selector: 'ds-bitstream-download-counter',
-  imports: [AsyncPipe],
-  standalone: true,
+  imports: [
+    AsyncPipe,
+  ],
 })
 export class BitstreamDownloadCounterComponent implements OnInit {
   @Input() bitstream: Bitstream;

@@ -12,10 +12,3 @@ export interface EmbargoListEntry {
   type: string,
   endDate: string
 }
-
-/**
- * Interface for processing the embargo list REST response
- */
-export interface EmbargoListResponse {
-  payload: EmbargoListEntry[];
-}

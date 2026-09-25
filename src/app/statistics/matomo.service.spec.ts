@@ -1,7 +1,4 @@
-import {
-  Injector,
-  runInInjectionContext,
-} from '@angular/core';
+import { Injector } from '@angular/core';
 import {
   fakeAsync,
   TestBed,
@@ -21,7 +18,7 @@ import {
   NativeWindowService,
 } from '../core/services/window.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { KlaroService } from '../shared/cookies/klaro.service';
+import { OrejimeService } from '../shared/cookies/orejime.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -37,14 +34,14 @@ describe('MatomoService', () => {
   let service: MatomoService;
   let matomoTracker: jasmine.SpyObj<MatomoTracker>;
   let matomoInitializer: jasmine.SpyObj<MatomoInitializerService>;
-  let klaroService: jasmine.SpyObj<KlaroService>;
+  let orejimeService: jasmine.SpyObj<OrejimeService>;
   let nativeWindowService: jasmine.SpyObj<NativeWindowRef>;
   let configService: jasmine.SpyObj<ConfigurationDataService>;
 
   beforeEach(() => {
     matomoTracker = jasmine.createSpyObj('MatomoTracker', ['setConsentGiven', 'forgetConsentGiven', 'getVisitorId']);
-    matomoInitializer = jasmine.createSpyObj('MatomoInitializerService', ['initializeTracker']);
-    klaroService = jasmine.createSpyObj('KlaroService', ['getSavedPreferences']);
+    matomoInitializer = jasmine.createSpyObj('MatomoInitializerService', ['initializeTracker', 'initialize']);
+    orejimeService = jasmine.createSpyObj('OrejimeService', ['getSavedPreferences']);
     nativeWindowService = jasmine.createSpyObj('NativeWindowService', [], { nativeWindow: {} });
     configService = jasmine.createSpyObj('ConfigurationDataService', ['findByPropertyName']);
     configService.findByPropertyName.and.returnValue(createFailedRemoteDataObject$());
@@ -54,7 +51,7 @@ describe('MatomoService', () => {
       providers: [
         { provide: MatomoTracker, useValue: matomoTracker },
         { provide: MatomoInitializerService, useValue: matomoInitializer },
-        { provide: KlaroService, useValue: klaroService },
+        { provide: OrejimeService, useValue: orejimeService },
         { provide: NativeWindowService, useValue: nativeWindowService },
         { provide: ConfigurationDataService, useValue: configService },
         { provide: Injector, useValue: TestBed },
@@ -69,7 +66,7 @@ describe('MatomoService', () => {
   });
 
   it('should set changeMatomoConsent on native window', () => {
-    klaroService.getSavedPreferences.and.returnValue(of({ matomo: true }));
+    orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
     service.init();
     expect(nativeWindowService.nativeWindow.changeMatomoConsent).toBe(service.changeMatomoConsent);
   });
@@ -97,11 +94,9 @@ describe('MatomoService', () => {
     );
     configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
-    klaroService.getSavedPreferences.and.returnValue(of({ matomo: true }));
+    orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
-    runInInjectionContext(TestBed, () => {
-      service.init();
-    });
+    service.init();
 
     expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
     expect(matomoInitializer.initializeTracker).toHaveBeenCalledWith({
@@ -114,34 +109,30 @@ describe('MatomoService', () => {
     environment.production = true;
     environment.matomo = { trackerUrl: '' };
     configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
-      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://matomo'] })),
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://example.com'] })),
     );
     configService.findByPropertyName.withArgs(MATOMO_ENABLED).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['true'] })),
     );
     configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
-    klaroService.getSavedPreferences.and.returnValue(of({ matomo: true }));
+    orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
-    runInInjectionContext(TestBed, () => {
-      service.init();
-    });
+    service.init();
 
     tick();
 
     expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
     expect(matomoInitializer.initializeTracker).toHaveBeenCalledWith({
       siteId: '1',
-      trackerUrl: 'http://matomo',
+      trackerUrl: 'http://example.com',
     });
   }));
 
   it('should not initialize tracker if not in production', () => {
     environment.production = false;
 
-    runInInjectionContext(TestBed, () => {
-      service.init();
-    });
+    service.init();
 
     expect(matomoInitializer.initializeTracker).not.toHaveBeenCalled();
   });
@@ -157,11 +148,9 @@ describe('MatomoService', () => {
     );
     configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
-    klaroService.getSavedPreferences.and.returnValue(of({ matomo: true }));
+    orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
-    runInInjectionContext(TestBed, () => {
-      service.init();
-    });
+    service.init();
 
     expect(matomoInitializer.initializeTracker).not.toHaveBeenCalled();
   });

@@ -14,18 +14,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let entry of embargoListResponse">
-        <td><a (click)="embargoListService.getHandleLink(entry.handle)"
+      @for (entry of embargoListResponse; track entry.bitstreamId) {
+        <tr>
+          <td><a (click)="embargoListService.getHandleLink(entry.handle)"
           [routerLink]="[embargoListService.getHandleLink(entry.handle)]">{{ entry.handle }}</a></td>
-        <td>{{ entry.itemId }}</td>
-        <td>{{ entry.bitstreamId }}</td>
-        <td>{{ entry.title }}</td>
-        <td>{{ entry.advisor }}</td>
-        <td>{{ entry.author }}</td>
-        <td>{{ entry.department }}</td>
-        <td>{{ entry.type }}</td>
-        <td>{{ entry.endDate }}</td>
-      </tr>
+          <td>{{ entry.itemId }}</td>
+          <td>{{ entry.bitstreamId }}</td>
+          <td>{{ entry.title }}</td>
+          <td>{{ entry.advisor }}</td>
+          <td>{{ entry.author }}</td>
+          <td>{{ entry.department }}</td>
+          <td>{{ entry.type }}</td>
+          <td>{{ entry.endDate }}</td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>

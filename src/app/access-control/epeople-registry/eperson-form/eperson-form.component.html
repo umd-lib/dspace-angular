@@ -2,143 +2,173 @@
   <div class="group-form row">
     <div class="col-12">
 
-      <div *ngIf="activeEPerson$ | async; then editHeader; else createHeader"></div>
-
-      <ng-template #createHeader>
-        <h1 class="border-bottom pb-2">{{messagePrefix + '.create' | translate}}</h1>
-      </ng-template>
-
-      <ng-template #editHeader>
+      @if (activeEPerson$ | async) {
         <h1 class="border-bottom pb-2">{{messagePrefix + '.edit' | translate}}</h1>
-      </ng-template>
+      } @else {
+        <h1 class="border-bottom pb-2">{{messagePrefix + '.create' | translate}}</h1>
+      }
+
+
 
       <ds-form [formId]="formId"
-               [formModel]="formModel"
-               [formGroup]="formGroup"
-               [formLayout]="formLayout"
-               [displayCancel]="false"
-               [submitLabel]="submitLabel"
-               (submitForm)="onSubmit()">
+        [formModel]="formModel"
+        [formGroup]="formGroup"
+        [formLayout]="formLayout"
+        [displayCancel]="false"
+        [submitLabel]="submitLabel"
+        (submitForm)="onSubmit()">
         <div before class="btn-group">
           <button (click)="onCancel()" type="button" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}
           </button>
         </div>
-        <div *ngIf="displayResetPassword" between class="btn-group">
-          <button class="btn btn-primary" [dsBtnDisabled]="(canReset$ | async) !== true" type="button" (click)="resetPassword()">
-            <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
+        @if (displayResetPassword) {
+          <div between class="btn-group">
+            <button class="btn btn-primary" [dsBtnDisabled]="(canReset$ | async) !== true" type="button" (click)="resetPassword()">
+              <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
+            </button>
+          </div>
+        }
+        @if (canImpersonate$ | async) {
+          <div between class="btn-group">
+            @if (!isImpersonated) {
+              <button class="btn btn-primary" type="button" (click)="impersonate()">
+                <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
+              </button>
+            }
+            @if (isImpersonated) {
+              <button class="btn btn-primary" type="button" (click)="stopImpersonating()">
+                <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
+              </button>
+            }
+          </div>
+        }
+        @if (canDelete$ | async) {
+          <button after class="btn btn-danger delete-button" type="button" (click)="delete()">
+            <i class="fas fa-trash"></i> {{'admin.access-control.epeople.actions.delete' | translate}}
           </button>
-        </div>
-        <div *ngIf="canImpersonate$ | async" between class="btn-group">
-          <button *ngIf="!isImpersonated" class="btn btn-primary" type="button" (click)="impersonate()">
-            <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
-          </button>
-          <button *ngIf="isImpersonated" class="btn btn-primary" type="button" (click)="stopImpersonating()">
-            <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
-          </button>
-        </div>
-        <button *ngIf="canDelete$ | async" after class="btn btn-danger delete-button" type="button" (click)="delete()">
-          <i class="fas fa-trash"></i> {{'admin.access-control.epeople.actions.delete' | translate}}
-        </button>
+        }
       </ds-form>
 
-      <ds-loading [showMessage]="false" *ngIf="!formGroup"></ds-loading>
+      @if (!formGroup) {
+        <ds-loading [showMessage]="false"></ds-loading>
+      }
 
-      <div *ngIf="activeEPerson$ | async">
-        <h2>{{messagePrefix + '.groupsEPersonIsMemberOf' | translate}}</h2>
-
-        <ds-loading [showMessage]="false" *ngIf="groups$ | async | dsHasNoValue"></ds-loading>
-
-        <ds-pagination
-          *ngIf="(groups$ | async)?.payload?.totalElements > 0"
-          [paginationOptions]="config"
-          [collectionSize]="(groups$ | async)?.payload?.totalElements"
-          [hideGear]="true"
-          [hidePagerWhenSinglePage]="true"
-          (pageChange)="onPageChange($event)">
-
-          <div class="table-responsive">
-            <table id="groups" class="table table-striped table-hover table-bordered">
-              <thead>
-              <tr>
-                <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
-                <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
-                <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let group of (groups$ | async)?.payload?.page">
-                <td class="align-middle">{{group.id}}</td>
-                <td class="align-middle">
-                  <a (click)="groupsDataService.startEditingNewGroup(group)"
-                     [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">
-                    {{ dsoNameService.getName(group) }}
-                  </a>
-                </td>
-                <td class="align-middle">
-                  {{ dsoNameService.getName((group.object | async)?.payload) }}
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </ds-pagination>
-
-        <div *ngIf="(groups$ | async)?.payload?.totalElements === 0" class="alert alert-info w-100 mb-2" role="alert">
-          <div>{{messagePrefix + '.memberOfNoGroups' | translate}}</div>
-          <div>
-            <button [routerLink]="[groupsDataService.getGroupRegistryRouterLink()]"
-                    class="btn btn-primary">{{messagePrefix + '.goToGroups' | translate}}</button>
-          </div>
+      @if (activeEPerson$ | async) {
+        <div>
+          <h2>{{messagePrefix + '.groupsEPersonIsMemberOf' | translate}}</h2>
+          @if (groups$ | async | dsHasNoValue) {
+            <ds-loading [showMessage]="false"></ds-loading>
+          }
+          @if ((groups$ | async)?.payload?.totalElements > 0) {
+            <ds-pagination
+              [paginationOptions]="config"
+              [collectionSize]="(groups$ | async)?.payload?.totalElements"
+              [hideGear]="true"
+              [hidePagerWhenSinglePage]="true"
+              (pageChange)="onPageChange($event)">
+              <div class="table-responsive">
+                <table id="groups" class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
+                      <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
+                      <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (group of (groups$ | async)?.payload?.page; track group) {
+                      <tr>
+                        <td class="align-middle">{{group.id}}</td>
+                        <td class="align-middle">
+                          <a (click)="groupsDataService.startEditingNewGroup(group)"
+                            [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">
+                            {{ dsoNameService.getName(group) }}
+                          </a>
+                        </td>
+                        <td class="align-middle">
+                          {{ dsoNameService.getName((group.object | async)?.payload) }}
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </ds-pagination>
+          }
+          @if ((groups$ | async)?.payload?.totalElements === 0) {
+            <div class="alert alert-info w-100 mb-2" role="alert">
+              <div>{{messagePrefix + '.memberOfNoGroups' | translate}}</div>
+              <div>
+                <button [routerLink]="[groupsDataService.getGroupRegistryRouterLink()]"
+                class="btn btn-primary">{{messagePrefix + '.goToGroups' | translate}}</button>
+              </div>
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
   </div>
 
   <!-- UMD Customization -->
   <ng-container *ngVar="(ldap | async) as ldapRD">
-    <div *ngIf="ldapRD && ldapRD.hasSucceeded && !ldapRD.hasNoContent">
-      <h3>{{ messagePrefix + '.ldap.title' | translate }}</h3>
-      <ul>
-        <li>{{messagePrefix + '.ldap.name' | translate}} {{ ldapRD.payload.lastName }}, {{ ldapRD.payload.firstName }}</li>
-        <li>{{messagePrefix + '.ldap.email' | translate}} {{ ldapRD.payload.email }}</li>
-        <li>{{messagePrefix + '.ldap.phone' | translate}} {{ ldapRD.payload.phone }}</li>
-        <li>{{messagePrefix + '.ldap.faculty' | translate}} {{ ldapRD.payload.isFaculty }}</li>
-        <li>{{messagePrefix + '.ldap.umAppointment' | translate}}
-          <ul>
-            <li *ngFor="let umAppt of ldapRD.payload.umAppointments">
-              {{ umAppt }}
-            </li>
-          </ul>
-        </li>
-        <div *ngIf="ldapRD.payload.groups.length > 0">
-          <li>{{messagePrefix + '.ldap.groups' | translate}}</li>
-          <ul>
-            <li *ngFor="let group of ldapRD.payload.groups">
-              <a (click)="groupsDataService.startEditingNewGroup(group)"
-                [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">{{ group.name }}</a>
-            </li>
-          </ul>
-        </div>
-        <div *ngIf="ldapRD.payload.matchedUnits.length > 0">
-          <li>{{ messagePrefix + '.ldap.matchedUnits' | translate }}</li>
-          <ul>
-            <li *ngFor="let unit of ldapRD.payload.matchedUnits">
-              <a [routerLink]="[unitDataService.getUnitEditPageRouterLink(unit)]">{{ unit.name }}</a>
-            </li>
-          </ul>
-        </div>
-        <div *ngIf="ldapRD.payload.unmatchedUnits.length > 0">
-          <li>{{ messagePrefix + '.ldap.unmatchedUnits' | translate }}</li>
-          <ul>
-            <li *ngFor="let unmatchedUnit of ldapRD.payload.unmatchedUnits">
-              {{ unmatchedUnit }}
-            </li>
-          </ul>
-        </div>
-      </ul>
-    </div>
+    @if (ldapRD && ldapRD.hasSucceeded && !ldapRD.hasNoContent) {
+      <div>
+        <h3>{{ messagePrefix + '.ldap.title' | translate }}</h3>
+        <ul>
+          <li>{{messagePrefix + '.ldap.name' | translate}} {{ ldapRD.payload.lastName }}, {{ ldapRD.payload.firstName }}</li>
+          <li>{{messagePrefix + '.ldap.email' | translate}} {{ ldapRD.payload.email }}</li>
+          <li>{{messagePrefix + '.ldap.phone' | translate}} {{ ldapRD.payload.phone }}</li>
+          <li>{{messagePrefix + '.ldap.faculty' | translate}} {{ ldapRD.payload.isFaculty }}</li>
+          <li>{{messagePrefix + '.ldap.umAppointment' | translate}}
+            <ul>
+              @for (umAppt of ldapRD.payload.umAppointments; track umAppt) {
+                <li>
+                  {{ umAppt }}
+                </li>
+              }
+            </ul>
+          </li>
+          @if (ldapRD.payload.groups.length > 0) {
+            <div>
+              <li>{{messagePrefix + '.ldap.groups' | translate}}</li>
+              <ul>
+                @for (group of ldapRD.payload.groups; track group) {
+                  <li>
+                    <a (click)="groupsDataService.startEditingNewGroup(group)"
+                    [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">{{ group.name }}</a>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+          @if (ldapRD.payload.matchedUnits.length > 0) {
+            <div>
+              <li>{{ messagePrefix + '.ldap.matchedUnits' | translate }}</li>
+              <ul>
+                @for (unit of ldapRD.payload.matchedUnits; track unit) {
+                  <li>
+                    <a [routerLink]="[unitDataService.getUnitEditPageRouterLink(unit)]">{{ unit.name }}</a>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+          @if (ldapRD.payload.unmatchedUnits.length > 0) {
+            <div>
+              <li>{{ messagePrefix + '.ldap.unmatchedUnits' | translate }}</li>
+              <ul>
+                @for (unmatchedUnit of ldapRD.payload.unmatchedUnits; track unmatchedUnit) {
+                  <li>
+                    {{ unmatchedUnit }}
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </ul>
+      </div>
+    }
   </ng-container>
   <!-- End UMD Customization -->
 </div>

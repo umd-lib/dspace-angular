@@ -31,7 +31,7 @@ import {
 import { Operation } from 'fast-json-patch';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from 'src/app/core/cache/builders/remote-data-build.service';
@@ -93,7 +93,7 @@ describe('EtdUnitFormComponent', () => {
       activeEtdUnit: null,
       createdUnit: null,
       getActiveEtdUnit(): Observable<EtdUnit> {
-        return observableOf(this.activeEtdUnit);
+        return of(this.activeEtdUnit);
       },
       getEtdUnitRegistryRouterLink(): string {
         return '/etdunits';
@@ -114,7 +114,7 @@ describe('EtdUnitFormComponent', () => {
         this.activeEtdUnit = null;
       },
       findById(id: string) {
-        return observableOf({ payload: null, hasSucceeded: true });
+        return of({ payload: null, hasSucceeded: true });
       },
       findByHref(href: string) {
         return createSuccessfulRemoteDataObject$(this.createdUnit);
@@ -134,7 +134,7 @@ describe('EtdUnitFormComponent', () => {
       },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     builderService = Object.assign(getMockFormBuilderService(), {
       createFormGroup(formModel, options = null) {
@@ -226,7 +226,7 @@ describe('EtdUnitFormComponent', () => {
         { provide: HALEndpointService, useValue: {} },
         {
           provide: ActivatedRoute,
-          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) },
+          useValue: { data: of({ dso: { payload: {} } }), params: of({}) },
         },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
@@ -271,7 +271,7 @@ describe('EtdUnitFormComponent', () => {
         expected2 = Object.assign(new EtdUnit(), {
           name: 'newUnitName',
         });
-        spyOn(etdunitsDataServiceStub, 'getActiveEtdUnit').and.returnValue(observableOf(expected));
+        spyOn(etdunitsDataServiceStub, 'getActiveEtdUnit').and.returnValue(of(expected));
         spyOn(etdunitsDataServiceStub, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(expected2));
         component.etdunitName.value = 'newCollectionName';
         component.onSubmit();
@@ -359,7 +359,7 @@ describe('EtdUnitFormComponent', () => {
     beforeEach(() => {
       component.initialisePage();
 
-      component.canEdit$ = observableOf(true);
+      component.canEdit$ = of(true);
       component.etdunitBeingEdited = {
       } as EtdUnit;
 
@@ -367,7 +367,7 @@ describe('EtdUnitFormComponent', () => {
       deleteButton = fixture.debugElement.query(By.css('.delete-button')).nativeElement;
 
       spyOn(etdunitsDataServiceStub, 'delete').and.callThrough();
-      spyOn(etdunitsDataServiceStub, 'getActiveEtdUnit').and.returnValue(observableOf({ id: 'active-etdunit' }));
+      spyOn(etdunitsDataServiceStub, 'getActiveEtdUnit').and.returnValue(of({ id: 'active-etdunit' }));
     });
 
     describe('if confirmed via modal', () => {

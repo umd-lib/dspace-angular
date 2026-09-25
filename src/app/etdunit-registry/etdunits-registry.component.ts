@@ -1,10 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-  NgSwitch,
-  NgSwitchCase,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -25,7 +19,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -69,11 +63,15 @@ import { EtdUnitDtoModel } from './models/etdunit-dto.model';
   templateUrl: './etdunits-registry.component.html',
   styleUrls: ['./etdunits-registry.component.scss'],
   imports: [
-    AsyncPipe, BtnDisabledDirective, PaginationComponent, NgSwitch,
-    NgbTooltipModule, NgForOf, NgIf, NgSwitchCase,
-    ReactiveFormsModule, RouterLink, ThemedLoadingComponent, TranslateModule,
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbTooltipModule,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
 
@@ -169,7 +167,7 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
       switchMap((etdunits: PaginatedList<EtdUnit>) => {
         if (etdunits.page.length === 0) {
-          return observableOf(buildPaginatedList(etdunits.pageInfo, []));
+          return of(buildPaginatedList(etdunits.pageInfo, []));
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
@@ -217,7 +215,7 @@ export class EtdUnitsRegistryComponent implements OnInit, OnDestroy {
    */
   canManageEtdUnit$(isSiteAdmin: boolean): Observable<boolean> {
     // Only admins can manage etdunits (and can manage all EtdUnits)
-    return observableOf(isSiteAdmin);
+    return of(isSiteAdmin);
   }
 
   /**

@@ -16,8 +16,10 @@ import { take } from 'rxjs';
   selector: 'ds-umd-about-content',
   templateUrl: './umd-about-content.component.html',
   styleUrls: ['./umd-about-content.component.scss'],
-  standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 /**
  * Component displaying the contents of the UMD About information

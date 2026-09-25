@@ -26,8 +26,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import {
   APP_CONFIG,
@@ -196,7 +197,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         {
           provide: SubmissionObjectDataService,
           useValue: {
-            findById: () => observableOf(createSuccessfulRemoteDataObject(mockSubmissionObject)),
+            findById: () => of(createSuccessfulRemoteDataObject(mockSubmissionObject)),
           },
         },
         { provide: XSRFService, useValue: {} },
@@ -214,8 +215,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       mockCollectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
 
       const html = `
         <ds-submission-section-license></ds-submission-section-license>`;
@@ -258,8 +259,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     describe('', () => {
       beforeEach(() => {
         mockCollectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-        sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+        sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+        sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
         spyOn(formBuilderService, 'findById').and.returnValue(new DynamicCheckboxModel({ id: 'granted' }));
       });
 
@@ -301,7 +302,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         const model = formBuilderService.findById('granted', comp.formModel);
         (model as DynamicCheckboxModel).value = true;
 
-        compAsAny.getSectionStatus().subscribe((status) => {
+        compAsAny.getSectionStatus().pipe(take(1)).subscribe((status) => {
           expect(status).toBeTruthy();
           done();
         });
@@ -322,8 +323,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     describe('', () => {
       beforeEach(() => {
         mockCollectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(mockLicenseParsedErrors.license));
-        sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+        sectionsServiceStub.getSectionErrors.and.returnValue(of(mockLicenseParsedErrors.license));
+        sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
       });
 
       it('should set section errors properly', () => {
@@ -382,12 +383,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
-    SubmissionSectionLicenseComponent,
-    CommonModule,
     FormsModule,
-    FormComponent,
     ReactiveFormsModule,
   ],
 })

@@ -17,7 +17,6 @@ import { JsonLdService } from './json-ld.service';
   styles: [],
   template: '',
   imports: [],
-  standalone: true,
 })
 export class JsonLdWebsiteComponent implements OnInit, OnDestroy {
 

@@ -16,7 +16,6 @@ import { DatasetJsonLdTransformer } from './json-ld-dataset.transformer';
   styles: [],
   template: '',
   imports: [],
-  standalone: true,
 })
 export class JsonLdDatasetComponent implements OnInit, OnDestroy {
   transformer: DatasetJsonLdTransformer;

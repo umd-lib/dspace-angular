@@ -58,7 +58,7 @@ import { SearchConfigurationService } from './search-configuration.service';
  * - Overrides {@link BaseDataService.addEmbedParams} in order to make it public
  *
  * Doesn't use any of the service's dependencies, they are initialized as undefined
- * Therefore, equest/response handling methods won't work even though they're defined
+ * Therefore, request/response handling methods won't work even though they're defined
  */
 class SearchDataService extends BaseDataService<any> {
   constructor() {
@@ -370,7 +370,7 @@ export class SearchService {
   }
 
   /**
-   * Send search event to rest api using angularitics
+   * Send search event to rest api using angulartics2
    * @param config              Paginated search options used
    * @param searchQueryResponse The response objects of the performed search
    * @param clickedObject       Optional UUID of an object a search was performed and clicked for

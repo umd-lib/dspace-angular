@@ -1,14 +1,13 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
   map,
@@ -26,11 +25,9 @@ import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators'
  */
 @Component({
   selector: 'ds-orcid-badge-and-tooltip',
-  standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
   ],
   templateUrl: './orcid-badge-and-tooltip.component.html',

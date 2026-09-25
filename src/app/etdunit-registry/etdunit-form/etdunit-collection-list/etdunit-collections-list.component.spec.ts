@@ -29,7 +29,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { FindListOptions } from 'src/app/core/data/find-list-options.model';
@@ -101,7 +101,7 @@ describe('EtdUnitCollectionsListComponent', () => {
       etdUnitCollections: etdUnitCollections,
       allCollections: allCollections,
       getActiveEtdUnit(): Observable<EtdUnit> {
-        return observableOf(activeEtdUnit);
+        return of(activeEtdUnit);
       },
       getCollections() {
         return this.etdUnitCollections;
@@ -110,7 +110,7 @@ describe('EtdUnitCollectionsListComponent', () => {
         this.etdUnitCollections = [...this.etdUnitCollections, collection];
         etdUnitCollections = this.etdUnitCollections;
         activeEtdUnit.collections = this.etdUnitCollections;
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       clearUnitsRequests() {
         // empty
@@ -127,7 +127,7 @@ describe('EtdUnitCollectionsListComponent', () => {
         if (this.etdUnitCollections === undefined) {
           this.etdUnitCollections = [];
         }
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
     };
     builderService = getMockFormBuilderService();

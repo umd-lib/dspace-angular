@@ -55,9 +55,9 @@ import {
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 import {
-  of as observableOf,
+  of,
   ReplaySubject,
 } from 'rxjs';
 
@@ -220,8 +220,9 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   let testElement: DebugElement;
   const testItem: Item = new Item();
   const testWSI: WorkspaceItem = new WorkspaceItem();
+  testWSI.item = of(createSuccessfulRemoteDataObject(testItem));
   const actions$: ReplaySubject<any> = new ReplaySubject<any>(1);
-  testWSI.item = observableOf(createSuccessfulRemoteDataObject(testItem));
+
   const renderer = jasmine.createSpyObj('Renderer2', ['setAttribute']);
 
   beforeEach(waitForAsync(() => {
@@ -232,11 +233,11 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        DynamicFormsCoreModule.forRoot(),
+        DynamicFormsCoreModule,
         TranslateModule.forRoot(),
-        NgxMaskModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
@@ -250,7 +251,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         {
           provide: SubmissionObjectDataService,
           useValue: {
-            findById: () => observableOf(createSuccessfulRemoteDataObject(testWSI)),
+            findById: () => of(createSuccessfulRemoteDataObject(testWSI)),
           },
         },
         { provide: APP_CONFIG, useValue: environment },
@@ -267,8 +268,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       const ngZone = TestBed.inject(NgZone);
 
 
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
+      spyOn(ngZone, 'runOutsideAngular').and.callFake((fn) => fn());
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
     });

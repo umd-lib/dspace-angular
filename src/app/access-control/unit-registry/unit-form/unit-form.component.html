@@ -2,34 +2,36 @@
   <div class="unit-form row">
     <div class="col-12">
 
-      <div *ngIf="unitDataService.getActiveUnit() | async; then editheader; else createHeader"></div>
-
-      <ng-template #createHeader>
-        <h2 class="border-bottom pb-2">{{messagePrefix + '.head.create' | translate}}</h2>
-      </ng-template>
-
-      <ng-template #editheader>
+      @if (unitDataService.getActiveUnit() | async) {
         <h2 class="border-bottom pb-2">{{messagePrefix + '.head.edit' | translate}}</h2>
-      </ng-template>
+      } @else {
+        <h2 class="border-bottom pb-2">{{messagePrefix + '.head.create' | translate}}</h2>
+      }
+
+
 
       <ds-form [formId]="formId"
-               [formModel]="formModel"
-               [formGroup]="formGroup"
-               [formLayout]="formLayout"
-               [displayCancel]="false"
-               (submitForm)="onSubmit()">
+        [formModel]="formModel"
+        [formGroup]="formGroup"
+        [formLayout]="formLayout"
+        [displayCancel]="false"
+        (submitForm)="onSubmit()">
         <div before class="btn-group">
           <button (click)="onCancel()"
-                  class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
-        </div>
-        <div after *ngIf="(canEdit$ | async)" class="btn-group">
-          <button (click)="delete()" class="btn btn-danger delete-button" type="button">
-            <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
-          </button>
-        </div>
-      </ds-form>
-      <ds-unit-groups-list *ngIf="unitBeingEdited !== undefined"
-                         [messagePrefix]="messagePrefix + '.groups-list'"></ds-unit-groups-list>
+            class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
+          </div>
+          @if ((canEdit$ | async)) {
+            <div after class="btn-group">
+              <button (click)="delete()" class="btn btn-danger delete-button" type="button">
+                <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
+              </button>
+            </div>
+          }
+        </ds-form>
+        @if (unitBeingEdited !== undefined) {
+          <ds-unit-groups-list
+          [messagePrefix]="messagePrefix + '.groups-list'"></ds-unit-groups-list>
+        }
+      </div>
     </div>
   </div>
-</div>

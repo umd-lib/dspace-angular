@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { DspaceRestService } from '../core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
+import { EmbargoListEntry } from './models/embargo-list-entry.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +21,13 @@ export class EmbargoListService {
    * Returns an Observable from the embargo list REST endpoint.
    * @returns embargo list data
    */
-  getEmbargoList(): Observable<RawRestResponse> {
+  getEmbargoList(): Observable<EmbargoListEntry[]> {
     return this.halService.getEndpoint('/embargo-list').pipe(
-      switchMap((endpoint: string) => this.restService.get(endpoint)));
+      switchMap((endpoint: string) => this.restService.get(endpoint)),
+      map((response) =>
+        response.payload as unknown as EmbargoListEntry[],
+      ),
+    );
   }
 
   /**

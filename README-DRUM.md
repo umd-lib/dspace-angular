@@ -9,9 +9,8 @@ The original dspace-angular documentation is in the "README.md" file.
 
 ## Prerequisite
 
-* Node v18.x or v20.x
+* Node >=20.0.0 <25.0.0
 * npm >= v10.x
-* yarn == v1.x
 * Ensure that the DRUM API is up and running by following the instructions at
   <https://github.com/umd-lib/DSpace/tree/drum-main>
 
@@ -74,38 +73,13 @@ step.
 
     ```zsh
     # install the local dependencies
-    $ yarn install
+    $ npm install
     ```
-
-    ---
-
-    :information_source: **Note: "distutils" module error**
-
-    When Python 3.12 or later is the default Python on the system, the
-    `yarn install` command may display the following error:
-
-    ```text
-    ModuleNotFoundError: No module named 'distutils'
-    ```
-
-    DSpace has the "node-gyp" package as a dependency. When installing via
-    Yarn, the package attempts to install modules using the "distutils" package,
-    which was removed from standard Python v3.12 and later
-    (see <https://stackoverflow.com/a/77638742>).
-
-    This error does not meaningfully impact the application (the `yarn install`
-    will indicate "Done"), but to resolve the error, run the following command:
-
-    ```zsh
-    $ brew install python-setuptools
-    ```
-
-    ---
 
 5) Start the server in development mode
 
     ```zsh
-    $ yarn run start:dev
+    $ npm run start:dev
     ```
 
     This will start the angular application in development mode which will
@@ -205,7 +179,7 @@ The following customizations *do not* need to be commented:
 * Files that at wholly written by UMD, for which there is no corresponding
   stock DSpace file.
 
-The main goal is to make it immediately when performing DSpace version upgrades
+The main goal is to make it obvious when performing DSpace version upgrades
 whether a change in a file is due to an explicit UMD customization.
 
 ## Debugging using VS Code
@@ -230,21 +204,12 @@ Due to lazy module loading in Angular, a breakpoint may not be immediately
 "bound", if the relevant code has not been loaded. The breakpoint should
 bind automatically when the code is loaded.
 
-In the launch configuration, the line:
-
-```json
-"browserLaunchLocation": "ui"
-```
-
-is needed to prevent Chrome from displaying a "Restore" session dialog every
-time Chrome starts. See <https://github.com/microsoft/vscode-js-debug/issues/723#issuecomment-866227122>
-
 ## Running the Tests
 
 To run the TypeScript unit tests:
 
 ```zsh
-$ yarn test
+$ npm test
 ```
 
 ## TypeScript Linter
@@ -253,5 +218,5 @@ To run the TypeScript Linter (from the "Run lint" step in
 ".github/workflows/build.yml"):
 
 ```zsh
-$ yarn run lint:nobuild --quiet
+$ npm run lint:nobuild -- --quiet
 ```

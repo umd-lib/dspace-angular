@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -70,8 +67,12 @@ import { ValidateEtdUnitExists } from './validators/etdunit-exists.validator';
 @Component({
   selector: 'ds-etdunit-form',
   templateUrl: './etdunit-form.component.html',
-  imports: [AsyncPipe, EtdUnitCollectionsListComponent, FormComponent, NgIf, TranslateModule],
-  standalone: true,
+  imports: [
+    AsyncPipe,
+    EtdUnitCollectionsListComponent,
+    FormComponent,
+    TranslateModule,
+  ],
 })
 /**
  * A form used for creating and editing etdunits

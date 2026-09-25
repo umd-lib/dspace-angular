@@ -5,16 +5,14 @@ FROM docker.io/node:22-alpine
 
 # Ensure Python and other build tools are available
 # These are needed to install some node modules, especially on linux/arm64
-RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+RUN apk --no-cache add python3 make g++
 
 WORKDIR /app
 
 # Copy over package files first, so this layer will only be rebuilt if those files change.
-COPY package.json yarn.lock ./
-
-# We run yarn install with an increased network timeout (5min) to avoid "ESOCKETTIMEDOUT" errors from hub.docker.com
-# See, for example https://github.com/yarnpkg/yarn/issues/5540
-RUN yarn install --network-timeout 300000
+COPY package.json package-lock.json ./
+# NOTE: "ci" = clean install from package files
+RUN npm ci
 
 # Add the rest of the source code
 COPY . /app/
@@ -30,7 +28,7 @@ ENV NODE_ENV=development
 EXPOSE 4000
 
 # On startup, run this command to start application in dev mode
-ENTRYPOINT [ "yarn", "serve" ]
+ENTRYPOINT [ "npm", "run", "serve" ]
 # By default set host to 0.0.0.0 to listen/accept connections from all IP addresses.
 # Poll for changes every 5 seconds (if any detected, app will rebuild/restart)
-CMD ["--host 0.0.0.0", "--poll 5000"]
+CMD ["--", "--host 0.0.0.0", "--poll 5000"]

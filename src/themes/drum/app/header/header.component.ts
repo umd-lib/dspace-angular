@@ -1,12 +1,10 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { ContextHelpToggleComponent } from 'src/app/header/context-help-toggle/context-help-toggle.component';
@@ -29,13 +27,20 @@ import { UmdHeaderComponent } from '../umd-header/umd-header.component';
   styleUrls: ['header.component.scss'],
   templateUrl: 'header.component.html',
   imports: [
-    AsyncPipe, ContextHelpToggleComponent, ImpersonateNavbarComponent,
-    JsonLdWebsiteComponent, ThemedNavbarComponent, NgIf, RouterLink,
-    UmdEnvironmentBannerComponent, UmdHeaderComponent,
-    ThemedAuthNavMenuComponent, ThemedLangSwitchComponent,
-    ThemedSearchNavbarComponent, TranslateModule,
+    AsyncPipe,
+    ContextHelpToggleComponent,
+    ImpersonateNavbarComponent,
+    JsonLdWebsiteComponent,
+    NgbDropdownModule,
+    RouterLink,
+    ThemedAuthNavMenuComponent,
+    ThemedLangSwitchComponent,
+    ThemedNavbarComponent,
+    ThemedSearchNavbarComponent,
+    TranslateModule,
+    UmdEnvironmentBannerComponent,
+    UmdHeaderComponent,
   ],
-  standalone: true,
 })
 export class HeaderComponent extends BaseComponent implements OnInit {
   public isNavBarCollapsed$: Observable<boolean>;

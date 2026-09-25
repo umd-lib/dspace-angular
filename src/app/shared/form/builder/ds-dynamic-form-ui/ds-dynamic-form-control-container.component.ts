@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   isPlatformBrowser,
   NgClass,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -40,7 +38,7 @@ import {
 import {
   NgbModal,
   NgbModalRef,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -54,6 +52,7 @@ import {
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
+  DynamicFormControlMapFn,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -61,7 +60,6 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormControlMapFn } from '@ng-dynamic-forms/core/lib/service/dynamic-form-component.service';
 import {
   Actions,
   ofType,
@@ -109,6 +107,7 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
+import { SUBMISSION_LINKS_TO_FOLLOW } from '../../../../core/submission/resolver/submission-links-to-follow';
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionObjectActionTypes } from '../../../../submission/objects/submission-objects.actions';
@@ -145,19 +144,16 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
   templateUrl: './ds-dynamic-form-control-container.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
-    ExistingMetadataListElementComponent,
-    NgIf,
-    NgClass,
     AsyncPipe,
-    TranslateModule,
-    ReactiveFormsModule,
-    NgForOf,
-    FormsModule,
-    NgbTooltipModule,
-    NgTemplateOutlet,
+    ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
+    FormsModule,
+    NgbTooltip,
+    NgClass,
+    NgTemplateOutlet,
+    ReactiveFormsModule,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent
   implements OnInit, OnChanges, OnDestroy, AfterViewInit, DoCheck {
@@ -335,7 +331,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   get isCheckbox(): boolean {
     return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX || this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH;
   }
-
 
   get isDateField(): boolean {
     return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
@@ -522,7 +517,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   private setItem() {
     const submissionObject$ = this.submissionObjectService
-      .findById(this.model.submissionId, true, true, followLink('item'), followLink('collection')).pipe(
+      .findById(this.model.submissionId, true, true, ...SUBMISSION_LINKS_TO_FOLLOW).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
       );

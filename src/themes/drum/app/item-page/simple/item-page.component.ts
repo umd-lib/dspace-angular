@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,6 +17,9 @@ import { SignpostingDataService } from 'src/app/core/data/signposting-data.servi
 import { LinkHeadService } from 'src/app/core/services/link-head.service';
 import { ServerResponseService } from 'src/app/core/services/server-response.service';
 import { ThemedItemAlertsComponent } from 'src/app/item-page/alerts/themed-item-alerts.component';
+import { AccessByTokenNotificationComponent } from 'src/app/item-page/simple/access-by-token-notification/access-by-token-notification.component';
+import { NotifyRequestsStatusComponent } from 'src/app/item-page/simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { QaEventNotificationComponent } from 'src/app/item-page/simple/qa-event-notification/qa-event-notification.component';
 import { ItemVersionsComponent } from 'src/app/item-page/versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from 'src/app/item-page/versions/notice/item-versions-notice.component';
 import { ErrorComponent } from 'src/app/shared/error/error.component';
@@ -43,12 +43,20 @@ import { JsonLdDatasetComponent } from '../json-ld/json-ld-dataset.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
   imports: [
-    AsyncPipe, ErrorComponent, ItemVersionsComponent,
-    ItemVersionsNoticeComponent, JsonLdDatasetComponent,
-    ListableObjectComponentLoaderComponent, NgIf, ThemedItemAlertsComponent,
-    ThemedLoadingComponent, TranslateModule, VarDirective,
+    AccessByTokenNotificationComponent,
+    AsyncPipe,
+    ErrorComponent,
+    ItemVersionsComponent,
+    ItemVersionsNoticeComponent,
+    JsonLdDatasetComponent,
+    ListableObjectComponentLoaderComponent,
+    NotifyRequestsStatusComponent,
+    QaEventNotificationComponent,
+    ThemedItemAlertsComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 export class ItemPageComponent extends BaseComponent {
   constructor(

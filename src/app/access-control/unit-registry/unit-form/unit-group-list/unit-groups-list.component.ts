@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -26,7 +22,7 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   ObservedValueOf,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -73,10 +69,12 @@ enum SubKey {
   selector: 'ds-unit-groups-list',
   templateUrl: './unit-groups-list.component.html',
   imports: [
-    AsyncPipe, NgIf, NgForOf, PaginationComponent, ReactiveFormsModule,
-    RouterLink, TranslateModule,
+    AsyncPipe,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * The list of groups in the edit unit page
@@ -221,7 +219,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
               map((listGroupsInUnit: PaginatedList<Group>) => listGroupsInUnit.page.filter((groupInList: Group) => groupInList.id === possibleGroup.id)),
               map((groups: Group[]) => groups.length > 0));
         } else {
-          return observableOf(false);
+          return of(false);
         }
       }));
   }

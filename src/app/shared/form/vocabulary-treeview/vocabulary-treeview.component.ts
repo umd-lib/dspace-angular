@@ -2,10 +2,7 @@ import {
   CdkTreeModule,
   FlatTreeControl,
 } from '@angular/cdk/tree';
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -19,7 +16,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -31,9 +28,9 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 
 import { RemoteData } from '../../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
@@ -70,17 +67,15 @@ export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEn
   templateUrl: './vocabulary-treeview.component.html',
   styleUrls: ['./vocabulary-treeview.component.scss'],
   imports: [
-    FormsModule,
-    NgbTooltipModule,
-    NgIf,
-    CdkTreeModule,
-    TranslateModule,
-    AsyncPipe,
-    ThemedLoadingComponent,
     AlertComponent,
+    AsyncPipe,
     BtnDisabledDirective,
+    CdkTreeModule,
+    FormsModule,
+    NgbTooltip,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {
 
@@ -300,7 +295,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
             return 1;
           }
         }),
-        tap((preloadLevel: number) => this.preloadLevel = preloadLevel),
+        tap(preloadLevel => this.preloadLevel = preloadLevel),
         tap(() => {
           const entryId: string = (this.selectedItems?.length > 0) ? this.getEntryId(this.selectedItems[0]) : null;
           this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), this.getSelectedEntryIds(), entryId);

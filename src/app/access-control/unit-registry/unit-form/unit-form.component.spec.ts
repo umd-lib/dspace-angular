@@ -31,7 +31,7 @@ import {
 import { Operation } from 'fast-json-patch';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from 'src/app/core/cache/builders/remote-data-build.service';
@@ -95,7 +95,7 @@ describe('UnitFormComponent', () => {
       activeUnit: null,
       createdUnit: null,
       getActiveUnit(): Observable<Unit> {
-        return observableOf(this.activeUnit);
+        return of(this.activeUnit);
       },
       getUnitRegistryRouterLink(): string {
         return '/access-control/units';
@@ -116,7 +116,7 @@ describe('UnitFormComponent', () => {
         this.activeUnit = null;
       },
       findById(id: string) {
-        return observableOf({ payload: null, hasSucceeded: true });
+        return of({ payload: null, hasSucceeded: true });
       },
       findByHref(href: string) {
         return createSuccessfulRemoteDataObject$(this.createdUnit);
@@ -136,7 +136,7 @@ describe('UnitFormComponent', () => {
       },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     builderService = Object.assign(getMockFormBuilderService(),{
       createFormGroup(formModel, options = null) {
@@ -229,7 +229,7 @@ describe('UnitFormComponent', () => {
         { provide: HALEndpointService, useValue: {} },
         {
           provide: ActivatedRoute,
-          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) },
+          useValue: { data: of({ dso: { payload: {} } }), params: of({}) },
         },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
@@ -275,7 +275,7 @@ describe('UnitFormComponent', () => {
           name: 'newUnitName',
           facultyOnly: false,
         });
-        spyOn(unitsDataServiceStub, 'getActiveUnit').and.returnValue(observableOf(expected));
+        spyOn(unitsDataServiceStub, 'getActiveUnit').and.returnValue(of(expected));
         spyOn(unitsDataServiceStub, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(expected2));
         component.unitName.value = 'newGroupName';
         component.onSubmit();
@@ -364,7 +364,7 @@ describe('UnitFormComponent', () => {
     beforeEach(() => {
       component.initialisePage();
 
-      component.canEdit$ = observableOf(true);
+      component.canEdit$ = of(true);
       component.unitBeingEdited = {
         facultyOnly: false,
       } as Unit;
@@ -373,7 +373,7 @@ describe('UnitFormComponent', () => {
       deleteButton = fixture.debugElement.query(By.css('.delete-button')).nativeElement;
 
       spyOn(unitsDataServiceStub, 'delete').and.callThrough();
-      spyOn(unitsDataServiceStub, 'getActiveUnit').and.returnValue(observableOf({ id: 'active-unit' }));
+      spyOn(unitsDataServiceStub, 'getActiveUnit').and.returnValue(of({ id: 'active-unit' }));
     });
 
     describe('if confirmed via modal', () => {

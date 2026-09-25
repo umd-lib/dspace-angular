@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -33,8 +32,10 @@ import {
 @Component({
   selector: 'ds-base-edit-community-selector',
   templateUrl: './edit-community-selector.component.html',
-  standalone: true,
-  imports: [NgIf, AuthorizedCommunitySelectorComponent, TranslateModule],
+  imports: [
+    AuthorizedCommunitySelectorComponent,
+    TranslateModule,
+  ],
 })
 
 export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {

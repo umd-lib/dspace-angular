@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -31,8 +28,11 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
   selector: 'ds-embargo-list-export-csv',
   styleUrls: ['./embargo-list-export-csv.component.scss'],
   templateUrl: './embargo-list-export-csv.component.html',
-  imports: [AsyncPipe, NgbTooltipModule, NgIf, TranslateModule],
-  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 
 /**

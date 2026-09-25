@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
-  CommonModule,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -47,16 +45,13 @@ import { DSOSelectorComponent } from '../dso-selector.component';
   selector: 'ds-authorized-community-selector',
   styleUrls: ['../dso-selector.component.scss'],
   templateUrl: '../dso-selector.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
-    CommonModule,
     FormsModule,
     HoverClassDirective,
     InfiniteScrollModule,
     ListableObjectComponentLoaderComponent,
     NgClass,
-    NgIf,
     ReactiveFormsModule,
     ThemedLoadingComponent,
     TranslateModule,

@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   combineLatest,
   map,
@@ -25,10 +25,9 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   selector: 'ds-item-page-orcid-field',
   templateUrl: './item-page-orcid-field.component.html',
   styleUrls: ['./item-page-orcid-field.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 /**

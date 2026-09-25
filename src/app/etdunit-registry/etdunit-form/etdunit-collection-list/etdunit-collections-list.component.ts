@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -26,7 +22,7 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   ObservedValueOf,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -74,10 +70,12 @@ enum SubKey {
   selector: 'ds-etdunit-collections-list',
   templateUrl: './etdunit-collections-list.component.html',
   imports: [
-    AsyncPipe, NgForOf, NgIf, PaginationComponent, ReactiveFormsModule,
-    RouterLink, TranslateModule,
+    AsyncPipe,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * The list of collections in the edit ETD unit page
@@ -221,7 +219,7 @@ export class EtdUnitCollectionsListComponent implements OnInit, OnDestroy {
               map((listCollectionsInEtdUnit: PaginatedList<Collection>) => listCollectionsInEtdUnit.page.filter((collectionInList: Collection) => collectionInList.id === possibleCollection.id)),
               map((collections: Collection[]) => collections.length > 0));
         } else {
-          return observableOf(false);
+          return of(false);
         }
       }));
   }
