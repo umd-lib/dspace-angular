@@ -7545,6 +7545,32 @@
 
   "community_group.um.title": "UM Community-managed Collections",
 
+  "curation-task.task.estaipsize.label": "Estimate Storage Space for AIP(s)",
+
+  "curation-task.task.readodometer.label": "Read Odometer",
+
+  "curation-task.task.transmitaip.label": "Transmit AIP(s) to Storage",
+
+  "curation-task.task.transmitsingleaip.label": "Transmit Single Object AIP to Storage",
+
+  "curation-task.task.verifyaip.label": "Verify AIP(s) exist in Storage",
+
+  "curation-task.task.fetchaip.label": "Fetch AIP(s) from Storage",
+
+  "curation-task.task.auditaip.label": "Audit against AIP(s)",
+
+  "curation-task.task.removeaip.label": "Remove AIP(s) from Storage",
+
+  "curation-task.task.restorefromaip.label": "Restore Missing Object(s) from AIP(s)",
+
+  "curation-task.task.replacewithaip.label": "Replace Existing Object(s) with AIP(s)",
+
+  "curation-task.task.restorekeepexisting.label": "Restore Missing Object(s) but Keep Existing Objects",
+
+  "curation-task.task.restoresinglefromaip.label": "Restore Single Object from AIP",
+
+  "curation-task.task.replacesinglewithaip.label": "Replace Single Object with AIP",
+
   "dso-selector.set-scope.community.button": "Search all of DRUM",
 
   "embargo-list-export-csv.submit.error": "Starting the export has failed",
