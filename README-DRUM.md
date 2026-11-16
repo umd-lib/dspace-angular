@@ -220,3 +220,10 @@ To run the TypeScript Linter (from the "Run lint" step in
 ```zsh
 $ npm run lint:nobuild -- --quiet
 ```
+
+To run the TypeScript Linter on a single file, where \<FILE_PATH> is the
+relative path to the file:
+
+```zsh
+$ npm run lint:nobuild -- --lint-file-patterns <FILE_PATH>
+```

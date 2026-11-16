@@ -7623,6 +7623,8 @@
 
   "logout.form.header": "Log out from DRUM",
 
+  "login.form.umd-register-info": "Registration Help?",
+
   "menu.header.image.logo": "DRUM",
 
   "menu.header.organization.logo": "UMD Libraries",
@@ -7676,6 +7678,10 @@
   "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong><br><br><strong>Note:</strong> DRUM is a public website indexed by search engines. <strong>DRUM is not intended to store and preserve <a target='_blank' href='https://researchdata.umd.edu/collect-manage/handling-sensitive-data'>sensitive information or data</a></strong> (e.g. works that contain personally identifiable information). Please ensure your files do not contain potentially sensitive information.",
 
   "title": "DRUM",
+
+  "umd-register-info.header": "DRUM Registration Help",
+
+  "umd-register-info.title": "DRUM Registration Help",
 
   "workspace.search.results.head": "My submissions",
 

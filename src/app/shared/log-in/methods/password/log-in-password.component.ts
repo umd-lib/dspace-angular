@@ -1,3 +1,6 @@
+// UMD Customization
+/* eslint-disable import-newlines/enforce */
+// End Customization
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
@@ -30,6 +33,9 @@ import {
 import {
   getForgotPasswordRoute,
   getRegisterRoute,
+  // UMD Customization
+  getUmdRegisterInfoRoute,
+  // End UMD Customization
 } from '../../../../app-routing-paths';
 import {
   AuthenticateAction,
@@ -182,6 +188,12 @@ export class LogInPasswordComponent implements OnInit {
   getRegisterRoute() {
     return getRegisterRoute();
   }
+
+  // UMD Customization
+  getUmdRegisterInfoRoute() {
+    return getUmdRegisterInfoRoute();
+  }
+  // End UMD Customization
 
   getForgotRoute() {
     return getForgotPasswordRoute();

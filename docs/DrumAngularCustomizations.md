@@ -107,3 +107,28 @@ It is unclear whether this is the optimal fix, so it has not been submitted
 upstream to DSpace. Also, DSpace has been working on various similar fixes, so
 the changes in this class should be re-evaluated on upgrades, and
 removed if possible.
+
+## "Log In" Dropdown
+
+The following modifications have been made to the "Log In" dropdown in the
+navigation bar.
+
+### "Log In" Dropdown - New User Registration
+
+The stock DSpace functionality for user self-registration using an email
+address and password has been disabled (this suppresses the
+"New user? Click here to register." link in the dropdown).
+
+### "Log In" Dropdown - UMD Registration Info page
+
+A "Registration Help?" link has been added to the "DRUM Registration Help" page
+(at "/umd-register-info"), which is provided by the "UmdRegisterInfoComponent"
+component, to describe how UMD users can log in, and how non-UMD users can
+request an account.
+
+### Log In" Dropdown - "Forgot Password" Functionality
+
+The "Have you forgotten your password?" link in the dropdown has been commented
+out of the stock DSpace "LogInPasswordComponent" HTML template. The password
+reset functionality, however, is still enabled, and accessible at the "/forgot"
+endpoint. A link to this endpoint is provided on the UMD Registration Info page.

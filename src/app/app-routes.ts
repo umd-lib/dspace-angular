@@ -27,6 +27,7 @@ import {
   // UMD Customization
   ETDUNIT_PATH,
   RESTRICTED_ACCESS_MODULE_PATH,
+  UMD_REGISTER_INFO_PATH,
   // End UMD Customization
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
@@ -105,6 +106,16 @@ export const APP_ROUTES: Route[] = [
           .then((m) => m.ROUTES),
         canActivate: [endUserAgreementCurrentUserGuard],
       },
+      // UMD Customization
+      {
+        path: UMD_REGISTER_INFO_PATH,
+        // Lazy load the UmdRegisterInfoComponent, as it probably won't be
+        // called that often
+        loadComponent: () => import('src/themes/drum/app/umd-register-info/umd-register-info.component')
+          .then((m) => m.UmdRegisterInfoComponent),
+        data: { title: 'umd-register-info.title' },
+      },
+      // End UMD Customization
       {
         path: REGISTER_PATH,
         loadChildren: () => import('./register-page/register-page-routes')

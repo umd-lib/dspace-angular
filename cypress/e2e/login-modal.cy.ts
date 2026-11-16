@@ -113,7 +113,12 @@ describe('Login Modal', () => {
     testA11y('ds-register-email');
   });
 
-  it('should allow forgot password', () => {
+  // UMD Customization
+  // The "Have you forgotten your password?” link in the login modal is
+  // intentionally commented out. It is not suppressed via the DSpace
+  // configuration, because we want users to be able to self-reset their
+  // passwords, just not have the link present in the login modal.
+  it.skip('should allow forgot password', () => {
     cy.visit('/');
 
     page.openLoginMenu();
@@ -129,6 +134,7 @@ describe('Login Modal', () => {
     // Test accessibility of this page
     testA11y('ds-forgot-email');
   });
+  // End UMD Customization
 
   it('should pass accessibility tests in menus', () => {
     cy.visit('/');
