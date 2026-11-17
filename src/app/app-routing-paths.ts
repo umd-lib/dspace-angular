@@ -165,4 +165,11 @@ export const CORRECTION_TYPE_PATH = 'corrections';
 // UMD Customization
 export const ETDUNIT_PATH = 'etdunits';
 export const RESTRICTED_ACCESS_MODULE_PATH = 'restricted-access';
+
+export const UMD_REGISTER_INFO_PATH = 'umd-register-info';
+
+export function getUmdRegisterInfoRoute() {
+  return `/${UMD_REGISTER_INFO_PATH}`;
+
+}
 // End UMD Customization
